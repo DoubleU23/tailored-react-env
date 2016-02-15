@@ -1,0 +1,23 @@
+{
+  "name": "chatnorris-v2",
+  "version": "2.0.0",
+  "description": "React Chat Plugin - Refactoring Projekt",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/DoubleU23/chatnorris-v2.git"
+  },
+  "keywords": [
+    "react",
+    "chat",
+    "chatnorris",
+    "socket",
+    "redux"
+  ],
+  "author": "Stefan Friedl",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/DoubleU23/chatnorris-v2#readme"
+}
