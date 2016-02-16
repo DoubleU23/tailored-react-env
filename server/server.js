@@ -1,27 +1,19 @@
+// import api from './api'; // to be done
+// import config from './config';
+// import errorHandler from './lib/errorHandler';
+
 import express from 'express';
-import path from 'path';
-import opn from 'opn';
-
-import Webpack from 'webpack';
-import webpackDev from 'webpack-dev-middleware';
-import webpackHot from 'webpack-hot-middleware';
-import getWebpackConfig from '../webpack/makeConfig';
-
+import frontend from './frontend';
 
 const app = express();
 
-const webpackConfig = getWebpackConfig(true); // isDev = true
-console.log(webpackConfig);
+// app.use('/api/v1', api);
+// app.use(errorHandler);
+app.use(frontend);
 
-const webpack = Webpack(webpackConfig);
+// const {port} = config;
+const port = 8000;
 
-app.use(webpackDev(webpack, {
-	noInfo: true,
-	publicPath: webpackConfig.output.publicPath
-}));
-
-app.use(webpackHot(webpack));
-
-app.listen(webpackConfig.hotPort, () => {
-	console.log('Hot server started at port %d', webpackConfig.hotPort); // eslint-disable-line no-console
+app.listen(port, () => {
+	console.log('Server started at port %d', port);
 });

@@ -1,11 +1,10 @@
 'use strict';
+import React 					from 'react';
 
-import React              from 'react';
-
-import CurrentUserActions from './actions/CurrentUserActions';
-import CurrentUserStore   from './stores/CurrentUserStore';
-import Header             from './components/Header';
-import Footer             from './components/Footer';
+import CurrentUserActions 	from './actions/CurrentUserActions';
+import CurrentUserStore   		from './stores/CurrentUserStore';
+import Header 					from './components/Header';
+import Footer 					from './components/Footer';
 
 const propTypes = {
   params: React.PropTypes.object,
@@ -72,7 +71,6 @@ class App extends React.Component {
   }
 
 }
-
 App.propTypes = propTypes;
 
 export default App;
