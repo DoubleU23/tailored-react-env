@@ -30,6 +30,7 @@ const config = {
     'js',
     'css',
     'png',
+    'jpg',
     'jpe?g',
     'gif',
     'svg',
