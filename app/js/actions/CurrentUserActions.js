@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-import Reflux from 'reflux';
+import Reflux from 'reflux'
 
 const CurrentUserActions = Reflux.createActions([
 
@@ -8,6 +8,6 @@ const CurrentUserActions = Reflux.createActions([
 	'login',
 	'logout'
 
-]);
+])
 
-export default CurrentUserActions;
+export default CurrentUserActions

@@ -1,29 +1,29 @@
-'use strict';
+'use strict'
 
-import React            from 'react';
-import {Link}           from 'react-router';
-import DocumentTitle    from 'react-document-title';
+import React            from 'react'
+import {Link}           from 'react-router'
+import DocumentTitle    from 'react-document-title'
 
 const propTypes = {
   currentUser: React.PropTypes.object
-};
+}
 
 class SearchPage extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleQueryChange = this.handleQueryChange.bind(this)
 
     this.state = {
       query: ''
-    };
+    }
   }
 
   handleQueryChange(evt) {
     this.setState({
       query: evt.target.value
-    });
+    })
   }
 
   render() {
@@ -45,11 +45,11 @@ class SearchPage extends React.Component {
 
         </section>
       </DocumentTitle>
-    );
+    )
   }
 
 }
 
-SearchPage.propTypes = propTypes;
+SearchPage.propTypes = propTypes
 
-export default SearchPage;
+export default SearchPage

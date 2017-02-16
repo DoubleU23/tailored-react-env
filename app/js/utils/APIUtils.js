@@ -1,14 +1,14 @@
-'use strict';
+'use strict'
 
-import {camelizeKeys} from 'humps';
-import request        from 'superagent';
+import {camelizeKeys} from 'humps'
+import request        from 'superagent'
 
 const APIUtils = {
 
   root: '//localhost:3000/api/',
 
   normalizeResponse(response) {
-    return camelizeKeys(response.body);
+    return camelizeKeys(response.body)
   },
 
   get(path) {
@@ -17,12 +17,12 @@ const APIUtils = {
       .withCredentials()
       .end((err, res) => {
         if ( err || !res.ok ) {
-          reject(this.normalizeResponse(err || res));
+          reject(this.normalizeResponse(err || res))
         } else {
-          resolve(this.normalizeResponse(res));
+          resolve(this.normalizeResponse(res))
         }
-      });
-    });
+      })
+    })
   },
 
   post(path, body) {
@@ -30,14 +30,14 @@ const APIUtils = {
       request.post(this.root + path, body)
       .withCredentials()
       .end((err, res) => {
-        console.log(err, res);
+        console.log(err, res)
         if ( err || !res.ok ) {
-          reject(this.normalizeResponse(err || res));
+          reject(this.normalizeResponse(err || res))
         } else {
-          resolve(this.normalizeResponse(res));
+          resolve(this.normalizeResponse(res))
         }
-      });
-    });
+      })
+    })
   },
 
   patch(path, body) {
@@ -46,12 +46,12 @@ const APIUtils = {
       .withCredentials()
       .end((err, res) => {
         if ( err || !res.ok ) {
-          reject(this.normalizeResponse(err || res));
+          reject(this.normalizeResponse(err || res))
         } else {
-          resolve(this.normalizeResponse(res));
+          resolve(this.normalizeResponse(res))
         }
-      });
-    });
+      })
+    })
   },
 
   put(path, body) {
@@ -60,12 +60,12 @@ const APIUtils = {
       .withCredentials()
       .end((err, res) => {
         if ( err || !res.ok ) {
-          reject(this.normalizeResponse(err || res));
+          reject(this.normalizeResponse(err || res))
         } else {
-          resolve(this.normalizeResponse(res));
+          resolve(this.normalizeResponse(res))
         }
-      });
-    });
+      })
+    })
   },
 
   del(path) {
@@ -74,14 +74,14 @@ const APIUtils = {
       .withCredentials()
       .end((err, res) => {
         if ( err || !res.ok ) {
-          reject(this.normalizeResponse(err || res));
+          reject(this.normalizeResponse(err || res))
         } else {
-          resolve(this.normalizeResponse(res));
+          resolve(this.normalizeResponse(res))
         }
-      });
-    });
+      })
+    })
   }
 
-};
+}
 
-export default APIUtils;
+export default APIUtils

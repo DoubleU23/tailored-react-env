@@ -8,7 +8,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import nib from 'nib';
 import cssMqPacker from 'css-mqpacker';
 // custom libs
-import doubleu23Stylus 	from 'doubleu23-stylus';
+import doubleu23Stylus  from 'doubleu23-stylus';
 
 import constants from './constants';
 
@@ -21,32 +21,33 @@ const devtools = process.env.CONTINUOUS_INTEGRATION
 
 const loaders = {
 	// 'css': '',
-	'less': '!less-loader',
-// inject
+	'less':     '!less-loader',
+	// inject
 	// 'sj': '!stylus-loader',
-	// 'scss': '!sass-loader',
-	'sass': '!sass-loader?indentedSyntax',
-	'styl': '!stylus-loader'
-};
+	'scss':     '!sass-loader',
+	'sass':     '!sass-loader?indentedSyntax',
+	'styl':     '!stylus-loader',
+	'stylo':    '!cssobjects-loader!stylus-loader!'
+}
 
 const serverIp = ip.address();
 
-export default function getWebpackConfig(isDevelopment) {
+export default function webpackGetConfig(isDevelopment) {
 
-		function stylesLoaders() {
+	function stylesLoaders() {
 		return Object.keys(loaders).map(ext => {
-			const prefix 	= ext !== 'sj' ?
-				'css-loader!postcss-loader'
-			: 	'css-loader?modules&importLoaders=1!postcss-loader';
-			const extLoaders = prefix + loaders[ext];
+			const prefix    = ext === 'stylo'
+				?   ''
+				:   'css-loader!postcss-loader'
+			const extLoaders = prefix + loaders[ext]
 			const loader = isDevelopment
 				? `style-loader!${extLoaders}`
-				: ExtractTextPlugin.extract('style-loader', extLoaders);
+				: ExtractTextPlugin.extract('style-loader', extLoaders)
 			return {
-				loader: loader,
-				test: new RegExp(`\\.(${ext})$`)
-			};
-		});
+			  loader: loader,
+			  test: new RegExp(`\\.(${ext})$`)
+			}
+		})
 	}
 
 	const config = {
@@ -79,16 +80,16 @@ export default function getWebpackConfig(isDevelopment) {
 							presets: ["es2015", "react"],
 							// plugins: ['react-transform'], // HANDLED BY
 							// extra: {
-							// 	'react-transform': {
-							// 		transforms: [{
-							// 			transform: 'react-transform-hmr',
-							// 			imports: ['react'],
-							// 			locals: ['module']
-							// 		}, {
-							// 			transform: 'react-transform-catch-errors',
-							// 			imports: ['react', 'redbox-react']
-							// 		}]
-							// 	}
+							//  'react-transform': {
+							//      transforms: [{
+							//          transform: 'react-transform-hmr',
+							//          imports: ['react'],
+							//          locals: ['module']
+							//      }, {
+							//          transform: 'react-transform-catch-errors',
+							//          imports: ['react', 'redbox-react']
+							//      }]
+							//  }
 							// }
 						}
 					}
@@ -98,8 +99,8 @@ export default function getWebpackConfig(isDevelopment) {
 		},
 		stylus: {
 			use: [doubleu23Stylus(), nib()],
-			compress: 		isDevelopment
-		// ,	imports: ['src/common/style/project/index.styl']
+			compress:       isDevelopment
+		// ,    imports: ['src/common/style/project/index.styl']
 		},
 		output: isDevelopment ? {
 			path: constants.BUILD_DIR,
@@ -115,8 +116,8 @@ export default function getWebpackConfig(isDevelopment) {
 			const plugins = [
 				new webpack.DefinePlugin({
 					'process.env': {
-						NODE_ENV: 	JSON.stringify(isDevelopment ? 'development' : 'production'),
-						IS_BROWSER: 	true
+						NODE_ENV:   JSON.stringify(isDevelopment ? 'development' : 'production'),
+						IS_BROWSER:     true
 					}
 				})
 			];

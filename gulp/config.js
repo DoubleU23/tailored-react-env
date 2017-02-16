@@ -10,6 +10,10 @@ const config = {
     dest: './build/js/'
   },
 
+  configs:  {
+    eslint: './.eslintrc'
+  },
+
   images: {
     src: './app/images/**/*.{jpeg,jpg,png,gif}',
     dest: './build/images/'

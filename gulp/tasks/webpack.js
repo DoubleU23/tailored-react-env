@@ -1,8 +1,10 @@
-import gulp 			from 'gulp'
-import webpack 		from 'webpack'
-import makeBuild 		from '../../webpack/makeBuild'
-import makeConfig 	from '../../webpack/makeConfig.js'
+import gulp             from 'gulp'
+import gutil            from 'gulp-util'
+import webpack          from 'webpack'
+import webpackGetConfig from '../../webpack/webpackGetConfig.js'
+import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 
-const config = makeConfig(global.isProd ? 'production' : 'development')
+import gulpNotify       from 'gulp-notify'
 
-gulp.task('webpack', makeBuild)
+// tbd: add gulp-notify//node-notify
+gulp.task('webpack', webpackMakeBuild)

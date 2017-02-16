@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-import React from 'react';
+import React from 'react'
 
 class Header extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -15,9 +15,9 @@ class Header extends React.Component {
         Header
 
       </header>
-    );
+    )
   }
 
 }
 
-export default Header;
+export default Header

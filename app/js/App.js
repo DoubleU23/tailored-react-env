@@ -1,10 +1,10 @@
-'use strict';
-import React 					from 'react';
+'use strict'
+import React 					from 'react'
 
-import CurrentUserActions 	from './actions/CurrentUserActions';
-import CurrentUserStore   		from './stores/CurrentUserStore';
-import Header 					from './components/Header';
-import Footer 					from './components/Footer';
+import CurrentUserActions 	from './actions/CurrentUserActions'
+import CurrentUserStore   		from './stores/CurrentUserStore'
+import Header 					from './components/Header'
+import Footer 					from './components/Footer'
 
 const propTypes = {
 	params: React.PropTypes.object,
@@ -13,39 +13,39 @@ const propTypes = {
 		React.PropTypes.array,
 		React.PropTypes.object
 	])
-};
+}
 
 class App extends React.Component {
 
 	constructor(props) {
-		super(props);
+		super(props)
 
-		this.onUserChange = this.onUserChange.bind(this);
+		this.onUserChange = this.onUserChange.bind(this)
 
 		this.state = {
 			currentUser: {}
-		};
+		}
 	}
 
 	onUserChange(err, user) {
 		if ( err ) {
-			this.setState({ error: err });
+			this.setState({ error: err })
 		} else {
-			this.setState({ currentUser: user || {}, error: null });
+			this.setState({ currentUser: user || {}, error: null })
 		}
 	}
 
 	componentWillMount() {
-		console.log('About to mount App');
+		console.log('About to mount App')
 	}
 
 	componentDidMount() {
-		this.unsubscribe = CurrentUserStore.listen(this.onUserChange);
-		CurrentUserActions.checkLoginStatus();
+		this.unsubscribe = CurrentUserStore.listen(this.onUserChange)
+		CurrentUserActions.checkLoginStatus()
 	}
 
 	componentWillUnmount() {
-		this.unsubscribe();
+		this.unsubscribe()
 	}
 
 	renderChildren() {
@@ -53,7 +53,7 @@ class App extends React.Component {
 			params: this.props.params,
 			query: this.props.query,
 			currentUser: this.state.currentUser
-		});
+		})
 	}
 
 	render() {
@@ -67,10 +67,10 @@ class App extends React.Component {
 				<Footer />
 
 			</div>
-		);
+		)
 	}
 
 }
-App.propTypes = propTypes;
+App.propTypes = propTypes
 
-export default App;
+export default App

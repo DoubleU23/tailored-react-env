@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 
-import React from 'react';
+import React from 'react'
 
 class Footer extends React.Component{
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -15,9 +15,9 @@ class Footer extends React.Component{
         Footer
 
       </footer>
-    );
+    )
   }
 
 }
 
-export default Footer;
+export default Footer

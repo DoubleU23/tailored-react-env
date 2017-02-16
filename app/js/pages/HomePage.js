@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
-import React         from 'react';
-import {Link}        from 'react-router';
-import DocumentTitle from 'react-document-title';
+import React         from 'react'
+import {Link}        from 'react-router'
+import DocumentTitle from 'react-document-title'
 
 const propTypes = {
   currentUser: React.PropTypes.object
-};
+}
 
 class HomePage extends React.Component {
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -29,11 +29,11 @@ class HomePage extends React.Component {
 
         </section>
       </DocumentTitle>
-    );
+    )
   }
 
 }
 
-HomePage.propTypes = propTypes;
+HomePage.propTypes = propTypes
 
-export default HomePage;
+export default HomePage
