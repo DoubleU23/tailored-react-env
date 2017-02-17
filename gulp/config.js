@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const config = {
+const getConfig = (isDevelopment) => ({
 
   browserPort: 3000,
   UIPort: 3001,
@@ -45,6 +45,6 @@ const config = {
     'woff2?'
   ]
 
-};
+})
 
-export default config;
+export default getConfig
