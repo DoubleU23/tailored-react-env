@@ -1,12 +1,20 @@
-### roadmap
-* [x] [config hierarchy](#config-hierarchy)
-* este-like features
-** [x] server rendering
-** [ ] preFetch (fetchComponentDataAsync)
-
+# roadmap
+* [x] [config hierarchy](#config-hierarchy)  
+  * [ ] re-locate config
+* [ ] store implementation (mobx?)
+* [x] server rendering  
+  * [ ] server-side async prefetching
+  * [ ] store injection/binding
+  * [ ] dynamic template
 
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
+
+* [x] `gulp lint`
+* [ ] webpack
+  * [x] start dev-server with HMR
+  * [x] production build
+     * [ ] starting production server
 
 # config
 
@@ -16,12 +24,13 @@ config.js uses (some vars from) process.env vars injected by gulp (args) which a
 so... most basic defaults are set in the config module files and will be used in gulp args defaults and in config.js defaults
 
 **further explained**  
+
 1. command-line injected env vars
-    * highest priority to enable custom start/build scripts and CI builds
-    * f.e. `APP_ENV=development gulp`
-2. config module files
-    * can be preset by definitions in `custom-environment-variables.yml`
-    * f.e. /config/production.yml
+  * highest priority to enable custom start/build scripts and CI builds
+  * f.e. `APP_ENV=development gulp`
+2. config module files  
+  * can be preset by definitions in `custom-environment-variables.yml`  
+  * f.e. /config/production.yml  
 3. gulp args
     * overwrites config modules vars
     * get injected into apps `process.env`
@@ -29,7 +38,6 @@ so... most basic defaults are set in the config module files and will be used in
 4. config.js defaults
     * contains app-related config vars that aren't env-dependent - like paths and file extensions
     * uses APP_ENV for isDevelopment switch
-
 
 # issues
 HMR has a known issue with updating the Router which blocks the reloading:
