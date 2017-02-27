@@ -1,13 +1,38 @@
 'use strict'
 
-import React     	from 'react'
-import ReactDOM  from 'react-dom'
+import React                        from 'react'
+import ReactDOM                     from 'react-dom'
 
-import Routes    	from './Routes'
+import {Router, Route, IndexRoute}  from 'react-router'
+import CreateBrowserHistory         from 'history/lib/createBrowserHistory'
 
-if ( process.env.NODE_ENV !== 'production' ) {
-	// Enable React devtools
-	window.React = React
+import Routes                       from './Routes'
+import App                          from './App'
+
+if (module.hot) module.hot.accept()
+
+if (process.env.NODE_ENV !== 'production') {
+  // Enable React devtools
+  window.React = React
 }
 
-ReactDOM.render(Routes, document.getElementById('app'))
+const createRoutes = () => (
+  <Route path="/" component={App} />
+)
+const routes = createRoutes()
+
+class Root extends React.Component {
+  render() {
+    return (
+      <Router history={CreateBrowserHistory()}  >
+        {routes}
+      </Router>
+    )
+  }
+}
+
+// ReactDOM.render(React.createElement(App), document.getElementById('app'))
+ReactDOM.render(
+  <Root />
+  , document.getElementById('app')
+)
