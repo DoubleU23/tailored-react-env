@@ -18,19 +18,18 @@ task `lint`: runs eslint with babel-eslint and some extended rules based on the 
 
 # config
 
-### config-hierarchy
-
 config.js uses (some vars from) process.env vars injected by gulp (args) which are preset by config-module vars that can be overwritten by command-line/ENV vars (f.e. set by GITLAB CI)  
 so... most basic defaults are set in the config module files and will be used in gulp args defaults and in config.js defaults
 
-**further explained**  
+### config-hierarchy
 
 1. command-line injected env vars
   * highest priority to enable custom start/build scripts and CI builds
   * f.e. `APP_ENV=development gulp`
-2. config module files  
-  * can be preset by definitions in `custom-environment-variables.yml`  
-  * f.e. /config/production.yml  
+2. config module files ([node-config](https://www.npmjs.com/package/config) package)
+  * can be overwritten by env vars (see `custom-environment-variables.yml`)
+  * loading config file corresponding to `NODE_ENV`
+  * f.e. /config/production.yml
 3. gulp args
     * overwrites config modules vars
     * get injected into apps `process.env`
