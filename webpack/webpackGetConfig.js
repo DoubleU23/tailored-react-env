@@ -11,6 +11,8 @@ import cssMqPacker       from 'css-mqpacker'
 // custom libs
 import doubleu23Stylus   from 'doubleu23-stylus'
 
+import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
+
 import constants         from './constants'
 
 const devtools = process.env.CONTINUOUS_INTEGRATION
@@ -125,7 +127,25 @@ export default function webpackGetConfig (_isDevelopment) {
       if (isDevelopment) plugins.push(
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin()/* ,
+        new BrowserSyncPlugin({
+          // BrowserSync options
+          //
+          // browse to http://localhost:3000/ during development
+          host: 'localhost',
+          port: 8000,
+          // proxy the Webpack Dev Server endpoint
+          // (which should be serving on http://localhost:3100/)
+          // through BrowserSync
+          proxy: 'http://localhost:3100/'
+        },
+          // plugin options
+          {
+            // prevent BrowserSync from reloading the page
+            // and let Webpack Dev Server take care of this
+            reload: false
+          }
+        )*/
       )
       else plugins.push(
         // Render styles into separate cacheable file to prevent FOUC and

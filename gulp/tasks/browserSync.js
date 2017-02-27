@@ -1,28 +1,32 @@
-'use strict'
 
 import url         from 'url'
 import browserSync from 'browser-sync'
 import gulp        from 'gulp'
-import config      from '../../config/config.js'
+import {getConfig}   from '../../config/config.js'
+
+const config = getConfig()
 
 gulp.task('browserSync', function() {
+  console.log('browserSync starting...')
+
   const DEFAULT_FILE = 'index.html'
   const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i')
 
   browserSync.init({
-    server: {
+   /* server: {
       baseDir: config.buildDir,
       middleware: function(req, res, next) {
         let fileHref = url.parse(req.url).href
 
-        if ( !ASSET_EXTENSION_REGEX.test(fileHref)) {
+        if (!ASSET_EXTENSION_REGEX.test(fileHref)) {
           req.url = '/' + DEFAULT_FILE
         }
 
         return next()
       }
-    },
-    port: config.browserPort,
+    },*/
+    port: 8001,
+    proxy: 'http://localhost:8000',
     ui: {
       port: config.UIPort
     },
@@ -30,5 +34,5 @@ gulp.task('browserSync', function() {
       links: false
     }
   })
-
 })
+

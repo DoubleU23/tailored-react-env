@@ -12,9 +12,8 @@ const app = express()
 // app.use(errorHandler);
 app.use(frontend)
 
-// const {port} = config;
-const port = config.portFrontend
+const {portFE} = config
 
-app.listen(port, () => {
-  console.log('Server started at port %d', port)
+app.listen(portFE, () => {
+  console.log('Server started at port %d', portFE)
 })

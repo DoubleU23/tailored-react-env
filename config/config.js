@@ -6,7 +6,8 @@ export const getConfig = (_isDevelopment) => {
   const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
 
   return {
-    portFrontend:   process.env.PORT_FRONTEND,
+    portFE:   process.env.PORT_FRONTEND,
+    portHMR:  8080,
 
     UIPort: 3001,
 

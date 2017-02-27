@@ -25,6 +25,8 @@ gulp.task('webpack', cb => {
       // src changes are handled by webpack hot module replacement
       ignore:  config.sourceDir
     })
+
+    cb()
   } else {
     webpackMakeBuild(cb)
   }

@@ -1,6 +1,10 @@
 # roadmap
 * [x] [config hierarchy](#config-hierarchy)  
   * [x] re-locate config
+  * [ ] extending config
+    * [ ] use hot module port and other server vars from config
+* [x] browserSync
+  * [ ] start browserSync after webpack has built OR reload browserSync afterwards (how to wait for build!?)
 * [ ] store implementation (mobx?)
 * [x] server rendering  
   * [ ] server-side async prefetching

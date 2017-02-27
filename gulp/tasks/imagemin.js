@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 import gulp        from 'gulp';
 import gulpif      from 'gulp-if';
@@ -15,3 +15,4 @@ gulp.task('imagemin', function() {
     .pipe(gulpif(browserSync.active, browserSync.reload({ stream: true, once: true })));
 
 });
+*/

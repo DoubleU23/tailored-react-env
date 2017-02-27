@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 import gulp         from 'gulp';
 import sass         from 'gulp-sass';
@@ -22,3 +22,4 @@ gulp.task('sass', function() {
     .pipe(gulpif(browserSync.active, browserSync.reload({ stream: true })));
 
 });
+*/

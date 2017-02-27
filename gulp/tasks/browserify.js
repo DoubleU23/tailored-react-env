@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 import gulp         from 'gulp';
@@ -63,3 +64,4 @@ gulp.task('browserify', function() {
   return buildScript('index.js', !global.isProd);
 
 });
+*/
