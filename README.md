@@ -40,11 +40,11 @@ so... most basic defaults are set in the config module files and will be used in
     * uses APP_ENV for isDevelopment switch
 
 # issues
-HMR has a known issue with updating the Router which blocks the reloading:
-`Warning: You cannot change <Router history>; it will be ignored`
+HMR has a known issue with updating the Router which blocks the reloading:  
+`Warning: You cannot change <Router history>; it will be ignored`  
 see f.e. https://github.com/ReactTraining/react-router/issues/2704
 
 **WORKAROUND**
-until this is officially fixxed, here is the workaround:
-after starting the dev-server you have to SAVE THE config.srcDir/index.js file ONCE
+until this is (officially) fixxed, here is the workaround:
+after starting the dev-server you have to save the /app/index.js file ONCE
 after that you can happily save childcomponents with a running HMR
