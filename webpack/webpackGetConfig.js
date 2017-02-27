@@ -34,9 +34,7 @@ const loaders = {
 const serverIp = ip.address()
 
 export default function webpackGetConfig (_isDevelopment) {
-  const isDevelopment = isDevelopment != null
-    ? isDevelopment
-    : (process.env.APP_ENV || false)
+  const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development' || false
 
   function stylesLoaders () {
     return Object.keys(loaders).map(ext => {
@@ -80,21 +78,20 @@ export default function webpackGetConfig (_isDevelopment) {
           // cacheDirectory: true,
           env: {
             development: {
-              plugins: ['syntax-object-rest-spread', 'syntax-async-functions', 'transform-regenerator', 'transform-decorators'],
-              presets: ['es2015', 'react']
-              // plugins: ['react-transform'], // HANDLED BY
-              // extra: {
-              //  'react-transform': {
-              //      transforms: [{
-              //          transform: 'react-transform-hmr',
-              //          imports: ['react'],
-              //          locals: ['module']
-              //      }, {
-              //          transform: 'react-transform-catch-errors',
-              //          imports: ['react', 'redbox-react']
-              //      }]
-              //  }
-              // }
+              presets: ['es2015', 'react'],
+              plugins: [
+                ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
+                ['react-transform', {
+                  transforms: [{
+                    transform: 'react-transform-hmr',
+                    imports: ['react'],
+                    locals: ['module']
+                  }, {
+                    transform: 'react-transform-catch-errors',
+                    imports: ['react', 'redbox-react']
+                  }]
+                }]
+              ]
             }
           }
         },
@@ -120,7 +117,7 @@ export default function webpackGetConfig (_isDevelopment) {
       const plugins = [
         new webpack.DefinePlugin({
           'process.env': {
-            NODE_ENV:   JSON.stringify(isDevelopment ? 'development' : 'production'),
+            NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
             IS_BROWSER:     true
           }
         })
