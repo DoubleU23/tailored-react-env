@@ -9,6 +9,10 @@ export default function render(req, res, next) {
 
 }
 
+const scriptSrc = process.env.APP_ENV === 'development'
+    ? 'http://localhost:8080/build/app.js'
+    : '/build/app.js?notreadytouse'
+
 function renderPage() {
 	return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
 		<html>
@@ -16,7 +20,7 @@ function renderPage() {
 			</head>
 			<body>
 				<div id="app"></div>
-				<script type="text/javascript" src="http://localhost:80/htdocs/projects/ChatNorris-v2/build/js/main.js"></script>
+				<script type="text/javascript" src={scriptSrc}></script>
 			</body>
 		</html>
 	);

@@ -27,7 +27,12 @@ app.use(compression());
 // app.use(device.capture());
 //
 
+
+
 app.get('/', render);
+// app.get('/', function (req, res) {
+//   res.send('TESTESTEST FRONTEND SERVER!');
+// });
 
 app.on('mount', () => {
 	console.log('App is available at %s', app.mountpath);
