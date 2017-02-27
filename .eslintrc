@@ -23,9 +23,19 @@
     "__dirname": false
   },
   "rules": {
+    indent: ["error", 2, {
+        "outerIIFEBody": 2,
+        // "VariableDeclarator": { "var": 1, "let": 1, "const": 2.5 },
+        "MemberExpression": 1
+    }],
     //
     // CUSTOM RULES
     //
+    "space-before-function-paren": ["error", {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "never"
+    }],
     "no-multi-spaces": [0, { "exceptions": { "ImportDeclaration": true, "Property": true, "VariableDeclarator": true } }],
     // eslint has problems with async/await and lints the compiles generator
     "generator-star-spacing": [0, {"before": false, "after": false}],
