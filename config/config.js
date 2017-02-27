@@ -6,7 +6,8 @@ export const getConfig = (_isDevelopment) => {
   const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
 
   return {
-    browserPort: 3000,
+    portFrontend:   process.env.PORT_FRONTEND,
+
     UIPort: 3001,
 
     scripts: {

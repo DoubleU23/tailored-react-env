@@ -1,19 +1,20 @@
+import express from 'express'
+
+import frontend from './frontend'
 // import api from './api'; // to be done
-// import config from './config';
 // import errorHandler from './lib/errorHandler';
 
-import express from 'express';
-import frontend from './frontend';
+import config from '../config/config.js'
 
-const app = express();
+const app = express()
 
 // app.use('/api/v1', api);
 // app.use(errorHandler);
-app.use(frontend);
+app.use(frontend)
 
 // const {port} = config;
-const port = 8000;
+const port = config.portFrontend
 
 app.listen(port, () => {
-	console.log('Server started at port %d', port);
-});
+  console.log('Server started at port %d', port)
+})

@@ -1,6 +1,6 @@
 # roadmap
 * [x] [config hierarchy](#config-hierarchy)  
-  * [ ] re-locate config
+  * [x] re-locate config
 * [ ] store implementation (mobx?)
 * [x] server rendering  
   * [ ] server-side async prefetching

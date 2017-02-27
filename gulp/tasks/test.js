@@ -4,7 +4,7 @@ import gulp    from 'gulp';
 import {jsdom} from 'jsdom';
 import {argv}  from 'yargs';
 import gjc     from 'gulp-jsx-coverage';
-import config  from '../config';
+import config      from '../../config/config.js'
 
 gulp.task('test', () => {
 

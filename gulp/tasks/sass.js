@@ -6,7 +6,7 @@ import gulpif       from 'gulp-if';
 import browserSync  from 'browser-sync';
 import autoprefixer from 'gulp-autoprefixer';
 import handleErrors from '../util/handle-errors';
-import config       from '../config';
+import config      from '../../config/config.js'
 
 gulp.task('sass', function() {
 

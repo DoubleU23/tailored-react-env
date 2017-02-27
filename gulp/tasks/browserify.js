@@ -14,7 +14,7 @@ import uglify       from 'gulp-uglify';
 import browserSync  from 'browser-sync';
 import debowerify   from 'debowerify';
 import handleErrors from '../util/handle-errors';
-import config       from '../config';
+import config      from '../../config/config.js'
 
 // Based on: http://blog.avisi.nl/2014/04/25/how-to-keep-a-fast-build-with-browserify-and-reactjs/
 function buildScript(file, watch) {

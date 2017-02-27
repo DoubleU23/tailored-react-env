@@ -24,12 +24,12 @@ gulp.task('config', () => {
     // NODE_ENV="production" (else "development")
     .alias('p', 'production')
     // (frontend) port on which it's deployed
-    .default('port', config.get('PORT'))
+    .default('portFE', config.get('PORT_FRONTEND'))
     .argv
 
-  process.env.PORT        = process.env.PORT || args.port
+  process.env.PORT_FRONTEND = process.env.PORT_FRONTEND || args.portFE
 
-  process.env.APP_ENV     = process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development'
+  process.env.APP_ENV       = process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development'
     ? 'development'
     : 'production'
 

@@ -4,7 +4,7 @@ import gulp        from 'gulp';
 import gulpif      from 'gulp-if';
 import imagemin    from 'gulp-imagemin';
 import browserSync from 'browser-sync';
-import config      from '../config';
+import config      from '../../config/config.js'
 
 gulp.task('imagemin', function() {
 

@@ -1,13 +1,10 @@
 import path             from 'path'
+import {spawn}          from 'child_process'
 import gulp             from 'gulp'
-import shell            from 'gulp-shell'
-import bg               from 'gulp-bg'
 import nodemon          from 'gulp-nodemon'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
-import config           from '../config'
-
-import {exec, spawn} from 'child_process'
+import config           from '../../config/config.js'
 
 gulp.task('webpack', cb => {
   if (process.env.APP_ENV === 'development') {

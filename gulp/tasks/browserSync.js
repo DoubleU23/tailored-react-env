@@ -1,26 +1,25 @@
-'use strict';
+'use strict'
 
-import url         from 'url';
-import browserSync from 'browser-sync';
-import gulp        from 'gulp';
-import config      from '../config';
+import url         from 'url'
+import browserSync from 'browser-sync'
+import gulp        from 'gulp'
+import config      from '../../config/config.js'
 
 gulp.task('browserSync', function() {
-
-  const DEFAULT_FILE = 'index.html';
-  const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i');
+  const DEFAULT_FILE = 'index.html'
+  const ASSET_EXTENSION_REGEX = new RegExp(`\\b(?!\\?)\\.(${config.assetExtensions.join('|')})\\b(?!\\.)`, 'i')
 
   browserSync.init({
     server: {
       baseDir: config.buildDir,
       middleware: function(req, res, next) {
-        let fileHref = url.parse(req.url).href;
+        let fileHref = url.parse(req.url).href
 
         if ( !ASSET_EXTENSION_REGEX.test(fileHref)) {
-          req.url = '/' + DEFAULT_FILE;
+          req.url = '/' + DEFAULT_FILE
         }
 
-        return next();
+        return next()
       }
     },
     port: config.browserPort,
@@ -30,6 +29,6 @@ gulp.task('browserSync', function() {
     ghostMode: {
       links: false
     }
-  });
+  })
 
-});
+})
