@@ -1,4 +1,4 @@
-# roadmap
+# roadmap/todos
 * [x] [config hierarchy](#config-hierarchy)  
   * [x] re-locate config
   * [ ] remove gulp argsv from config hierarchy
@@ -6,7 +6,11 @@
   * [ ] extended use of config module
     * [ ] use hot module port and other server vars from config
   * [ ] webpack
-    * [ ] make hotserverBuild synchronous (use gulp-nodemon!?)
+    * [x] make hotserverBuild synchronous (use gulp-nodemon)
+      * [ ] wait until nodemon script is finished (.on('start') is too early)  
+      see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
+    * [ ] make production build synchronous
+    * [ ] clean and format webpack task leftovers
 * [x] browserSync
   * [ ] start browserSync after webpack has built OR reload browserSync afterwards (how to wait for build!?)
 * [ ] store implementation (mobx?)
