@@ -5,4 +5,4 @@ require('babel-register')({
 
 })
 
-require('./hotServerBuild')
+require('./devServer.js')

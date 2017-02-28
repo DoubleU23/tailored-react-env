@@ -34,6 +34,8 @@ class App extends React.Component {
       <div style={{height: '5000px'}}>
         <Header />
 
+        GEILOOO
+
         {/* this.renderChildren() */}
 
         <Footer />
