@@ -1,8 +1,12 @@
 # roadmap
 * [x] [config hierarchy](#config-hierarchy)  
   * [x] re-locate config
-  * [ ] extending config
+  * [ ] remove gulp argsv from config hierarchy
+    * [ ] rewrite README for new config hierarchy
+  * [ ] extended use of config module
     * [ ] use hot module port and other server vars from config
+  * [ ] webpack
+    * [ ] make hotserverBuild synchronous (use gulp-nodemon!?)
 * [x] browserSync
   * [ ] start browserSync after webpack has built OR reload browserSync afterwards (how to wait for build!?)
 * [ ] store implementation (mobx?)
