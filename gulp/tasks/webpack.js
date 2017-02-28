@@ -4,17 +4,19 @@ import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
-import config           from '../../config/config.js'
+import appConfig           from '../../config/config.js'
+
+import config         from 'config'
 
 gulp.task('webpack', cb => {
-  if (process.env.APP_ENV === 'development') {
-    const hotServerScriptEntrypoint = path.normalize(path.join(config.rootDir, 'webpack', 'hotserver'))
-    const expressServerEntrypoint   = path.normalize(path.join(config.rootDir, 'server'))
+  if (config.get('isDevelopment')) {
+    const hotServerBuildEntrypoint = path.normalize(path.join(appConfig.rootDir, 'webpack', 'hotserverBuild'))
+    const expressServerEntrypoint  = path.normalize(path.join(appConfig.rootDir, 'server'))
 
     // start webpack hot server
     // const hotServerProcess =
     spawn(
-      'node', [hotServerScriptEntrypoint],
+      'node', [hotServerBuildEntrypoint],
       {stdio : 'inherit'} // sends all outputs to parent-process (gulp)
     )
 
@@ -23,7 +25,7 @@ gulp.task('webpack', cb => {
       script: expressServerEntrypoint,
       ext:    'js jsx html',
       // src changes are handled by webpack hot module replacement
-      ignore:  config.sourceDir
+      ignore:  appConfig.sourceDir
     })
 
     cb()
