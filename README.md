@@ -50,6 +50,16 @@ so... most basic defaults are set in the config module files and will be used in
     * contains app-related config vars that aren't env-dependent - like paths and file extensions
     * uses APP_ENV for isDevelopment switch
 
+# sublime additions
+in combination with
+https://github.com/twolfson/sublime-hooks
+
+auto format according to your rules defined in .eslintrc:
+* use [ESLint-Formatter](https://packagecontrol.io/packages/ESLint-Formatter) to format by shortcut `[Ctrl + Shift + H]`
+* use [Sublime-Hooks](https://github.com/twolfson/sublime-hooks) to format on pre-save
+just add the following setting to your user-setting file:  
+`"on_pre_save_async_user": [{"command": "format_eslint"}] // has to be async`
+
 # issues
 HMR has a known issue with updating the Router which blocks the reloading:  
 `Warning: You cannot change <Router history>; it will be ignored`  
