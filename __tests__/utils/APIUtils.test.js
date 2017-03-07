@@ -4,8 +4,8 @@ import request        from 'superagent'
 import {camelizeKeys} from 'humps'
 import APIUtils       from '../../app/js/utils/APIUtils'
 
-describe('Util: APIUtils', () => {
-    it('should normalize the body of a response object with varying keys', () => {
+describe('Util: APIUtils', function() {
+    it('should normalize the body of a response object with varying keys', function() {
         let testResponse = {
             status: 200,
             body: {
@@ -18,7 +18,7 @@ describe('Util: APIUtils', () => {
         APIUtils.normalizeResponse(testResponse).should.eql(camelizeKeys(testResponse.body))
     })
 
-    it('should make a GET request', () => {
+    it('should make a GET request', function() {
         let path = 'auth/check'
 
         sandbox.mock(request).expects('get').withArgs('http://localhost:3000/api/' + path)
@@ -26,7 +26,7 @@ describe('Util: APIUtils', () => {
         APIUtils.get(path)
     })
 
-    it('should make a POST request', () => {
+    it('should make a POST request', function() {
         let path = 'auth/login',
             user = {
                 username: 'test',
@@ -38,7 +38,7 @@ describe('Util: APIUtils', () => {
         APIUtils.post(path, user)
     })
 
-    it('should make a PATCH request', () => {
+    it('should make a PATCH request', function() {
         let path = 'user/1',
             user = {
                 email: 'new@test.com'
@@ -49,7 +49,7 @@ describe('Util: APIUtils', () => {
         APIUtils.patch(path, user)
     })
 
-    it('should make a PUT request', () => {
+    it('should make a PUT request', function() {
         let path = 'user/1',
             user = {
                 email: 'new@test.com'
@@ -60,7 +60,7 @@ describe('Util: APIUtils', () => {
         APIUtils.put(path, user)
     })
 
-    it('should make a DEL request', () => {
+    it('should make a DEL request', function() {
         let path = 'user/1'
 
         sandbox.mock(request).expects('del').withArgs('http://localhost:3000/api/' + path)

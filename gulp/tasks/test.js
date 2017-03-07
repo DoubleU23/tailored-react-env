@@ -1,10 +1,11 @@
 'use strict'
 
-import gulp    from 'gulp'
-import {jsdom} from 'jsdom'
-import {argv}  from 'yargs'
-import gjc     from 'gulp-jsx-coverage'
-import config      from '../../config/config.js'
+import gulp      from 'gulp'
+import {jsdom}   from 'jsdom'
+import {argv}    from 'yargs'
+import gjc       from 'gulp-jsx-coverage'
+
+import appConfig from '../../config/appConfig.js'
 
 gulp.task('test', () => {
     let files
@@ -21,7 +22,7 @@ gulp.task('test', () => {
         files = ['__tests__/helper.js', singleFile]
     } else {
     // Default to all test files
-        files = [config.testFiles]
+        files = ['__tests__/helper.js', appConfig.testFiles]
     }
 
   // Ensure that all window/DOM related properties

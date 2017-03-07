@@ -1,9 +1,9 @@
 'use strict'
 
-import gulp   from 'gulp'
-import config from '../../config/config.js'
+import gulp      from 'gulp'
+import appConfig from '../../config/appConfig.js'
 
 gulp.task('copyFonts', () => {
-    return gulp.src([config.sourceDir + 'fonts/**/*'])
-        .pipe(gulp.dest(config.buildDir + 'fonts/'))
+    return gulp.src([appConfig.sourceDir + 'fonts/**/*'])
+        .pipe(gulp.dest(appConfig.buildDir + 'fonts/'))
 })

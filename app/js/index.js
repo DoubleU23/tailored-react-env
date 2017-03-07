@@ -32,7 +32,6 @@ class Root extends React.Component {
     }
 }
 
-// ReactDOM.render(React.createElement(App), document.getElementById('app'))
 ReactDOM.render(
     <Root />
   , document.getElementById('app')

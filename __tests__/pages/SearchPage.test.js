@@ -3,10 +3,10 @@
 import ReactDOM    from 'react-dom'
 import TestUtils   from 'react-addons-test-utils'
 
-import TestHelpers from '../../utils/testHelpers'
+import TestHelpers        from '../testHelpers'
 import SearchPage  from '../../app/js/pages/SearchPage'
 
-describe('Page: Search', () => {
+describe('Page: Search', function() {
     this.timeout(5000)
 
     beforeEach(done => {
@@ -19,11 +19,11 @@ describe('Page: Search', () => {
         })
     })
 
-    it('should render properly', () => {
+    it('should render properly', function() {
         TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'search-page').should.not.throw()
     })
 
-    it('should update state on input box change', () => {
+    it('should update state on input box change', function() {
         const input = this.page.refs.searchInput
         const newValue = 'giraffe'
 
@@ -33,7 +33,7 @@ describe('Page: Search', () => {
         this.page.state.query.should.eql(newValue)
     })
 
-    it('should render the updated state in the related span', () => {
+    it('should render the updated state in the related span', function() {
         const input = this.page.refs.searchInput
         const span = this.page.refs.queryDisplay
         const newValue = 'giraffe'
@@ -44,7 +44,7 @@ describe('Page: Search', () => {
         span.innerHTML.should.eql(newValue)
     })
 
-    afterEach(() => {
+    afterEach(function() {
         if (this.container) { ReactDOM.unmountComponentAtNode(this.container) }
     })
 })

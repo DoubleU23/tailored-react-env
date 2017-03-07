@@ -1,10 +1,10 @@
 'use strict'
 
-beforeEach(() => {
+beforeEach(function() {
     global.sandbox = sinon.sandbox.create()
 })
 
-afterEach(() => {
+afterEach(function() {
     global.sandbox.restore()
 })
 

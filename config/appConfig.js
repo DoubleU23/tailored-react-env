@@ -11,7 +11,10 @@ export const getAppConfig = _isDevelopment => {
         portFE:   process.env.PORT_FRONTEND,
         portHMR:  8080,
 
-        UIPort: 3001,
+        broserSync:     {
+            portUI:     3001,
+            portProxy:  8001
+        },
 
         scripts: {
             src: './app/js/**/*.js',

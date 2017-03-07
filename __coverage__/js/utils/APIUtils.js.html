@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/utils/APIUtils.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">js/utils/</a> APIUtils.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">60% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>24/40</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">8.82% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>3/34</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">70.59% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>12/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.97% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>23/39</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';       // 'use strict'
+&nbsp;
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+&nbsp;
+var _humps = require('humps');      // Line 3: import {camelizeKeys} from 'humps'
+&nbsp;
+var _superagent = require('superagent');        // Line 4: import request        from 'superagent'
+&nbsp;
+var _superagent2 = _interopRequireDefault(_superagent);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? <span class="branch-0 cbranch-no" title="branch not covered" >obj </span>: { default: obj }; }
+&nbsp;
+var APIUtils = {        // Line 6: const APIUtils = {
+&nbsp;
+    root: '//localhost:3000/api/',
+&nbsp;
+    normalizeResponse: function normalizeResponse(response) {       // Line 10:     normalizeResponse(response) {
+        return (0, _humps.camelizeKeys)(response.body);             // Line 11:         return camelizeKeys(response.body)
+    },
+    get: function get(path) {                                       // Line 14:     get(path) {
+        var _this = this;                                           // Line 14:     get(path) {
+&nbsp;
+        return new Promise(function (resolve, reject) {     // Line 15:         return new Promise((resolve, reject) =&gt; {
+            _superagent2.default.get(_this.root + path).withCredentials().end(<span class="fstat-no" title="function not covered" >function (err, res) {</span>     // Line 16:             request.get(this.root + path)
+<span class="cstat-no" title="statement not covered" >                if (err || !res.ok) {                                                                   // Line 19:                     if (err || !res.ok) {</span>
+<span class="cstat-no" title="statement not covered" >                    reject(_this.normalizeResponse(err || res)); </span>                                       // Line 20:                         reject(this.normalizeResponse(err || res))
+                } else {                                                                                // Line 21:                     } else {
+<span class="cstat-no" title="statement not covered" >                    resolve(_this.normalizeResponse(res)); </span>                                             // Line 22:                         resolve(this.normalizeResponse(res))
+                }                                                                                       // Line 23:                     }
+            });                                                                                         // Line 24:                 })
+        });                                                                                             // Line 25:         })
+    },
+    post: function post(path, body) {                                                                   // Line 28:     post(path, body) {
+        var _this2 = this;                                                                              // Line 28:     post(path, body) {
+&nbsp;
+        return new Promise(function (resolve, reject) {                                         // Line 29:         return new Promise((resolve, reject) =&gt; {
+            _superagent2.default.post(_this2.root + path, body).withCredentials().end(<span class="fstat-no" title="function not covered" >function (err, res) {</span>     // Line 30:             request.post(this.root + path, body)
+<span class="cstat-no" title="statement not covered" >                console.log(err, res); </span>                                                                         // Line 33:                     console.log(err, res)
+<span class="cstat-no" title="statement not covered" >                if (err || !res.ok) {                                                                           // Line 34:                     if (err || !res.ok) {</span>
+<span class="cstat-no" title="statement not covered" >                    reject(_this2.normalizeResponse(err || res)); </span>                                              // Line 35:                         reject(this.normalizeResponse(err || res))
+                } else {                                                                                        // Line 36:                     } else {
+<span class="cstat-no" title="statement not covered" >                    resolve(_this2.normalizeResponse(res)); </span>                                                    // Line 37:                         resolve(this.normalizeResponse(res))
+                }                                                                                               // Line 38:                     }
+            });                                                                                                 // Line 39:                 })
+        });                                                                                                     // Line 40:         })
+    },
+    patch: function patch(path, body) {                                                                         // Line 43:     patch(path, body) {
+        var _this3 = this;                                                                                      // Line 43:     patch(path, body) {
+&nbsp;
+        return new Promise(function (resolve, reject) {                                                 // Line 44:         return new Promise((resolve, reject) =&gt; {
+            _superagent2.default.patch(_this3.root + path, body).withCredentials().end(<span class="fstat-no" title="function not covered" >function (err, res) {</span>        // Line 45:             request.patch(this.root + path, body)
+<span class="cstat-no" title="statement not covered" >                if (err || !res.ok) {                                                                               // Line 48:                     if (err || !res.ok) {</span>
+<span class="cstat-no" title="statement not covered" >                    reject(_this3.normalizeResponse(err || res)); </span>                                                  // Line 49:                         reject(this.normalizeResponse(err || res))
+                } else {                                                                                            // Line 50:                     } else {
+<span class="cstat-no" title="statement not covered" >                    resolve(_this3.normalizeResponse(res)); </span>                                                        // Line 51:                         resolve(this.normalizeResponse(res))
+                }                                                                                                   // Line 52:                     }
+            });                                                                                                     // Line 53:                 })
+        });                                                                                                         // Line 54:         })
+    },
+    put: function put(path, body) {                                                                                 // Line 57:     put(path, body) {
+        var _this4 = this;                                                                                          // Line 57:     put(path, body) {
+&nbsp;
+        return new Promise(function (resolve, reject) {                                                     // Line 58:         return new Promise((resolve, reject) =&gt; {
+            _superagent2.default.put(_this4.root + path, body).withCredentials().end(<span class="fstat-no" title="function not covered" >function (err, res) {</span>      // Line 59:             request.put(this.root + path, body)
+<span class="cstat-no" title="statement not covered" >                if (err || !res.ok) {                                                                           // Line 62:                     if (err || !res.ok) {</span>
+<span class="cstat-no" title="statement not covered" >                    reject(_this4.normalizeResponse(err || res)); </span>                                              // Line 63:                         reject(this.normalizeResponse(err || res))
+                } else {                                                                                        // Line 64:                     } else {
+<span class="cstat-no" title="statement not covered" >                    resolve(_this4.normalizeResponse(res)); </span>                                                    // Line 65:                         resolve(this.normalizeResponse(res))
+                }                                                                                               // Line 66:                     }
+            });                                                                                                 // Line 67:                 })
+        });                                                                                                     // Line 68:         })
+    },
+    del: function del(path) {                                                                                   // Line 71:     del(path) {
+        var _this5 = this;                                                                                      // Line 71:     del(path) {
+&nbsp;
+        return new Promise(function (resolve, reject) {                                                 // Line 72:         return new Promise((resolve, reject) =&gt; {
+            _superagent2.default.del(_this5.root + path).withCredentials().end(<span class="fstat-no" title="function not covered" >function (err, res) {</span>        // Line 73:             request.del(this.root + path)
+<span class="cstat-no" title="statement not covered" >                if (err || !res.ok) {                                                                       // Line 76:                     if (err || !res.ok) {</span>
+<span class="cstat-no" title="statement not covered" >                    reject(_this5.normalizeResponse(err || res)); </span>                                          // Line 77:                         reject(this.normalizeResponse(err || res))
+                } else {                                                                                    // Line 78:                     } else {
+<span class="cstat-no" title="statement not covered" >                    resolve(_this5.normalizeResponse(res)); </span>                                                // Line 79:                         resolve(this.normalizeResponse(res))
+                }                                                                                           // Line 80:                     }
+            });                                                                                             // Line 81:                 })
+        });                                                                                                 // Line 82:         })
+    }
+};                                                                                                          // Line 6: const APIUtils = {
+&nbsp;
+exports.default = APIUtils;
+// SourceMap was distributed to comments by gulp-jsx-coverage</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 07 2017 17:19:45 GMT+0100 (CET)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

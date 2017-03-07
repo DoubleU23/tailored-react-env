@@ -3,27 +3,27 @@
 import ReactDOM    from 'react-dom'
 import TestUtils   from 'react-addons-test-utils'
 
-import TestHelpers from '../../utils/testHelpers'
+import TestHelpers        from '../testHelpers'
 import HomePage    from '../../app/js/pages/HomePage'
 
-describe('Page: Home', () => {
+describe('Page: Home', function() {
     this.timeout(5000)
 
-    beforeEach(done => {
+    beforeEach(function(done) {
         this.container = document.createElement('div')
 
-        TestHelpers.testRouteHandler('/', {}, {}, {}, HomePage, this.container, component => {
+        TestHelpers.testRouteHandler('/', {}, {}, {}, HomePage, this.container, function(component) {
             this.page = component
             sandbox.restore()
             done()
         })
     })
 
-    it('should render properly', () => {
+    it('should render properly', function() {
         TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'home-page').should.not.throw()
     })
 
-    afterEach(() => {
+    afterEach(function() {
         if (this.container) { ReactDOM.unmountComponentAtNode(this.container) }
     })
 })
