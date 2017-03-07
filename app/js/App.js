@@ -23,9 +23,9 @@ class App extends React.Component {
 
     renderChildren() {
         return React.cloneElement(this.props.children, {
-            params: this.props.params,
-            query: this.props.query,
-            currentUser: this.state.currentUser
+            params:         this.props.params,
+            query:          this.props.query,
+            currentUser:    this.state.currentUser
         })
     }
 
@@ -34,9 +34,7 @@ class App extends React.Component {
             <div style={{height: '5000px'}}>
                 <Header />
 
-                    GEILOOO
-
-                    {/* this.renderChildren() */}
+                {/* this.renderChildren() */}
 
                 <Footer />
 

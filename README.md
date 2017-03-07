@@ -9,10 +9,9 @@
     * [x] make hotserverBuild synchronous (use gulp-nodemon)
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
-    * [ ] make production build synchronous
-    * [ ] clean and format webpack task leftovers
+    * [x] make production build synchronous
 * [x] browserSync
-  * [ ] start browserSync after webpack has built OR reload browserSync afterwards (how to wait for build!?)
+  * [x] start browserSync after webpack has built
 * [ ] store implementation (mobx?)
 * [x] server rendering  
   * [ ] server-side async prefetching
@@ -21,9 +20,8 @@
 
 * [ ] sublime enhancements
     * [x] ESLint-Formatter
-    * [ ] setup/enhance align plugin and run it on pre_save on the whole file
+    * [x] setup/enhance align plugin and run it on pre_save on the whole file
       [ ] fix colon alignments
-      [ ] ignore JSX
 
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset

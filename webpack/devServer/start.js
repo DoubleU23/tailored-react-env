@@ -12,8 +12,9 @@ export default function startDevServer(cb) {
     const compiler           = webpack(webpackConfig)
 
     const webpackDevInstance = webpackDev(compiler, {
+        publicPath: webpackConfig.output.publicPath,
         noInfo:     true,
-        publicPath: webpackConfig.output.publicPath
+        colors:     true
     })
 
     app.use(webpackDevInstance)

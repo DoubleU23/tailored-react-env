@@ -3,17 +3,17 @@ import eslint     from 'gulp-eslint'
 import plumber    from 'gulp-plumber'
 import gulpNotify from 'gulp-notify'
 
-import config     from '../../config/config.js'
+import appConfig  from '../../config/appConfig.js'
 
 gulp.task('lint', () => {
-    const src = [`!${config.testFiles}`, '!node_modules/**']
+    const src = [`!${appConfig.testFiles}`, '!node_modules/**']
     src.push(
         // also lint env scripts in devMode
-        config.isDevelopment ? `${config.rootDir}/**/*.js` : config.scripts.src
+        appConfig.isDevelopment ? `${appConfig.rootDir}/**/*.js` : appConfig.scripts.src
     )
 
     return gulp.src(src)
-        .pipe(eslint({config: config.configs.eslint}))
+        .pipe(eslint({appConfig: appConfig.appConfigs.eslint}))
         .pipe(eslint.format())
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())

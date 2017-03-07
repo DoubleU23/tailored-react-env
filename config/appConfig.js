@@ -2,7 +2,7 @@
 
 import path from 'path'
 
-export const getConfig = _isDevelopment => {
+export const getAppConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
 
     return {
@@ -58,6 +58,4 @@ export const getConfig = _isDevelopment => {
     }
 }
 
-console.log(getConfig().rootDir)
-
-export default getConfig()
+export default getAppConfig()
