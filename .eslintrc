@@ -23,11 +23,12 @@
     "__dirname": false
   },
   "rules": {
-    indent: ["error", 2, {
-        "outerIIFEBody": 2,
-        // "VariableDeclarator": { "var": 1, "let": 1, "const": 2.5 },
+    indent: ["error", 4, {
+        "outerIIFEBody": 4,
+        // "VariableDeclarator": { "var": 1, "let": 1, "const": 2 },
         "MemberExpression": 1
     }],
+    one-var: ["error", {var: "always", let: "always", const: "never"}],
     //
     // CUSTOM RULES
     //
