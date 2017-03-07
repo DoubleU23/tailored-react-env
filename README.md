@@ -17,11 +17,16 @@
   * [ ] server-side async prefetching
   * [ ] store injection/binding
   * [ ] dynamic template
-
 * [ ] sublime enhancements
     * [x] ESLint-Formatter
     * [x] setup/enhance align plugin and run it on pre_save on the whole file
       [ ] fix colon alignments
+* [ ] eslint
+  * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
+* [ ] tests
+  * [ ] setup/fix test-environment + task(s)
+    use mocha/sinon/karma/istanbul
+  * [ ] write first tests
 
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
