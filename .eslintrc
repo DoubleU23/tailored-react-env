@@ -18,6 +18,7 @@
   },
   "globals": {
     "module": true,
+    "global": false,
     "require": false,
     "process": false,
     "__dirname": false
@@ -28,15 +29,20 @@
         // "VariableDeclarator": { "var": 1, "let": 1, "const": 2 },
         "MemberExpression": 1
     }],
+    "react/jsx-indent": [2, 4], // no error on lower indent size
     one-var: ["error", {var: "always", let: "always", const: "never"}],
     //
     // CUSTOM RULES
     //
+
     "space-before-function-paren": ["error", {
         "anonymous": "never",
         "named": "never",
         "asyncArrow": "never"
     }],
+    "arrow-parens": [2, "as-needed"],
+    "func-style": ["error", "expression"],
+    "prefer-arrow-callback": ["error", { "allowUnboundThis": false }],
     "no-multi-spaces": [0, { "exceptions": { "ImportDeclaration": true, "Property": true, "VariableDeclarator": true } }],
     // eslint has problems with async/await and lints the compiles generator
     "generator-star-spacing": [0, {"before": false, "after": false}],
@@ -66,7 +72,7 @@
     //
     "max-depth": [2, 3], // specify the maximum depth that blocks can be nested (off by default)
     "max-len": [2, 255, 2], // specify the maximum length of a line in your program (off by default)
-    "max-params": [2, 5], // limits the number of parameters that can be used in the function declaration. (off by default)
+    "max-params": [2, 7], // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0, // specify the maximum number of statement allowed in a function (off by default)
     "no-bitwise": 0, // disallow use of bitwise operators (off by default)
     "no-plusplus": 2, // disallow use of unary operators, ++ and -- (off by default)
@@ -88,7 +94,7 @@
     "react/prop-types": 2, // Prevent missing props validation in a React component definition
     "react/react-in-jsx-scope": 2, // Prevent missing React when using JSX
     "react/self-closing-comp": 2, // Prevent extra closing tags for components without children
-    "react/wrap-multilines": 2, // Prevent missing parentheses around multilines JSX
+    "react/jsx-wrap-multilines": 2, // Prevent missing parentheses around multilines JSX
     "react/sort-comp":  2, // Fixed order of lifecycle methods
     "react/no-is-mounted": 2, // Do not use isMounted lifecycle -> deprecated
     "react/no-string-refs": 2,

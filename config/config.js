@@ -2,58 +2,62 @@
 
 import path from 'path'
 
-export const getConfig = (_isDevelopment) => {
-  const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
+export const getConfig = _isDevelopment => {
+    const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
 
-  return {
-    portFE:   process.env.PORT_FRONTEND,
-    portHMR:  8080,
+    return {
+        isDevelopment,
 
-    UIPort: 3001,
+        portFE:   process.env.PORT_FRONTEND,
+        portHMR:  8080,
 
-    scripts: {
-      src: './app/js/**/*.js',
-      dest: './build/js/'
-    },
+        UIPort: 3001,
 
-    configs:  {
-      eslint: './.eslintrc'
-    },
+        scripts: {
+            src: './app/js/**/*.js',
+            dest: './build/js/'
+        },
 
-    images: {
-      src: './app/images/**/*.{jpeg,jpg,png,gif}',
-      dest: './build/images/'
-    },
+        configs:  {
+            eslint: './.eslintrc'
+        },
 
-    styles: {
-      src: './app/styles/**/*.scss',
-      dest: './build/css/'
-    },
+        images: {
+            src: './app/images/**/*.{jpeg,jpg,png,gif}',
+            dest: './build/images/'
+        },
 
-    rootDir:  path.normalize(path.join(__dirname, '..')),
+        styles: {
+            src: './app/styles/**/*.scss',
+            dest: './build/css/'
+        },
 
-    sourceDir: path.normalize(path.join(__dirname, '..', 'app')),
+        rootDir:  path.normalize(path.join(__dirname, '..')),
 
-    buildDir: './build/',
+        sourceDir: path.normalize(path.join(__dirname, '..', 'app')),
 
-    testFiles: './__tests__/**/*.{js,jsx}',
+        buildDir: './build/',
 
-    assetExtensions: [
-      'js',
-      'css',
-      'png',
-      'jpg',
-      'jpe?g',
-      'gif',
-      'svg',
-      'eot',
-      'otf',
-      'ttc',
-      'ttf',
-      'woff2?'
-    ]
+        testFiles: './__tests__/**/*.test.{js,jsx}',
 
-  }
+        assetExtensions: [
+            'js',
+            'css',
+            'png',
+            'jpg',
+            'jpe?g',
+            'gif',
+            'svg',
+            'eot',
+            'otf',
+            'ttc',
+            'ttf',
+            'woff2?'
+        ]
+
+    }
 }
+
+console.log(getConfig().rootDir)
 
 export default getConfig()

@@ -1,4 +1,4 @@
-/*'use strict';
+/* 'use strict';
 
 import gulp        from 'gulp';
 import gulpif      from 'gulp-if';

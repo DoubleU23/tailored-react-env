@@ -1,15 +1,13 @@
-'use strict';
+'use strict'
 
-import gulp        from 'gulp';
-import runSequence from 'run-sequence';
+import gulp        from 'gulp'
+import runSequence from 'run-sequence'
 
-gulp.task('dev', ['clean'], function(cb) {
+gulp.task('dev', ['clean'], cb => {
+    cb = cb || function() {}
 
-  cb = cb || function() {};
-
-  global.isProd = false;
+    global.isProd = false
 
   // Run all tasks once
-  return runSequence(['sass', 'imagemin', 'browserify', 'copyFonts', 'copyIndex', 'copyIcons'], 'watch', cb);
-
-});
+    return runSequence(['sass', 'imagemin', 'browserify', 'copyFonts', 'copyIndex', 'copyIcons'], 'watch', cb)
+})

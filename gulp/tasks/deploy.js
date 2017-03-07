@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-import gulp from 'gulp';
-//import config      from '../../config/config.js'
+import gulp from 'gulp'
+// import config      from '../../config/config.js'
 
-gulp.task('deploy', ['prod'], function() {
+gulp.task('deploy', ['prod'], () => {
 
   // Deploy to hosting environment
 
-});
+})

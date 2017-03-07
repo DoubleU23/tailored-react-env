@@ -19,6 +19,12 @@
   * [ ] store injection/binding
   * [ ] dynamic template
 
+* [ ] sublime enhancements
+    * [x] ESLint-Formatter
+    * [ ] setup/enhance align plugin and run it on pre_save on the whole file
+      [ ] fix colon alignments
+      [ ] ignore JSX
+
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
@@ -50,22 +56,34 @@ so... most basic defaults are set in the config module files and will be used in
     * contains app-related config vars that aren't env-dependent - like paths and file extensions
     * uses APP_ENV for isDevelopment switch
 
-# sublime additions
-in combination with
-https://github.com/twolfson/sublime-hooks
+### Sublime Text
 
-auto format according to your rules defined in .eslintrc:
-* use [ESLint-Formatter](https://packagecontrol.io/packages/ESLint-Formatter) to format by shortcut `[Ctrl + Shift + H]`
-* use [Sublime-Hooks](https://github.com/twolfson/sublime-hooks) to format on pre-save
+__auto format__ according to your rules defined in .eslintrc:
+> * use [ESLint-Formatter](https://packagecontrol.io/packages/ESLint-Formatter) to format by shortcut `[Ctrl + Shift + H]`
+> * use [Sublime-Hooks](https://github.com/twolfson/sublime-hooks) to format on pre-save
 just add the following setting to your user-setting file:  
 `"on_pre_save_async_user": [{"command": "format_eslint"}] // has to be async`
 
+> bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structure
+(no problem if you use `{varname}`)
+
 # issues
-HMR has a known issue with updating the Router which blocks the reloading:  
+__HMR/Router Bug__
+
+> HMR has a known issue with updating the Router which blocks the reloading:  
 `Warning: You cannot change <Router history>; it will be ignored`  
 see f.e. https://github.com/ReactTraining/react-router/issues/2704
 
-**WORKAROUND**
+> **WORKAROUND**
 until this is (officially) fixxed, here is the workaround:
 after starting the dev-server you have to save the /app/index.js file ONCE
 after that you can happily save childcomponents with a running HMR
+
+__ESLINT - indent__
+> [MemberExpression](http://eslint.org/docs/rules/indent#memberexpression) rule is ignored on assignments
+"// Any indentation is permitted in variable declarations and assignments."
+> right indent on return statements
+
+__ESLINT - func-style__
+> enforcing by ESLint-Formatter is broken in __test__ dir...  
+maybe it's intended like this to reserve the context?

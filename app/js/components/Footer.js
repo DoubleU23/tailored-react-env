@@ -2,15 +2,17 @@
 
 import React from 'react'
 
+const test = 'test'
+
 class Footer extends React.Component {
 
-  render() {
-    return (
-      <footer>
-        #FOOTER#
-      </footer>
-    )
-  }
+    render() {
+        return (
+            <footer>
+                {test}
+            </footer>
+        )
+    }
 
 }
 

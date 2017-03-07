@@ -2,10 +2,10 @@ import gutil            from 'gulp-util'
 import webpack          from 'webpack'
 import webpackGetConfig from './webpackGetConfig.js'
 
-export default function webpackMakeBuild (callback) {
-  const config = webpackGetConfig()
-  webpack(config, (fatalError, stats) => {
-    const jsonStats = stats.toJson()
+export default function webpackMakeBuild(callback) {
+    const config = webpackGetConfig()
+    webpack(config, (fatalError, stats) => {
+        const jsonStats = stats.toJson()
 
     // We can save jsonStats to be analyzed with
     // http://webpack.github.io/analyse or
@@ -13,21 +13,21 @@ export default function webpackMakeBuild (callback) {
     // import fs from 'fs'
     // fs.writeFileSync('./bundle-stats.json', JSON.stringify(jsonStats))
 
-    const buildError = fatalError || jsonStats.errors[0] || jsonStats.warnings[0]
+        const buildError = fatalError || jsonStats.errors[0] || jsonStats.warnings[0]
 
-    if (buildError) {
-      throw new gutil.PluginError('webpack', buildError)
-    }
+        if (buildError) {
+            throw new gutil.PluginError('webpack', buildError)
+        }
 
-    gutil.log('[webpack]', stats.toString({
-      colors: true,
-      version: false,
-      hash: false,
-      timings: false,
-      chunks: false,
-      chunkModules: false
-    }))
+        gutil.log('[webpack]', stats.toString({
+            colors: true,
+            version: false,
+            hash: false,
+            timings: false,
+            chunks: false,
+            chunkModules: false
+        }))
 
-    callback()
-  })
+        callback()
+    })
 }

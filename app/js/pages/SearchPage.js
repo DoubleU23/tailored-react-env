@@ -5,48 +5,48 @@ import {Link}           from 'react-router'
 import DocumentTitle    from 'react-document-title'
 
 const propTypes = {
-  currentUser: React.PropTypes.object
+    currentUser: React.PropTypes.object
 }
 
 class SearchPage extends React.Component {
 
-  constructor(props) {
-    super(props)
+    constructor(props) {
+        super(props)
 
-    this.handleQueryChange = this.handleQueryChange.bind(this)
+        this.handleQueryChange = this.handleQueryChange.bind(this)
 
-    this.state = {
-      query: ''
+        this.state = {
+            query: ''
+        }
     }
-  }
 
-  handleQueryChange(evt) {
-    this.setState({
-      query: evt.target.value
-    })
-  }
+    handleQueryChange(evt) {
+        this.setState({
+            query: evt.target.value
+        })
+    }
 
-  render() {
-    return (
-      <DocumentTitle title="Search">
-        <section className="search-page">
+    render() {
+        return (
+            <DocumentTitle title="Search">
+                <section className="search-page">
 
-          <div>
-            <h1>Search</h1>
+                    <div>
+                        <h1>Search</h1>
 
-            <h2>Your query: <span ref="queryDisplay">{this.state.query}</span></h2>
+                        <h2>Your query: <span>{this.state.query}</span></h2>
 
-            <input type="text" onChange={this.handleQueryChange} ref="searchInput" />
-          </div>
+                        <input type="text" onChange={this.handleQueryChange} />
+                    </div>
 
-          <div>
-            <Link to="/">Back to Home</Link>
-          </div>
+                    <div>
+                        <Link to="/">Back to Home</Link>
+                    </div>
 
-        </section>
-      </DocumentTitle>
-    )
-  }
+                </section>
+            </DocumentTitle>
+        )
+    }
 
 }
 

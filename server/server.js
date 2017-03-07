@@ -15,5 +15,5 @@ app.use(frontend)
 const {portFE} = config
 
 app.listen(portFE, () => {
-  console.log('Server started at port %d', portFE)
+    console.log('Server started at port %d', portFE)
 })

@@ -1,34 +1,32 @@
 import React          from 'react'
 import ReactDOMServer from 'react-dom/server'
 
-import Html           from './Html.react'
+// import Html        from './Html.react'
 import ip             from 'ip'
 
-import config    from '../../config/config.js'
+import config         from '../../config/config.js'
 
 const {portHMR} = config
-
-export default function render(req, res, next) {
-    res.send(renderPage())
-}
-
-const serverIp = ip.address()
+const serverIp  = ip.address()
 
 const scriptSrc = process.env.APP_ENV === 'development'
     ? `http://${serverIp}:${portHMR}/build/app.js`
     : '/build/app.js?notreadytouse'
 
-function renderPage() {
-  return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
-    <html>
-      <head>
-      </head>
-      <body>
-        <div id="app"></div>
-        <script type="text/javascript" src={scriptSrc}></script>
-      </body>
-    </html>
+const renderPage = () => {
+    return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
+        <html>
+            <head />
+            <body>
+                <div id="app" />
+                <script type="text/javascript" src={scriptSrc} />
+            </body>
+        </html>
   )
+}
+
+export default function render(req, res, next) {
+    res.send(renderPage())
 }
 
 // function renderPage() {

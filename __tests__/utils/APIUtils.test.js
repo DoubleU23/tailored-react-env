@@ -4,69 +4,67 @@ import request        from 'superagent'
 import {camelizeKeys} from 'humps'
 import APIUtils       from '../../app/js/utils/APIUtils'
 
-describe('Util: APIUtils', function() {
+describe('Util: APIUtils', () => {
+    it('should normalize the body of a response object with varying keys', () => {
+        let testResponse = {
+            status: 200,
+            body: {
+                camel_case: 'test', // eslint-disable-line camelcase
+                PascalCase: 'test',
+                camelCase: 'test'
+            }
+        }
 
-  it('should normalize the body of a response object with varying keys', function() {
-    let testResponse = {
-      status: 200,
-      body: {
-        camel_case: 'test', //eslint-disable-line camelcase
-        PascalCase: 'test',
-        camelCase: 'test'
-      }
-    }
+        APIUtils.normalizeResponse(testResponse).should.eql(camelizeKeys(testResponse.body))
+    })
 
-    APIUtils.normalizeResponse(testResponse).should.eql(camelizeKeys(testResponse.body))
-  })
+    it('should make a GET request', () => {
+        let path = 'auth/check'
 
-  it('should make a GET request', function() {
-    let path = 'auth/check'
+        sandbox.mock(request).expects('get').withArgs('http://localhost:3000/api/' + path)
 
-    sandbox.mock(request).expects('get').withArgs('http://localhost:3000/api/' + path)
+        APIUtils.get(path)
+    })
 
-    APIUtils.get(path)
-  })
+    it('should make a POST request', () => {
+        let path = 'auth/login',
+            user = {
+                username: 'test',
+                password: 'test'
+            }
 
-  it('should make a POST request', function() {
-    let path = 'auth/login'
-    let user = {
-      username: 'test',
-      password: 'test'
-    }
+        sandbox.mock(request).expects('post').withArgs('http://localhost:3000/api/' + path, user)
 
-    sandbox.mock(request).expects('post').withArgs('http://localhost:3000/api/' + path, user)
+        APIUtils.post(path, user)
+    })
 
-    APIUtils.post(path, user)
-  })
+    it('should make a PATCH request', () => {
+        let path = 'user/1',
+            user = {
+                email: 'new@test.com'
+            }
 
-  it('should make a PATCH request', function() {
-    let path = 'user/1'
-    let user = {
-      email: 'new@test.com'
-    }
+        sandbox.mock(request).expects('patch').withArgs('http://localhost:3000/api/' + path, user)
 
-    sandbox.mock(request).expects('patch').withArgs('http://localhost:3000/api/' + path, user)
+        APIUtils.patch(path, user)
+    })
 
-    APIUtils.patch(path, user)
-  })
+    it('should make a PUT request', () => {
+        let path = 'user/1',
+            user = {
+                email: 'new@test.com'
+            }
 
-  it('should make a PUT request', function() {
-    let path = 'user/1'
-    let user = {
-      email: 'new@test.com'
-    }
+        sandbox.mock(request).expects('put').withArgs('http://localhost:3000/api/' + path, user)
 
-    sandbox.mock(request).expects('put').withArgs('http://localhost:3000/api/' + path, user)
+        APIUtils.put(path, user)
+    })
 
-    APIUtils.put(path, user)
-  })
+    it('should make a DEL request', () => {
+        let path = 'user/1'
 
-  it('should make a DEL request', function() {
-    let path = 'user/1'
+        sandbox.mock(request).expects('del').withArgs('http://localhost:3000/api/' + path)
 
-    sandbox.mock(request).expects('del').withArgs('http://localhost:3000/api/' + path)
-
-    APIUtils.del(path)
-  })
-
+        APIUtils.del(path)
+    })
 })

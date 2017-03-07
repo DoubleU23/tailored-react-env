@@ -7,5 +7,11 @@
     "sinon": true,
     "sandbox": true,
     "Should": true
+  },
+  rules: {
+    "react/prefer-es6-class": 0,
+    "arrow-parens": 0,
+    "func-style": 0,
+    "prefer-arrow-callback": 0
   }
 }

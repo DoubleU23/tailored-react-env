@@ -1,17 +1,16 @@
-import compression from 'compression';
-import device from 'express-device';
+import compression from 'compression'
+// import device from 'express-device'
 // import tailoredMiddleware from '../lib/tailoredMiddleware';
-import express from 'express';
+import express from 'express'
 // import favicon from 'serve-favicon';
-import render from './render';
+import render from './render'
 
-const app = express();
+const app = express()
 
 // app.use(tailoredMiddleware());
-app.use(compression());
+app.use(compression())
 
 // app.use(favicon('assets/img/favicon.ico'));
-
 
 // // Serve the static assets. We can cache them as they include hashes.
 // // express.static is relative to the directory where you launch your node process
@@ -27,18 +26,13 @@ app.use(compression());
 // app.use(device.capture());
 //
 
-
-
-app.get('/', render);
+app.get('/', render)
 // app.get('/', function (req, res) {
 //   res.send('TESTESTEST FRONTEND SERVER!');
 // });
 
 app.on('mount', () => {
-	console.log('App is available at %s', app.mountpath);
+    console.log('App is available at %s', app.mountpath)
+})
 
-});
-
-
-
-export default app;
+export default app
