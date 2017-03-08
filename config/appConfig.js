@@ -5,13 +5,15 @@ import path from 'path'
 export const getAppConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
 
+    console.log('isDevelopment', process.env.APP_ENV)
+
     return {
         isDevelopment,
 
         portFE:   process.env.PORT_FRONTEND,
         portHMR:  8080,
 
-        broserSync:     {
+        browserSync:     {
             portUI:     3001,
             portProxy:  8001
         },
@@ -21,7 +23,7 @@ export const getAppConfig = _isDevelopment => {
             dest: './build/js/'
         },
 
-        configs:  {
+        configFiles:  {
             eslint: './.eslintrc'
         },
 

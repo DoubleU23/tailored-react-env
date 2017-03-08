@@ -4,9 +4,9 @@ import ReactDOMServer from 'react-dom/server'
 // import Html        from './Html.react'
 import ip             from 'ip'
 
-import config         from '../../config/config.js'
+import appConfig      from '../../config/appConfig.js'
 
-const {portHMR} = config
+const {portHMR} = appConfig
 const serverIp  = ip.address()
 
 const scriptSrc = process.env.APP_ENV === 'development'
@@ -34,9 +34,9 @@ export default function render(req, res, next) {
 //    <Html
 //      appCssFilename={appCssFilename}
 //      bodyHtml={`<div id="app">${appHtml}</div>${scriptHtml}`}
-//      googleAnalyticsId={config.googleAnalyticsId}
+//      googleAnalyticsId={appConfig.googleAnalyticsId}
 //      helmet={Helmet.rewind()}
-//      isProduction={config.isProduction}
+//      isProduction={appConfig.isProduction}
 //    />
 //  )
 // }

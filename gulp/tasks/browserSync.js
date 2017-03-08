@@ -1,16 +1,14 @@
 import browserSync    from 'browser-sync'
 import gulp           from 'gulp'
-import {getAppConfig} from '../../config/appConfig.js'
-
-const config = getAppConfig()
+import appConfig from '../../config/appConfig.js'
 
 gulp.task('browserSync', () => {
     browserSync.init({
         proxy:  'http://localhost:8000', // out express server we want to proxy
-        port:   config.browserSync.portProxy, // the proxied express server, tunneled through browserSync
+        port:   appConfig.browserSync.portProxy, // the proxied express server, tunneled through browserSync
         ui: {
             // the port for the browserSync UI
-            port: config.browserSync.portUI
+            port: appConfig.browserSync.portUI
         },
         ghostMode: {
             links: false
