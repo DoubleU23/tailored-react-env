@@ -2,6 +2,7 @@
 
 import path   from 'path'
 import config from 'config'
+console.log('isDevelopment', config.get('isDevelopment'))
 
 const rootDir       = path.normalize(path.join(__dirname, '..'))
 const paths         = {
