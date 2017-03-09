@@ -15,7 +15,6 @@ gulp.task('lint', ['config'], () => {
         // also lint env scripts in devMode
         appConfig.isDevelopment ? globs.scripts : globs.src
     )
-    console.log('src', src)
 
     return gulp.src(src)
         .pipe(eslint({appConfig: appConfig.configFiles.eslint}))
