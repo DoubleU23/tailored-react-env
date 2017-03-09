@@ -14,13 +14,11 @@ import doubleu23Stylus   from 'doubleu23-stylus'
 // import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 
 import constants         from './constants'
-import config            from 'config'
 import appConfig         from '../config/appConfig'
 
 const {
     ports,
-    paths,
-    isDevelopment
+    paths
 } = appConfig
 
 const devtools = process.env.CONTINUOUS_INTEGRATION
@@ -44,7 +42,7 @@ const loaders = {
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || isDevelopment
+    const isDevelopment = _isDevelopment || appConfig.isDevelopment
 
     const stylesLoaders = () => {
         return Object.keys(loaders).map(ext => {
