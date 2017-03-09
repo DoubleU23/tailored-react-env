@@ -9,11 +9,11 @@ let fs          = require('fs'),
 
 // run config before importing/requiring the other tasks
 // because they import appConfig which depends on config-module
-require('./tasks/config.js')
-runSequence('config') // = sets NODE_ENV based on --env
+require('./tasks/env.js')
+runSequence('env') // = sets NODE_ENV based on --env
 
 tasks.forEach(task => {
     require('./tasks/' + task)
 })
 
-gulp.task('default', cb => runSequence('config', 'webpack', 'browserSync', cb))
+gulp.task('default', cb => runSequence('env', 'webpack', 'browserSync', cb))
