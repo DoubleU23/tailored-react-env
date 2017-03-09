@@ -27,19 +27,19 @@ gulp.task('webpack', finishTaskFn => {
             nodemon({
                 script: expressServerEntrypoint,
                 ext:    'js jsx html',
-                // src changes are handled by webpack hot module replacement
+                    // src changes are handled by webpack hot module replacement
                 ignore: paths.src,
                 tasks:  ['lint']
             })
                 .on('start', () => {
                     if (!startedFirst) {
-                        // call finishTaskFn only the first time
+                            // call finishTaskFn only the first time
                         startedFirst = true
-                        // TBD: wait until expressServerEntrypoint is mounted
-                        // i dont know how to pass "finishTaskFn" to the script
-                        // and can't pass a callback function per command-line arguments
-                        //
-                        // alternatively i would like to call a function with nodemon... instead of a script
+                            // TBD: wait until expressServerEntrypoint is mounted
+                            // i dont know how to pass "finishTaskFn" to the script
+                            // and can't pass a callback function per command-line arguments
+                            //
+                            // alternatively i would like to call a function with nodemon... instead of a script
                         setTimeout(finishTaskFn, 1500)
                     }
                 })

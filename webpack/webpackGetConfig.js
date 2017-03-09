@@ -171,8 +171,6 @@ const webpackGetConfig = _isDevelopment => {
         }
     }
 
-    console.log(config)
-
     return config
 }
 
