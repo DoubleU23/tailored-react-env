@@ -1,15 +1,12 @@
 # roadmap/todos
 * [x] [config hierarchy](#config-hierarchy)  
-  * [x] re-locate config
-  * [ ] remove gulp argsv from config hierarchy
-    * [ ] rewrite README for new config hierarchy
-  * [ ] extended use of config module
-    * [ ] use hot module port and other server vars from config
-  * [ ] webpack
-    * [x] make hotserverBuild synchronous (use gulp-nodemon)
+  * [x] extended use of config module  
+  * [ ] move webpack/constants.js into appConfig
+* [x] webpack
+    * [x] make hotserverBuild synchronous (use gulp-nodemon)  
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
-    * [x] make production build synchronous
+* [x] make production build synchronous
 * [x] browserSync
   * [x] start browserSync after webpack has built
 * [ ] store implementation (mobx?)
@@ -25,39 +22,43 @@
   * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
 * [ ] tests
   * [ ] setup/fix test-environment + task(s)
-    use mocha/sinon/karma/istanbul
+    use jest/enzyme/karma/istanbul
   * [ ] write first tests
+  * [ ] run enzyme tests in karma?
+  * [ ] use browserstack API for karma tests
+* [ ] styles
+  do we need a gulp task or just webpack plugins!?
 
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
+* [x] `gulp clean` - cleans `/build` and `/__coverage__`
 * [x] `gulp lint`
 * [ ] webpack
   * [x] start dev-server with HMR
   * [x] production build
      * [ ] starting production server
+* [ ] `gulp test`
+* [ ] `gulp imagemin`
 
 # config
 
-config.js uses (some vars from) process.env vars injected by gulp (args) which are preset by config-module vars that can be overwritten by command-line/ENV vars (f.e. set by GITLAB CI)  
-so... most basic defaults are set in the config module files and will be used in gulp args defaults and in config.js defaults
+all config-vars are loaded from appConfig.js which loads defaults per config-module (based on NODE_ENV)
 
 ### config-hierarchy
 
 1. command-line injected env vars
   * highest priority to enable custom start/build scripts and CI builds
-  * f.e. `APP_ENV=development gulp`
-2. config module files ([node-config](https://www.npmjs.com/package/config) package)
-  * can be overwritten by env vars (see `custom-environment-variables.yml`)
-  * loading config file corresponding to `NODE_ENV`
-  * f.e. /config/production.yml
-3. gulp args
-    * overwrites config modules vars
-    * get injected into apps `process.env`
-    * f.e. `gulp --env production`
-4. config.js defaults
-    * contains app-related config vars that aren't env-dependent - like paths and file extensions
-    * uses APP_ENV for isDevelopment switch
+    f.e. `APP_ENV=development gulp`  
+    can overwrite config module vars per `custom-environment-variables.yml`  
+    enables gitlabCI/Ansible ENV-Var injections
+2. config module files ([node-config](https://www.npmjs.com/package/config) package)  
+  * loading config file corresponding to `NODE_ENV`  
+    f.e. /config/production.yml
+  * NODE_ENV can also be set through `--env ENVNAME` before config-module loads
+3. appConfig.js
+    * loads defaults from config-module
+    * also contains app-related config vars that aren't env-dependent - like paths and file extensions
 
 ### Sublime Text
 
