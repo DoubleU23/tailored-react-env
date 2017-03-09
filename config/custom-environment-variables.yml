@@ -11,6 +11,8 @@
 
 port: PORT
 
+portFE: PORT_FRONTEND
+
 isDevelopment:
   __name: IS_DEVELOPMENT
   __format: json

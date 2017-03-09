@@ -6,11 +6,15 @@ import ip             from 'ip'
 
 import appConfig      from '../../config/appConfig.js'
 
-const {portHMR} = appConfig
+const {
+    isDevelopment,
+    ports
+} = appConfig
+
 const serverIp  = ip.address()
 
-const scriptSrc = process.env.APP_ENV === 'development'
-    ? `http://${serverIp}:${portHMR}/build/app.js`
+const scriptSrc = isDevelopment
+    ? `http://${serverIp}:${ports.HMR}/build/app.js`
     : '/build/app.js?notreadytouse'
 
 const renderPage = () => {

@@ -1,5 +1,7 @@
-NODE_ENV: development
-PORT_FRONTEND: 8000
+appEnv:         development
+isDevelopment:  true
 
-port: 3000
-isDevelopment: true
+portFE:         8000
+portHMR:        8080
+portBSProxy:    8001
+portBSUI:       3000

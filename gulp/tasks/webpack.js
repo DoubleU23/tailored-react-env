@@ -9,21 +9,26 @@ import config           from 'config'
 
 import startDevServer   from '../../webpack/devServer/start.js'
 
+const {
+    paths
+} = appConfig
+
 gulp.task('webpack', finishTaskFn => {
     if (config.get('isDevelopment')) {
     // const hotServerBuildEntrypoint = path.normalize(path.join(appConfig.rootDir, 'webpack', 'hotserverBuild'))
 
         // start express server
-        const expressServerEntrypoint  = path.normalize(path.join(appConfig.rootDir, 'server'))
+        // refactor: move path to config!?
+        const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server'))
 
         let startedFirst = false
 
         startDevServer(() => { // callback function starts after webpack dev server built
             nodemon({
-                script:   expressServerEntrypoint,
-                ext:      'js jsx html',
+                script: expressServerEntrypoint,
+                ext:    'js jsx html',
                 // src changes are handled by webpack hot module replacement
-                ignore:   appConfig.sourceDir,
+                ignore: paths.src,
                 tasks:  ['lint']
             })
                 .on('start', () => {
@@ -35,7 +40,7 @@ gulp.task('webpack', finishTaskFn => {
                         // and can't pass a callback function per command-line arguments
                         //
                         // alternatively i would like to call a function with nodemon... instead of a script
-                        setTimeout(finishTaskFn, 1000)
+                        setTimeout(finishTaskFn, 1500)
                     }
                 })
         })

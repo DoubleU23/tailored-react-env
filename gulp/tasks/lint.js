@@ -8,10 +8,12 @@ import appConfig  from '../../config/appConfig.js'
 gulp.task('lint', ['config'], () => {
     // const appConfig = getAppConfig()
 
-    const src = [`!${appConfig.testFiles}`, `!${appConfig.rootDir}/__coverage__/**/*`, '!node_modules/**']
+    const {globs}   = appConfig
+
+    const src       = [`!${globs.testFiles}`, `!${globs.coverage}`, `!${globs.nodeModules}`]
     src.push(
         // also lint env scripts in devMode
-        appConfig.isDevelopment ? `${appConfig.rootDir}/**/*.js` : appConfig.scripts.src
+        appConfig.isDevelopment ? globs.scripts : globs.src
     )
     console.log('src', src)
 

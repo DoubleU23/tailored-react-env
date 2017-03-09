@@ -5,4 +5,8 @@ import del       from 'del'
 
 import appConfig from '../../config/appConfig.js'
 
-gulp.task('clean', () => del([appConfig.buildDir]))
+const {
+    globs: {build, coverage}
+} = appConfig
+
+gulp.task('clean', () => del([build, coverage]))

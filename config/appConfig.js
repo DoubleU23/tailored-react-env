@@ -1,26 +1,47 @@
 'use strict'
 
-import path from 'path'
+import path   from 'path'
+import config from 'config'
+
+const rootDir       = path.normalize(path.join(__dirname, '..'))
+const paths         = {
+    ROOT:           rootDir,
+    src:            path.join(rootDir, 'app', 'js'),
+    build:          path.join(rootDir, 'build'),
+    tests:          path.join(rootDir, '__tests__'),
+    coverage:       path.join(rootDir, '__coverage__'),
+    nodeModules:    path.join(rootDir, 'node_modules')
+}
 
 export const getAppConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development'
-
-    console.log('isDevelopment', process.env.APP_ENV)
+    const isDevelopment = _isDevelopment || config.get('isDevelopment')
 
     return {
         isDevelopment,
+        paths,
 
-        portFE:   process.env.PORT_FRONTEND,
-        portHMR:  8080,
+        globs:          {
+            scripts:        paths.ROOT          + '/**/*.js',
+            src:            paths.src           + '/**/*.js',
+            nodeModules:    paths.nodeModules   + '/**',
+            testFiles:      paths.tests         + '/**/*.test.{js,jsx}',
+            coverage:       paths.coverage      + '/**/*',
+            build:          paths.build         + '/**/*'
+        },
 
-        browserSync:     {
-            portUI:     3001,
-            portProxy:  8001
+        ports:  {
+            frontend:       config.get('portFE'),
+            HMR:            config.get('portHMR')
+        },
+
+        browserSync: {
+            portProxy:      config.get('portBSProxy'),
+            portUI:         config.get('portBSUI')
         },
 
         scripts: {
-            src: './app/js/**/*.js',
-            dest: './build/js/'
+            src:            paths.src + '/**/*.js',
+            dest:           paths.build + '/js/'
         },
 
         configFiles:  {
@@ -36,14 +57,6 @@ export const getAppConfig = _isDevelopment => {
             src: './app/styles/**/*.scss',
             dest: './build/css/'
         },
-
-        rootDir:  path.normalize(path.join(__dirname, '..')),
-
-        sourceDir: path.normalize(path.join(__dirname, '..', 'app')),
-
-        buildDir: './build/',
-
-        testFiles: './__tests__/**/*.test.{js,jsx}',
 
         assetExtensions: [
             'js',
@@ -62,5 +75,7 @@ export const getAppConfig = _isDevelopment => {
 
     }
 }
+
+console.log(getAppConfig())
 
 export default getAppConfig()

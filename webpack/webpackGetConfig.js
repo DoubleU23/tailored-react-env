@@ -14,6 +14,14 @@ import doubleu23Stylus   from 'doubleu23-stylus'
 // import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 
 import constants         from './constants'
+import config            from 'config'
+import appConfig         from '../config/appConfig'
+
+const {
+    ports,
+    paths,
+    isDevelopment
+} = appConfig
 
 const devtools = process.env.CONTINUOUS_INTEGRATION
   ? 'inline-source-map'
@@ -36,7 +44,7 @@ const loaders = {
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || process.env.APP_ENV === 'development' || false
+    const isDevelopment = _isDevelopment || isDevelopment
 
     const stylesLoaders = () => {
         return Object.keys(loaders).map(ext => {
@@ -55,13 +63,13 @@ const webpackGetConfig = _isDevelopment => {
     }
 
     const config = {
-        hotPort: constants.HOT_RELOAD_PORT,
-        cache: isDevelopment,
-        debug: isDevelopment,
-        devtool: isDevelopment ? devtools : '',
+        hotPort:    ports.HMR,
+        cache:      isDevelopment,
+        debug:      isDevelopment,
+        devtool:    isDevelopment ? devtools : '',
         entry: {
             app: isDevelopment ? [
-                `webpack-hot-middleware/client?path=http://${serverIp}:${constants.HOT_RELOAD_PORT}/__webpack_hmr`,
+                `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
                 path.join(constants.SRC_DIR, 'js/index.js')
             ] : [
                 path.join(constants.SRC_DIR, 'js/index.js')
@@ -75,14 +83,14 @@ const webpackGetConfig = _isDevelopment => {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-          // If cacheDirectory is enabled, it throws:
-          // Uncaught Error: locals[0] does not appear to be a `module` object with Hot Module replacement API enabled.
-          // cacheDirectory: true,
+                  // If cacheDirectory is enabled, it throws:
+                  // Uncaught Error: locals[0] does not appear to be a `module` object with Hot Module replacement API enabled.
+                  // cacheDirectory: true,
                     env: {
                         development: {
                             presets: ['es2015', 'react'],
                             plugins: [
-                ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
+                                ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
                                 ['react-transform', {
                                     transforms: [{
                                         transform: 'react-transform-hmr',
@@ -109,7 +117,7 @@ const webpackGetConfig = _isDevelopment => {
             path: constants.BUILD_DIR,
             filename: '[name].js',
             chunkFilename: '[name]-[chunkhash].js',
-            publicPath: `http://${serverIp}:${constants.HOT_RELOAD_PORT}/build/`
+            publicPath: `http://${serverIp}:${ports.HMR}/build/`
         } : {
             path: constants.BUILD_DIR,
             filename: '[name]-[hash].js',
@@ -128,25 +136,7 @@ const webpackGetConfig = _isDevelopment => {
                 plugins.push(
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()/* ,
-        new BrowserSyncPlugin({
-          // BrowserSync options
-          //
-          // browse to http://localhost:3000/ during development
-          host: 'localhost',
-          port: 8000,
-          // proxy the Webpack Dev Server endpoint
-          // (which should be serving on http://localhost:3100/)
-          // through BrowserSync
-          proxy: 'http://localhost:3100/'
-        },
-          // plugin options
-          {
-            // prevent BrowserSync from reloading the page
-            // and let Webpack Dev Server take care of this
-            reload: false
-          }
-        ) */
+        new webpack.NoErrorsPlugin()
       )
             }            else {
                 plugins.push(
@@ -176,10 +166,12 @@ const webpackGetConfig = _isDevelopment => {
             modulesDirectories: ['src', 'node_modules'],
             root: constants.ABSOLUTE_BASE,
             alias: {
-                'react$': require.resolve(path.join(constants.NODE_MODULES_DIR, 'react'))
+                'react$': require.resolve(path.join(paths.nodeModules, 'react'))
             }
         }
     }
+
+    console.log(config)
 
     return config
 }
