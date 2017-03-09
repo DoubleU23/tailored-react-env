@@ -5,7 +5,7 @@ import gulpNotify from 'gulp-notify'
 
 import appConfig  from '../../config/appConfig.js'
 
-gulp.task('lint', ['config'], () => {
+gulp.task('lint', ['env'], () => {
     // const appConfig = getAppConfig()
 
     const {globs}   = appConfig
