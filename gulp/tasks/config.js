@@ -15,5 +15,5 @@ gulp.task('config', () => {
     // refactor?
     // overwrite NODE_ENV per process arg --env
     const args =  yargs.argv
-    process.env.NODE_ENV = args.env || process.env.NODE_ENV
+    process.env.NODE_ENV = args.env || process.env.NODE_ENV || 'development'
 })
