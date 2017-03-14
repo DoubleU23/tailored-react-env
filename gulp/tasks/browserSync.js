@@ -1,6 +1,6 @@
-import browserSync    from 'browser-sync'
-import gulp           from 'gulp'
-import appConfig from '../../config/appConfig.js'
+import browserSync from 'browser-sync'
+import gulp        from 'gulp'
+import appConfig   from '../../config/appConfig.js'
 
 gulp.task('browserSync', () => {
     browserSync.init({

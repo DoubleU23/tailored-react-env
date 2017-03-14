@@ -6,11 +6,9 @@ import gulpNotify from 'gulp-notify'
 import appConfig  from '../../config/appConfig.js'
 
 gulp.task('lint', ['env'], () => {
-    // const appConfig = getAppConfig()
-
     const {globs}   = appConfig
 
-    const src       = [`!${globs.testFiles}`, `!${globs.coverage}`, `!${globs.nodeModules}`]
+    const src       = [`!${globs.testFiles}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
     src.push(
         // also lint env scripts in devMode
         appConfig.isDevelopment ? globs.scripts : globs.src

@@ -6,6 +6,7 @@ import config from 'config'
 const rootDir       = path.normalize(path.join(__dirname, '..'))
 const paths         = {
     ROOT:           rootDir,
+    configs:        path.join(rootDir, 'config'),
     src:            path.join(rootDir, 'app', 'js'),
     build:          path.join(rootDir, 'build'),
     tests:          path.join(rootDir, '__tests__'),

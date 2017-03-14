@@ -64,11 +64,10 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 
 __auto format__ according to your rules defined in .eslintrc:
 > * use [ESLint-Formatter](https://packagecontrol.io/packages/ESLint-Formatter) to format by shortcut `[Ctrl + Shift + H]`
-> * use [Sublime-Hooks](https://github.com/twolfson/sublime-hooks) to format on pre-save
+> * use [Sublime-Hooks](https://github.com/twolfson/sublime-hooks) to format on pre-save  
 just add the following setting to your user-setting file:  
-`"on_pre_save_async_user": [{"command": "format_eslint"}] // has to be async`
-
-> bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structure
+`"on_pre_save_async_user": [{"command": "format_eslint"}] // has to be async`  
+bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structure
 (no problem if you use `{varname}`)
 
 # issues
