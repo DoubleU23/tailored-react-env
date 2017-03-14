@@ -17,3 +17,13 @@ gulp.task('karma', done => {
         done()
     }).start()
 })
+
+// gulp.task('karma:watch', done => {
+//     return new Server({
+//         configFile: path.join(paths.configs, 'karma.config.js'),
+//         singleRun: false,
+//         autoWatch: true
+//     }, () => {
+//         done()
+//     }).start()
+// })

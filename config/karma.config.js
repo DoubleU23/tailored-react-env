@@ -43,10 +43,17 @@ export default function(config) {
             require('karma-webpack'),
             require('karma-chai'),
             require('karma-chrome-launcher'),
-            require('karma-mocha')
+            require('karma-firefox-launcher'),
+            require('karma-mocha'),
+            require('karma-mocha-reporter'),
+            require('karma-phantomjs-launcher')
         ],
 
-        reporters: ['progress'],
+        reporters: ['mocha'],
+
+        mochaReporter: {
+            showDiff: true
+        },
 
         port: 9876,
 
@@ -56,7 +63,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome'],
+        browsers: ['Chrome', 'Firefox'],
 
         // customLaunchers: {
         //     IE9: {
