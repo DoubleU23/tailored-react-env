@@ -8,12 +8,24 @@ const {
     globs
 } = appConfig
 
+const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
+
 const preprocessors            = {}
-// preprocessors[globs.testFiles] = 'webpack'
-preprocessors[paths.tests + '/test/**'] = 'webpack'
-// preprocessors[path.join(paths.tests, 'test', 'firstTest.js')] = 'webpack'
+preprocessors[paths.tests + '/**'] = ['webpack'] // use webpack for ALL tests
+
+// preprocessors[paths.tests + '/test/sum.js'] = ['coverage'] // collect coverage only for included tests!?
 
 const webpackConfig = webpackGetConfig()
+// defines which fucking files are covered in the coverage report
+webpackConfig.module.postLoaders = [
+    {
+        // collect coverage data
+        // for all files that aren't tests
+        test: /\.js$/,
+        exclude: /(node_modules|resources\/js\/vendor|\.test\.js$)/,
+        loader: 'istanbul-instrumenter'
+    }
+]
 
 export default function(config) {
     config.set({
@@ -22,13 +34,12 @@ export default function(config) {
         frameworks: ['mocha', 'chai'],
 
         files: [
-            // 'node_modules/babel-polyfill/browser.js',
-            // globs.testFiles
-            path.join(paths.tests, 'test', 'firstTest.js')
+            // path.join(paths.tests, 'test', 'firstTest.test.js')
+            paths.tests + '/test/**/*.test.{js,jsx}'
         ],
 
         exclude: [
-
+            paths.nodeModules
         ],
 
         preprocessors: preprocessors,
@@ -46,10 +57,29 @@ export default function(config) {
             require('karma-firefox-launcher'),
             require('karma-mocha'),
             require('karma-mocha-reporter'),
-            require('karma-phantomjs-launcher')
+            require('karma-phantomjs-launcher'),
+
+            require('karma-coverage')
         ],
 
-        reporters: ['mocha'],
+        reporters: ['mocha', 'coverage'],
+
+        coverageReporter: {
+            dir: '__coverage__',
+            reporters: [
+                {type: 'text-summary'}, // output text-summary to STDOUT
+                {type: 'text-summary', 'file': 'text.txt'}, // output text-summary to __coverage__/{BROWSER}/text.txt
+                {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/
+            ],
+            fixWebpackSourcePaths: true,
+            includeAllSources: true,
+            instrumenterOptions: {
+                istanbul: {
+                    noCompact: true,
+                    debug: true
+                }
+            }
+        },
 
         mochaReporter: {
             showDiff: true
@@ -63,7 +93,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome', 'Firefox'],
+        browsers: ['Chrome'], /* , 'Firefox' */
 
         // customLaunchers: {
         //     IE9: {

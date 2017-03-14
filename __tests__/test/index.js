@@ -1,1 +1,1 @@
-require('./firstTest.js')
+require('./firstTest.test.js')
