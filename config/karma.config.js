@@ -1,3 +1,5 @@
+// https://github.com/deepsweet/istanbul-instrumenter-loader#project-structure
+
 import path         from 'path'
 
 import webpackGetConfig from '../webpack/webpackGetConfig'
@@ -11,11 +13,14 @@ const {
 const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
 
 const preprocessors            = {}
-preprocessors[paths.tests + '/**'] = ['webpack'] // use webpack for ALL tests
+// preprocessors[paths.src + '/components/*.js'] = ['webpack', 'coverage'] // use webpack for ALL tests
+// preprocessors[paths.src + '/*/*.js'] = ['webpack', 'coverage'] // use webpack for ALL tests
 
-// preprocessors[paths.tests + '/test/sum.js'] = ['coverage'] // collect coverage only for included tests!?
+preprocessors[paths.tests + '/test/**/*.test.{js,jsx}'] = ['webpack'] // collect coverage only for included tests!?
 
-const webpackConfig = webpackGetConfig()
+const webpackConfig = webpackGetConfig(false)
+webpackConfig.entry = undefined
+
 // defines which fucking files are covered in the coverage report
 webpackConfig.module.postLoaders = [
     {
@@ -35,11 +40,17 @@ export default function(config) {
 
         files: [
             // path.join(paths.tests, 'test', 'firstTest.test.js')
+            // globs.src,
+            // karmaEntryPoint
+            // paths.src + '/components/*.js',
+            // paths.src + '/*/*.js',
             paths.tests + '/test/**/*.test.{js,jsx}'
         ],
 
         exclude: [
-            paths.nodeModules
+            paths.nodeModules,
+            // paths.src + '/**/*.test.js',
+            paths.src + '/**/__tests__/*.test.js'
         ],
 
         preprocessors: preprocessors,
@@ -47,7 +58,8 @@ export default function(config) {
         webpack: webpackConfig,
 
         webpackMiddleware: {
-            noInfo: true
+            noInfo: true,
+            stats: 'errors-only'
         },
 
         plugins: [
@@ -72,7 +84,7 @@ export default function(config) {
                 {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/
             ],
             fixWebpackSourcePaths: true,
-            includeAllSources: true,
+            includeAllSources: false,
             instrumenterOptions: {
                 istanbul: {
                     noCompact: true,
@@ -93,7 +105,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome'], /* , 'Firefox' */
+        browsers: ['Chrome', 'Firefox'], /* , 'Firefox' */
 
         // customLaunchers: {
         //     IE9: {
