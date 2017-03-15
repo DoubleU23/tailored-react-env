@@ -1,7 +1,8 @@
 'use strict'
 
 import path   from 'path'
-import config from 'config'
+// import config from 'config'
+const config = {get: () => {}}
 
 const rootDir       = path.normalize(path.join(__dirname, '..'))
 const paths         = {

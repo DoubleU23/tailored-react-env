@@ -127,6 +127,7 @@ const webpackGetConfig = _isDevelopment => {
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
+                        APP_CONFIG:     JSON.stringify(appConfig),
                         IS_BROWSER:     true
                     }
                 })

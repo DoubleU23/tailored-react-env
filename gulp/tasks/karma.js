@@ -11,7 +11,7 @@ const {
 gulp.task('karma', ['env', 'clean'], done => {
     return new Server({
         configFile: path.join(paths.configs, 'karma.config.js'),
-        singleRun: true,
+        singleRun: false,
         autoWatch: false
     }, () => {
         done()

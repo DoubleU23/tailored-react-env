@@ -2,6 +2,7 @@
 
 import path         from 'path'
 
+import webpack          from 'webpack'
 import webpackGetConfig from '../webpack/webpackGetConfig'
 import appConfig        from './appConfig'
 
@@ -23,7 +24,6 @@ const instrumenters = {}
 // instrumenters[paths.src + '/**/*.{js,jsx}'] = 'isparta'
 
 const webpackConfig = webpackGetConfig(false)
-webpackConfig.context = paths.ROOT
 webpackConfig.plugins = []
 webpackConfig.entry = null
 
@@ -38,25 +38,34 @@ webpackConfig.module.preLoaders.push(
     }
 )
 
+webpackConfig.plugins.push(
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV:           JSON.stringify(process.env.NODE_ENV),
+            APP_CONFIG:         JSON.stringify(appConfig),
+
+            COVERAGE_PATH:      JSON.stringify(paths.src.replace(paths.ROOT, '..')),
+            // COVERAGE_REGEXP:    /^((?!index).)*(\.js)+$/,
+            COVERAGE_PATTERN:   JSON.stringify('^((?!index).)*(\.js)+$'),
+            IS_BROWSER:         true
+        }
+    })
+)
+
 export default function(config) {
     config.set({
-        basePath: paths.ROOT,
+        // basePath: paths.ROOT,
 
         frameworks: ['mocha', 'chai'],
 
         files: [
-            // path.join(paths.tests, 'test', 'firstTest.test.js')
-            // globs.src,
             karmaEntryPoint
-
-            // paths.src + '/pages/*.{js,jsx}',
-            // paths.tests + '/test/**/*.test.{js,jsx}'
         ],
 
         exclude: [
             paths.nodeModules,
             paths.src + '/**/*.test.js',
-            paths.tests + '/**/!(karma.entry).js',
+            // paths.tests + '/**/!(karma.entry).js',
             paths.src + '/**/util/*.helper.js'
         ],
 
@@ -71,13 +80,15 @@ export default function(config) {
 
         plugins: [
             require('karma-webpack'),
-            require('karma-chai'),
-            require('karma-chrome-launcher'),
-            require('karma-firefox-launcher'),
+            // testing libs
             require('karma-mocha'),
             require('karma-mocha-reporter'),
+            require('karma-chai'),
+            // browser engines
+            require('karma-chrome-launcher'),
+            require('karma-firefox-launcher'),
             require('karma-phantomjs-launcher'),
-            require('karma-sourcemap-loader'),
+            // coverage plugins
             require('karma-coverage')
         ],
 
@@ -92,8 +103,9 @@ export default function(config) {
                 {type: 'text-summary', 'file': 'text.txt'}, // output text-summary to __coverage__/{BROWSER}/text.txt
                 {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/
             ],
-            fixWebpackSourcePaths: true
-            // includeAllSources: false,
+            fixWebpackSourcePaths: true,
+            includeAllSources: false,
+            includeUntested: false
             // instrumenterOptions: {
             //     istanbul: {
             //         noCompact: true,
