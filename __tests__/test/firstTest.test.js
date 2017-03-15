@@ -1,6 +1,11 @@
-let sum = require('./sum.js').default
+// let sum = require('./sum.js').default
 
-let test = require('../../gulp/util/script-filter.js')
+import sum from './sum.js'
+import scriptFilter from '../../gulp/util/script-filter.helper.js'
+
+import testComponent from '../../app/js/components/Footer.js'
+import CurrentUserActions from '../../app/js/actions/CurrentUserActions.js'
+// let test = require('../../gulp/util/script-filter.js')
 
 describe('"firstTest.test.js"', function() {
     it('adds 1 + 2 to equal 3', function() {

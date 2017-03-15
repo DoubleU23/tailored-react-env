@@ -1,29 +1,31 @@
-'use strict'
+'use strict';
 
-import ReactDOM    from 'react-dom'
-import TestUtils   from 'react-addons-test-utils'
+import ReactDOM    from 'react-dom';
+import TestUtils   from 'react-addons-test-utils';
 
-import TestHelpers        from '../testHelpers'
-import HomePage    from '../../app/js/pages/HomePage'
+import TestHelpers from '../../utils/testHelpers';
+import HomePage    from '../../app/js/pages/HomePage';
 
 describe('Page: Home', function() {
-    this.timeout(5000)
 
-    beforeEach(function(done) {
-        this.container = document.createElement('div')
+  this.timeout(5000);
 
-        TestHelpers.testRouteHandler('/', {}, {}, {}, HomePage, this.container, function(component) {
-            this.page = component
-            sandbox.restore()
-            done()
-        })
-    })
+  beforeEach(function(done) {
+    this.container = document.createElement('div');
 
-    it('should render properly', function() {
-        TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'home-page').should.not.throw()
-    })
+    TestHelpers.testRouteHandler('/', {}, {}, {}, HomePage, this.container, (component) => {
+      this.page = component;
+      sandbox.restore();
+      done();
+    });
+  });
 
-    afterEach(function() {
-        if (this.container) { ReactDOM.unmountComponentAtNode(this.container) }
-    })
-})
+  it('should render properly', function() {
+    TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'home-page').should.not.throw();
+  });
+
+  afterEach(function() {
+    if ( this.container ) { ReactDOM.unmountComponentAtNode(this.container); }
+  });
+
+});

@@ -1,50 +1,52 @@
-'use strict'
+'use strict';
 
-import ReactDOM    from 'react-dom'
-import TestUtils   from 'react-addons-test-utils'
+import ReactDOM    from 'react-dom';
+import TestUtils   from 'react-addons-test-utils';
 
-import TestHelpers        from '../testHelpers'
-import SearchPage  from '../../app/js/pages/SearchPage'
+import TestHelpers from '../../utils/testHelpers';
+import SearchPage  from '../../app/js/pages/SearchPage';
 
 describe('Page: Search', function() {
-    this.timeout(5000)
 
-    beforeEach(done => {
-        this.container = document.createElement('div')
+  this.timeout(5000);
 
-        TestHelpers.testRouteHandler('/', {}, {}, {}, SearchPage, this.container, component => {
-            this.page = component
-            sandbox.restore()
-            done()
-        })
-    })
+  beforeEach(function(done) {
+    this.container = document.createElement('div');
 
-    it('should render properly', function() {
-        TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'search-page').should.not.throw()
-    })
+    TestHelpers.testRouteHandler('/', {}, {}, {}, SearchPage, this.container, (component) => {
+      this.page = component;
+      sandbox.restore();
+      done();
+    });
+  });
 
-    it('should update state on input box change', function() {
-        const input = this.page.refs.searchInput
-        const newValue = 'giraffe'
+  it('should render properly', function() {
+    TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'search-page').should.not.throw();
+  });
 
-        input.value = newValue
-        TestUtils.Simulate.change(input)
+  it('should update state on input box change', function() {
+    const input = this.page.refs.searchInput;
+    const newValue = 'giraffe';
 
-        this.page.state.query.should.eql(newValue)
-    })
+    input.value = newValue;
+    TestUtils.Simulate.change(input);
 
-    it('should render the updated state in the related span', function() {
-        const input = this.page.refs.searchInput
-        const span = this.page.refs.queryDisplay
-        const newValue = 'giraffe'
+    this.page.state.query.should.eql(newValue);
+  });
 
-        input.value = newValue
-        TestUtils.Simulate.change(input)
+  it('should render the updated state in the related span', function() {
+    const input = this.page.refs.searchInput;
+    const span = this.page.refs.queryDisplay;
+    const newValue = 'giraffe';
 
-        span.innerHTML.should.eql(newValue)
-    })
+    input.value = newValue;
+    TestUtils.Simulate.change(input);
 
-    afterEach(function() {
-        if (this.container) { ReactDOM.unmountComponentAtNode(this.container) }
-    })
-})
+    span.innerHTML.should.eql(newValue);
+  });
+
+  afterEach(function() {
+    if ( this.container ) { ReactDOM.unmountComponentAtNode(this.container); }
+  });
+
+});

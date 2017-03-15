@@ -1,29 +1,31 @@
-'use strict'
+'use strict';
 
-import ReactDOM     from 'react-dom'
-import TestUtils    from 'react-addons-test-utils'
+import ReactDOM     from 'react-dom';
+import TestUtils    from 'react-addons-test-utils';
 
-import TestHelpers  from '../testHelpers'
-import NotFoundPage from '../../app/js/pages/NotFoundPage'
+import TestHelpers  from '../../utils/testHelpers';
+import NotFoundPage from '../../app/js/pages/NotFoundPage';
 
 describe('Page: Not Found', function() {
-    this.timeout(5000)
 
-    beforeEach(done => {
-        this.container = document.createElement('div')
+  this.timeout(5000);
 
-        TestHelpers.testRouteHandler('/', {}, {}, {}, NotFoundPage, this.container, component => {
-            this.page = component
-            sandbox.restore()
-            done()
-        })
-    })
+  beforeEach(function(done) {
+    this.container = document.createElement('div');
 
-    it('should render properly', () => {
-        TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'not-found-page').should.not.throw()
-    })
+    TestHelpers.testRouteHandler('/', {}, {}, {}, NotFoundPage, this.container, (component) => {
+      this.page = component;
+      sandbox.restore();
+      done();
+    });
+  });
 
-    afterEach(() => {
-        if (this.container) { ReactDOM.unmountComponentAtNode(this.container) }
-    })
-})
+  it('should render properly', function() {
+    TestUtils.findRenderedDOMComponentWithClass.bind(null, this.page, 'not-found-page').should.not.throw();
+  });
+
+  afterEach(function() {
+    if ( this.container ) { ReactDOM.unmountComponentAtNode(this.container); }
+  });
+
+});

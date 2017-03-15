@@ -14,23 +14,29 @@ const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
 
 const preprocessors            = {}
 // preprocessors[paths.src + '/components/*.js'] = ['webpack', 'coverage'] // use webpack for ALL tests
-// preprocessors[paths.src + '/*/*.js'] = ['webpack', 'coverage'] // use webpack for ALL tests
+preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
+// preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack']
+preprocessors[karmaEntryPoint] = ['webpack']
+// preprocessors[paths.tests + '/test/**/*.test.{js,jsx}'] = ['webpack'] // collect coverage only for included tests!?
 
-preprocessors[paths.tests + '/test/**/*.test.{js,jsx}'] = ['webpack'] // collect coverage only for included tests!?
+const instrumenters = {}
+// instrumenters[paths.src + '/**/*.{js,jsx}'] = 'isparta'
 
 const webpackConfig = webpackGetConfig(false)
-webpackConfig.entry = undefined
+webpackConfig.context = paths.ROOT
+webpackConfig.plugins = []
+webpackConfig.entry = null
 
-// defines which fucking files are covered in the coverage report
-webpackConfig.module.postLoaders = [
+webpackConfig.module.preLoaders = []
+webpackConfig.module.preLoaders.push(
     {
         // collect coverage data
         // for all files that aren't tests
         test: /\.js$/,
-        exclude: /(node_modules|resources\/js\/vendor|\.test\.js$)/,
-        loader: 'istanbul-instrumenter'
+        exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
+        loader: 'isparta-instrumenter'
     }
-]
+)
 
 export default function(config) {
     config.set({
@@ -41,16 +47,17 @@ export default function(config) {
         files: [
             // path.join(paths.tests, 'test', 'firstTest.test.js')
             // globs.src,
-            // karmaEntryPoint
-            // paths.src + '/components/*.js',
-            // paths.src + '/*/*.js',
-            paths.tests + '/test/**/*.test.{js,jsx}'
+            karmaEntryPoint
+
+            // paths.src + '/pages/*.{js,jsx}',
+            // paths.tests + '/test/**/*.test.{js,jsx}'
         ],
 
         exclude: [
             paths.nodeModules,
-            // paths.src + '/**/*.test.js',
-            paths.src + '/**/__tests__/*.test.js'
+            paths.src + '/**/*.test.js',
+            paths.tests + '/**/!(karma.entry).js',
+            paths.src + '/**/util/*.helper.js'
         ],
 
         preprocessors: preprocessors,
@@ -70,7 +77,7 @@ export default function(config) {
             require('karma-mocha'),
             require('karma-mocha-reporter'),
             require('karma-phantomjs-launcher'),
-
+            require('karma-sourcemap-loader'),
             require('karma-coverage')
         ],
 
@@ -78,19 +85,21 @@ export default function(config) {
 
         coverageReporter: {
             dir: '__coverage__',
+            // instrumenters: { isparta : require('isparta') },
+            // instrumenter: instrumenters,
             reporters: [
                 {type: 'text-summary'}, // output text-summary to STDOUT
                 {type: 'text-summary', 'file': 'text.txt'}, // output text-summary to __coverage__/{BROWSER}/text.txt
                 {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/
             ],
-            fixWebpackSourcePaths: true,
-            includeAllSources: false,
-            instrumenterOptions: {
-                istanbul: {
-                    noCompact: true,
-                    debug: true
-                }
-            }
+            fixWebpackSourcePaths: true
+            // includeAllSources: false,
+            // instrumenterOptions: {
+            //     istanbul: {
+            //         noCompact: true,
+            //         debug: true
+            //     }
+            // }
         },
 
         mochaReporter: {
@@ -105,7 +114,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome', 'Firefox'], /* , 'Firefox' */
+        browsers: ['Chrome'], /* , 'Firefox' */
 
         // customLaunchers: {
         //     IE9: {

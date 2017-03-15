@@ -64,7 +64,7 @@ const webpackGetConfig = _isDevelopment => {
         hotPort:    ports.HMR,
         cache:      isDevelopment,
         debug:      isDevelopment,
-        devtool:    isDevelopment ? devtools : '',
+        devtool:    'inline-source-map', // isDevelopment ? devtools : '',
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -88,6 +88,7 @@ const webpackGetConfig = _isDevelopment => {
                         development: {
                             presets: ['es2015', 'react'],
                             plugins: [
+                                ['istanbul'],
                                 ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
                                 ['react-transform', {
                                     transforms: [{

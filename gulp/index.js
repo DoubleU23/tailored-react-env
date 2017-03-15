@@ -4,7 +4,7 @@ import gulp        from 'gulp'
 import runSequence from 'run-sequence'
 
 let fs          = require('fs'),
-    onlyScripts = require('./util/script-filter'),
+    onlyScripts = require('./util/script-filter.helper'),
     tasks       = fs.readdirSync('./gulp/tasks/').filter(onlyScripts)
 
 // run config before importing/requiring the other tasks
