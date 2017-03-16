@@ -1,6 +1,6 @@
-// https://github.com/deepsweet/istanbul-instrumenter-loader#project-structure
-
-import path         from 'path'
+// refactor: try to use 'coverage-istanbul'
+// => https://github.com/deepsweet/istanbul-instrumenter-loader#project-structure
+import path             from 'path'
 
 import webpack          from 'webpack'
 import webpackGetConfig from '../webpack/webpackGetConfig'
@@ -11,55 +11,47 @@ const {
     globs
 } = appConfig
 
-const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
-
-const preprocessors            = {}
-// preprocessors[paths.src + '/components/*.js'] = ['webpack', 'coverage'] // use webpack for ALL tests
-preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
-// preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack']
-preprocessors[karmaEntryPoint] = ['webpack']
-// preprocessors[paths.tests + '/test/**/*.test.{js,jsx}'] = ['webpack'] // collect coverage only for included tests!?
-
-const webpackConfig = webpackGetConfig(true)
+// __      _____ ___ ___  _   ___ _  __         ___ ___  _  _ ___ ___ ___
+// \ \    / / __| _ ) _ \/_\ / __| |/ /  ___   / __/ _ \| \| | __|_ _/ __|
+//  \ \/\/ /| _|| _ \  _/ _ \ (__| ' <  |___| | (_| (_) | .` | _| | | (_ |
+//   \_/\_/ |___|___/_|/_/ \_\___|_|\_\        \___\___/|_|\_|_| |___\___|
+//
+// refactor: handle modifications in webpackGetConfig by NODE_ENV 'test'!?
+const webpackConfig = webpackGetConfig(true) // true = _isDevelopment
 // remove all plugins but the first
-// (webpack.DefinePlugin to inject process.env vars)
+// (= webpack.DefinePlugin to inject process.env vars - which may be needed for test-rendering our components)
 webpackConfig.plugins.slice(0, 1)
+// remove entry-point which will be handled by karma.config->files
 webpackConfig.entry = null
-
-webpackConfig.module.preLoaders = []
-webpackConfig.module.preLoaders.push(
-    {
-        // collect coverage data
-        // for all files that aren't tests
-        test: /\.js$/,
-        exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
-        loader: 'isparta-instrumenter'
-    }
-)
-
-const pathCoverage  = paths.src.replace(paths.ROOT, '..')
-const pathTests     = paths.tests.replace(paths.ROOT, '..')
-
+// add webpack preLoader "isparta-instrumenter"
+webpackConfig.module.preLoaders = [{
+    // collects coverage data
+    // for all files that aren't tests
+    test: /\.js$/,
+    exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
+    loader: 'isparta-instrumenter'
+}]
+// SETUP for karma.entry.js' require.context
+// => https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
 webpackConfig.plugins.push(
-    new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV:           JSON.stringify(process.env.NODE_ENV),
-            IS_BROWSER:         true
-        }
-    }),
     new webpack.ContextReplacementPlugin(
-        /CONTEXT_COVERAGE+/,            // resourceRegExp
-        pathCoverage,               // newContentResource
-        true,                       // newContentRecursive
-        /^((?!index).)*(\.js)+$/    // newContentRegExp
+        /CONTEXT_COVERAGE+/, paths.src, true, /^((?!index).)*(\.js)+$/igm
     ),
     new webpack.ContextReplacementPlugin(
-        /CONTEXT_TESTS+/,           // resourceRegExp
-        pathTests,                  // newContentResource
-        true,                       // newContentRecursive
-        /\.test\.js$/igm            // newContentRegExp
+        /CONTEXT_TESTS+/, paths.tests, true, /\.test\.js$/igm
     )
 )
+
+//  _  __   _   ___ __  __   _            ___ ___  _  _ ___ ___ ___
+// | |/ /  /_\ | _ \  \/  | /_\    ___   / __/ _ \| \| | __|_ _/ __|
+// | ' <  / _ \|   / |\/| |/ _ \  |___| | (_| (_) | .` | _| | | (_ |
+// |_|\_\/_/ \_\_|_\_|  |_/_/ \_\        \___\___/|_|\_|_| |___\___|
+//
+const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
+// define preprocessors (use karma-webpack for src files and karmaEntryPoint)
+const preprocessors                         = {}
+preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
+preprocessors[karmaEntryPoint]              = ['webpack']
 
 export default function(config) {
     config.set({
@@ -88,6 +80,7 @@ export default function(config) {
         },
 
         plugins: [
+            // preprocessor
             require('karma-webpack'),
             // testing libs
             require('karma-mocha'),
@@ -103,7 +96,7 @@ export default function(config) {
 
         reporters: ['mocha', 'coverage'],
 
-        coverageReporter: {
+        coverageReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,
             // instrumenters: { isparta : require('isparta') },
             // instrumenter: instrumenters,
@@ -129,7 +122,7 @@ export default function(config) {
 
         port: 9876,
 
-        colors: true,
+        colors: true, // A.C.A.B -> all colors are beautiful
 
         logLevel: config.LOG_INFO,
 
@@ -144,7 +137,7 @@ export default function(config) {
         //     }
         // },
 
-        singleRun: true,
+        // singleRun: true, // handled by gulp-karma in /gulp/tasks/karma.js
 
         concurrency: Infinity
 
