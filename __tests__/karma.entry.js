@@ -16,6 +16,8 @@
  *         chaiEnzyme - extends chai assertions (for rendered components)
  *         chaiAsPromised - enables 'chai.should' to receive and await promise-values
  *
+ *     -) ENZYME - render tools for React Component Testing
+ *
  *     -) CHEERIO - not used yet (we'll may need it later)
  */
 import {mount, render, shallow} from 'enzyme'
