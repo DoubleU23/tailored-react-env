@@ -47,7 +47,7 @@ export const getAppConfig = _isDevelopment => {
         },
 
         configFiles:  {
-            eslint: './.eslintrc'
+            eslint: './.eslintrc.js'
         },
 
         images: {

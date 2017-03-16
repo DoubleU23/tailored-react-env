@@ -15,7 +15,7 @@ gulp.task('lint', ['env'], () => {
     )
 
     return gulp.src(src)
-        .pipe(eslint({appConfig: appConfig.configFiles.eslint}))
+        .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())

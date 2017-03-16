@@ -1,4 +1,4 @@
-{
+module.exports = {
   "root": true,
   "extends": ["standard"],
   "plugins": [
@@ -30,7 +30,7 @@
         "MemberExpression": 1
     }],
     "react/jsx-indent": [2, 4], // no error on lower indent size
-    one-var: ["error", {var: "always", let: "always", const: "never"}],
+    "one-var": ["error", {var: "always", let: "always", const: "never"}],
     //
     // CUSTOM RULES
     //

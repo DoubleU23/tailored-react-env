@@ -6,10 +6,7 @@ import webpack          from 'webpack'
 import webpackGetConfig from '../webpack/webpackGetConfig'
 import appConfig        from './appConfig'
 
-const {
-    paths,
-    globs
-} = appConfig
+const {paths} = appConfig
 
 // __      _____ ___ ___  _   ___ _  __         ___ ___  _  _ ___ ___ ___
 // \ \    / / __| _ ) _ \/_\ / __| |/ /  ___   / __/ _ \| \| | __|_ _/ __|
@@ -39,6 +36,9 @@ webpackConfig.plugins.push(
     ),
     new webpack.ContextReplacementPlugin(
         /CONTEXT_TESTS+/, paths.tests, true, /\.test\.js$/igm
+    ),
+    new webpack.ContextReplacementPlugin(
+        /CONTEXT_SPECS+/, paths.src, true, /\.spec\.js$/igm
     )
 )
 

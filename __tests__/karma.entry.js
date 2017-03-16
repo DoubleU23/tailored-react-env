@@ -1,3 +1,4 @@
+
 //  ___   ___    _  _  ___ _____   _____ ___  _   _  ___ _  _   _
 // |   \ / _ \  | \| |/ _ \_   _| |_   _/ _ \| | | |/ __| || | | |
 // | |) | (_) | | .` | (_) || |     | || (_) | |_| | (__| __ | |_|
@@ -58,6 +59,11 @@ coverageFiles.forEach(coverageContextRequire)
 const testContextRequire        = require.context('CONTEXT_TESTS')
 const testFiles                 = testContextRequire.keys()
 testFiles.forEach(testContextRequire)
+
+// CONTEXT_SPECS
+const specContextRequire        = require.context('CONTEXT_SPECS')
+const specFiles                 = specContextRequire.keys()
+specFiles.forEach(specContextRequire)
 
 // DRY version is broken :(
 // => Error: "require function is used in a way in which dependencies cannot be statically extracted"
