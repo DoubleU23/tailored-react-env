@@ -91,10 +91,12 @@ export default function(config) {
             require('karma-firefox-launcher'),
             require('karma-phantomjs-launcher'),
             // coverage plugins
-            require('karma-coverage')
+            require('karma-coverage'),
+            // reporter(s)
+            require('karma-nyan-reporter')
         ],
 
-        reporters: ['mocha', 'coverage'],
+        reporters: ['nyan', 'coverage'],
 
         coverageReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,

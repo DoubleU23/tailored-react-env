@@ -25,7 +25,7 @@ describe('"firstTest.test.js"', function() {
 
 describe('try to render Footer.js', function() {
     it('should render without error', function() {
-        const wrapper = mount(<Footer testProp={{foo: 'foo'}} />)
+        const wrapper = global.mount(<Footer testProp={{foo: 'foo'}} />)
         console.log('wrapper.props()', wrapper.props())
         expect(wrapper.props()).to.be.a('object')
         console.log('wrapper.html()', wrapper.html())
