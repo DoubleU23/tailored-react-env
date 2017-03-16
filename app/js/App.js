@@ -22,11 +22,12 @@ class App extends React.Component {
     }
 
     renderChildren() {
-        return React.cloneElement(this.props.children, {
-            params:         this.props.params,
-            query:          this.props.query,
-            currentUser:    this.state.currentUser
-        })
+        return <div>renderChildren</div>
+        // return React.cloneElement(this.props.children, {
+        //     params:         this.props.params,
+        //     query:          this.props.query,
+        //     currentUser:    this.state.currentUser
+        // })
     }
 
     render() {
@@ -34,7 +35,7 @@ class App extends React.Component {
             <div style={{height: '5000px'}}>
                 <Header />
 
-                {/* this.renderChildren() */}
+                this.renderChildren()
 
                 <Footer />
 

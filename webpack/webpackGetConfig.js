@@ -85,6 +85,9 @@ const webpackGetConfig = _isDevelopment => {
                   // Uncaught Error: locals[0] does not appear to be a `module` object with Hot Module replacement API enabled.
                   // cacheDirectory: true,
                     env: {
+                        // test: {
+                        //     presets: ['airbnb']
+                        // },
                         development: {
                             presets: ['es2015', 'react'],
                             plugins: [
@@ -122,6 +125,12 @@ const webpackGetConfig = _isDevelopment => {
             filename: '[name]-[hash].js',
             chunkFilename: '[name]-[chunkhash].js'
         },
+        externals: {
+            'cheerio': 'window',
+            'react/addons': true,
+            'react/lib/ExecutionEnvironment': true,
+            'react/lib/ReactContext': true
+        },
         plugins: (() => {
             const plugins = [
                 new webpack.DefinePlugin({
@@ -134,26 +143,26 @@ const webpackGetConfig = _isDevelopment => {
             ]
             if (isDevelopment) {
                 plugins.push(
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-      )
-            }            else {
+                    new webpack.optimize.OccurenceOrderPlugin(),
+                    new webpack.HotModuleReplacementPlugin(),
+                    new webpack.NoErrorsPlugin()
+                )
+            } else {
                 plugins.push(
-        // Render styles into separate cacheable file to prevent FOUC and
-        // optimize for critical rendering path.
-        new ExtractTextPlugin('app-[hash].css', {
-            allChunks: true
-        }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                screw_ie8: true, // eslint-disable-line camelcase
-                warnings: false // Because uglify reports irrelevant warnings.
-            }
-        })
-      )
+                    // Render styles into separate cacheable file to prevent FOUC and
+                    // optimize for critical rendering path.
+                    new ExtractTextPlugin('app-[hash].css', {
+                        allChunks: true
+                    }),
+                    new webpack.optimize.DedupePlugin(),
+                    new webpack.optimize.OccurenceOrderPlugin(),
+                    new webpack.optimize.UglifyJsPlugin({
+                        compress: {
+                            screw_ie8: true, // eslint-disable-line camelcase
+                            warnings: false // Because uglify reports irrelevant warnings.
+                        }
+                    })
+                )
             }
             return plugins
         })(),

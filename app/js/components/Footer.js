@@ -3,12 +3,10 @@ import React from 'react'
 const test = 'test'
 
 class Footer extends React.Component {
-
+    //
     render() {
         return (
-            <footer>
-                {test}
-            </footer>
+            <span className="testClassName">test</span>
         )
     }
 

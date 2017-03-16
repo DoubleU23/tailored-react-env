@@ -20,11 +20,10 @@ preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL
 preprocessors[karmaEntryPoint] = ['webpack']
 // preprocessors[paths.tests + '/test/**/*.test.{js,jsx}'] = ['webpack'] // collect coverage only for included tests!?
 
-const instrumenters = {}
-// instrumenters[paths.src + '/**/*.{js,jsx}'] = 'isparta'
-
-const webpackConfig = webpackGetConfig(false)
-webpackConfig.plugins = []
+const webpackConfig = webpackGetConfig(true)
+// remove all plugins but the first
+// (webpack.DefinePlugin to inject process.env vars)
+webpackConfig.plugins.slice(0, 1)
 webpackConfig.entry = null
 
 webpackConfig.module.preLoaders = []
@@ -38,25 +37,35 @@ webpackConfig.module.preLoaders.push(
     }
 )
 
+const pathCoverage  = paths.src.replace(paths.ROOT, '..')
+const pathTests     = paths.tests.replace(paths.ROOT, '..')
+
 webpackConfig.plugins.push(
     new webpack.DefinePlugin({
         'process.env': {
             NODE_ENV:           JSON.stringify(process.env.NODE_ENV),
-            APP_CONFIG:         JSON.stringify(appConfig),
-
-            COVERAGE_PATH:      JSON.stringify(paths.src.replace(paths.ROOT, '..')),
-            // COVERAGE_REGEXP:    /^((?!index).)*(\.js)+$/,
-            COVERAGE_PATTERN:   JSON.stringify('^((?!index).)*(\.js)+$'),
             IS_BROWSER:         true
         }
-    })
+    }),
+    new webpack.ContextReplacementPlugin(
+        /CONTEXT_COVERAGE+/,            // resourceRegExp
+        pathCoverage,               // newContentResource
+        true,                       // newContentRecursive
+        /^((?!index).)*(\.js)+$/    // newContentRegExp
+    ),
+    new webpack.ContextReplacementPlugin(
+        /CONTEXT_TESTS+/,           // resourceRegExp
+        pathTests,                  // newContentResource
+        true,                       // newContentRecursive
+        /\.test\.js$/igm            // newContentRegExp
+    )
 )
 
 export default function(config) {
     config.set({
         // basePath: paths.ROOT,
 
-        frameworks: ['mocha', 'chai'],
+        frameworks: ['mocha'],
 
         files: [
             karmaEntryPoint
@@ -95,10 +104,10 @@ export default function(config) {
         reporters: ['mocha', 'coverage'],
 
         coverageReporter: {
-            dir: '__coverage__',
+            dir:        paths.coverage,
             // instrumenters: { isparta : require('isparta') },
             // instrumenter: instrumenters,
-            reporters: [
+            reporters:  [
                 {type: 'text-summary'}, // output text-summary to STDOUT
                 {type: 'text-summary', 'file': 'text.txt'}, // output text-summary to __coverage__/{BROWSER}/text.txt
                 {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/

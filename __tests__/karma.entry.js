@@ -1,37 +1,62 @@
-// process.env.NODE_ENV = 'test'
+// DONT CHANGE THIS FILE! BLACK MAGIC HAPPENS! JUST WORKS!
+// ALL CONFIG FOR THIS IS BASED IN "/config/karma.config.js"
 
-// import appConfig from '../config/appConfig'
-// import config from 'config'
+/**
+ * INJECTING TESTING LIBS/FRAMEWORKS
+ *
+ *     (MOCHA gets injected by karma-mocha from karma.config->frameworks)
+ *
+ *     -) CHAI - assertion libary for mocha - with:
+ *         chaiEnzyme - extends chai assertions (for rendered components)
+ *         chaiAsPromised - enables 'chai.should' to receive and await promise-values
+ *
+ *     -) CHEERIO - not used yet (we'll may need it later)
+ */
+import {mount, render, shallow} from 'enzyme'
+// import cheerio from 'cheerio'
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+import chaiEnzyme from 'chai-enzyme'
 
-// // code coverage
-console.log('appConfig = ', process.env.APP_CONFIG) // , JSON.parse(process.env.APP_CONFIG)
-// console.log('ROOT = ', process.env.APP_CONFIG.paths.ROOT)
+chai.use(chaiAsPromised)
+chai.use(chaiEnzyme())
 
-// injected by webpack in karma.config.js
-// const appConfig = JSON.parse(process.env.APP_CONFIG)
-const {
-    paths
-} = process.env.APP_CONFIG
+// expose testing utils and assertion functions to global scope
+global = Object.assign(global,
+    // {cheerio},
+    {mount, render, shallow},                           // enzyme render functions
+    {chai, expect: chai.expect, should: chai.should()}  // chai assertion functions
+)
 
-// cover all files in app/js
-// dynamic require.context url throws errors:
-//  "require function is used in a way in which dependencies cannot be statically extracted"
-// try to use "https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin"
+/**
+ * LOAD FILES
+ *
+ *     1. CONTEXT_COVERAGE
+ *         import all src files to cover them per webpack preLoader "isparta-instrumenter"
+ *
+ *     2. CONTEXT_TESTS
+ *         import all test files and simply execute them (with injected mocha)
+ *
+ * fyi: "require.context" gets new params injected by "webpack.ContextReplacementPlugin" in karma.config.js
+ */
 
-console.log('srcPath = ', process.env.COVERAGE_PATH) // ../app/js
-const regExp = new RegExp(process.env.COVERAGE_PATTERN)
-console.log(regExp)
-const testContext = require.context(process.env.COVERAGE_PATH, true, /^((?!index).)*(\.js)+$/igm)
-// tbd: refactor: try to outsource this into karma.config
-// just pass the keys per process env (stringified array) and require it HERE!
-console.log('testContext', testContext, testContext.keys())
-const outsourced = testContext.keys() // <= should come from process env (stringified array)
-outsourced.forEach(testContext)
+// CONTEXT_COVERAGE
+const coverageContextRequire    = require.context('CONTEXT_COVERAGE')
+const coverageFiles             = coverageContextRequire.keys()
+coverageFiles.forEach(coverageContextRequire)
 
-const testFiles = require.context('./test/', true, /\.test\.js$/igm)
-testFiles.keys().forEach(testFiles)
+// CONTEXT_TESTS
+const testContextRequire        = require.context('CONTEXT_TESTS')
+const testFiles                 = testContextRequire.keys()
+testFiles.forEach(testContextRequire)
 
-// require('./test/firstTest.test.js')
-
-require('./components/Footer.test.js')
-require('./components/Header.test.js')
+// DRY version is broken :(
+// => Error: "require function is used in a way in which dependencies cannot be statically extracted"
+//
+// ;['CONTEXT_COVERAGE', 'CONTEXT_TESTS'].forEach(v => {
+//     const contextRequire    = require.context(v) // throws error :(
+//     const fileList          = contextRequire.keys()
+//     fileList.forEach(contextRequire)
+// })
+//
+// refactor: try to use when upgraded to webpack2
