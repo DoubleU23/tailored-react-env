@@ -1,8 +1,14 @@
-// DONT CHANGE THIS FILE! BLACK MAGIC HAPPENS! JUST WORKS!
+//  ___   ___    _  _  ___ _____   _____ ___  _   _  ___ _  _   _
+// |   \ / _ \  | \| |/ _ \_   _| |_   _/ _ \| | | |/ __| || | | |
+// | |) | (_) | | .` | (_) || |     | || (_) | |_| | (__| __ | |_|
+// |___/ \___/  |_|\_|\___/ |_|     |_| \___/ \___/ \___|_||_| (_)
+//
+// BLACK MAGIC - JUST WORKS!
 // ALL CONFIG FOR THIS IS BASED IN "/config/karma.config.js"
 
 /**
  * INJECTING TESTING LIBS/FRAMEWORKS
+ * expose testing utils and assertion functions to global scope
  *
  *     (MOCHA gets injected by karma-mocha from karma.config->frameworks)
  *
@@ -13,15 +19,15 @@
  *     -) CHEERIO - not used yet (we'll may need it later)
  */
 import {mount, render, shallow} from 'enzyme'
-// import cheerio from 'cheerio'
-import chai from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-import chaiEnzyme from 'chai-enzyme'
+// import cheerio               from 'cheerio'
+import chai                     from 'chai'
+import chaiAsPromised           from 'chai-as-promised'
+import chaiEnzyme               from 'chai-enzyme'
 
 chai.use(chaiAsPromised)
 chai.use(chaiEnzyme())
 
-// expose testing utils and assertion functions to global scope
+// globalize them all!
 global = Object.assign(global,
     // {cheerio},
     {mount, render, shallow},                           // enzyme render functions
@@ -30,6 +36,7 @@ global = Object.assign(global,
 
 /**
  * LOAD FILES
+ *     according to https://github.com/webpack-contrib/istanbul-instrumenter-loader#testindexjs
  *
  *     1. CONTEXT_COVERAGE
  *         import all src files to cover them per webpack preLoader "isparta-instrumenter"
