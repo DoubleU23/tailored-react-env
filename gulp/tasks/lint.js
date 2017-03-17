@@ -5,20 +5,27 @@ import gulpNotify from 'gulp-notify'
 
 import appConfig  from '../../config/appConfig.js'
 
-gulp.task('lint', ['env'], () => {
-    const {globs}   = appConfig
+const {paths, globs}   = appConfig
+// src preset with ignorepatterns
+const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
-    const src       = [`!${globs.testFiles}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
-    src.push(
-        // also lint env scripts in devMode
-        appConfig.isDevelopment ? globs.scripts : globs.src
-    )
-
-    return gulp.src(src)
+const lintTask = src =>
+    gulp.src(src)
         .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())
+
+gulp.task('lint', () => {
+    src.push(
+        // also lint env scripts in devMode
+        appConfig.isDevelopment ? globs.src : globs.scripts
+    )
+    return lintTask(src)
 })
 
-// use gulp-subtasks !?
+// lint ALL code - also the environment (like server, webpack, configs, ...)
+gulp.task('lint:all', () => lintTask(src.concat(globs.src)))
+
+// just lints the apps js
+gulp.task('lint:app', () => lintTask(src.concat(globs.scripts)))
