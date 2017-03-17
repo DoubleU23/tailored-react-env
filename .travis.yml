@@ -5,9 +5,15 @@ node_js: '5.7'
 branches:
   only:
   - master
+
+env:
+ - NODE_ENV=development
 # build script
+install::
+    - yarn
+    - npm install -g node-gyp
+    - npm install -g gulp
+
 script:
-- yarn install
-- npm install -g gulp
-- gulp lint
-- gulp karma
+    - gulp lint
+    - gulp karma
