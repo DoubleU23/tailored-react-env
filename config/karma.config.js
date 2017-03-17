@@ -55,6 +55,10 @@ const preprocessors                         = {}
 preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
 preprocessors[karmaEntryPoint]              = ['webpack']
 
+const browserEngines = process.env.NODE_ENV === 'test'
+    ? ['PhantomJS2'] // , 'PhantomJS2_custom'
+    : ['Chrome', 'Firefox']
+
 export default function(config) {
     config.set({
         // basePath: paths.ROOT,
@@ -62,6 +66,7 @@ export default function(config) {
         frameworks: ['mocha'],
 
         files: [
+            paths.nodeModules + '/babel-polyfill/dist/polyfill.js',
             karmaEntryPoint
         ],
 
@@ -91,7 +96,7 @@ export default function(config) {
             // browser engines
             require('karma-chrome-launcher'),
             require('karma-firefox-launcher'),
-            require('karma-phantomjs-launcher'),
+            require('karma-phantomjs2-launcher'),
             // coverage plugins
             require('karma-coverage'),
             require('karma-sourcemap-loader'),
@@ -133,8 +138,20 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome', 'Firefox'], /* , 'Firefox' */
-
+        browsers: browserEngines, /* , 'Firefox' */
+        // customLaunchers: {
+        //     'PhantomJS2_custom': {
+        //         base: 'PhantomJS2',
+        //         options: {
+        //             windowName: 'my-window',
+        //             settings: {
+        //                 webSecurityEnabled: false
+        //             }
+        //         },
+        //         flags: ['--load-images=true'],
+        //         debug: true
+        //     }
+        // },
         // customLaunchers: {
         //     IE9: {
         //         base: 'IE',

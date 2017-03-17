@@ -48,6 +48,8 @@ bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structu
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
     * [x] synchronous production build
+* [x] travis integration
+  * [ ] integrate NODE_ENV "test"
 * [x] browserSync
   * [x] start browserSync proxy after webpack has built
 * [ ] store implementation (mobx?)
