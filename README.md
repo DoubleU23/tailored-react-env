@@ -1,34 +1,3 @@
-# roadmap/todos
-* [x] [config hierarchy](#config-hierarchy)  
-  * [x] extended use of config module  
-  * [ ] move webpack/constants.js into appConfig
-* [x] webpack
-    * [x] make hotserverBuild synchronous (use gulp-nodemon)  
-      * [ ] wait until nodemon script is finished (.on('start') is too early)  
-      see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
-* [x] make production build synchronous
-* [x] browserSync
-  * [x] start browserSync after webpack has built
-* [ ] store implementation (mobx?)
-* [x] server rendering  
-  * [ ] server-side async prefetching
-  * [ ] store injection/binding
-  * [ ] dynamic template
-* [ ] sublime enhancements
-    * [x] ESLint-Formatter
-    * [x] setup/enhance align plugin and run it on pre_save on the whole file
-      [ ] fix colon alignments
-* [ ] eslint
-  * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
-* [ ] tests
-  * [ ] setup/fix test-environment + task(s)
-    use jest/enzyme/karma/istanbul
-  * [ ] write first tests
-  * [ ] run enzyme tests in karma?
-  * [ ] use browserstack API for karma tests
-* [ ] styles
-  do we need a gulp task or just webpack plugins!?
-
 # gulp tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
@@ -38,7 +7,7 @@ task `lint`: runs eslint with babel-eslint and some extended rules based on the 
   * [x] start dev-server with HMR
   * [x] production build
      * [ ] starting production server
-* [ ] `gulp test`
+* [x] `gulp karma`
 * [ ] `gulp imagemin`
 
 # config
@@ -70,6 +39,39 @@ just add the following setting to your user-setting file:
 bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structure
 (no problem if you use `{varname}`)
 
+# roadmap/todos
+* [x] [config hierarchy](#config-hierarchy)  
+  * [x] extended use of config module  
+  * [ ] move webpack/constants.js into appConfig
+* [x] webpack
+    * [x] make hotserverBuild synchronous (use gulp-nodemon)  
+      * [ ] wait until nodemon script is finished (.on('start') is too early)  
+      see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
+    * [x] synchronous production build
+* [x] browserSync
+  * [x] start browserSync proxy after webpack has built
+* [ ] store implementation (mobx?)
+* [x] server rendering  
+  * [ ] server-side async prefetching
+  * [ ] store injection/binding
+  * [ ] dynamic template
+* [ ] sublime enhancements
+    * [x] ESLint-Formatter
+    * [x] setup/enhance align plugin and run it on pre_save on the whole file
+      [ ] fix colon alignments
+* [ ] eslint
+  * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
+  * [ ] extend globals for *.spec.js and *.test.js files  
+  => https://github.com/eslint/eslint/issues/3611
+* [ ] tests
+  * [ ] setup test-environment
+    karma-webpack with mocha, chai and enzyme
+    * [ ] learn enzyme/chai-entyme expect syntax
+    * [x] write first tests
+    * [ ] use browserstack API for karma tests
+* [ ] styles
+  do we need a gulp task or just webpack plugins!?
+
 # issues
 __HMR/Router Bug__
 
@@ -90,3 +92,7 @@ __ESLINT - indent__
 __ESLINT - func-style__
 > enforcing by ESLint-Formatter is broken in __test__ dir...  
 maybe it's intended like this to reserve the context?
+
+__ESLINT - extending eslintrc for filepattern__
+extend globals (it, describe, ...) for *.spec.js and *.test.js files  
+  => https://github.com/eslint/eslint/issues/3611
