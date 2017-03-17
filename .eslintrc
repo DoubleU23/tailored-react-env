@@ -1,4 +1,4 @@
-module.exports = {
+{
   "root": true,
   "extends": ["standard"],
   "plugins": [
@@ -25,7 +25,7 @@ module.exports = {
   },
   "rules": {
     indent: ["error", 4, {
-        "outerIIFEBody": 4,
+        "outerIIFEBody":    4,
         // "VariableDeclarator": { "var": 1, "let": 1, "const": 2 },
         "MemberExpression": 1
     }],
