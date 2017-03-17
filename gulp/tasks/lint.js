@@ -20,3 +20,5 @@ gulp.task('lint', ['env'], () => {
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())
 })
+
+// use gulp-subtasks !?

@@ -55,9 +55,18 @@ const preprocessors                         = {}
 preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
 preprocessors[karmaEntryPoint]              = ['webpack']
 
-const browserEngines = process.env.NODE_ENV === 'test'
+// additional modification for NODE_ENV test (travisCI)
+const isTestEnv = process.env.NODE_ENV === 'test'
+
+const browserEngines = isTestEnv
     ? ['PhantomJS2'] // , 'PhantomJS2_custom'
     : ['Chrome', 'Firefox']
+
+const entryFiles = isTestEnv
+    // PhantomJS needs babel-polyfill (Object.assign)
+    ? [paths.nodeModules + '/babel-polyfill/dist/polyfill.js']
+    // babel-polyfill breaks test in the other browsers
+    : []
 
 export default function(config) {
     config.set({
@@ -65,10 +74,7 @@ export default function(config) {
 
         frameworks: ['mocha'],
 
-        files: [
-            paths.nodeModules + '/babel-polyfill/dist/polyfill.js',
-            karmaEntryPoint
-        ],
+        files: [...entryFiles, karmaEntryPoint],
 
         exclude: [
             paths.nodeModules,
@@ -104,7 +110,9 @@ export default function(config) {
             require('karma-nyan-reporter')
         ],
 
-        reporters: ['nyan', 'coverage'],
+        reporters: !isTestEnv
+            ? ['nyan', 'coverage']
+            : ['mocha'],
 
         coverageReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,
