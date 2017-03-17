@@ -1,12 +1,12 @@
 # env settings
 language: node_js
-node_js: '6'
+node_js: '5.7'
 # travis script adaptions
 branches:
   only:
   - master
 # build script
 script:
-- yarn install
+- npm install
 - gulp lint
 - gulp karma
