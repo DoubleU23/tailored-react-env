@@ -91,7 +91,6 @@ const webpackGetConfig = _isDevelopment => {
                         development: {
                             presets: ['es2015', 'react'],
                             plugins: [
-                                ['istanbul'],
                                 ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
                                 ['react-transform', {
                                     transforms: [{

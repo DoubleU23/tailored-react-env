@@ -9,6 +9,6 @@ branches:
 script:
 - rm node_modules/* -rf
 - npm cache clean
-- npm install
+- yarn install
 - gulp lint
 - gulp karma

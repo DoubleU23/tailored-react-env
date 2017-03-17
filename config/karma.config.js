@@ -48,6 +48,8 @@ webpackConfig.plugins.push(
 // |_|\_\/_/ \_\_|_\_|  |_/_/ \_\        \___\___/|_|\_|_| |___\___|
 //
 const karmaEntryPoint = path.join(paths.tests, 'karma.entry.js')
+const instrumenters = {}
+instrumenters[karmaEntryPoint] = 'isparta'
 // define preprocessors (use karma-webpack for src files and karmaEntryPoint)
 const preprocessors                         = {}
 preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
@@ -92,6 +94,7 @@ export default function(config) {
             require('karma-phantomjs-launcher'),
             // coverage plugins
             require('karma-coverage'),
+            require('karma-sourcemap-loader'),
             // reporter(s)
             require('karma-nyan-reporter')
         ],
@@ -130,7 +133,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: ['Chrome'], /* , 'Firefox' */
+        browsers: ['Chrome', 'Firefox'], /* , 'Firefox' */
 
         // customLaunchers: {
         //     IE9: {
