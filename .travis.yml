@@ -17,13 +17,12 @@ addons:
       - g++-4.8
 
 before_install:
-  - npm install -g node-gyp
+  # - npm install -g node-gyp
   - npm install -g gulp
 
-# build script
-install::
-    # because yarn fucks up the postinstall builds of packages
-  - npm install
+# force travis to use npm
+# because yarn fucks up the postinstall builds of packages
+install:: npm install
 
 script:
     - NODE_ENV=development gulp lint
