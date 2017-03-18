@@ -22,6 +22,7 @@ before_install:
 
 # build script
 install::
+    # because yarn fucks up the postinstall builds of packages
     - npm install
 
 script:
