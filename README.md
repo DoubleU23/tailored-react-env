@@ -1,7 +1,6 @@
 # Tailored React Environment
 ![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")  
 
-
 ## Gulp Tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
@@ -22,7 +21,7 @@ task `lint`: runs eslint with babel-eslint and some extended rules based on the 
 all config-vars are loaded from appConfig.js which loads defaults per config-module (based on NODE_ENV)
 
 ### Config-Hierarchy
-
+git
 1. command-line injected env vars
   * highest priority to enable custom start/build scripts and CI builds
     f.e. `APP_ENV=development gulp`  
