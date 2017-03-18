@@ -1,4 +1,8 @@
-# gulp tasks
+# Tailored React Environment
+![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")  
+
+
+## Gulp Tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
 * [x] `gulp clean` - cleans `/build` and `/__coverage__`
@@ -13,11 +17,11 @@ task `lint`: runs eslint with babel-eslint and some extended rules based on the 
 * [x] `gulp karma`
 * [ ] `gulp imagemin`
 
-# config
+## Config
 
 all config-vars are loaded from appConfig.js which loads defaults per config-module (based on NODE_ENV)
 
-### config-hierarchy
+### Config-Hierarchy
 
 1. command-line injected env vars
   * highest priority to enable custom start/build scripts and CI builds
@@ -42,7 +46,7 @@ just add the following setting to your user-setting file:
 bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structure
 (no problem if you use `{varname}`)
 
-# roadmap/todos
+## roadmap/todos
 * [x] [config hierarchy](#config-hierarchy)  
   * [x] extended use of config module  
   * [ ] move webpack/constants.js into appConfig
@@ -51,8 +55,9 @@ bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structu
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/gulp-webpack-react-env/blob/master/gulp/tasks/webpack.js#L37
     * [x] synchronous production build
-* [x] travis integration
-  * [ ] integrate NODE_ENV "test"
+* [ ] travis integration
+  * [x] integrate travis test script for master pushes
+  * [ ] integrate NODE_ENV "test" or "CI"
 * [x] browserSync
   * [x] start browserSync proxy after webpack has built
 * [ ] store implementation (mobx?)
@@ -77,7 +82,14 @@ bug: has problems with react/jsx-indent for "hardcoded" plaintext in JSX structu
 * [ ] styles
   do we need a gulp task or just webpack plugins!?
 
-# issues
+## Issues
+
+## Packages
+**deprecated phantomjs@2.1.7:** Package renamed to phantomjs-prebuilt. Please update 'phantomjs' package references to 'phantomjs-prebuilt'
+**phantomjs2-ext@0.2.2:** Please use latest version of phantomjs
+
+### App
+
 __HMR/Router Bug__
 
 > HMR has a known issue with updating the Router which blocks the reloading:  
@@ -88,6 +100,8 @@ see f.e. https://github.com/ReactTraining/react-router/issues/2704
 until this is (officially) fixxed, here is the workaround:
 after starting the dev-server you have to save the /app/index.js file ONCE
 after that you can happily save childcomponents with a running HMR
+
+### Env
 
 __ESLINT - indent__
 > [MemberExpression](http://eslint.org/docs/rules/indent#memberexpression) rule is ignored on assignments
