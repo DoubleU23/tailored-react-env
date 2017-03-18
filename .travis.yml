@@ -27,12 +27,12 @@ before_install:
   # force travis to use npm :(
   # official solution (install: npm install) doesnt work
   # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Travis-CI-supports-yarn
-  - rm yarn.lock
+  # - rm yarn.lock
   - npm install -g gulp
 
 # force travis to use npm
 # because yarn fucks up the postinstall builds of packages
-install:: npm install
+install: npm install
 
 script:
     - NODE_ENV=development gulp lint
