@@ -1,11 +1,10 @@
-# env settings
 language: node_js
+
 node_js: '5.7'
-# travis script adaptions
+
 branches:
   only:
     - master
-
 env:
   - CXX=g++-4.8
 
@@ -23,15 +22,11 @@ cache:
         - $HOME/.npm
 
 before_install:
-  # - npm install -g node-gyp
-  # force travis to use npm :(
-  # official solution (install: npm install) doesnt work
-  # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Travis-CI-supports-yarn
-  # - rm yarn.lock
   - npm install -g gulp
 
 # force travis to use npm
 # because yarn fucks up the postinstall builds of packages
+# resulting in error: 'could not locate bindings'
 install: npm install
 
 script:
