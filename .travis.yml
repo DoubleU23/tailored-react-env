@@ -4,25 +4,27 @@ node_js: '5.7'
 # travis script adaptions
 branches:
   only:
-  - master
+    - master
 
 env:
- - NODE_ENV=development
- - CXX=g++-4.8
+  - NODE_ENV=development
+  - CXX=g++-4.8
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
+# addons:
+#   apt:
+#     sources:
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - g++-4.8
+
+# before_install:
+  # - npm install -g node-gyp
 
 # build script
 install::
-    - yarn
-    - npm install -g node-gyp
+    - npm install
     - npm install -g gulp
 
 script:
     - gulp lint
-    - gulp karma
+    #- gulp karma
