@@ -6,7 +6,7 @@ import gulpNotify from 'gulp-notify'
 import appConfig  from '../../config/appConfig.js'
 
 const {paths, globs}   = appConfig
-// src preset with ignorepatterns
+
 const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
 const lintTask = src =>
@@ -16,7 +16,8 @@ const lintTask = src =>
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())
 
-gulp.task('lint', () => {
+// lints your code based on isDevelopment
+gulp.task('lint', function() {
     src.push(
         // also lint env scripts in devMode
         appConfig.isDevelopment ? globs.src : globs.scripts
@@ -24,8 +25,8 @@ gulp.task('lint', () => {
     return lintTask(src)
 })
 
-// lint ALL code - also the environment (like server, webpack, configs, ...)
-gulp.task('lint:all', () => lintTask(src.concat(globs.src)))
-
-// just lints the apps js
+// just lints the apps src
 gulp.task('lint:app', () => lintTask(src.concat(globs.scripts)))
+
+// also lints the env code
+gulp.task('lint:all', () => lintTask(src.concat(globs.src)))

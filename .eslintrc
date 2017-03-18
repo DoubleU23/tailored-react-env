@@ -21,7 +21,8 @@
     "global": true,
     "require": false,
     "process": false,
-    "__dirname": false
+    "__dirname": false,
+    "__filename": false
   },
   "rules": {
     indent: ["error", 4, {
@@ -42,7 +43,7 @@
     }],
     "arrow-parens": [2, "as-needed"],
     "func-style": ["error", "expression"],
-    "prefer-arrow-callback": [1, { "allowUnboundThis": false }],
+    // "prefer-arrow-callback": [1, { "allowUnboundThis": false }],
     "no-multi-spaces": [0, { "exceptions": { "ImportDeclaration": true, "Property": true, "VariableDeclarator": true } }],
     // eslint has problems with async/await and lints the compiles generator
     "generator-star-spacing": [0, {"before": false, "after": false}],

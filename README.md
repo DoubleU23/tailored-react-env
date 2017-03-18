@@ -2,7 +2,10 @@
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
 * [x] `gulp clean` - cleans `/build` and `/__coverage__`
-* [x] `gulp lint`
+* `gulp lint`
+    `gulp lint:app` - lints app code only
+    `gulp lint:all` - also lints env code
+    `gulp lint` - lints based on env (isDevelopment)
 * [ ] webpack
   * [x] start dev-server with HMR
   * [x] production build

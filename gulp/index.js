@@ -1,7 +1,8 @@
 'use strict'
 
-import gulp        from 'gulp'
-import runSequence from 'run-sequence'
+import gulp            from 'gulp'
+import gulpTaskListing from 'gulp-task-list'
+import runSequence     from 'run-sequence'
 
 let fs          = require('fs'),
     onlyScripts = require('./util/script-filter.helper'),
@@ -16,4 +17,8 @@ tasks.forEach(task => {
     require('./tasks/' + task)
 })
 
-gulp.task('default', cb => runSequence('env', 'webpack', 'browserSync', cb))
+require('gulp-task-list')(gulp, null, [__filename, ...tasks.map(filename => 'gulp/tasks/' + filename)])
+
+gulp.task('default', cb => runSequence('task-list'))
+
+// gulp.task('default', cb => runSequence('env', 'webpack', 'browserSync', cb))
