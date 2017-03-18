@@ -16,13 +16,13 @@ addons:
     packages:
       - g++-4.8
 
-# before_install:
-  # - npm install -g node-gyp
+before_install:
+  - npm install -g node-gyp
+  - npm install -g gulp
 
 # build script
 install::
     - npm install
-    - npm install -g gulp
 
 script:
     - NODE_ENV=development gulp lint
