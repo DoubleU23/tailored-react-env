@@ -2,4 +2,3 @@ node_modules
 *.sublime-*
 build/*
 __coverage__/*
-yarn.lock
