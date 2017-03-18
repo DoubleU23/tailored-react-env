@@ -16,13 +16,16 @@ export default class Html extends Component {
             appCssFilename, bodyHtml, googleAnalyticsId, isProduction, helmet
         } = this.props
 
+        /* eslint-disable */
+        // because of strange JSX formatation
+
         // Only for production. For dev, it's handled by webpack with livereload.
-        const linkStyles = isProduction && (
+        const linkStyles = isProduction &&
             <link
+                href={`/_assets/${appCssFilename}`}
                 rel="stylesheet"
-                href={'/_assets/' + appCssFilename}
             />
-        )
+
 
         const analytics = isProduction && googleAnalyticsId !== 'UA-XXXXXXX-X' &&
         <script
@@ -33,6 +36,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', '${googleAnalyticsId}', 'auto'); ga('send', 'pageview');`}}
         />
+        /* eslint-enable */
 
         return (
             <html lang="en">
