@@ -48,7 +48,7 @@
     // eslint has problems with async/await and lints the compiles generator
     "generator-star-spacing": [0, {"before": false, "after": false}],
     "key-spacing": 0,
-    "no-unused-vars": 1, // because 'await' is only for assignments
+    "no-unused-vars": 2, // because 'await' is only for assignments
     "operator-linebreak": 0, // JSX "if"s with && and ||
     //
     // eslint-plugin-import
