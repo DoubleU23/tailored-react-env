@@ -30,5 +30,5 @@ before_install:
 install: npm install
 
 script:
-    - NODE_ENV=development gulp lint || exit 1
+    - NODE_ENV=development gulp lint
     #- gulp karma
