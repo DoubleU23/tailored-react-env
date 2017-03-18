@@ -17,11 +17,12 @@ export default class Html extends Component {
         } = this.props
 
         // Only for production. For dev, it's handled by webpack with livereload.
-        const linkStyles = isProduction &&
+        const linkStyles = isProduction && (
             <link
-                href={`/_assets/${appCssFilename}`}
                 rel="stylesheet"
+                href={'/_assets/' + appCssFilename}
             />
+        )
 
         const analytics = isProduction && googleAnalyticsId !== 'UA-XXXXXXX-X' &&
         <script
