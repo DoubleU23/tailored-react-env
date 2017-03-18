@@ -18,11 +18,16 @@ addons:
 
 cache:
     apt: true
+    npm: false
     directories:
         - $HOME/.npm
 
 before_install:
   # - npm install -g node-gyp
+  # force travis to use npm :(
+  # official solution (install: npm install) doesnt work
+  # https://docs.travis-ci.com/user/languages/javascript-with-nodejs/#Travis-CI-supports-yarn
+  - rm yarn.lock
   - npm install -g gulp
 
 # force travis to use npm
