@@ -16,6 +16,11 @@ addons:
     packages:
       - g++-4.8
 
+cache:
+    apt: true
+    directories:
+        - $HOME/.npm
+
 before_install:
   # - npm install -g node-gyp
   - npm install -g gulp
