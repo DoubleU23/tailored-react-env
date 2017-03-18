@@ -11,10 +11,13 @@ const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModule
 
 const lintTask = src =>
     gulp.src(src)
+        .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
-        .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint.failAfterError())
+        .on('error', () =>
+            process.exit(1)
+        )
 
 // lints your code based on isDevelopment
 gulp.task('lint', function() {
