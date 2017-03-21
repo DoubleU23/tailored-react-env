@@ -1,5 +1,6 @@
 # Tailored React Environment
-![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")  
+[![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")](https://travis-ci.org/DoubleU23/tailored-react-env)
+
 
 ## Gulp Tasks
 task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
