@@ -26,7 +26,6 @@ export default class Html extends Component {
                 rel="stylesheet"
             />
 
-
         const analytics = isProduction && googleAnalyticsId !== 'UA-XXXXXXX-X' &&
         <script
                 dangerouslySetInnerHTML={{__html: `
