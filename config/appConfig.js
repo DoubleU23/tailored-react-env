@@ -3,7 +3,7 @@
 import path   from 'path'
 // import config from 'config'
 
-const config = {get: () => {}}
+// const config = {get: () => {}}
 
 console.log(process.env.APP_CONFIG)
 // console.log(JSON.parse(process.env.APP_CONFIG))
@@ -20,7 +20,9 @@ const paths         = {
 }
 
 export const getAppConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || config.get('isDevelopment')
+    const isDevelopment = _isDevelopment || process.env.NODE_ENV === 'development' // || config.get('isDevelopment')
+
+    console.log('getAppConfig->isDevelopment', isDevelopment)
 
     return {
         isDevelopment,

@@ -6,16 +6,16 @@ import React              from 'react'
 import Header             from './components/Header'
 import Footer             from './components/Footer'
 
-const propTypes = {
-    params:     React.PropTypes.object,
-    query:      React.PropTypes.object,
-    children:   React.PropTypes.oneOfType([
-        React.PropTypes.array,
-        React.PropTypes.object
-    ])
-}
-
 class App extends React.Component {
+
+    static propTypes = {
+        params:     React.PropTypes.object,
+        query:      React.PropTypes.object,
+        children:   React.PropTypes.oneOfType([
+            React.PropTypes.array,
+            React.PropTypes.object
+        ])
+    }
 
     componentWillMount() {
         console.log('About to mount App')
@@ -25,25 +25,22 @@ class App extends React.Component {
         return <div>renderChildren</div>
         // return React.cloneElement(this.props.children, {
         //     params:         this.props.params,
-        //     query:          this.props.query,
-        //     currentUser:    this.state.currentUser
+        //     query:          this.props.query
+        //     // currentUser:    this.state.currentUser
         // })
     }
 
     render() {
+        this.renderChildren.bind(this)
         return (
             <div style={{height: '5000px'}}>
                 <Header />
-
-                this.renderChildren()
-
+                {this.renderChildren()}
                 <Footer />
-
             </div>
         )
     }
 
 }
-App.propTypes = propTypes
 
 export default App

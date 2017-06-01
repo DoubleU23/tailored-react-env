@@ -14,7 +14,7 @@ const {
 } = appConfig
 
 gulp.task('webpack', finishTaskFn => {
-    if (config.get('isDevelopment')) {
+    if (process.env.NODE_ENV === 'development') {
     // const hotServerBuildEntrypoint = path.normalize(path.join(appConfig.rootDir, 'webpack', 'hotserverBuild'))
 
         // start express server

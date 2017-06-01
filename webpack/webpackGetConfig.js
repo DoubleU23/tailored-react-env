@@ -91,7 +91,7 @@ const webpackGetConfig = _isDevelopment => {
                         //     presets: ['airbnb']
                         // },
                         development: {
-                            presets: ['es2015', 'react'],
+                            presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
                             plugins: [
                                 ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-regenerator'], ['transform-decorators'],
                                 ['react-transform', {
