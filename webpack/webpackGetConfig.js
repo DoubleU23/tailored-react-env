@@ -21,6 +21,8 @@ const {
     paths
 } = appConfig
 
+console.log('ports: ', ports)
+
 const devtools = process.env.CONTINUOUS_INTEGRATION
   ? 'inline-source-map'
   // cheap-module-eval-source-map, because we want original source, but we don't

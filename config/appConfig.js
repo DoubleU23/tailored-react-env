@@ -2,7 +2,11 @@
 
 import path   from 'path'
 // import config from 'config'
+
 const config = {get: () => {}}
+
+console.log(process.env.APP_CONFIG)
+// console.log(JSON.parse(process.env.APP_CONFIG))
 
 const rootDir       = path.normalize(path.join(__dirname, '..'))
 const paths         = {
@@ -32,13 +36,13 @@ export const getAppConfig = _isDevelopment => {
         },
 
         ports:  {
-            frontend:       config.get('portFE'),
-            HMR:            config.get('portHMR')
+            frontend:       8000, // config.get('portFE'),
+            HMR:            8080  // config.get('portHMR')
         },
 
         browserSync: {
-            portProxy:      config.get('portBSProxy'),
-            portUI:         config.get('portBSUI')
+            portProxy:      8001, // config.get('portBSProxy'),
+            portUI:         3000  // config.get('portBSUI')
         },
 
         scripts: {

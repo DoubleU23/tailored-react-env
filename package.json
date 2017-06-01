@@ -115,6 +115,7 @@
     "nib": "^1.1.0",
     "opn": "^4.0.0",
     "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14",
     "react": "^0.14.x",
     "react-addons-test-utils": "^0.14.8",
     "react-document-title": "^2.0.1",

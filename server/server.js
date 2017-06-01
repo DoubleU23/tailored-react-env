@@ -14,6 +14,6 @@ app.use(frontend)
 
 const {ports} = appConfig
 
-app.listen(ports.frontend, () => {
+app.listen(8000/* ports.frontend */, () => {
     console.log('Server started at port %d', ports.frontend)
 })

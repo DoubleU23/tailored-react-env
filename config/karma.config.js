@@ -64,9 +64,17 @@ const browserEngines = isTestEnv
 
 const entryFiles = isTestEnv
     // PhantomJS needs babel-polyfill (Object.assign)
-    ? [paths.nodeModules + '/babel-polyfill/dist/polyfill.js']
+    ? [{
+        pattern: paths.nodeModules + '/babel-polyfill/dist/polyfill.js',
+        // Should the files be included in the browser using <script> tag?
+        included: true
+    }]
     // babel-polyfill breaks test in the other browsers
     : []
+
+// if (isTestEnv) {
+//     process.env.PHANTOMJS_BIN = 'node_modules/phantomjs-prebuilt/bin/phantomjs'
+// }
 
 export default function(config) {
     config.set({
