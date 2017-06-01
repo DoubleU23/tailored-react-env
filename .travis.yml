@@ -1,6 +1,6 @@
 language: node_js
 
-node_js: '5.7'
+node_js: '6.9.0'
 
 branches:
   only:
@@ -18,9 +18,9 @@ addons:
 
 cache:
     apt: true
-    npm: false
-    directories:
-        - $HOME/.npm
+    # npm: false
+    # directories:
+    #     - $HOME/.npm
 
 before_install:
     - npm install -g gulp
