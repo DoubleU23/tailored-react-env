@@ -120,7 +120,7 @@ export default function(config) {
 
         reporters: !isTestEnv
             ? ['nyan', 'coverage']
-            : ['mocha'],
+            : ['mocha', 'coverage'],
 
         coverageReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,
