@@ -1,8 +1,8 @@
-import path     from 'path'
-import gulp     from 'gulp'
-import {Server} from 'karma'
+import path      from 'path'
+import gulp      from 'gulp'
+import {Server}  from 'karma'
 
-import appConfig    from '../../config/appConfig'
+import appConfig from '../../config/appConfig'
 
 const {
     paths
@@ -17,13 +17,3 @@ gulp.task('karma', ['env', 'clean'], done => {
         done()
     }).start()
 })
-
-// gulp.task('karma:watch', done => {
-//     return new Server({
-//         configFile: path.join(paths.configs, 'karma.config.js'),
-//         singleRun: false,
-//         autoWatch: true
-//     }, () => {
-//         done()
-//     }).start()
-// })
