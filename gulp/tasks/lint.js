@@ -1,3 +1,5 @@
+import colors     from 'colors'
+
 import gulp       from 'gulp'
 import eslint     from 'gulp-eslint'
 import plumber    from 'gulp-plumber'
@@ -9,20 +11,31 @@ const {paths, globs}   = appConfig
 
 const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
-const lintTask = src => {
-    console.log('ESLINT configFile: ' + appConfig.configFiles.eslint)
-    console.log('ESLint src definition:')
-    console.dir(src)
+const lintTask = (src, done) => {
+    let esLintOutputPrefix
+    if (process.env.DEBUG) {
+        // TBD: enhance debug output...
+        // find pattern, define debug style, etc, ...
+        esLintOutputPrefix = '[ESLint] '.green.bold
+
+        console.log(esLintOutputPrefix + ('configFile: '.bold + appConfig.configFiles.eslint).green)
+        console.log(esLintOutputPrefix + 'src definition:'.green.bold)
+        console.dir(src)
+        console.log(esLintOutputPrefix + 'started ...'.green.bold)
+    }
     return gulp.src(src)
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
-        // .on('error', () => process.exit(1))
+        .on('error', () => process.exit(1))
+        //
+        // .on('finish', () => done())
+        // => Error: task completion callback called too many times
 }
 
 // lints your code based on isDevelopment
-gulp.task('lint', function() {
+gulp.task('lint', function(done) {
     src.push(
         // also lint env scripts in devMode
         appConfig.isDevelopment &&
@@ -30,11 +43,11 @@ gulp.task('lint', function() {
             ? globs.src
             : globs.scripts
     )
-    return lintTask(src)
+    return lintTask(src, done)
 })
 
 // just lints the apps src
-gulp.task('lint:all', () => lintTask(src.concat(globs.scripts)))
+gulp.task('lint:all', done => lintTask(src.concat(globs.scripts), done))
 
 // also lints the env code
-gulp.task('lint:app', () => lintTask(src.concat(globs.src)))
+gulp.task('lint:app', done => lintTask(src.concat(globs.src), done))
