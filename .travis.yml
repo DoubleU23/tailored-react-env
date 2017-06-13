@@ -19,8 +19,8 @@ addons:
     packages:
         - g++-4.8
 
-# cache:
-    # apt: true
+cache:
+    apt: true
     # npm: false
     # directories:
     #     - $HOME/.npm
