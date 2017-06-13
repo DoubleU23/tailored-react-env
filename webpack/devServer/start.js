@@ -14,7 +14,8 @@ export default function startDevServer(cb) {
     const webpackDevInstance = webpackDev(compiler, {
         publicPath: webpackConfig.output.publicPath,
         noInfo:     true,
-        colors:     true
+        colors:     true,
+        headers:    {'Access-Control-Allow-Origin': '*'}
     })
 
     app.use(webpackDevInstance)

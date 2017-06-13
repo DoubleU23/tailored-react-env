@@ -181,6 +181,20 @@ const webpackGetConfig = _isDevelopment => {
         }
     }
 
+    // Webpack Dev Server - Header Settings
+    //
+    // not needed here, because we handle the dev-server per 'webpack-dev-middleware'
+    // so we set the headers in /webpack/devServer/start.js
+    // anyway...
+    // we also define it here,
+    // so you can use the compiled config for a 'webpack-dev-server' based implementation
+    if (_isDevelopment) {
+        const devServer = {
+            headers: {'Access-Control-Allow-Origin': '*'}
+        }
+        config.devServer = devServer
+    }
+
     return config
 }
 
