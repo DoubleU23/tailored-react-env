@@ -9,21 +9,24 @@ const {paths, globs}   = appConfig
 
 const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
-const lintTask = src =>
-    gulp.src(src)
+const lintTask = src => {
+    console.log('ESLINT configFile: ' + appConfig.configFiles.eslint)
+    console.log('ESLint src definition:')
+    console.dir(src)
+    return gulp.src(src)
         .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
         .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
-        .on('error', () =>
-            process.exit(1)
-        )
+        // .on('error', () => process.exit(1))
+}
 
 // lints your code based on isDevelopment
 gulp.task('lint', function() {
     src.push(
         // also lint env scripts in devMode
-        appConfig.isDevelopment || process.env.NODE_ENV === 'test'
+        appConfig.isDevelopment &&
+        process.env.NODE_ENV !== 'test' // check env code too in travis-CI
             ? globs.src
             : globs.scripts
     )
@@ -31,7 +34,7 @@ gulp.task('lint', function() {
 })
 
 // just lints the apps src
-gulp.task('lint:app', () => lintTask(src.concat(globs.scripts)))
+gulp.task('lint:all', () => lintTask(src.concat(globs.scripts)))
 
 // also lints the env code
-gulp.task('lint:all', () => lintTask(src.concat(globs.src)))
+gulp.task('lint:app', () => lintTask(src.concat(globs.src)))
