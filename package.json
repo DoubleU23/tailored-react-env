@@ -8,9 +8,9 @@
     "url": "https://github.com/DoubleU23/tailored-react-env"
   },
   "scripts": {
-    "precommit": "npm run lint",
-    "lint": "./node_modules/.bin/gulp lint",
-    "test": "./node_modules/.bin/gulp test"
+    "precommit": "gulp lint:app",
+    "lint": "gulp lint",
+    "test": "gulp test"
   },
   "keywords": [
     "gulp",
