@@ -23,7 +23,9 @@ const lintTask = src =>
 gulp.task('lint', function() {
     src.push(
         // also lint env scripts in devMode
-        appConfig.isDevelopment ? globs.src : globs.scripts
+        appConfig.isDevelopment || process.env.NODE_ENV === 'test'
+            ? globs.src
+            : globs.scripts
     )
     return lintTask(src)
 })

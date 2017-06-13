@@ -20,7 +20,7 @@ const paths         = {
 }
 
 export const getAppConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || process.env.NODE_ENV === 'development' // || config.get('isDevelopment')
+    const isDevelopment = _isDevelopment || process.env.NODE_ENV !== 'production' // || config.get('isDevelopment')
 
     console.log('getAppConfig->isDevelopment', isDevelopment)
 
