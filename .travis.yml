@@ -6,7 +6,7 @@ branches:
   only:
     - master
 env:
-    - CXX=g++-4.8
+    - CXX=g++-11
     - PHANTOMJS_BIN=node_modules/phantomjs-prebuilt/bin/phantomjs
 
 addons:
@@ -14,15 +14,18 @@ addons:
     sources:
         - ubuntu-toolchain-r-test
     packages:
-        - g++-4.8
+        - g++-11
 
-cache:
-    apt: true
+# cache:
+    # apt: true
     # npm: false
     # directories:
     #     - $HOME/.npm
 
 before_install:
+    # prefer global
+    - npm install -g node-gyp
+    - npm install -g marked
     - npm install -g gulp
 
 # force travis to use npm
