@@ -23,6 +23,7 @@ const createRoutes = () => (
 const routes = createRoutes()
 
 class Root extends React.Component {
+
     render() {
         return (
             <Router history={CreateBrowserHistory()}  >
@@ -30,6 +31,7 @@ class Root extends React.Component {
             </Router>
         )
     }
+
 }
 
 ReactDOM.render(

@@ -20,8 +20,6 @@ class App extends React.Component {
     componentWillMount() {
         console.log('About to mount App')
         let test = 1
-        test++
-
     }
 
     renderChildren() {
