@@ -39,5 +39,6 @@ before_install:
 install: npm install
 
 script:
-    - gulp lint
-    - gulp karma
+    # ensure travis takes local gulp
+    - ./node_modules/.bin/gulp lint
+    - ./node_modules/.bin/gulp karma
