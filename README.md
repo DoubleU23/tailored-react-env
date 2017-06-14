@@ -108,6 +108,10 @@ __ESLINT - indent__
 "// Any indentation is permitted in variable declarations and assignments."
 > right indent on return statements
 
+__ESLINT - versioning__
+babel-eslint >= v7 breaks static property recognition
+http://2ality.com/2015/02/es6-classes-final.html#inside_the_body_of_a_class_definition  
+
 __ESLINT - func-style__
 > enforcing by ESLint-Formatter is broken in __test__ dir...  
 maybe it's intended like this to reserve the context?
