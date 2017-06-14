@@ -27,7 +27,6 @@ cache:
     #     - $HOME/.npm
 
 before_install:
-    - echo $CXX
     # prefer global
     - npm install -g node-gyp
     - npm install -g marked
