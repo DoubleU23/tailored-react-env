@@ -1,19 +1,19 @@
 'use strict'
-import React              from 'react'
+import React, {PropTypes}    from 'react'
 
 // import CurrentUserActions from './actions/CurrentUserActions'
 // import CurrentUserStore   from './stores/CurrentUserStore'
-import Header             from './components/Header'
-import Footer             from './components/Footer'
+import Header                from './components/Header'
+import Footer                from './components/Footer'
 
 class App extends React.Component {
 
     static propTypes = {
-        params:     React.PropTypes.object,
-        query:      React.PropTypes.object,
-        children:   React.PropTypes.oneOfType([
-            React.PropTypes.array,
-            React.PropTypes.object
+        params:     PropTypes.object,
+        query:      PropTypes.object,
+        children:   PropTypes.oneOfType([
+            PropTypes.array,
+            PropTypes.object
         ])
     }
 

@@ -13,7 +13,7 @@ import App                  from './App'
 if (module.hot) module.hot.accept()
 
 if (process.env.NODE_ENV !== 'production') {
-  // Enable React devtools
+    // Enable React devtools
     window.React = React
 }
 
@@ -35,6 +35,6 @@ class Root extends React.Component {
 }
 
 ReactDOM.render(
-    <Root />
-  , document.getElementById('app')
+    <Root />,
+    document.getElementById('app')
 )
