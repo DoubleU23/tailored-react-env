@@ -1,6 +1,7 @@
 import colors     from 'colors'
 
 import gulp       from 'gulp'
+import gulpIf     from 'gulp-if'
 import eslint     from 'gulp-eslint'
 import plumber    from 'gulp-plumber'
 import gulpNotify from 'gulp-notify'
@@ -13,6 +14,7 @@ const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModule
 
 const lintTask = (src, done) => {
     let esLintOutputPrefix
+
     if (process.env.DEBUG) {
         // TBD: enhance debug output...
         // find pattern, define debug style, etc, ...
@@ -24,7 +26,9 @@ const lintTask = (src, done) => {
         console.log(esLintOutputPrefix + 'started ...'.green.bold)
     }
     return gulp.src(src)
-        .pipe(plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase())))
+        // if not in CI env - gulpNotify onError
+        .pipe(gulpIf(!appConfig.isCI, plumber(gulpNotify.onError('Task "lint"' + '<%= error.message %>'.toLowerCase()))))
+
         .pipe(eslint({configFile: appConfig.configFiles.eslint}))
         .pipe(eslint.format())
         .pipe(eslint.failAfterError())
