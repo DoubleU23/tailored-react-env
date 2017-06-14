@@ -26,6 +26,11 @@ export const getAppConfig = _isDevelopment => {
 
     return {
         isDevelopment,
+        isCI: (
+            process.env.CONTINUOUS_INTEGRATION
+        ||  process.env.TRAVIS
+        ||  process.env.NODE_ENV === 'CI'
+        ),
         paths,
 
         globs:          {
