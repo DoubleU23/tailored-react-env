@@ -25,6 +25,16 @@
     "__filename": false
   },
   "rules": {
+    // padded-blocks is a little bit broken
+    // it's set in "eslint-config-standard"
+    // - it ignores classes locally but not in travis
+    // the enhancement/refactoring should fix this
+    // https://github.com/idearium/developers/pull/12
+    "padded-blocks": [2, {
+        "classes": "always",
+        "switches": "always",
+        "blocks": "never"
+    }],
     indent: ["error", 4, {
         "outerIIFEBody":    4,
         // "VariableDeclarator": { "var": 1, "let": 1, "const": 2 },
@@ -35,7 +45,6 @@
     //
     // CUSTOM RULES
     //
-
     "space-before-function-paren": ["error", {
         "anonymous": "never",
         "named": "never",
