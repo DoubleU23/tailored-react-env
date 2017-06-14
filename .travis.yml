@@ -22,7 +22,7 @@ addons:
 
 cache:
     apt: true
-    # npm: false
+    npm: false
     # directories:
     #     - $HOME/.npm
 
