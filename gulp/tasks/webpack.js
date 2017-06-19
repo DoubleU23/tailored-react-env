@@ -1,7 +1,7 @@
 import path             from 'path'
 import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
-import bgTask           from 'gulp-bg'
+import gulpShell        from 'gulp-shell'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 import appConfig        from '../../config/appConfig.js'
@@ -17,11 +17,9 @@ const {
 gulp.task('webpack', finishTaskFn => {
     // start express server
     // refactor: move path to config!?
-    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server'))
+    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server/index.js'))
 
     if (process.env.NODE_ENV === 'development') {
-    // const hotServerBuildEntrypoint = path.normalize(path.join(appConfig.rootDir, 'webpack', 'hotserverBuild'))
-
         let startedFirst = false
 
         startDevServer(() => { // callback function starts after webpack dev server built
@@ -47,8 +45,18 @@ gulp.task('webpack', finishTaskFn => {
                 })
         })
     } else {
-        webpackMakeBuild(finishTaskFn)
+        webpackMakeBuild(() => {
+            console.log('starting gulpShell...')
+            // const serverProd =
+            gulpShell.task([
+                'echo "test"',
+                `node ${expressServerEntrypoint}`
+            ], {
+                // options
+                'shell': 'bash'
+            })
 
-        bgTask('node', expressServerEntrypoint)
+            // finishTaskFn()
+        })
     }
 })
