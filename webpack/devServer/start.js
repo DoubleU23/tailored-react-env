@@ -5,7 +5,7 @@ import webpackHot       from 'webpack-hot-middleware'
 
 import webpackGetConfig from '../webpackGetConfig'
 
-export default function startDevServer(cb) {
+export default function startDevServer(callback) {
     const app                = express()
 
     const webpackConfig      = webpackGetConfig(true)
@@ -27,6 +27,8 @@ export default function startDevServer(cb) {
     })
 
     webpackDevInstance.waitUntilValid(() => {
-        cb()
+        if (typeof callback === 'function') {
+            callback()
+        }
     })
 }

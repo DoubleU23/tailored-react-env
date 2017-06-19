@@ -28,6 +28,8 @@ export default function webpackMakeBuild(callback) {
             chunkModules: false
         }))
 
-        callback()
+        if (typeof callback === 'function') {
+            callback()
+        }
     })
 }
