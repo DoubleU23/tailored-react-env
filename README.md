@@ -2,10 +2,10 @@
 [![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")](https://travis-ci.org/DoubleU23/tailored-react-env)
 
 ## Gulp Tasks
-task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
 
 * [x] `gulp clean` - cleans `/build` and `/__coverage__`
-* [x] `gulp lint`  - lints based on env (isDevelopment ? lint:app)
+* [x] `gulp lint`  - lints based on env (isDevelopment ? lint:app)  
+    task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
   * [x] `gulp lint:app` - lints app code only
   * [x] `gulp lint:all` - also lints env code
 * [x] `gulp karma`
@@ -13,10 +13,9 @@ task `lint`: runs eslint with babel-eslint and some extended rules based on the 
   * [x] run tests in different Browsers based on env
       * [x] TEST/TRAVIS/CI - PhantomJs
       * [x] other env - Firefox and Chrome
-* [ ] webpack
-  * [x] start dev-server with HMR
-  * [x] production build
-     * [ ] starting production server
+* [x] webpack
+  * [x] __development:__ compile webpack instance, start dev-server, start HMR server
+  * [x] __production:__ build app and start server
 * [ ] `gulp imagemin`
 
 ## Config
@@ -61,10 +60,6 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
   * [ ] server-side async prefetching
   * [ ] store injection/binding
   * [ ] dynamic template
-* [ ] sublime enhancements
-    * [x] ESLint-Formatter
-    * [x] setup/enhance align plugin and run it on pre_save on the whole file
-      [ ] fix colon alignments
 * [ ] eslint
   * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
   * [ ] extend globals for *.spec.js and *.test.js files  
@@ -72,8 +67,8 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 * [ ] tests
   * [ ] setup test-environment
     karma-webpack with mocha, chai and enzyme
-    * [ ] learn enzyme/chai-entyme expect syntax
     * [x] write first tests
+    * [ ] learn enzyme/chai-enzyme expect syntax
     * [ ] use browserstack API for karma tests
 * [ ] styles
   do we need a gulp task or just webpack plugins!?
