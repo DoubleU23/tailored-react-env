@@ -1,23 +1,28 @@
-import React          from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React                     from 'react'
+import ReactDOMServer            from 'react-dom/server'
 
-// import Html        from './Html.react'
-import ip             from 'ip'
+// import Html                   from './Html.react'
+import ip                        from 'ip'
 
-import appConfig      from '../../config/appConfig.js'
+import getAppAssetFilenamesAsync from './getAssetPaths'
+
+import appConfig                 from '../../config/appConfig.js'
 
 const {
     isDevelopment,
     ports
 } = appConfig
 
+console.log('[render.js] appConfig', appConfig)
+
 const serverIp  = ip.address()
 
-const scriptSrc = isDevelopment
-    ? `http://${serverIp}:${ports.HMR}/build/app.js`
-    : '/build/app.js?notreadytouse'
+const renderPageAsync = async () => {
+    const {js: appJsFilename, css: appCssFilename} = await getAppAssetFilenamesCachedAsync()
+    const scriptSrc = isDevelopment
+        ? `http://${serverIp}:${ports.HMR}/build/app.js`
+        : `/build/${appJsFilename}?notreadytouse`
 
-const renderPage = () => {
     return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
         <html>
             <head />
@@ -29,8 +34,9 @@ const renderPage = () => {
   )
 }
 
-export default function render(req, res, next) {
-    res.send(renderPage())
+export default async function render(req, res, next) {
+    const html = await renderPageAsync()
+    res.send(html)
 }
 
 // function renderPage() {
@@ -44,3 +50,12 @@ export default function render(req, res, next) {
 //    />
 //  )
 // }
+
+let appAssetFilenameCache = null
+const getAppAssetFilenamesCachedAsync = async () => {
+    if (appAssetFilenameCache) return appAssetFilenameCache
+
+    appAssetFilenameCache = await getAppAssetFilenamesAsync()
+
+    return appAssetFilenameCache
+}

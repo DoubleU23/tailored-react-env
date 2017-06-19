@@ -8,7 +8,7 @@ import render from './render'
 const app = express()
 
 // app.use(tailoredMiddleware());
-app.use(compression())
+// app.use(compression())
 
 // app.use(favicon('assets/img/favicon.ico'));
 
@@ -25,6 +25,12 @@ app.use(compression())
 
 // app.use(device.capture());
 //
+
+app.use('/build', express.static('build', {maxAge: '200d'}))
+
+app.use('/test', function(req, res, next) {
+    res.send('HALLO!')
+})
 
 app.get('/', render)
 // app.get('/', function (req, res) {

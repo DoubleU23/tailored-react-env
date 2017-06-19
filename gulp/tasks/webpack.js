@@ -1,6 +1,7 @@
 import path             from 'path'
 import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
+import bgTask           from 'gulp-bg'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 import appConfig        from '../../config/appConfig.js'
@@ -14,12 +15,12 @@ const {
 } = appConfig
 
 gulp.task('webpack', finishTaskFn => {
+    // start express server
+    // refactor: move path to config!?
+    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server'))
+
     if (process.env.NODE_ENV === 'development') {
     // const hotServerBuildEntrypoint = path.normalize(path.join(appConfig.rootDir, 'webpack', 'hotserverBuild'))
-
-        // start express server
-        // refactor: move path to config!?
-        const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server'))
 
         let startedFirst = false
 
@@ -27,8 +28,9 @@ gulp.task('webpack', finishTaskFn => {
             nodemon({
                 script: expressServerEntrypoint,
                 ext:    'js jsx html',
-                    // src changes are handled by webpack hot module replacement
+                // src changes are handled by webpack hot module replacement
                 ignore: paths.src,
+                // https://github.com/JacksonGariety/gulp-nodemon#-tasks-array--functionchangedfiles-
                 tasks:  ['lint']
             })
                 .on('start', () => {
@@ -46,5 +48,7 @@ gulp.task('webpack', finishTaskFn => {
         })
     } else {
         webpackMakeBuild(finishTaskFn)
+
+        bgTask('node', expressServerEntrypoint)
     }
 })
