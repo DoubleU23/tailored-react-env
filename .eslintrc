@@ -50,7 +50,7 @@
     "space-before-function-paren": ["error", {
         "anonymous": "never",
         "named": "never",
-        "asyncArrow": "never"
+        "asyncArrow": "always"
     }],
     "arrow-parens": [2, "as-needed"],
     "func-style": ["error", "expression"],
