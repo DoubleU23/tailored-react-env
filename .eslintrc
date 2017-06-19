@@ -36,6 +36,7 @@
         "switches": "always",
         "blocks": "never"
     }],
+    no-multiple-empty-lines: ["error", { "max": 3}],
     indent: ["error", 4, {
         "outerIIFEBody":    4,
         // "VariableDeclarator": { "var": 1, "let": 1, "const": 2 },
@@ -113,7 +114,7 @@
     "react/jsx-closing-bracket-location": 2,
     "react/jsx-pascal-case": 2,
     "react/prefer-es6-class": 2,
-    "react/prefer-stateless-function": 1,
+    "react/prefer-stateless-function": [1, {"ignorePureComponents": true}],
     // "react/require-render-return": 2, // Definition for rule 'react/jsx-wrap-multilines' was not found
     // "react/jsx-wrap-multilines": 2 // Prevent missing parentheses around multilines JSX  // Definition for rule 'react/jsx-wrap-multilines' was not found
   }
