@@ -1,10 +1,11 @@
-import React from 'react'
+import React     from 'react'
+import Component from 'react-pure-render/component'
 
-const content = '#HEADER#'
-
-class Header extends React.Component {
+export default class Header extends Component {
 
     render() {
+        const content = '#HEADER#'
+
         return (
             <header>
                 {content}
@@ -13,5 +14,3 @@ class Header extends React.Component {
     }
 
 }
-
-export default Header

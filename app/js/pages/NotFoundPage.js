@@ -1,15 +1,14 @@
 'use strict'
 
-import React         from 'react'
-import DocumentTitle from 'react-document-title'
+import React, {PropTypes} from 'react'
+import Component          from 'react-pure-render/component'
+import DocumentTitle      from 'react-document-title'
 
-// const test = 'djfspiaojfp'
+export default class NotFoundPage extends Component {
 
-const propTypes = {
-    currentUser: React.PropTypes.object
-}
-
-class NotFoundPage extends React.Component {
+    static propTypes = {
+        currentUser: PropTypes.object
+    }
 
     render() {
         return (
@@ -20,7 +19,3 @@ class NotFoundPage extends React.Component {
     }
 
 }
-
-NotFoundPage.propTypes = propTypes
-
-export default NotFoundPage

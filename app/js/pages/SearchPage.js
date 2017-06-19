@@ -1,14 +1,15 @@
 'use strict'
 
-import React            from 'react'
-import {Link}           from 'react-router'
-import DocumentTitle    from 'react-document-title'
+import React, {PropTypes} from 'react'
+import Component          from 'react-pure-render/component'
+import {Link}             from 'react-router'
+import DocumentTitle      from 'react-document-title'
 
-const propTypes = {
-    currentUser: React.PropTypes.object
-}
+export default class SearchPage extends Component {
 
-class SearchPage extends React.Component {
+    static propTypes = {
+        currentUser: PropTypes.object
+    }
 
     constructor(props) {
         super(props)
@@ -49,7 +50,3 @@ class SearchPage extends React.Component {
     }
 
 }
-
-SearchPage.propTypes = propTypes
-
-export default SearchPage

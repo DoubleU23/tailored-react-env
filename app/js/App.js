@@ -1,12 +1,12 @@
 'use strict'
-import React, {PropTypes}    from 'react'
 
-// import CurrentUserActions from './actions/CurrentUserActions'
-// import CurrentUserStore   from './stores/CurrentUserStore'
-import Header                from './components/Header'
-import Footer                from './components/Footer'
+import React, {PropTypes} from 'react'
+import Component          from 'react-pure-render/component'
 
-class App extends React.Component {
+import Header             from './components/Header'
+import Footer             from './components/Footer'
+
+export default class App extends Component {
 
     static propTypes = {
         params:     PropTypes.object,
@@ -18,8 +18,7 @@ class App extends React.Component {
     }
 
     componentWillMount() {
-        console.log('About to mount App')
-        let test = 1
+        console.log('About to mount App...')
     }
 
     renderChildren() {
@@ -33,6 +32,7 @@ class App extends React.Component {
 
     render() {
         this.renderChildren.bind(this)
+
         return (
             <div style={{height: '5000px'}}>
                 <Header />
@@ -43,5 +43,3 @@ class App extends React.Component {
     }
 
 }
-
-export default App

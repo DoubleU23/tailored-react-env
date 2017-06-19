@@ -1,7 +1,8 @@
 'use strict'
 
-import React                from 'react'
-import ReactDOM             from 'react-dom'
+import React     from 'react'
+import Component from 'react-pure-render/component'
+import ReactDOM  from 'react-dom'
 
 /*, IndexRoute */
 import {Router, Route}      from 'react-router'
@@ -22,7 +23,7 @@ const createRoutes = () => (
 )
 const routes = createRoutes()
 
-class Root extends React.Component {
+class Root extends Component {
 
     render() {
         return (
