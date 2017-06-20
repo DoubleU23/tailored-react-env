@@ -21,4 +21,4 @@ tasks.forEach(task => {
 
 // gulp.task('default', cb => runSequence('task-list'))
 
-gulp.task('default', cb => runSequence('env', 'webpack', 'browserSync', cb))
+gulp.task('default', cb => runSequence('env', 'webpack', 'productionServer', 'browserSync', cb))
