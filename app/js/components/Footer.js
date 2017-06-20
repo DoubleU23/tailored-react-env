@@ -4,10 +4,10 @@ import Component from 'react-pure-render/component'
 export default class Footer extends Component {
 
     render() {
-        const test = 'test'
+        const test = '{#FOOTER#}'
 
         return (
-            <span className="testClassName">{test}</span>
+            <div className="testClassName">{test}</div>
         )
     }
 

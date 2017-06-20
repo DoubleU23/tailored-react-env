@@ -1,8 +1,8 @@
 'use strict'
 
-import React     from 'react'
-import Component from 'react-pure-render/component'
-import ReactDOM  from 'react-dom'
+import React, {PropTypes} from 'react'
+import Component          from 'react-pure-render/component'
+import ReactDOM           from 'react-dom'
 
 // ROUTING
 import {Router, Route}      from 'react-router'
@@ -29,6 +29,7 @@ const createRoutes = () => (
 )
 const routes = createRoutes()
 
+
 class Root extends Component {
 
     constructor(props) {
@@ -42,8 +43,8 @@ class Root extends Component {
 
     render() {
         return (
-            <Provider >
-                <App store={store} />
+            <Provider store={store}>
+                <App />
                 {/* <Router history={CreateBrowserHistory()}  >
                     {routes}
                 </Router> */}
