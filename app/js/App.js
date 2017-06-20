@@ -19,7 +19,7 @@ import { observer, inject } from 'mobx-react'
 class Test extends Component {
 
     static propTypes = {
-        test: PropTypes.object.isRequired
+        store: PropTypes.object.isRequired
     }
 
     componentWillMount() {
@@ -35,7 +35,7 @@ class Test extends Component {
     }
 
     render() {
-        return <div>TestStore.foo in childComponent: {this.props.test.foo}</div>
+        return <div>TestStore.foo in childComponent: {this.props.store.test.foo}</div>
     }
 
 }
@@ -112,7 +112,7 @@ class App extends Component {
         return (
             <div style={{height: '5000px'}}>
                 <Header />
-                <TestWrapped test={this.props.store.test} />
+                <TestWrapped {...this.props} />
                 <br />
                 {this.renderChildren()}
                 <Footer />
