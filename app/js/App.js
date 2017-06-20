@@ -6,6 +6,7 @@ import Component          from 'react-pure-render/component'
 import Header             from './components/Header'
 import Footer             from './components/Footer'
 
+
 export default class App extends Component {
 
     static propTypes = {
