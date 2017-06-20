@@ -7,4 +7,4 @@ export const stores = (state = {}) => {
 }
 
 // Initialize actions and state
-export default process.env.BROWSER ? stores(window.__STATE) : {}
+export default process.env.IS_BROWSER ? stores(window.__STATE) : {}

@@ -6,23 +6,44 @@ import Component          from 'react-pure-render/component'
 import Header             from './components/Header'
 import Footer             from './components/Footer'
 
-export default class App extends Component {
+import { observer } from 'mobx-react'
+
+class App extends Component {
 
     static propTypes = {
-        params:     PropTypes.object,
-        query:      PropTypes.object,
+        params:     PropTypes.object.isRequired,
+        query:      PropTypes.object.isRequired,
         children:   PropTypes.oneOfType([
             PropTypes.array,
             PropTypes.object
-        ])
+        ]).isRequired,
+        // store
+        store: PropTypes.object.isRequired
+    }
+
+    constructor(props) {
+        super(props)
+
+        console.log('props', props)
     }
 
     componentWillMount() {
         console.log('About to mount App...')
     }
 
+    componentDidMount() {
+        const {test} = this.props.store
+
+        window.test = test
+        // test.foo('test')
+    }
+
+    componentWillReact() {
+        console.log('componentWillReact!!!')
+    }
+
     renderChildren() {
-        return <div>renderChildren</div>
+        return <div>{this.props.store.test.foo}</div>
         // return React.cloneElement(this.props.children, {
         //     params:         this.props.params,
         //     query:          this.props.query
@@ -43,3 +64,5 @@ export default class App extends Component {
     }
 
 }
+
+export default observer(App)
