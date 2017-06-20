@@ -9,16 +9,11 @@ export default class TestStore {
         }, state)
     }
 
-    // get foo() {
-    //     return this.foo
-    // }
+    get foo() {
+        return 'test'
+    }
 
-    // set foo(value) {
-    //     this.foo = value
-    //     return true
-    // }
-
-    setFoo(value) {
+    set foo(value) {
         this.foo = value
         return true
     }

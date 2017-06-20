@@ -26,8 +26,16 @@ class Test extends Component {
         console.log('[TEST->componentWillMount] this', this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('[Test->componentWillReceiveProps] nextProps', nextProps)
+    }
+
+    componentWillReact() {
+        console.log('[Test->componentWillReact] !!!')
+    }
+
     render() {
-        return <div>{this.props.test.foo}</div>
+        return <div>TestStore.foo in childComponent: {this.props.test.foo}</div>
     }
 
 }
@@ -59,27 +67,37 @@ class App extends Component {
         // test.foo('test')
     }
 
+    componentWillReceiveProps(nextProps) {
+        console.log('[App->componentWillReceiveProps] nextProps', nextProps)
+    }
+
     componentWillReact() {
-        console.log('componentWillReact!!!')
+        console.log('[App->componentWillReact] !!!')
     }
 
     renderChildren() {
         return (
-            <a
-                style={{
-                    cursor: 'pointer',
-                    textDecoration: 'underline'
-                }}
-                onClick={() => this.props.store.test.setFoo(
-                    'test'
-                    // this.props.store.test.foo === 'bar'
-                    //     ? 'foo'
-                    //     : 'bar'
-                )}
-            >
-                {/* this.props.store.test.foo */}
-                mjiohopö
-            </a>
+            <span>
+                TestStore.foo in App.js: {this.props.store.test.foo}
+                <br />
+                <br />
+                <a
+                    style={{
+                        cursor: 'pointer',
+                        textDecoration: 'underline'
+                    }}
+                    onClick={() => {
+                        this.props.store.test.foo =
+                            this.props.store.test.foo === 'bar'
+                                ? 'foo'
+                                : 'bar'
+                    }}
+                >
+                    toggle TestStore.foo!
+                </a>
+                <br />
+                <br />
+            </span>
         )
         // return React.cloneElement(this.props.children, {
         //     params:         this.props.params,
