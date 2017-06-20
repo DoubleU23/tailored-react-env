@@ -38,8 +38,8 @@ gulp.task('productionServer', done => {
 
     runner.stdout.on('data', data => gutil.log(data))
 
-    // broken: refactor: doesn't work.
-    process.on('finish', () => runner.exit())
+    // kill server process on gulp exit
+    process.on('exit', () => runner.kill())
     // refactor: only fires on error
     // doesn't fire on strg+c
     runner.on('close', closeFn(done))
