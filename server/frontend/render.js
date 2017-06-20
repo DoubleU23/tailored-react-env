@@ -1,19 +1,15 @@
 import React                     from 'react'
 import ReactDOMServer            from 'react-dom/server'
-
 // import Html                   from './Html.react'
 import ip                        from 'ip'
 
 import getAppAssetFilenamesAsync from './getAssetPaths'
-
 import appConfig                 from '../../config/appConfig.js'
 
 const {
     isDevelopment,
     ports
 } = appConfig
-
-console.log('[render.js] appConfig', appConfig)
 
 const serverIp  = ip.address()
 
