@@ -33,9 +33,6 @@ app.use('/test', function(req, res, next) {
 })
 
 app.get('/', render)
-// app.get('/', function (req, res) {
-//   res.send('TESTESTEST FRONTEND SERVER!');
-// });
 
 app.on('mount', () => {
     console.log('App is available at %s', app.mountpath)
