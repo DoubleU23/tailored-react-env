@@ -1,7 +1,6 @@
 import path             from 'path'
 import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
-import gulpShell        from 'gulp-shell'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 import appConfig        from '../../config/appConfig.js'
@@ -45,18 +44,9 @@ gulp.task('webpack', finishTaskFn => {
                 })
         })
     } else {
-        webpackMakeBuild(() => {
-            console.log('starting gulpShell...')
-            // const serverProd =
-            gulpShell.task([
-                'echo "test"',
-                `node ${expressServerEntrypoint}`
-            ], {
-                // options
-                'shell': 'bash'
-            })
-
-            // finishTaskFn()
-        })
+        webpackMakeBuild(
+            // build callback = gulp "done()"
+            finishTaskFn
+        )
     }
 })
