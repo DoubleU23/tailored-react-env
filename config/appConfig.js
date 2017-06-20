@@ -5,7 +5,7 @@ import path   from 'path'
 
 // const config = {get: () => {}}
 
-console.log(process.env.APP_CONFIG)
+// console.log(process.env.APP_CONFIG)
 // console.log(JSON.parse(process.env.APP_CONFIG))
 
 const rootDir       = path.normalize(path.join(__dirname, '..'))
@@ -21,8 +21,6 @@ const paths         = {
 
 export const getAppConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment || process.env.NODE_ENV !== 'production' // || config.get('isDevelopment')
-
-    console.log('getAppConfig->isDevelopment', isDevelopment)
 
     return {
         isDevelopment,
