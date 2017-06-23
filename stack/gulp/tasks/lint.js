@@ -6,7 +6,7 @@ import eslint     from 'gulp-eslint'
 import plumber    from 'gulp-plumber'
 import gulpNotify from 'gulp-notify'
 
-import appConfig  from '../../config/appConfig.js'
+import appConfig  from '../../../config/appConfig.js'
 
 const {paths, globs}   = appConfig
 

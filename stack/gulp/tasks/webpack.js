@@ -3,7 +3,7 @@ import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
-import appConfig        from '../../config/appConfig.js'
+import appConfig        from '../../../config/appConfig.js'
 
 import config           from 'config'
 
@@ -16,7 +16,7 @@ const {
 gulp.task('webpack', finishTaskFn => {
     // start express server
     // refactor: move path to config!?
-    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, 'server/index.js'))
+    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, '/stack/server/index.js'))
 
     if (process.env.NODE_ENV === 'development') {
         let startedFirst = false

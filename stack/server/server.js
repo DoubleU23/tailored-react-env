@@ -4,7 +4,7 @@ import frontend        from './frontend'
 // import api          from './api'; // to be done
 // import errorHandler from './lib/errorHandler';
 
-import appConfig       from '../config/appConfig.js'
+import appConfig       from '../../config/appConfig.js'
 
 const app = express()
 

@@ -5,7 +5,7 @@ import {jsdom}   from 'jsdom'
 import {argv}    from 'yargs'
 import gjc       from 'gulp-jsx-coverage'
 
-import appConfig from '../../config/appConfig.js'
+import appConfig from '../../../config/appConfig.js'
 
 gulp.task('test', () => {
     let files

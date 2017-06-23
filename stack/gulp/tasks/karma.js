@@ -2,7 +2,7 @@ import path      from 'path'
 import gulp      from 'gulp'
 import {Server}  from 'karma'
 
-import appConfig from '../../config/appConfig'
+import appConfig from '../../../config/appConfig'
 
 const {
     paths

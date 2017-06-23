@@ -14,7 +14,7 @@ import doubleu23Stylus   from 'doubleu23-stylus'
 // import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 
 import constants         from './constants'
-import appConfig         from '../config/appConfig'
+import appConfig         from '../../config/appConfig'
 
 const {
     ports,
@@ -68,9 +68,9 @@ const webpackGetConfig = _isDevelopment => {
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
-                path.join(constants.SRC_DIR, 'js/index.js')
+                path.join(paths.src, 'index.js')
             ] : [
-                path.join(constants.SRC_DIR, 'js/index.js')
+                path.join(paths.src, 'index.js')
             ]
         },
         module: {
@@ -89,7 +89,7 @@ const webpackGetConfig = _isDevelopment => {
                         //     presets: ['airbnb']
                         // },
                         development: {
-                            // presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
+                            presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
                             plugins: [
                                 // ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-decorators-legacy'],
                                 ['react-transform', {

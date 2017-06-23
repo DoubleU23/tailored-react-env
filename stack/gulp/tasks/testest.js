@@ -8,7 +8,7 @@ import gjc       from 'gulp-jsx-coverage'
 import istanbul  from 'gulp-istanbul'
 import tap from 'gulp-tap'
 
-import appConfig from '../../config/appConfig.js'
+import appConfig from '../../../config/appConfig.js'
 
 const {
     paths,

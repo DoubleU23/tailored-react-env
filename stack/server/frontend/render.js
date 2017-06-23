@@ -4,7 +4,7 @@ import ReactDOMServer            from 'react-dom/server'
 import ip                        from 'ip'
 
 import getAppAssetFilenamesAsync from './getAssetPaths'
-import appConfig                 from '../../config/appConfig.js'
+import appConfig                 from '../../../config/appConfig.js'
 
 const {
     isDevelopment,

@@ -3,7 +3,7 @@
 import path             from 'path'
 
 import webpack          from 'webpack'
-import webpackGetConfig from '../webpack/webpackGetConfig'
+import webpackGetConfig from '../stack/webpack/webpackGetConfig'
 import appConfig        from './appConfig'
 
 const {paths} = appConfig

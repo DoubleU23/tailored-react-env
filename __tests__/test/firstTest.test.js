@@ -4,7 +4,7 @@ import React from 'react'
 // import {mount, render, shallow} from 'enzyme'
 
 import sum from './sum.js'
-import scriptFilter from '../../gulp/util/script-filter.helper.js'
+import scriptFilter from '../../stack/gulp/util/script-filter.helper.js'
 
 // import TestUtils from 'react-addons-test-utils'
 

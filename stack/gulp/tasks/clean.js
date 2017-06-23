@@ -3,7 +3,7 @@
 import gulp      from 'gulp'
 import del       from 'del'
 
-import appConfig from '../../config/appConfig.js'
+import appConfig from '../../../config/appConfig.js'
 
 const {
     globs: {build, coverage}

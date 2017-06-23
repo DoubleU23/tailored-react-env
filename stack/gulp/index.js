@@ -5,8 +5,8 @@ import gulpTaskListing from 'gulp-task-list'
 import runSequence     from 'run-sequence'
 
 let fs          = require('fs'),
-    onlyScripts = require('./util/script-filter.helper'),
-    tasks       = fs.readdirSync('./gulp/tasks/').filter(onlyScripts)
+    onlyScripts = require('./util/script-filter.helper.js'),
+    tasks       = fs.readdirSync('./stack/gulp/tasks/').filter(onlyScripts)
 
 // run config before importing/requiring the other tasks
 // because they import appConfig which depends on config-module

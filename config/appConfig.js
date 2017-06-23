@@ -11,8 +11,11 @@ import path   from 'path'
 const rootDir       = path.normalize(path.join(__dirname, '..'))
 const paths         = {
     ROOT:           rootDir,
-    configs:        path.join(rootDir, 'config'),
+    stack:          path.join(rootDir, 'stack'),
+    server:         path.join(rootDir, 'stack', 'server'),
+    app:            path.join(rootDir, 'app'),
     src:            path.join(rootDir, 'app', 'js'),
+    configs:        path.join(rootDir, 'config'),
     build:          path.join(rootDir, 'build'),
     tests:          path.join(rootDir, '__tests__'),
     coverage:       path.join(rootDir, '__coverage__'),
