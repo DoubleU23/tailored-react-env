@@ -65,6 +65,8 @@ class App extends Component {
 
         window.test = test
         // test.foo('test')
+        //
+        this.testFn({foo: 'foo', bar: 'bar'})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -104,6 +106,10 @@ class App extends Component {
         //     query:          this.props.query
         //     // currentUser:    this.state.currentUser
         // })
+    }
+
+    testFn({foo, bar}) {
+        console.log(foo, bar)
     }
 
     render() {
