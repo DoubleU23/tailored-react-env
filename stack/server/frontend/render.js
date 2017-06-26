@@ -120,24 +120,34 @@ const renderPageAsync = async ({url}) => {
     //
     // workaround: take the Apps main wrapper as renderTarget for FE-rendering
     // => renders static on server... and when ready, render on client
-    return renderToString(
-        <StaticRouter location={url} context={context} >
-            <div>
-                <Root />
-                <script type="text/javascript" src={scriptSrc} />
-            </div>
-        </StaticRouter>
-    )
-
-    // return '<!DOCTYPE html>' + renderToStaticMarkup(
-    //     <html>
-    //         <head />
-    //         <body>
-    //             <div id="app" />
+    //
+    // but that results in a react warning on client:
+    /*
+        warning.js:36 Warning: React attempted to reuse markup in a container but the checksum was invalid.
+        This generally means that you are using server rendering and the markup generated on the server was not what the client was expecting.
+        React injected new markup to compensate which works but you have lost many of the benefits of server rendering.
+        Instead, figure out why the markup being generated is different on the client or server:
+         (client) <div style="height:50
+         (server) <header data-reactid=
+    */
+    // return renderToString(
+    //     <StaticRouter location={url} context={context} >
+    //         <div>
+    //             <Root />
     //             <script type="text/javascript" src={scriptSrc} />
-    //         </body>
-    //     </html>
+    //         </div>
+    //     </StaticRouter>
     // )
+
+    return '<!DOCTYPE html>' + renderToStaticMarkup(
+        <html>
+            <head />
+            <body>
+                <div id="app" />
+                <script type="text/javascript" src={scriptSrc} />
+            </body>
+        </html>
+    )
 }
 
 // function renderPage() {
