@@ -9,6 +9,7 @@ import {
     BrowserRouter as Router,
     Match,
     Route,
+    Switch,
     IndexRoute
 }                           from 'react-router-dom'
 import CreateBrowserHistory from 'history/lib/createBrowserHistory'
@@ -32,8 +33,20 @@ if (process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER) {
     window.React = React
 }
 
+class RootTest extends Component {
+
+    render() {
+        return <div>RouteTest-render()</div>
+    }
+
+}
+
 const createRoutes = () => (
-    <Route path="/" component={App} />
+    <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/test" component={RootTest} />
+        <Route path="*" component={NotFoundPage} />
+    </Switch>
 )
 // refactor: export = debugging helper
 export const routes = createRoutes()

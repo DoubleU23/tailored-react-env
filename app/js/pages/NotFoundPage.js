@@ -13,7 +13,10 @@ export default class NotFoundPage extends Component {
     render() {
         return (
             <DocumentTitle title="404: Not Found">
-                <section className="not-found-page" />
+                <div>
+                    <section className="not-found-page" />
+                    <h1>404 - Page not found!</h1>
+                </div>
             </DocumentTitle>
         )
     }

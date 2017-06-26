@@ -3,6 +3,8 @@
 import React, {PropTypes} from 'react'
 import Component          from 'react-pure-render/component'
 
+import {Link, NavLink}    from 'react-router-dom'
+
 import Header             from './components/Header'
 import Footer             from './components/Footer'
 
@@ -89,6 +91,7 @@ class App extends Component {
                 <TestWrapped {...this.props} />
                 <br />
                 <div>
+                    <Link to="/test" >TEstLink!</Link>
                     TestStore.foo in App.js: {this.props.store.test.foo}
                     <br />
                     <br />

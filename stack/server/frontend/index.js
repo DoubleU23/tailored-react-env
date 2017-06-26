@@ -28,11 +28,11 @@ const app = express()
 
 app.use('/build', express.static('build', {maxAge: '200d'}))
 
-app.use('/test', function(req, res, next) {
-    res.send('HALLO!')
-})
+// app.use('/test', function(req, res, next) {
+//     res.send('HALLO!')
+// })
 
-app.get('/', render)
+app.get('*', render)
 
 app.on('mount', () => {
     console.log('App is available at %s', app.mountpath)
