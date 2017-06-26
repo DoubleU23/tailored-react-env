@@ -4,6 +4,7 @@ import ReactDOMServer            from 'react-dom/server'
 // import Html                   from './Html.react'
 import {createMemoryHistory}     from 'history'
 import {RoutingContext, match}   from 'react-router'
+import BrowserRouter   from 'react-router/BrowserRouter'
 // OTHER LIBS
 import ip                        from 'ip'
 // refactor: use bluebird as polyfill on entrypoint(s)
@@ -36,6 +37,7 @@ export default async function render(req, res, next) {
     res.send(html)
     return
 
+/*
     match({routes, location}, async (error, redirectLocation, renderProps) => {
         // refactor: TBD: learn more about "redirectLocation"
         if (redirectLocation) {
@@ -64,6 +66,7 @@ export default async function render(req, res, next) {
             next(err)
         }
     })
+*/
 }
 
 // TBD: fetchComponentDataAsync
