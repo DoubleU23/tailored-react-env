@@ -6,7 +6,7 @@ import {
     Route,
     IndexRoute
 }                           from 'react-router-dom'
-import CreateBrowserHistory from 'history/lib/createBrowserHistory'
+// import CreateBrowserHistory from 'history/lib/createBrowserHistory'
 
 import App                  from './App'
 import HomePage             from './pages/HomePage'

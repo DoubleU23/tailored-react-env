@@ -12,7 +12,7 @@ import {
     Switch,
     IndexRoute
 }                           from 'react-router-dom'
-import CreateBrowserHistory from 'history/lib/createBrowserHistory'
+// import CreateBrowserHistory from 'history/lib/createBrowserHistory'
 
 // nothing
 
@@ -71,7 +71,7 @@ export class Root extends Component {
         return (
             <Provider store={store}>
                 {/* <App /> */}
-                <Router history={CreateBrowserHistory()}  >
+                <Router>
                     {routes}
                 </Router>
             </Provider>

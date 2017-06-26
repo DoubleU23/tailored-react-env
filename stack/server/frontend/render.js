@@ -2,7 +2,7 @@
 import React                            from 'react'
 import {renderToString, renderToStaticMarkup}                 from 'react-dom/server'
 // import Html                          from './Html.react'
-import {createMemoryHistory}            from 'history'
+// import {createMemoryHistory}            from 'history'
 
 
 import {matchPath, match, StaticRouter} from 'react-router-dom'
