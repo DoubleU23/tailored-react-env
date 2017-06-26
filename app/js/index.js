@@ -14,6 +14,8 @@ import {
 }                           from 'react-router-dom'
 import CreateBrowserHistory from 'history/lib/createBrowserHistory'
 
+// nothing
+
 // MOBX
 import { Provider } from 'mobx-react'
 import store, {stores}     from './stores'
