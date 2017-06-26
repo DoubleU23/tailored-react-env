@@ -1,4 +1,5 @@
-import TestStore from './TestStore.class'
+import TestStore    from './TestStore.class'
+import initialState from './initialState'
 
 export const stores = (state = {}) => {
     return {
@@ -7,4 +8,4 @@ export const stores = (state = {}) => {
 }
 
 // Initialize actions and state
-export default process.env.IS_BROWSER ? stores(window.__STATE) : {}
+export default stores(initialState)

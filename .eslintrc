@@ -33,7 +33,7 @@
     // https://github.com/idearium/developers/pull/12
     "padded-blocks": [2, {
         "classes": "always",
-        "switches": "always",
+        "switches": "never",
         "blocks": "never"
     }],
     no-multiple-empty-lines: ["error", { "max": 3}],
