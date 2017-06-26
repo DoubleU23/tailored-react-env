@@ -29,6 +29,8 @@ export default async function getAppAssetFilenamesAsync() { // eslint-disable-li
     try {
         const buildDirFiles = await fsPromised.readdirAsync('build')
 
+        // console.log('')
+
         return {
             js:     buildDirFiles.find(filename => APP_JS_PATTERN.test(filename)),
             css:    buildDirFiles.find(filename => APP_CSS_PATTERN.test(filename))

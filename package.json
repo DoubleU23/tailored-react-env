@@ -146,6 +146,9 @@
   },
   "dependencies": {
     "babel": "^6.5.2",
-    "ip": "^1.1.4"
+    "ip": "^1.1.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.1"
   }
 }

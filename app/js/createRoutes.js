@@ -1,7 +1,7 @@
 'use strict'
 
 import React                       from 'react'
-import {Router, Route, IndexRoute} from 'react-router'
+import {Router, Route, IndexRoute} from 'react-router-dom'
 import CreateBrowserHistory        from 'history/lib/createBrowserHistory'
 
 import App                         from './App'
@@ -35,6 +35,10 @@ const createRoutes = store => {
                 */}
 
                 <Route path="*" component={NotFoundPage} />
+                {/* new v4 syntax "Miss" suggested by several tutorials
+                but i can't import {Miss} from 'react-router'
+                <Miss component={NotFoundPage}/>
+                */}
             </Route>
         </Router>
     )

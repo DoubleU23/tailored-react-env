@@ -23,18 +23,19 @@ class Test extends Component {
     }
 
     componentWillMount() {
-        console.log('[TEST->componentWillMount] this', this)
+        // console.log('[TEST->componentWillMount] this', this)
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('[Test->componentWillReceiveProps] nextProps', nextProps)
+        // console.log('[Test->componentWillReceiveProps] nextProps', nextProps)
     }
 
     componentWillReact() {
-        console.log('[Test->componentWillReact] !!!')
+        // console.log('[Test->componentWillReact] !!!')
     }
 
     render() {
+        console.log('[Test->render()] !!!')
         return <div>TestStore.foo in childComponent: {this.props.store.test.foo}</div>
     }
 
@@ -79,7 +80,7 @@ class App extends Component {
 
     renderChildren() {
         return (
-            <span>
+            <div>
                 TestStore.foo in App.js: {this.props.store.test.foo}
                 <br />
                 <br />
@@ -99,7 +100,7 @@ class App extends Component {
                 </a>
                 <br />
                 <br />
-            </span>
+            </div>
         )
         // return React.cloneElement(this.props.children, {
         //     params:         this.props.params,
@@ -116,7 +117,7 @@ class App extends Component {
         this.renderChildren.bind(this)
 
         return (
-            <div style={{height: '5000px'}}>
+            <div style={{height: '5000px'}} id="app">
                 <Header />
                 <TestWrapped {...this.props} />
                 <br />

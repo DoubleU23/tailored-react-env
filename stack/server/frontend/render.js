@@ -1,22 +1,33 @@
 // REACT LIBS
-import React                     from 'react'
-import ReactDOMServer            from 'react-dom/server'
-// import Html                   from './Html.react'
-import {createMemoryHistory}     from 'history'
-import {RoutingContext, match}   from 'react-router'
-import BrowserRouter   from 'react-router/BrowserRouter'
+import React                            from 'react'
+import {renderToString, renderToStaticMarkup}                 from 'react-dom/server'
+// import Html                          from './Html.react'
+import {createMemoryHistory}            from 'history'
+
+
+import {matchPath, match, StaticRouter} from 'react-router-dom'
+// import {matchPath, match} from 'react-router-server'
+
+
+
 // OTHER LIBS
-import ip                        from 'ip'
-// refactor: use bluebird as polyfill on entrypoint(s)
-import Promise                   from 'bluebird'
+import ip                               from 'ip'
+// refactor                            : use bluebird as polyfill on entrypoint(s)
+import Promise                          from 'bluebird'
 // APP FILES
-import getAppAssetFilenamesAsync from './getAssetPaths'
-import appConfig                 from '../../../config/appConfig.js'
+import getAppAssetFilenamesAsync        from './getAssetPaths'
+import appConfig                        from '../../../config/appConfig.js'
 
-import initialState              from '../../../app/js/stores/initialState.js'
-import stores                    from '../../../app/js/stores/index.js'
+import initialState                     from '../../../app/js/stores/initialState.js'
+import stores                           from '../../../app/js/stores/index.js'
 
-import createRoutes              from '../../../app/js/createRoutes.js'
+import createRoutes                     from '../../../app/js/createRoutes.js'
+
+import App                              from '../../../app/js/App.js'
+import {Root}                           from '../../../app/js/index.js'
+import { Provider }                     from 'mobx-react'
+
+
 
 console.log('initialState?', initialState)
 
@@ -26,14 +37,17 @@ const {
 } = appConfig
 
 const serverIp  = ip.address()
-
+const context   = {}
+// TBD: prefetching data
+// https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/server-rendering.md#data-loading
 export default async function render(req, res, next) {
-    const store    = stores
-    const routes   = createRoutes(store)
+    // const initialState = initialState // refactor: not needed here?
+    const store        = stores
+    const routes       = createRoutes(store)
 
     // const location = createMemoryHistory().createLocation(req.url)
 
-    const html = await renderPageAsync()
+    const html = await renderPageAsync({url: req.url})
     res.send(html)
     return
 
@@ -89,21 +103,41 @@ const fetchComponentDataAsync = async (dispatch, {components, location, params})
     return  Promise.resolve()
 }
 
-const renderPageAsync = async () => {
+const renderPageAsync = async ({url}) => {
     const {js: appJsFilename, css: appCssFilename} = await getAppAssetFilenamesCachedAsync()
     const scriptSrc = isDevelopment
         ? `http://${serverIp}:${ports.HMR}/build/app.js`
         : `/build/${appJsFilename}?notreadytouse`
 
-    return '<!DOCTYPE html>' + ReactDOMServer.renderToStaticMarkup(
-        <html>
-            <head />
-            <body>
-                <div id="app" />
+    console.log()
+
+
+    // refactor: use StaticRouter?
+    //
+    // as suggested by react router examples
+    // https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/server-rendering.md
+    // renders fine... but is absolutely static and doesn't react to anything
+    //
+    // workaround: take the Apps main wrapper as renderTarget for FE-rendering
+    // => renders static on server... and when ready, render on client
+    return renderToString(
+        <StaticRouter location={url} context={context} >
+            <div>
+                <Root />
                 <script type="text/javascript" src={scriptSrc} />
-            </body>
-        </html>
-  )
+            </div>
+        </StaticRouter>
+    )
+
+    // return '<!DOCTYPE html>' + renderToStaticMarkup(
+    //     <html>
+    //         <head />
+    //         <body>
+    //             <div id="app" />
+    //             <script type="text/javascript" src={scriptSrc} />
+    //         </body>
+    //     </html>
+    // )
 }
 
 // function renderPage() {

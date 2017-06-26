@@ -115,12 +115,12 @@ const webpackGetConfig = _isDevelopment => {
     // ,    imports: ['src/common/style/project/index.styl']
         },
         output: isDevelopment ? {
-            path: constants.BUILD_DIR,
+            path: paths.build,
             filename: '[name].js',
             chunkFilename: '[name]-[chunkhash].js',
             publicPath: `http://${serverIp}:${ports.HMR}/build/`
         } : {
-            path: constants.BUILD_DIR,
+            path: paths.build,
             filename: '[name]-[hash].js',
             chunkFilename: '[name]-[chunkhash].js'
         },
