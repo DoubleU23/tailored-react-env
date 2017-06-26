@@ -5,7 +5,12 @@ import Component          from 'react-pure-render/component'
 import ReactDOM           from 'react-dom'
 
 // ROUTING
-import {Router, Route}      from 'react-router'
+import {
+    BrowserRouter as Router,
+    Match,
+    Route,
+    IndexRoute
+}                           from 'react-router-dom'
 import CreateBrowserHistory from 'history/lib/createBrowserHistory'
 
 // MOBX
@@ -16,6 +21,9 @@ autorun(stores)
 
 // import Routes            from './Routes'
 import App                  from './App'
+import HomePage             from './pages/HomePage'
+import SearchPage           from './pages/SearchPage'
+import NotFoundPage         from './pages/NotFoundPage'
 
 if (module.hot) module.hot.accept()
 
@@ -47,10 +55,10 @@ export class Root extends Component {
 
         return (
             <Provider store={store}>
-                <App />
-                {/* <Router history={CreateBrowserHistory()}  >
+                {/* <App /> */}
+                <Router history={CreateBrowserHistory()}  >
                     {routes}
-                </Router> */}
+                </Router>
             </Provider>
         )
     }

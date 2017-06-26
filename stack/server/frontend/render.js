@@ -130,6 +130,9 @@ const renderPageAsync = async ({url}) => {
          (client) <div style="height:50
          (server) <header data-reactid=
     */
+
+    // +++ also will try "https://www.npmjs.com/package/react-router-server"
+
     // return renderToString(
     //     <StaticRouter location={url} context={context} >
     //         <div>

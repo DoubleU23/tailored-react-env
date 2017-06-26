@@ -78,50 +78,37 @@ class App extends Component {
         console.log('[App->componentWillReact] !!!')
     }
 
-    renderChildren() {
-        return (
-            <div>
-                TestStore.foo in App.js: {this.props.store.test.foo}
-                <br />
-                <br />
-                <a
-                    style={{
-                        cursor: 'pointer',
-                        textDecoration: 'underline'
-                    }}
-                    onClick={() => {
-                        this.props.store.test.foo =
-                            this.props.store.test.foo === 'bar'
-                                ? 'foo'
-                                : 'bar'
-                    }}
-                >
-                    toggle TestStore.foo!
-                </a>
-                <br />
-                <br />
-            </div>
-        )
-        // return React.cloneElement(this.props.children, {
-        //     params:         this.props.params,
-        //     query:          this.props.query
-        //     // currentUser:    this.state.currentUser
-        // })
-    }
-
     testFn({foo, bar}) {
         console.log(foo, bar)
     }
 
     render() {
-        this.renderChildren.bind(this)
-
         return (
             <div style={{height: '5000px'}} id="app">
                 <Header />
                 <TestWrapped {...this.props} />
                 <br />
-                {this.renderChildren()}
+                <div>
+                    TestStore.foo in App.js: {this.props.store.test.foo}
+                    <br />
+                    <br />
+                    <a
+                        style={{
+                            cursor: 'pointer',
+                            textDecoration: 'underline'
+                        }}
+                        onClick={() => {
+                            this.props.store.test.foo =
+                                this.props.store.test.foo === 'bar'
+                                    ? 'foo'
+                                    : 'bar'
+                        }}
+                    >
+                        toggle TestStore.foo!
+                    </a>
+                    <br />
+                    <br />
+                </div>
                 <Footer />
             </div>
         )

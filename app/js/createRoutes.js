@@ -28,23 +28,21 @@ const createRoutes = store => {
         <Router history={CreateBrowserHistory()}>
     */
     return (
-        <Router>
-            <Route path="/" component={App}>
-                <IndexRoute component={HomePage} />
+        <Route path="/" component={App}>
+            <IndexRoute component={HomePage} />
 
-                <Route path="/" component={HomePage} />
-                <Route path="/search" component={SearchPage} />
-                {/* TBD: authRequired Component + onEnter=requireAuth
-                <Route path="/admin" component={SearchPage} onEnter= />
-                */}
+            <Route path="/" component={HomePage} />
+            <Route path="/search" component={SearchPage} />
+            {/* TBD: authRequired Component + onEnter=requireAuth
+            <Route path="/admin" component={SearchPage} onEnter= />
+            */}
 
-                <Route path="*" component={NotFoundPage} />
-                {/* new v4 syntax "Miss" suggested by several tutorials
-                but i can't import {Miss} from 'react-router'
-                <Miss component={NotFoundPage}/>
-                */}
-            </Route>
-        </Router>
+            <Route path="*" component={NotFoundPage} />
+            {/* new v4 syntax "Miss" suggested by several tutorials
+            but i can't import {Miss} from 'react-router'
+            <Miss component={NotFoundPage}/>
+            */}
+        </Route>
     )
 }
 
