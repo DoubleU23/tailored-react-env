@@ -35,6 +35,8 @@ if (process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER) {
     window.React = React
 }
 
+// nothing
+
 class RootTest extends Component {
 
     render() {
