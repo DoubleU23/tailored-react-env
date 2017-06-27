@@ -72,7 +72,6 @@ export class Root extends Component {
 
         return (
             <Provider store={store}>
-                {/* <App /> */}
                 <Router>
                     {routes}
                 </Router>
