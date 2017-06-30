@@ -31,10 +31,8 @@ export default class BenefitsStore {
             responseType: 'json'
         })
 
-        console.log('response', response)
-
-
         if (response.status === 200) {
+            // simulate server delay
             setTimeout(() => {
                 this.data = response.data
                 this.status = 'success'
