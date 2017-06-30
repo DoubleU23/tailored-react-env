@@ -1,5 +1,5 @@
 {
-  "name": "gulp-webpack-react-env",
+  "name": "tailored-react-env",
   "version": "0.0.1",
   "author": "Stefan Friedl",
   "description": "Environment Boilerplate for React Applications using Gulp and Webpack.",
