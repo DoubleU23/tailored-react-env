@@ -128,7 +128,8 @@ const webpackGetConfig = _isDevelopment => {
             'cheerio': 'window',
             'react/addons': true,
             'react/lib/ExecutionEnvironment': true,
-            'react/lib/ReactContext': true
+            'react/lib/ReactContext': true,
+            'fs': {}
         },
         plugins: (() => {
             const plugins = [
@@ -146,7 +147,8 @@ const webpackGetConfig = _isDevelopment => {
                     new webpack.HotModuleReplacementPlugin(),
                     new webpack.NoErrorsPlugin()
                 )
-            } else {
+            }
+            else {
                 plugins.push(
                     // Render styles into separate cacheable file to prevent FOUC and
                     // optimize for critical rendering path.
