@@ -6,7 +6,7 @@ export default class Header extends Component {
     render() {
         return (
             <header>
-                <h1>KLZ VorteilsClub Admin</h1>
+                <h1>Tailored React Environment</h1>
                 <hr />
             </header>
         )

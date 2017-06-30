@@ -4,7 +4,7 @@ import React     from 'react'
 //  'Warning: ReactTestUtils has been moved to react-dom/test-utils. Update references to remove this warning.'
 // import TestUtils from 'react-addons-test-utils'
 
-import Footer    from '../../app/js/components/Footer'
+// import Footer    from '../../app/js/components/Footer'
 
 // describe('Component: Footer', () => {
 //     it('should render properly', () => {

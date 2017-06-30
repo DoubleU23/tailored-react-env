@@ -2,7 +2,7 @@
 
 import React     from 'react'
 
-import Header    from '../../app/js/components/Header'
+// import Header    from '../../app/js/components/Header'
 
 // describe('[TEST] Component: Header', () => {
 //     it('should render properly', () => {

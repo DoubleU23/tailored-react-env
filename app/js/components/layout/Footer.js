@@ -9,7 +9,7 @@ export default class Footer extends Component {
         return (
             <div className="testClassName">
                 <hr />
-                &copy; by SF at <a href="https://www.webundsoehne.com/" target="_blank">Web & Söhne</a>
+                &copy; by <a href="https://github.com/DoubleU23/" target="_blank">DoubleU23</a>
             </div>
         )
     }
