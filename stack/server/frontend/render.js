@@ -19,12 +19,11 @@ import getAppAssetFilenamesAsync        from './getAssetPaths'
 import appConfig                        from '../../../config/appConfig.js'
 
 import initialState                     from '../../../app/js/stores/initialState.js'
-import stores                           from '../../../app/js/stores/index.js'
+import store                            from '../../../app/js/stores/index.js'
 
-import createRoutes                     from '../../../app/js/createRoutes.js'
+import routes                           from '../../../app/js/Routes.js'
 
 import App                              from '../../../app/js/App.js'
-import {Root}                           from '../../../app/js/index.js'
 import { Provider }                     from 'mobx-react'
 
 
@@ -41,10 +40,6 @@ const context   = {}
 // TBD: prefetching data
 // https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/server-rendering.md#data-loading
 export default async function render(req, res, next) {
-    // const initialState = initialState // refactor: not needed here?
-    const store        = stores
-    const routes       = createRoutes(store)
-
     // const location = createMemoryHistory().createLocation(req.url)
 
     const html = await renderPageAsync({url: req.url})

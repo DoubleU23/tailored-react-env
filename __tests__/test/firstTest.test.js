@@ -8,7 +8,7 @@ import scriptFilter from '../../stack/gulp/util/script-filter.helper.js'
 
 // import TestUtils from 'react-addons-test-utils'
 
-import Footer from '../../app/js/components/Footer.js'
+import Footer from '../../app/js/components/layout/Footer.js'
 // let test = require('../../gulp/util/script-filter.js')
 
 describe('"firstTest.test.js"', function() {

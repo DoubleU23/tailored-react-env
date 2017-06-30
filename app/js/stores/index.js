@@ -1,11 +1,11 @@
-import TestStore    from './TestStore.class'
-import initialState from './initialState'
+import BenefitsStore from './BenefitsStore'
+import initialState  from './initialState'
 
-export const stores = (state = {}) => {
+export const computeStore = (state = {}) => {
     return {
-        test:     new TestStore(state.test)
+        benefits: new BenefitsStore(state.test)
     }
 }
 
 // Initialize actions and state
-export default stores(initialState)
+export default computeStore(initialState)

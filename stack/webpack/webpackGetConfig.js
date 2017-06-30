@@ -89,7 +89,7 @@ const webpackGetConfig = _isDevelopment => {
                         //     presets: ['airbnb']
                         // },
                         development: {
-                            presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
+                            // presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
                             plugins: [
                                 // ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-decorators-legacy'],
                                 ['react-transform', {
@@ -110,8 +110,8 @@ const webpackGetConfig = _isDevelopment => {
             }].concat(stylesLoaders())
         },
         stylus: {
-            use: [doubleu23Stylus(), nib()],
-            compress:       isDevelopment
+            use:        [doubleu23Stylus(), nib()],
+            compress:   isDevelopment
     // ,    imports: ['src/common/style/project/index.styl']
         },
         output: isDevelopment ? {

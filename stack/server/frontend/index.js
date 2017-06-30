@@ -5,7 +5,19 @@ import express from 'express'
 // import favicon from 'serve-favicon';
 import render from './render'
 
+import path            from 'path'
+import auth            from 'http-auth'
+
 const app = express()
+
+const basic = auth.basic({
+    realm:  'TestLogin (admin/admin)',
+    file:   path.join(__dirname, 'htpasswd')
+})
+
+app.use(auth.connect(basic))
+
+
 
 // app.use(tailoredMiddleware());
 // app.use(compression())

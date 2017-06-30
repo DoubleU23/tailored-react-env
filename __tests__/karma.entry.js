@@ -36,6 +36,8 @@ global = Object.assign(global,
     {chai, expect: chai.expect, should: chai.should()}  // chai assertion functions
 )
 
+
+require('babel-polyfill')
 /**
  * LOAD FILES
  *     according to https://github.com/webpack-contrib/istanbul-instrumenter-loader#testindexjs

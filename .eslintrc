@@ -26,6 +26,7 @@
     "__filename": false
   },
   "rules": {
+    "brace-style": [1, "stroustrup"],
     // padded-blocks is a little bit broken
     // it's set in "eslint-config-standard"
     // - it ignores classes locally but not in travis
