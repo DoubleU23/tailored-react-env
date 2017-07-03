@@ -9,7 +9,13 @@ import Footer        from './components/layout/Footer'
 import Test          from './components/Test'
 import Benefits      from './components/Benefits'
 
+import BenefitsStore from './stores/BenefitsStore'
+
 class App extends Component {
+
+    componentDidMount() {
+        window.BenefitsStore = BenefitsStore
+    }
 
     render() {
         return (

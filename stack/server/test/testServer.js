@@ -5,17 +5,17 @@ import appConfig       from '../../../config/appConfig.js'
 
 const app = express()
 
-app.get('/testTimeout', (req, res, next) => {
+app.get('/test/testTimeout', (req, res, next) => {
     setTimeout(() => {
         res.send('timeout response after 5000ms')
-    }, 5000)
+    }, 30000)
 })
 
-app.get('/test401', (req, res, next) => {
+app.get('/test/test401', (req, res, next) => {
     res.status(401).send('401 testServer response')
 })
 
-app.get('/test500', (req, res, next) => {
+app.get('/test/test500', (req, res, next) => {
     res.status(500).send('500 testServer response')
 })
 

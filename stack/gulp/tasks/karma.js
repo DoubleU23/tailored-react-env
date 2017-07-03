@@ -8,7 +8,7 @@ const {
     paths
 } = appConfig
 
-gulp.task('karma', ['env', 'clean'], done => {
+gulp.task('karma', ['env', 'clean', 'testServer'], done => {
     return new Server({
         configFile: path.join(paths.configs, 'karma.config.js'),
         singleRun: true,

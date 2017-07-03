@@ -44,6 +44,12 @@ app.use('/build', express.static('build', {maxAge: '200d'}))
 //     res.send('HALLO!')
 // })
 
+app.get('/test/testTimeout', (req, res, next) => {
+    setTimeout(() => {
+        res.send('timeout response after 5000ms')
+    }, 30000)
+})
+
 app.get('*', render)
 
 app.on('mount', () => {

@@ -44,7 +44,12 @@ gulp.task('testServer', done => {
 
     runner.stdout.setEncoding('utf8')
 
-    runner.stdout.on('data', data => gutil.log(data))
+    runner.stdout.on('data', data => {
+        gutil.log(data)
+        if (~data.indexOf('started')) {
+            done()
+        }
+    })
     runner.stderr.on('data', err => gutil.log('[testServer->Error] ' + err))
 
     // // kill server process on gulp exit
@@ -53,4 +58,6 @@ gulp.task('testServer', done => {
     // doesn't fire on strg+c
     runner.on('close', closeFn)
     runner.on('exit', closeFn)
+
+    return true
 })

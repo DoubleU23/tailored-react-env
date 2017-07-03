@@ -13,6 +13,7 @@ const paths         = {
     ROOT:           rootDir,
     stack:          path.join(rootDir, 'stack'),
     server:         path.join(rootDir, 'stack', 'server'),
+    testServer:     path.join(rootDir, 'stack', 'server', 'test'),
     app:            path.join(rootDir, 'app'),
     src:            path.join(rootDir, 'app', 'js'),
     configs:        path.join(rootDir, 'config'),
@@ -27,6 +28,7 @@ export const getAppConfig = _isDevelopment => {
 
     return {
         isDevelopment,
+        isProduction: (process.env.NODE_ENV === 'production'),
         isCI: (
             process.env.CONTINUOUS_INTEGRATION
         ||  process.env.TRAVIS
@@ -41,6 +43,14 @@ export const getAppConfig = _isDevelopment => {
             testFiles:      paths.tests         + '/**/*.test.{js,jsx}',
             coverage:       paths.coverage      + '/**/*',
             build:          paths.build         + '/**/*'
+        },
+
+        // refactor: shove into config files
+        api:    {
+            base:           'http://localhost:8001/api',
+            endpoints: {
+                benefits:   '/benefits.json'
+            }
         },
 
         ports:  {
@@ -85,7 +95,13 @@ export const getAppConfig = _isDevelopment => {
             'ttc',
             'ttf',
             'woff2?'
-        ]
+        ],
+
+        timings: {
+            timeout: process.env.NODE_ENV === 'TEST'
+                ? 1500 // mocha has 2000ms timeout for async it()
+                : 3000
+        }
 
     }
 }
