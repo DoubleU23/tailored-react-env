@@ -41,48 +41,37 @@ describe('[SPEC] BenefitsStore', async function() {
     // SETUP
     const benefitsUrl   = apiBase + benefitsEndpoint
 
-
-    it('ASYNC - should fetch data',  async function(done) {
+    it('ASYNC - should fetch data',  async function() {
         const benefitsStore = new BenefitsStore()
         const response      = await benefitsStore.fetch()
-        console.log('response.error ', response.error)
-        console.log('response.message ', response.message)
-        // if (response.error) {
-        //     done(response)
-        // }
 
-        try {
-            expect(response).to.equal('hello')
-            expect(benefitsStore.error).to.equal(false)
-            done()
+        // refactor: catch erroring request here!?!?!?
+        // would be Network Error or TimeoutError
+        if (response.error) {
+            // response is an error
+            // "throw response" === done(repsonse)
+            throw response
         }
-        catch (mostLikelyAssertionError) {
-            // catch AssertionError
-            done(mostLikelyAssertionError)
-        }
+
+        expect(response).to.equal('hello')
+        expect(benefitsStore.error).to.equal(false)
     })
 
-    it('SYNC - should fetch data', function(done) {
-        // moxios.stubRequest('/say/hello', {
-        //     status: 200,
-        //     responseText: 'hello'
-        // })
-
-
-
-        const benefitsStore = new BenefitsStore()
-        benefitsStore.fetch()
-            .then(response => {
-                if (response.error) {
-                    done(response)
-                }
-
-                expect(response).to.equal('hello')
-                expect(benefitsStore.error).to.equal(false)
-                done()
-            })
-            .catch(mostLikelyAssertionError => {
-                done(mostLikelyAssertionError)
-            })
-    })
+    // it('SYNC - should fetch data', function(done) {
+    //     const benefitsStore = new BenefitsStore()
+    //     benefitsStore.fetch()
+    //         .then(response => {
+    //              if (response.error) {
+    //          //  Network Error or TimeoutError
+    //              done(response)
+    //              }
+    //
+    //             expect(response).to.equal('hello')
+    //             expect(benefitsStore.error).to.equal(false)
+    //             done()
+    //         })
+    //         .catch(mostLikelyAssertionError => {
+    //             done(mostLikelyAssertionError)
+    //         })
+    // })
 })

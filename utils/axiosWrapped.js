@@ -12,7 +12,8 @@ const axiosWrapped = (method, url, options) => {
     return timeout(requestTimeout,
         axios
             .apply(method, [url, options])
-            // catch first to only get REAL errors (we throw respone in underneath THEN)
+            // catch first to only get REAL errors
+            // (we throw respone in underneath THEN)
             .catch(error => {
                 if (process.env.DEBUG) {
                     console.log('[axios.apply->catch(error)] ', error)
