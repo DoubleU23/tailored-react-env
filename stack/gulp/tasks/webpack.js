@@ -16,7 +16,7 @@ const {
 gulp.task('webpack', finishTaskFn => {
     // start express server
     // refactor: move path to config!?
-    const expressServerEntrypoint  = path.normalize(path.join(paths.ROOT, '/stack/server/index.js'))
+    const expressServerEntrypoint  = paths.server
 
     if (process.env.NODE_ENV === 'development') {
         let startedFirst = false
@@ -43,7 +43,8 @@ gulp.task('webpack', finishTaskFn => {
                     }
                 })
         })
-    } else {
+    }
+    else {
         webpackMakeBuild(
             // build callback = gulp "done()"
             finishTaskFn
