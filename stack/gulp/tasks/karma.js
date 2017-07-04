@@ -13,8 +13,8 @@ gulp.task('karma', ['env', 'clean', 'testServer'], done => {
         configFile: path.join(paths.configs, 'karma.config.js'),
         singleRun: true,
         autoWatch: false
-    }, () => {
-        done()
-        process.exit(0)
+    }, exitCode => {
+        done(exitCode)
+        process.exit(exitCode)
     }).start()
 })
