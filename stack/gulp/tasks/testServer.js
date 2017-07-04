@@ -58,6 +58,7 @@ gulp.task('testServer', done => {
     // doesn't fire on strg+c
     runner.on('close', closeFn)
     runner.on('exit', closeFn)
+    runner.on('kill', closeFn)
 
     return true
 })

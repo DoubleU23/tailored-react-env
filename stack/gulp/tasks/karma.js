@@ -15,5 +15,6 @@ gulp.task('karma', ['env', 'clean', 'testServer'], done => {
         autoWatch: false
     }, () => {
         done()
+        process.exit(0)
     }).start()
 })

@@ -55,6 +55,8 @@ describe('[SPEC] BenefitsStore', async function() {
 
         expect(response).to.equal('hello')
         expect(benefitsStore.error).to.equal(false)
+
+        expect(response).to.equal('test')
     })
 
     // it('SYNC - should fetch data', function(done) {
