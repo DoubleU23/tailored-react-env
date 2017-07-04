@@ -22,14 +22,13 @@ addons:
 
 cache:
     apt: true
-    npm: false
+    npm: true
     # directories:
     #     - $HOME/.npm
 
 before_install:
     # prefer global
     - npm install -g node-gyp
-    - npm install -g marked
     # should always be global
     - npm install -g gulp
 
