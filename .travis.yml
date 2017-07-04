@@ -29,6 +29,7 @@ cache:
 before_install:
     # prefer global
     - npm install -g node-gyp
+    - npm install -g marked
     # should always be global
     - npm install -g gulp
 
