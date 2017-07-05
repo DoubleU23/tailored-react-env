@@ -26,7 +26,7 @@ const paths         = {
 export const getAppConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment || process.env.NODE_ENV !== 'production' // || config.get('isDevelopment')
 
-    return {
+    const config = {
         isDevelopment,
         isProduction: (process.env.NODE_ENV === 'production'),
         isCI: (
@@ -43,14 +43,6 @@ export const getAppConfig = _isDevelopment => {
             testFiles:      paths.tests         + '/**/*.test.{js,jsx}',
             coverage:       paths.coverage      + '/**/*',
             build:          paths.build         + '/**/*'
-        },
-
-        // refactor: shove into config files
-        api:    {
-            base:           'http://localhost:8001/api',
-            endpoints: {
-                benefits:   '/benefits.json'
-            }
         },
 
         ports:  {
@@ -104,6 +96,17 @@ export const getAppConfig = _isDevelopment => {
         }
 
     }
+
+    // refactor: shove into config files
+    const {ports: {frontend: frontendPort}} = config
+    config.api = {
+        base:           `http://localhost:${frontendPort}/api`,
+        endpoints: {
+            benefits:   '/benefits.json'
+        }
+    }
+
+    return config
 }
 
 export default getAppConfig()

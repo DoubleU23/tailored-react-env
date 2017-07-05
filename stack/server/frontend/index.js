@@ -17,8 +17,6 @@ const basic = auth.basic({
 
 app.use(auth.connect(basic))
 
-
-
 // app.use(tailoredMiddleware());
 // app.use(compression())
 
