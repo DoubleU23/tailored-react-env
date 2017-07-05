@@ -45,6 +45,14 @@ export const getAppConfig = _isDevelopment => {
             build:          paths.build         + '/**/*'
         },
 
+        // refactor: shove into config files
+        api:    {
+            base:           'http://localhost:8001/api',
+            endpoints: {
+                benefits:   '/benefits.json'
+            }
+        },
+
         ports:  {
             frontend:       8000, // config.get('portFE'),
             HMR:            8080  // config.get('portHMR')

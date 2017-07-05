@@ -2,28 +2,27 @@
 
 import React         from 'react'
 import Component     from 'react-pure-render/component'
-import {Route, Link} from 'react-router-dom'
+import {Route}       from 'react-router-dom'
 
 import Header        from './components/layout/Header'
 import Footer        from './components/layout/Footer'
-import Test          from './components/Test'
+import Nav           from './components/layout/Nav'
 import Benefits      from './components/Benefits'
 
-import BenefitsStore from './stores/BenefitsStore'
+// import BenefitsStore from './stores/BenefitsStore'
 
 class App extends Component {
 
-    componentDidMount() {
-        window.BenefitsStore = BenefitsStore
-    }
+    // componentDidMount() {
+    //     window.BenefitsStore = BenefitsStore
+    // }
 
     render() {
         return (
             <div style={{height: '5000px'}} id="app">
                 <Header />
-                <Test />
+                <Nav />
                 <div id="content">
-                    <Link to="/benefits" >show Benefits</Link><br />
                     <Route path="/benefits" component={Benefits} />
                 </div>
                 <Footer />

@@ -4,8 +4,6 @@ import React, {PropTypes} from 'react'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
 
-import randomString       from 'randomstring'
-
 @inject('benefits')
 @observer
 export default class BenefitsDetails extends Component {
@@ -14,6 +12,12 @@ export default class BenefitsDetails extends Component {
         match:      PropTypes.object.isRequired,
         benefits:   PropTypes.object.isRequired
     };
+
+    constructor(props) {
+        super(props)
+
+        this.editMode = false
+    }
 
     componentWillMount() {
         this.reacts = 0
@@ -24,8 +28,38 @@ export default class BenefitsDetails extends Component {
         console.log('[DetailView->componentWillReact] triggered!')
     }
 
-    getDataDetail = (data, id) =>
-        data.find(el => parseInt(el.id) === parseInt(id))
+    renderValueOrInput(fieldName) {
+        const {
+            benefits: {data},
+            match: {params: {id}}
+        }                = this.props
+        const benefit    = data[id]
+        const fieldValue = benefit[fieldName]
+        let innerJSX
+
+        if (!this.editMode) {
+            innerJSX = fieldValue
+        }
+        else {
+            innerJSX = (
+                <input
+                    style={{width: '100%'}}
+                    type="textfield"
+                    value={fieldValue}
+                    onChange={e => {
+                        benefit[fieldName] = e.currentTarget.value
+                    }}
+                />
+            )
+        }
+        return (
+            <div className="benefitsDetailsField">
+                <b>{fieldName}</b><br />
+                {innerJSX}
+                <br /><br />
+            </div>
+        )
+    }
 
     render() {
         const {
@@ -35,40 +69,29 @@ export default class BenefitsDetails extends Component {
 
         // if the length changes (after injection)
         // it triggers "componentWillReact"
-        // and re-renders
-        // because ? testData is a observable ?
-        if (!benefits.data.length) {
-            // if you come here directly, we have to load the data
-            // if you come here from App->List, data is already here
-            // ... because the store's constructor is already called
-            // which did fetch the data
+        // and re-renders because testData is a observable
+        if (!Object.keys(benefits.data).length) {
             return <div>Loading...</div>
         }
 
-        // we don't have the data on constructor/willMount
-        // TBD: refactor: find a way to pre-filter before it's rendered
-        // (we may need a better Route/Component Structure)
-        //
-        // tbd: getDataDetail should be in testStore
-        const data = this.getDataDetail(benefits.data, id)
+        const date = new Date(benefits.data[id].displayDate).toDateString()
 
         return (
             <div id="detailView">
-                <h3>Detail für ID#{id}</h3>
-                <b>Title</b>:<br />{data.title}<br /><br />
-                <b>Description</b>:<br />{data.description}<br /><br />
-                <br />
-                <a
-                    style={{textDecoration: 'underline', cursor: 'pointer'}}
-                    onClick={() => {
-                    //  change extracted data => triggers componentWillReact
-                        data.title = randomString.generate(11)
-                    }}
-                >
-                    change Title to random string
+                <h3 style={{margin: 0}}>Detail für ID#{id}</h3>
+                <a href="#" onClick={() => {
+                    this.editMode = !this.editMode
+                    return false
+                }}>
+                    {!this.editMode ? 'bearbeiten' : 'speichern'}
                 </a><br />
                 <br />
-                Components reacted {this.reacts} times
+
+                <span><b>Datum:</b><br />{date + ''}<br /><br /></span>
+
+                {this.renderValueOrInput('title')}
+
+                {this.renderValueOrInput('description')}
             </div>
         )
     }

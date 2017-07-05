@@ -112,7 +112,7 @@
     "react/no-string-refs": 2,
     "react/jsx-boolean-value": 0, // Omit the value of the prop when it is explicitly true
     "react/jsx-curly-spacing": 2, // Do not pad JSX curly braces with spaces
-    "react/jsx-closing-bracket-location": 2,
+    "react/jsx-closing-bracket-location": 0,
     "react/jsx-pascal-case": 2,
     "react/prefer-es6-class": 2,
     "react/prefer-stateless-function": [0, {"ignorePureComponents": false}],

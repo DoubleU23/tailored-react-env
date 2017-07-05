@@ -18,6 +18,8 @@ export default class BenefitsListElement extends Component {
             <div className="benefitListElement" key={'benefitListElement' + benefit.id}>
                 <Link to={'/benefits/' + benefit.id}>Details</Link>&nbsp;
                 for id "{benefit.id}"
+                {benefit.campaign &&
+                <span>(campainId: {benefit.campaign.id})</span>}
             </div>
         )
     }

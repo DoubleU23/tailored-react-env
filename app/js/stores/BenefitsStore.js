@@ -25,22 +25,44 @@ export default class BenefitsStore {
             bar:        'foo',
             status:     'inactive',
             error:      false,
-            data:       observable([]),
+            data:       observable({}),
             fetched:    false // false || timestamp
         }, state)
+    }
+
+    sortData(data) {
+        const dataSorted = {}
+        data.forEach(benefit => {
+            dataSorted[benefit.id] = benefit
+        })
+        console.log('this.data SORTED:', dataSorted)
+        return dataSorted
     }
 
     @action
     async fetch() {
         const benefitsUrl   = apiBase + benefitsEndpoint
-        const testUrl       = 'http://localhost:8000/test/testTimeout'
 
-        this.status = 'pending'
-        this.error  = false
+        // console.log('[BenefitsStore] apiBase', apiBase)
+        // console.log('[BenefitsStore] benefitsUrl', benefitsUrl)
 
-        const response = await axiosWrapped('get', benefitsUrl, {
-            responseType: 'json'
-        })
+        this.status   = 'loading'
+        this.error    = false
+
+        console.log('process.env.BUILD_STATIC', [process.env.BUILD_STATIC])
+
+        // refactor: workaround to static build
+        // serve JSON directly
+        let response
+        if (process.env.BUILD_STATIC) {
+            response = {status: 200}
+            response.data = require('../../../static/benefits.js').default
+        }
+        else {
+            response = await axiosWrapped('get', benefitsUrl, {
+                responseType: 'json'
+            })
+        }
 
         console.log('BenefitsStore isError?', [response.error])
         console.log('BenefitsStore response', [response])
@@ -62,7 +84,7 @@ export default class BenefitsStore {
         if (response && response.status === 200) {
             // simulate server delay
             setTimeout(() => {
-                this.data    = response.data
+                this.data    = this.sortData(response.data)
                 this.status  = 'success'
                 this.fetched = Date.now()
             }, 1000)

@@ -14,21 +14,30 @@ export default class BenetfitsList extends Component {
         benefits: PropTypes.object.isRequired
     };
 
+    renderBenefits() {
+        const {benefits: {data}} = this.props
+        const benefitsList  = []
+        let benefitData
+        console.log('[renderBenefits] this.props.benefits.data', data)
+        for (let benefitKey in data) {
+            benefitData = data[benefitKey]
+            benefitsList.push(
+                <BenefitsListElement benefit={benefitData} key={'benefitsListElement' + benefitData.id} />
+            )
+        }
+        return benefitsList
+    }
+
     render() {
         const {benefits} = this.props
 
         return (
             <div id="benefitsList">
                 <h3>Component "BenetfitsList"</h3>
-                <div>
-                    <b>benefits.status:</b><br />{benefits.status}<br /><br />
-                    <b>benefits.data.length:</b><br />{benefits.data.length}<br /><br />
-                </div>
 
-                {benefits.data.map((v, i) =>
-                    <BenefitsListElement benefit={v} key={'benefitsListElement' + i} />
-                )}
-                <br /><br />
+                {benefits.status !== 'success'
+                && <div>loading...</div>
+                || this.renderBenefits()/* this.renderBenefits() */}
             </div>
         )
     }

@@ -16,7 +16,7 @@ export default class Benefits extends Component {
     }
 
     async componentWillMount() {
-        // PREFETCH DATA for benefits subComponent (benefitsStore.fetch())
+        // PREFETCH DATA for benefits subComponents (benefitsStore.fetch())
         // refactor: use "maxLifetime()" usw
         const {benefits} = this.props
         if (!benefits.fetched) {
