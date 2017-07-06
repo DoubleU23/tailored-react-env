@@ -148,5 +148,7 @@
     "when": "^3.7.4",
     "yargs": "^3.27.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  }
 }

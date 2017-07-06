@@ -1,8 +1,9 @@
 'use strict'
 
-import React, {PropTypes} from 'react'
-import Component          from 'react-pure-render/component'
-import {observer, inject} from 'mobx-react'
+import React               from 'react'
+import PropTypes           from 'prop-types'
+import Component           from 'react-pure-render/component'
+import {observer, inject}  from 'mobx-react'
 
 import BenefitsListElement from './BenefitsListElement'
 

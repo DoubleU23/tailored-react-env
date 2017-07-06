@@ -1,12 +1,13 @@
 'use strict'
 
-import React, {PropTypes} from 'react'
-import Component          from 'react-pure-render/component'
-import {inject}           from 'mobx-react'
+import React           from 'react'
+import PropTypes       from 'prop-types'
+import Component       from 'react-pure-render/component'
+import {inject}        from 'mobx-react'
 
-import {Route}            from 'react-router-dom'
-import BenefitsList       from './benefits/BenefitsList.js'
-import BenefitsDetails    from './benefits/BenefitsDetails.js'
+import {Route}         from 'react-router-dom'
+import BenefitsList    from './benefits/BenefitsList.js'
+import BenefitsDetails from './benefits/BenefitsDetails.js'
 
 @inject('benefits')
 export default class Benefits extends Component {
