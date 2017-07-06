@@ -4,6 +4,9 @@ import React              from 'react'
 import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
+import {observable}         from 'mobx'
+
+import RaisedButton       from 'material-ui/RaisedButton'
 
 @inject('benefits')
 @observer
@@ -17,7 +20,9 @@ export default class BenefitsDetails extends Component {
     constructor(props) {
         super(props)
 
-        this.editMode = false
+        this.state = {
+            editMode: false
+        }
     }
 
     componentWillMount() {
@@ -38,7 +43,7 @@ export default class BenefitsDetails extends Component {
         const fieldValue = benefit[fieldName]
         let innerJSX
 
-        if (!this.editMode) {
+        if (!this.state.editMode) {
             innerJSX = fieldValue
         }
         else {
@@ -62,7 +67,14 @@ export default class BenefitsDetails extends Component {
         )
     }
 
+
+    toggleEditMode() {
+        this.setState({editMode: !this.state.editMode})
+        return true
+    }
+
     render() {
+        const self = this
         const {
             benefits,
             match: {params: {id}}
@@ -80,12 +92,6 @@ export default class BenefitsDetails extends Component {
         return (
             <div id="detailView">
                 <h3 style={{margin: 0}}>Detail für ID#{id}</h3>
-                <a href="#" onClick={() => {
-                    this.editMode = !this.editMode
-                    return false
-                }}>
-                    {!this.editMode ? 'bearbeiten' : 'speichern'}
-                </a><br />
                 <br />
 
                 <span><b>Datum:</b><br />{date + ''}<br /><br /></span>
@@ -93,6 +99,11 @@ export default class BenefitsDetails extends Component {
                 {this.renderValueOrInput('title')}
 
                 {this.renderValueOrInput('description')}
+
+                <RaisedButton
+                    label={!this.state.editMode ? 'bearbeiten' : 'speichern'}
+                    onClick={() => this.toggleEditMode()}
+                />
             </div>
         )
     }
