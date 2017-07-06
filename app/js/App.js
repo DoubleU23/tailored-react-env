@@ -1,13 +1,15 @@
 'use strict'
 
-import React         from 'react'
-import Component     from 'react-pure-render/component'
-import {Route}       from 'react-router-dom'
+import React        from 'react'
+import Component    from 'react-pure-render/component'
+import {Route}      from 'react-router-dom'
 
-import Header        from './components/layout/Header'
-import Footer        from './components/layout/Footer'
-import Nav           from './components/layout/Nav'
-import Benefits      from './components/Benefits'
+import Header       from './components/layout/Header'
+import Footer       from './components/layout/Footer'
+import Nav          from './components/layout/Nav'
+import Benefits     from './components/Benefits'
+
+import RaisedButton from 'material-ui/RaisedButton'
 
 // import BenefitsStore from './stores/BenefitsStore'
 
@@ -25,6 +27,9 @@ class App extends Component {
                 <div id="content">
                     <Route path="/benefits" component={Benefits} />
                 </div>
+                <RaisedButton
+                    label={'Button'}
+                />
                 <Footer />
             </div>
         )
