@@ -121,6 +121,7 @@
     "mobx": "^3.1.16",
     "mobx-react": "^4.2.1",
     "mocha": "^2.3.3",
+    "moxios": "^0.4.0",
     "nib": "^1.1.0",
     "opn": "^4.0.0",
     "phantomjs": "^2.1.7",
@@ -147,11 +148,5 @@
     "when": "^3.7.4",
     "yargs": "^3.27.0"
   },
-  "dependencies": {
-    "babel": "^6.5.2",
-    "history": "^1.17.0",
-    "ip": "^1.1.4",
-    "moxios": "^0.4.0",
-    "react-router-dom": "^4.1.1"
-  }
+  "dependencies": {}
 }
