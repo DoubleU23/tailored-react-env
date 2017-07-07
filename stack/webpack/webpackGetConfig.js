@@ -175,7 +175,10 @@ const webpackGetConfig = _isDevelopment => {
                         { loader: 'postcss-loader', options: { sourceMap: true } },
                         {
                             loader: 'stylus-loader',
-                            options: { sourceMap: true } // use: [nib()] }
+                            options: {
+                                sourceMap: true,
+                                use: [nib()]
+                            }
                         }
                     ]
                 }
