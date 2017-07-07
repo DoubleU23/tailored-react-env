@@ -64,10 +64,11 @@ const webpackGetConfig = _isDevelopment => {
 
     const config = {
         target:     'web',
-        // hotPort:    ports.HMR,
         cache:      isDevelopment,
-        // debug:      isDevelopment,
-        devtool:    false, // (isDevelopment ? devtools : ''),
+
+        // devtool:    false, // handled by "SourceMapDevToolPlugin"
+        devtool: 'cheap-module-source-map',
+
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -76,40 +77,45 @@ const webpackGetConfig = _isDevelopment => {
                 path.join(paths.src, 'index.js')
             ]
         },
+        output: isDevelopment ? {
+            path:               paths.build,
+            filename:           '[name].js',
+            sourceMapFilename:  '[name].js.map.sourceMapFilename',
+            chunkFilename:      '[name]-[chunkhash].js',
+            publicPath:         `http://${serverIp}:${ports.HMR}/build/`
+        } : {
+            path: paths.build,
+            filename: '[name]-[hash].js',
+            // sourceMapFilename: '[name]-[hash].js',
+            chunkFilename: '[name]-[chunkhash].js'
+        },
         module: {
             rules: [
                 // URL LOADER
                 // (different limits for different fileTypes)
-// {
-//     loader: 'url-loader',
-//     test: /\.(gif|jpg|png|svg)(\?.*)?$/,
-//     options: {
-//         limit: 10000
-//     }
-// },
-// {
-//     loader: 'url-loader',
-//     test: /favicon\.ico$/,
-//     options: {
-//         limit: 1
-//     }
-// },
-// {
-//     loader: 'url-loader',
-//     test: /\.(ttf|eot|woff|woff2)(\?.*)?$/,
-//     options: {
-//         limit: 100000
-//     }
-// },
+                {
+                    loader: 'url-loader',
+                    test: /\.(gif|jpg|png|svg)(\?.*)?$/,
+                    options: { limit: 10000 }
+                },
+                {
+                    loader: 'url-loader',
+                    test: /favicon\.ico$/,
+                    options: { limit: 1 }
+                },
+                {
+                    loader: 'url-loader',
+                    test: /\.(ttf|eot|woff|woff2)(\?.*)?$/,
+                    options: { limit: 100000 }
+                },
                 // BABEL
                 {
                     loader: 'babel-loader',
                     test: /\.js$/,
-                    // exclude: paths.nodeModules,
                     exclude:  /(node_modules|bower_components)/,
                     options: {
                         retainLines: true,
-                        // sourceMap: true,
+                        sourceMap: true,
                         babelrc: true,
                         cacheDirectory: false,
                         // other presets are defined in .eslintrc
@@ -127,25 +133,22 @@ const webpackGetConfig = _isDevelopment => {
                                 }
                             ],
                             'transform-decorators-legacy'
-                        ]
-                        // env: {
-                        //     production: {
-                        //         plugins: ['transform-react-constant-elements']
-                        //     }
-                        // }
+                        ],
+                        env: {
+                            production: {
+                                plugins: ['transform-react-constant-elements']
+                            }
+                        }
                     }
                 }
+                // not needed (only handles extern sourcemaps (in module packages))
                 // {
                 //     test:       /\.js$/,
                 //     use:        ['source-map-loader'],
                 //     enforce:    'pre'
                 // }
             ]
-
-           /* loaders: [{
-                loader: 'url-loader?limit=100000',
-                test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-            }, {
+        /* {
                 test: /\.styl$/,
                 loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
             }, {
@@ -184,18 +187,6 @@ const webpackGetConfig = _isDevelopment => {
 
             // .concat([])
             // .concat(stylesLoaders())
-        },
-        output: isDevelopment ? {
-            path: paths.build,
-            filename: '[name].js',
-            sourceMapFilename: '[name].js.map',
-            chunkFilename: '[name]-[chunkhash].js',
-            publicPath: `http://${serverIp}:${ports.HMR}/build/`
-        } : {
-            path: paths.build,
-            filename: '[name]-[hash].js',
-            // sourceMapFilename: '[name]-[hash].js',
-            chunkFilename: '[name]-[chunkhash].js'
         },
         externals: {
             'cheerio': 'window',
@@ -251,13 +242,13 @@ const webpackGetConfig = _isDevelopment => {
                         allChunks:  true
                     }),
                     new webpack.optimize.OccurrenceOrderPlugin(),
-                    // new webpack.optimize.UglifyJsPlugin({
-                    //     sourceMap: true,
-                    //     compress: {
-                    //         screw_ie8: true, // eslint-disable-line camelcase
-                    //         warnings: true // Because uglify reports irrelevant warnings.
-                    //     }
-                    // }),
+                    new webpack.optimize.UglifyJsPlugin({
+                        sourceMap: true,
+                        compress: {
+                            screw_ie8: true, // eslint-disable-line camelcase
+                            warnings: true // Because uglify reports irrelevant warnings.
+                        }
+                    })
                     //
                     //
                     // ???
@@ -278,32 +269,27 @@ const webpackGetConfig = _isDevelopment => {
                 )
             }
 
-            plugins.push(new webpack.SourceMapDevToolPlugin({
-                filename: '[name].js.SourceMapDevToolPlugin.map'
-                // filename: isDevelopment
-                //     ? '[name].js.map'
-                //     : '[name]-[chunk].js.map'
-            }))
+            // plugins.push(new webpack.SourceMapDevToolPlugin({
+            //     // filename: '[name].js.SourceMapDevToolPlugin.map'
+            //     filename: isDevelopment
+            //         ? '[name].js.map'
+            //         : '[name]-[chunk].js.map'
+            // }))
 
             return plugins
         })(),
         performance: {
             hints: false
             // TODO: Reenable it once Webpack 2 will complete dead code removing.
-            // => is enabled
             // hints: process.env.NODE_ENV === 'production' ? 'warning' : false
-            // hints: 'warning'
         },
         resolve: {
             extensions:         ['.js'],
             modules:            [paths.ROOT, 'node_modules'],
             alias: {
-                'react$':               require.resolve(path.join(paths.nodeModules, 'react'))
+                'react$':       require.resolve(path.join(paths.nodeModules, 'react'))
             }
         }
-        // resolveLoader: {
-        //     moduleExtensions: ['-loader']
-        // }
     }
 
     // Webpack Dev Server - Header Settings
