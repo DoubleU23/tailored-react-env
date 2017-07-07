@@ -140,13 +140,13 @@ const webpackGetConfig = _isDevelopment => {
                             }
                         }
                     }
-                }
+                },
                 // not needed (only handles extern sourcemaps (in module packages))
-                // {
-                //     test:       /\.js$/,
-                //     use:        ['source-map-loader'],
-                //     enforce:    'pre'
-                // }
+                {
+                    test:       /\.js$/,
+                    use:        ['source-map-loader'],
+                    enforce:    'pre'
+                }
             ]
         /* {
                 test: /\.styl$/,
@@ -252,7 +252,7 @@ const webpackGetConfig = _isDevelopment => {
                     //
                     //
                     // ???
-                    // TBD: este`s webpackIsomorphicToolsPlugin ???
+                    // TBD: do we need/want este`s webpackIsomorphicToolsPlugin ???
 
                     // TBD: https://github.com/kevlened/copy-webpack-plugin
                     // new CopyWebpackPlugin(
@@ -269,6 +269,8 @@ const webpackGetConfig = _isDevelopment => {
                 )
             }
 
+            // handled by config.devtool + config.output.sourceMapFilename
+            //
             // plugins.push(new webpack.SourceMapDevToolPlugin({
             //     // filename: '[name].js.SourceMapDevToolPlugin.map'
             //     filename: isDevelopment
