@@ -28,12 +28,12 @@ import { Provider }                     from 'mobx-react'
 
 
 
-console.log('initialState?', initialState)
-
 const {
     isDevelopment,
     ports
 } = appConfig
+
+console.log('isDevelopment', isDevelopment)
 
 const serverIp  = ip.address()
 const context   = {}
@@ -102,10 +102,9 @@ const renderPageAsync = async ({url}) => {
     const {js: appJsFilename, css: appCssFilename} = await getAppAssetFilenamesCachedAsync()
     const scriptSrc = isDevelopment
         ? `http://${serverIp}:${ports.HMR}/build/app.js`
-        : `/build/${appJsFilename}?notreadytouse`
+        : `/build/${appJsFilename}`
 
-    console.log()
-
+    const styleSrc  = `/build/${appCssFilename}`
 
     // refactor: use StaticRouter?
     //
@@ -142,7 +141,12 @@ const renderPageAsync = async ({url}) => {
             <head />
             <body>
                 <div id="app" />
+                development? {isDevelopment + ''}
                 <script type="text/javascript" src={scriptSrc} />
+                {// in dev, styles are handled by style-loader
+                 // which directly injects them into the DOM
+                !isDevelopment &&
+                <link rel="stylesheet" href={styleSrc} name="appStyle" />}
             </body>
         </html>
     )

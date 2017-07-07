@@ -28,7 +28,10 @@ gulp.task('productionServer', done => {
         return
     }
 
-    const runner = spawn('node', [paths.server], {cwd: process.cwd()})
+    const runner = spawn('node', [paths.server], {
+        cwd: process.cwd(),
+        env: process.env
+    })
 
     runner.stdout.setEncoding('utf8')
 

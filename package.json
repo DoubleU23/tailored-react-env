@@ -163,6 +163,7 @@
     "yargs": "^3.27.0"
   },
   "dependencies": {
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "webpack-sources": "^1.0.1"
   }
 }

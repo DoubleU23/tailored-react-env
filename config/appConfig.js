@@ -24,7 +24,9 @@ const paths         = {
 }
 
 export const getAppConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || process.env.NODE_ENV !== 'production' // || config.get('isDevelopment')
+    const isDevelopment = typeof _isDevelopment !== 'undefined'
+        ? _isDevelopment
+        : process.env.NODE_ENV !== 'production'
 
     const config = {
         isDevelopment,

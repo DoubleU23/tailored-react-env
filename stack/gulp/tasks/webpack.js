@@ -10,7 +10,8 @@ import config           from 'config'
 import startDevServer   from '../../webpack/devServer/start.js'
 
 const {
-    paths
+    paths,
+    isDevelopment
 } = appConfig
 
 gulp.task('webpack', finishTaskFn => {
@@ -18,7 +19,7 @@ gulp.task('webpack', finishTaskFn => {
     // refactor: move path to config!?
     const expressServerEntrypoint  = paths.server
 
-    if (process.env.NODE_ENV === 'development') {
+    if (isDevelopment) {
         let startedFirst = false
 
         startDevServer(() => { // callback function starts after webpack dev server built

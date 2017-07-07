@@ -3,7 +3,9 @@ import webpack          from 'webpack'
 import webpackGetConfig from './webpackGetConfig.js'
 
 export default function webpackMakeBuild(callback) {
-    const config = webpackGetConfig()
+    // (false) = force production!
+    const config = webpackGetConfig(false)
+
     webpack(config, (fatalError, stats) => {
         const jsonStats = stats.toJson()
 

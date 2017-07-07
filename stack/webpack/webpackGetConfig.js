@@ -20,7 +20,8 @@ import objectAssign      from 'object-assign-deep'
 
 const {
     ports,
-    paths
+    paths,
+    isDevelopment
 } = appConfig
 
 const devtools = process.env.CONTINUOUS_INTEGRATION
@@ -44,7 +45,12 @@ const loaders = {
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
-    const isDevelopment = _isDevelopment || appConfig.isDevelopment
+    console.log('[webpackGetConfig] _isDevelopment before', _isDevelopment)
+    const isDevelopment = _isDevelopment != null
+        ? _isDevelopment
+        : appConfig.isDevelopment
+
+    console.log('[webpackGetConfig] _isDevelopment after', _isDevelopment)
 
     // const stylesLoaders = () => {
     //     return Object.keys(loaders).map(ext => {
@@ -169,7 +175,7 @@ const webpackGetConfig = _isDevelopment => {
                 },
                 {
                     test: /\.styl$/,
-                    use: [
+                    use: isDevelopment ? [
                         { loader: 'style-loader',   options: { sourceMap: true } },
                         { loader: 'css-loader',     options: { sourceMap: true } },
                         { loader: 'postcss-loader', options: { sourceMap: true } },
@@ -181,6 +187,12 @@ const webpackGetConfig = _isDevelopment => {
                             }
                         }
                     ]
+                    // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
+                    : ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        // resolve-url-loader may be chained before sass-loader if necessary
+                        use: ['css-loader', 'postcss-loader', 'stylus-loader']
+                    })
                 }
             ]
             // .concat(stylesLoaders)
@@ -284,8 +296,8 @@ const webpackGetConfig = _isDevelopment => {
                     new webpack.optimize.UglifyJsPlugin({
                         sourceMap: true,
                         compress: {
-                            screw_ie8: true, // eslint-disable-line camelcase
-                            warnings: true // Because uglify reports irrelevant warnings.
+                            screw_ie8:  true, // eslint-disable-line camelcase
+                            warnings:   false // Because uglify reports irrelevant warnings.
                         }
                     })
                     //
