@@ -9,7 +9,7 @@ import Footer       from './components/layout/Footer'
 import Nav          from './components/layout/Nav'
 import Benefits     from './components/Benefits'
 
-// import '../styles/index.styl'
+import '../styles/index.styl'
 // let test = require('url-loader!../styles/index.styl')
 // console.log('test', test)
 

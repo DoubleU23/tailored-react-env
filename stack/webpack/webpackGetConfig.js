@@ -31,12 +31,12 @@ const devtools = process.env.CONTINUOUS_INTEGRATION
   : 'cheap-module-eval-source-map'
 
 const loaders = {
-  // 'css': '',
-    'less':     '!less-loader',
-  // inject
+    'css': '',
+    // 'less':     '!less-loader',
+    // inject
   // 'sj': '!stylus-loader',
-    'scss':     '!sass-loader',
-    'sass':     '!sass-loader?indentedSyntax',
+    // 'scss':     '!sass-loader',
+    // 'sass':     '!sass-loader?indentedSyntax',
     'styl':     '!stylus-loader'
     // 'stylo':    '!cssobjects-loader!stylus-loader!'
 }
@@ -46,21 +46,36 @@ const serverIp = ip.address()
 const webpackGetConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment || appConfig.isDevelopment
 
-    const stylesLoaders = () => {
-        return Object.keys(loaders).map(ext => {
-            const prefix    = ext === 'stylo'
-        ?   ''
-        :   'css-loader!postcss-loader'
-            const extLoaders = prefix + loaders[ext]
-            const loader = isDevelopment
-        ? `style-loader!${extLoaders}`
-        : ExtractTextPlugin.extract('style-loader', extLoaders)
-            return {
-                loader: loader,
-                test: new RegExp(`\\.(${ext})$`)
-            }
-        })
-    }
+    // const stylesLoaders = () => {
+    //     return Object.keys(loaders).map(ext => {
+    //         const prefix    = ext === 'stylo'
+    //     ?   ''
+    //     :   'css-loader!postcss-loader'
+    //         const extLoaders = prefix + loaders[ext]
+    //         const loader = isDevelopment
+    //     ? `style-loader!${extLoaders}`
+    //     : ExtractTextPlugin.extract('style-loader', extLoaders)
+    //         return {
+    //             loader: loader,
+    //             test: new RegExp(`\\.(${ext})$`)
+    //         }
+    //     })
+    // }
+
+    const stylesLoaders = Object.keys(loaders).map(ext => {
+        const prefix     = 'css-loader!postcss-loader'
+        const extLoaders = prefix + loaders[ext]
+        const loader     = isDevelopment
+            ? `style-loader!${extLoaders}`
+            : ExtractTextPlugin.extract({
+                fallbackLoader: 'style-loader',
+                loader:         extLoaders
+            })
+        return {
+            loader,
+            test: new RegExp(`\\.(${ext})$`)
+        }
+    })
 
     const config = {
         target:     'web',
@@ -112,7 +127,7 @@ const webpackGetConfig = _isDevelopment => {
                 {
                     loader: 'babel-loader',
                     test: /\.js$/,
-                    exclude:  /(node_modules|bower_components)/,
+                    exclude:  /(node_modules|bower_components|\.styl$)/,
                     options: {
                         retainLines: true,
                         sourceMap: true,
@@ -146,8 +161,21 @@ const webpackGetConfig = _isDevelopment => {
                     test:       /\.js$/,
                     use:        ['source-map-loader'],
                     enforce:    'pre'
+                },
+                {
+                    test: /\.styl$/,
+                    use: [
+                        'style-loader',
+                        'css-loader',
+                        {
+                            loader: 'stylus-loader',
+                            options: { use: [nib()] }
+                        }
+                    ]
                 }
             ]
+            // .concat(stylesLoaders)
+
         /* {
                 test: /\.styl$/,
                 loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
@@ -196,6 +224,8 @@ const webpackGetConfig = _isDevelopment => {
             'fs': {}
         },
         plugins: (() => {
+            console.log('stylesLoaders', stylesLoaders)
+
             const plugins = [
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
