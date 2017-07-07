@@ -170,15 +170,13 @@ const webpackGetConfig = _isDevelopment => {
                 {
                     test: /\.styl$/,
                     use: [
-                        'style-loader',
-                        'css-loader'
-                        // { loader: 'style-loader',   options: { sourceMap: true } },
-                        // { loader: 'css-loader',     options: { sourceMap: true } },
-                        // { loader: 'postcss-loader', options: { sourceMap: true } },
-                        // {
-                        //     loader: 'stylus-loader',
-                        //     options: { sourceMap: true } // use: [nib()] }
-                        // }
+                        { loader: 'style-loader',   options: { sourceMap: true } },
+                        { loader: 'css-loader',     options: { sourceMap: true } },
+                        { loader: 'postcss-loader', options: { sourceMap: true } },
+                        {
+                            loader: 'stylus-loader',
+                            options: { sourceMap: true } // use: [nib()] }
+                        }
                     ]
                 }
             ]
