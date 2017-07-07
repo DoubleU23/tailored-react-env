@@ -68,7 +68,7 @@ const webpackGetConfig = _isDevelopment => {
         const loader     = isDevelopment
             ? `style-loader!${extLoaders}`
             : ExtractTextPlugin.extract({
-                fallbackLoader: 'style-loader',
+                fallback:       'style-loader',
                 loader:         extLoaders
             })
         return {
@@ -76,6 +76,8 @@ const webpackGetConfig = _isDevelopment => {
             test: new RegExp(`\\.(${ext})$`)
         }
     })
+    console.log('stylesLoaders orig', stylesLoaders)
+
 
     const config = {
         target:     'web',
@@ -111,23 +113,26 @@ const webpackGetConfig = _isDevelopment => {
                 {
                     loader: 'url-loader',
                     test: /\.(gif|jpg|png|svg)(\?.*)?$/,
+                    exclude:  /\.styl$/,
                     options: { limit: 10000 }
                 },
                 {
                     loader: 'url-loader',
                     test: /favicon\.ico$/,
+                    exclude:  /\.styl$/,
                     options: { limit: 1 }
                 },
                 {
                     loader: 'url-loader',
                     test: /\.(ttf|eot|woff|woff2)(\?.*)?$/,
+                    exclude:  /\.styl$/,
                     options: { limit: 100000 }
                 },
                 // BABEL
                 {
                     loader: 'babel-loader',
                     test: /\.js$/,
-                    exclude:  /(node_modules|bower_components|\.styl$)/,
+                    exclude:  /(node_modules|bower_components|styles)/,
                     options: {
                         retainLines: true,
                         sourceMap: true,
@@ -135,7 +140,7 @@ const webpackGetConfig = _isDevelopment => {
                         cacheDirectory: false,
                         // other presets are defined in .eslintrc
                         presets: [
-                            ['env', { modules: false }],
+                            // ['env', { modules: false }],
                             'es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3'
                         ],
                         plugins: [
@@ -166,11 +171,14 @@ const webpackGetConfig = _isDevelopment => {
                     test: /\.styl$/,
                     use: [
                         'style-loader',
-                        'css-loader',
-                        {
-                            loader: 'stylus-loader',
-                            options: { use: [nib()] }
-                        }
+                        'css-loader'
+                        // { loader: 'style-loader',   options: { sourceMap: true } },
+                        // { loader: 'css-loader',     options: { sourceMap: true } },
+                        // { loader: 'postcss-loader', options: { sourceMap: true } },
+                        // {
+                        //     loader: 'stylus-loader',
+                        //     options: { sourceMap: true } // use: [nib()] }
+                        // }
                     ]
                 }
             ]
@@ -316,8 +324,8 @@ const webpackGetConfig = _isDevelopment => {
             // hints: process.env.NODE_ENV === 'production' ? 'warning' : false
         },
         resolve: {
-            extensions:         ['.js'],
-            modules:            [paths.ROOT, 'node_modules'],
+            extensions:         ['.js', '.styl'],
+            modules:            [paths.nodeModules],
             alias: {
                 'react$':       require.resolve(path.join(paths.nodeModules, 'react'))
             }
