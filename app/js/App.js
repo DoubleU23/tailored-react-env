@@ -9,6 +9,10 @@ import Footer       from './components/layout/Footer'
 import Nav          from './components/layout/Nav'
 import Benefits     from './components/Benefits'
 
+// import '../styles/index.styl'
+let test = require('url-loader!../styles/index.styl')
+console.log('test', test)
+
 // import BenefitsStore from './stores/BenefitsStore'
 
 class App extends Component {

@@ -35,8 +35,8 @@ const loaders = {
   // 'sj': '!stylus-loader',
     'scss':     '!sass-loader',
     'sass':     '!sass-loader?indentedSyntax',
-    'styl':     '!stylus-loader',
-    'stylo':    '!cssobjects-loader!stylus-loader!'
+    'styl':     '!stylus-loader'
+    // 'stylo':    '!cssobjects-loader!stylus-loader!'
 }
 
 const serverIp = ip.address()
@@ -64,7 +64,7 @@ const webpackGetConfig = _isDevelopment => {
         hotPort:    ports.HMR,
         cache:      isDevelopment,
         debug:      isDevelopment,
-        devtool:    'inline-source-map', // isDevelopment ? devtools : '',
+        devtool:    (isDevelopment ? devtools : ''),
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -77,8 +77,11 @@ const webpackGetConfig = _isDevelopment => {
             loaders: [{
                 loader: 'url-loader?limit=100000',
                 test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-            }, {
-                exclude: /node_modules/,
+            }, /* {
+                test: /\.styl$/,
+                loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
+            } */ {
+                exclude: /(node_modules|\.styl)/,
                 loader: 'babel',
                 query: {
                   // If cacheDirectory is enabled, it throws:
@@ -107,10 +110,12 @@ const webpackGetConfig = _isDevelopment => {
                     }
                 },
                 test: /\.js$/
-            }].concat(stylesLoaders())
+            }]
+            // .concat([])
+            // .concat(stylesLoaders())
         },
         stylus: {
-            use:        [doubleu23Stylus(), nib()],
+            // use:        [doubleu23Stylus(), nib()],
             compress:   isDevelopment
     // ,    imports: ['src/common/style/project/index.styl']
         },
