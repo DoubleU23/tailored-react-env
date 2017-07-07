@@ -10,8 +10,8 @@ import Nav          from './components/layout/Nav'
 import Benefits     from './components/Benefits'
 
 // import '../styles/index.styl'
-let test = require('url-loader!../styles/index.styl')
-console.log('test', test)
+// let test = require('url-loader!../styles/index.styl')
+// console.log('test', test)
 
 // import BenefitsStore from './stores/BenefitsStore'
 

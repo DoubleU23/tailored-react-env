@@ -16,6 +16,8 @@ import doubleu23Stylus   from 'doubleu23-stylus'
 import constants         from './constants'
 import appConfig         from '../../config/appConfig'
 
+import objectAssign      from 'object-assign-deep'
+
 const {
     ports,
     paths
@@ -61,10 +63,11 @@ const webpackGetConfig = _isDevelopment => {
     }
 
     const config = {
-        hotPort:    ports.HMR,
+        target:     'web',
+        // hotPort:    ports.HMR,
         cache:      isDevelopment,
-        debug:      isDevelopment,
-        devtool:    (isDevelopment ? devtools : ''),
+        // debug:      isDevelopment,
+        devtool:    false, // (isDevelopment ? devtools : ''),
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -74,13 +77,78 @@ const webpackGetConfig = _isDevelopment => {
             ]
         },
         module: {
-            loaders: [{
+            rules: [
+                // URL LOADER
+                // (different limits for different fileTypes)
+// {
+//     loader: 'url-loader',
+//     test: /\.(gif|jpg|png|svg)(\?.*)?$/,
+//     options: {
+//         limit: 10000
+//     }
+// },
+// {
+//     loader: 'url-loader',
+//     test: /favicon\.ico$/,
+//     options: {
+//         limit: 1
+//     }
+// },
+// {
+//     loader: 'url-loader',
+//     test: /\.(ttf|eot|woff|woff2)(\?.*)?$/,
+//     options: {
+//         limit: 100000
+//     }
+// },
+                // BABEL
+                {
+                    loader: 'babel-loader',
+                    test: /\.js$/,
+                    // exclude: paths.nodeModules,
+                    exclude:  /(node_modules|bower_components)/,
+                    options: {
+                        retainLines: true,
+                        // sourceMap: true,
+                        babelrc: true,
+                        cacheDirectory: false,
+                        // other presets are defined in .eslintrc
+                        presets: [
+                            ['env', { modules: false }],
+                            'es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3'
+                        ],
+                        plugins: [
+                            [
+                                'transform-runtime',
+                                {
+                                    helpers: false,
+                                    polyfill: true,
+                                    regenerator: false
+                                }
+                            ],
+                            'transform-decorators-legacy'
+                        ]
+                        // env: {
+                        //     production: {
+                        //         plugins: ['transform-react-constant-elements']
+                        //     }
+                        // }
+                    }
+                }
+                // {
+                //     test:       /\.js$/,
+                //     use:        ['source-map-loader'],
+                //     enforce:    'pre'
+                // }
+            ]
+
+           /* loaders: [{
                 loader: 'url-loader?limit=100000',
                 test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
-            }, /* {
+            }, {
                 test: /\.styl$/,
                 loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
-            } */ {
+            }, {
                 exclude: /(node_modules|\.styl)/,
                 loader: 'babel',
                 query: {
@@ -110,23 +178,23 @@ const webpackGetConfig = _isDevelopment => {
                     }
                 },
                 test: /\.js$/
-            }]
+            }] */
+
+
+
             // .concat([])
             // .concat(stylesLoaders())
-        },
-        stylus: {
-            // use:        [doubleu23Stylus(), nib()],
-            compress:   isDevelopment
-    // ,    imports: ['src/common/style/project/index.styl']
         },
         output: isDevelopment ? {
             path: paths.build,
             filename: '[name].js',
+            sourceMapFilename: '[name].js.map',
             chunkFilename: '[name]-[chunkhash].js',
             publicPath: `http://${serverIp}:${ports.HMR}/build/`
         } : {
             path: paths.build,
             filename: '[name]-[hash].js',
+            // sourceMapFilename: '[name]-[hash].js',
             chunkFilename: '[name]-[chunkhash].js'
         },
         externals: {
@@ -137,8 +205,25 @@ const webpackGetConfig = _isDevelopment => {
             'fs': {}
         },
         plugins: (() => {
-            console.log('process.env.BUILD_STATIC', process.env.BUILD_STATIC === 'TRUE')
             const plugins = [
+                new webpack.LoaderOptionsPlugin({
+                    minimize:   !isDevelopment,
+                    debug:      isDevelopment,
+                    // Webpack 2 no longer allows custom properties in configuration.
+                    // Loaders should be updated to allow passing options via loader options in module.rules.
+                    // Alternatively, LoaderOptionsPlugin can be used to pass options to loaders
+                    hotPort:    ports.HMR,
+                    // sourceMap:  true,
+                    postcss:    () => [
+                        autoprefixer({ browsers: 'last 2 version' }),
+                        cssMqPacker()
+                    ],
+                    stylus: {
+                        use:        [nib()], // doubleu23Stylus()
+                        compress:   isDevelopment
+                        // ,    imports: ['src/common/style/project/index.styl']
+                    }
+                }),
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
@@ -146,46 +231,79 @@ const webpackGetConfig = _isDevelopment => {
                         BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'TRUE'),
                         IS_BROWSER:     true
                     }
+                }),
+                new webpack.ProvidePlugin({
+                    'Promise': 'bluebird'
                 })
             ]
             if (isDevelopment) {
                 plugins.push(
-                    new webpack.optimize.OccurenceOrderPlugin(),
                     new webpack.HotModuleReplacementPlugin(),
-                    new webpack.NoErrorsPlugin()
+                    new webpack.NoEmitOnErrorsPlugin()
                 )
             }
             else {
                 plugins.push(
-                    // Render styles into separate cacheable file to prevent FOUC and
-                    // optimize for critical rendering path.
-                    new ExtractTextPlugin('app-[hash].css', {
-                        allChunks: true
+                    new webpack.LoaderOptionsPlugin({minimize: true}),
+                    new ExtractTextPlugin({
+                        filename:   'app-[hash].css',
+                        disable:    false,
+                        allChunks:  true
                     }),
-                    new webpack.optimize.DedupePlugin(),
-                    new webpack.optimize.OccurenceOrderPlugin(),
-                    new webpack.optimize.UglifyJsPlugin({
-                        compress: {
-                            screw_ie8: true, // eslint-disable-line camelcase
-                            warnings: false // Because uglify reports irrelevant warnings.
-                        }
-                    })
+                    new webpack.optimize.OccurrenceOrderPlugin(),
+                    // new webpack.optimize.UglifyJsPlugin({
+                    //     sourceMap: true,
+                    //     compress: {
+                    //         screw_ie8: true, // eslint-disable-line camelcase
+                    //         warnings: true // Because uglify reports irrelevant warnings.
+                    //     }
+                    // }),
+                    //
+                    //
+                    // ???
+                    // TBD: este`s webpackIsomorphicToolsPlugin ???
+
+                    // TBD: https://github.com/kevlened/copy-webpack-plugin
+                    // new CopyWebpackPlugin(
+                    //     [
+                    //         {
+                    //             from: './src/common/app/favicons/',
+                    //             to: 'favicons'
+                    //         }
+                    //     ],
+                    //     {
+                    //         ignore: ['original/**']
+                    //     },
+                    // ),
                 )
             }
+
+            plugins.push(new webpack.SourceMapDevToolPlugin({
+                filename: '[name].js.SourceMapDevToolPlugin.map'
+                // filename: isDevelopment
+                //     ? '[name].js.map'
+                //     : '[name]-[chunk].js.map'
+            }))
+
             return plugins
         })(),
-        postcss: () => [
-            autoprefixer({browsers: 'last 2 version'}),
-            cssMqPacker()
-        ],
+        performance: {
+            hints: false
+            // TODO: Reenable it once Webpack 2 will complete dead code removing.
+            // => is enabled
+            // hints: process.env.NODE_ENV === 'production' ? 'warning' : false
+            // hints: 'warning'
+        },
         resolve: {
-            extensions: ['', '.js', '.json'],
-            modulesDirectories: ['src', 'node_modules'],
-            root: constants.ABSOLUTE_BASE,
+            extensions:         ['.js'],
+            modules:            [paths.ROOT, 'node_modules'],
             alias: {
-                'react$': require.resolve(path.join(paths.nodeModules, 'react'))
+                'react$':               require.resolve(path.join(paths.nodeModules, 'react'))
             }
         }
+        // resolveLoader: {
+        //     moduleExtensions: ['-loader']
+        // }
     }
 
     // Webpack Dev Server - Header Settings

@@ -17,7 +17,7 @@ import getMuiTheme               from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme             from 'material-ui/styles/baseThemes/darkBaseTheme'
 import injectTapEventPlugin      from 'react-tap-event-plugin'
 
-import objectAssign              from 'object-assign-deep'
+import objectAssign              from '../../utils/objectAssign'
 // TBD: make own theme (maybe with "cssobjects-loader"!?)
 
 const myTheme = objectAssign({}, darkBaseTheme, {

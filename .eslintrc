@@ -83,7 +83,7 @@
     // While the names of the rules may not match up with the JSHint/JSLint counterpart,
     // the functionality is the same.
     //
-    "max-depth": [2, 3], // specify the maximum depth that blocks can be nested (off by default)
+    "max-depth": [1, 3], // specify the maximum depth that blocks can be nested (off by default)
     "max-len": [2, 255, 2], // specify the maximum length of a line in your program (off by default)
     "max-params": [2, 7], // limits the number of parameters that can be used in the function declaration. (off by default)
     "max-statements": 0, // specify the maximum number of statement allowed in a function (off by default)
