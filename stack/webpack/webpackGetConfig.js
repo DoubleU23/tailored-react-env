@@ -144,7 +144,7 @@ const webpackGetConfig = _isDevelopment => {
                         sourceMap: true,
                         babelrc: true,
                         cacheDirectory: false,
-                        // other presets are defined in .eslintrc
+                        // presets/plugins have to match defines in .babelrc
                         presets: [
                             // ['env', { modules: false }],
                             'es2015', 'react', 'stage-2', 'stage-3'
@@ -167,6 +167,7 @@ const webpackGetConfig = _isDevelopment => {
                         }
                     }
                 },
+                // SOURCEMAPS
                 // not needed (only handles extern sourcemaps (in module packages))
                 {
                     test:       /\.js$/,
@@ -190,52 +191,11 @@ const webpackGetConfig = _isDevelopment => {
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
                     : ExtractTextPlugin.extract({
                         fallback: 'style-loader',
-                        // resolve-url-loader may be chained before sass-loader if necessary
                         use: ['css-loader', 'postcss-loader', 'stylus-loader']
                     })
                 }
             ]
             // .concat(stylesLoaders)
-
-        /* {
-                test: /\.styl$/,
-                loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
-            }, {
-                exclude: /(node_modules|\.styl)/,
-                loader: 'babel',
-                query: {
-                  // If cacheDirectory is enabled, it throws:
-                  // Uncaught Error: locals[0] does not appear to be a `module` object with Hot Module replacement API enabled.
-                  // cacheDirectory: true,
-                    env: {
-                        // test: {
-                        //     presets: ['airbnb']
-                        // },
-                        development: {
-                            // presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
-                            plugins: [
-                                // ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-decorators-legacy'],
-                                ['react-transform', {
-                                    transforms: [{
-                                        transform: 'react-transform-hmr',
-                                        imports: ['react'],
-                                        locals: ['module']
-                                    }, {
-                                        transform: 'react-transform-catch-errors',
-                                        imports: ['react', 'redbox-react']
-                                    }]
-                                }]
-                            ]
-                        }
-                    }
-                },
-                test: /\.js$/
-            }] */
-
-
-
-            // .concat([])
-            // .concat(stylesLoaders())
         },
         externals: {
             'cheerio': 'window',

@@ -1,4 +1,4 @@
-import Promise from 'bluebird'
+import Promise        from 'bluebird'
 import {TimeoutError} from './Exceptions.js'
 
 const timeout = (ms = 5000, promise) =>
@@ -11,14 +11,7 @@ const timeout = (ms = 5000, promise) =>
         }, ms)
 
         promise
-            //  .catch block is defined in "axiosWrapped"
-            //
-            // .catch(err => { // just in case
-            //     if (process.env.DEBUG) {
-            //         console.log('[Timeout.catch(err)]', err)
-            //     }
-            //     return err
-            // })
+            // .catch block is defined in "axiosWrapped" to limitate side-effects
             //
             // Promise resolved before timeout - keep going...
             .then(resolve, reject)

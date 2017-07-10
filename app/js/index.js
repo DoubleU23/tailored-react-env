@@ -18,12 +18,11 @@ import darkBaseTheme             from 'material-ui/styles/baseThemes/darkBaseThe
 import injectTapEventPlugin      from 'react-tap-event-plugin'
 
 import objectAssign              from '../../utils/objectAssign'
-// TBD: make own theme (maybe with "cssobjects-loader"!?)
 
+// TBD: make own theme (maybe with "cssobjects-loader"!?)
 const myTheme = objectAssign({}, darkBaseTheme, {
     palette: {}
 })
-
 const muiTheme = getMuiTheme(myTheme)
 
 // accept data injections from webpack-hot-middleware
@@ -48,9 +47,9 @@ class Root extends Component {
 
     render() {
         return (
-            // we inject the substores seperately to not pollute the Components params (performance)
-            // this way, we can use @inject('substoreName') to just inject what we need
             <MuiThemeProvider muiTheme={muiTheme}>
+                {/* we inject the substores seperately to not pollute the Components params (performance)
+                this way, we can use @inject('substoreName') to just inject what we need */}
                 <Provider {...store}>
                     <Router>
                         {routes}
