@@ -1,2 +1,11 @@
+@import 'doubleu23-stylus'
+
 body
     color darken(#ff0000, 40%) // nib (stylus lib) function
+
+
+
+.testClassName
+    :after
+        display block
+        content 'typeof DEBUG: ' + $TESTENVPREFIX__DEBUG
