@@ -183,15 +183,27 @@ const webpackGetConfig = _isDevelopment => {
                         {
                             loader: 'stylus-loader',
                             options: {
-                                sourceMap: true,
-                                use: [nib()]
+                                sourceMap:  true,
+                                compress:   isDevelopment,
+                                use:        [nib(), doubleu23Stylus({
+                                    envPrefix: '$TESTENVPREFIX__'
+                                })]
                             }
                         }
                     ]
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
                     : ExtractTextPlugin.extract({
                         fallback: 'style-loader',
-                        use: ['css-loader', 'postcss-loader', 'stylus-loader']
+                        use: ['css-loader', 'postcss-loader', {
+                            loader: 'stylus-loader',
+                            options: {
+                                sourceMap:  true,
+                                compress:   isDevelopment,
+                                use:        [nib(), doubleu23Stylus({
+                                    envPrefix: '$TESTENVPREFIX__'
+                                })]
+                            }
+                        }]
                     })
                 }
             ]
@@ -215,23 +227,18 @@ const webpackGetConfig = _isDevelopment => {
                     // Loaders should be updated to allow passing options via loader options in module.rules.
                     // Alternatively, LoaderOptionsPlugin can be used to pass options to loaders
                     hotPort:    ports.HMR,
-                    // sourceMap:  true,
+                    sourceMap:  true,
                     postcss:    () => [
                         autoprefixer({ browsers: 'last 2 version' }),
                         cssMqPacker()
-                    ],
-                    stylus: {
-                        use:        [nib()], // doubleu23Stylus()
-                        compress:   isDevelopment
-                        // ,    imports: ['src/common/style/project/index.styl']
-                    }
+                    ]
                 }),
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
                         APP_CONFIG:     JSON.stringify(appConfig),
-                        BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'TRUE'),
-                        DEBUG:          JSON.stringify(process.env.DEBUG === 'TRUE'),
+                        BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'true'),
+                        DEBUG:          JSON.stringify(process.env.DEBUG === 'true'),
                         IS_BROWSER:     true
                     }
                 }),
