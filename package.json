@@ -160,7 +160,7 @@
     "watchify": "^3.2.x",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.11.0",
-    "webpack-hot-middleware": "^2.7.1",
+    "webpack-hot-middleware": "^2.18.2",
     "when": "^3.7.4",
     "yargs": "^3.27.0"
   },
