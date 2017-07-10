@@ -16,7 +16,7 @@ if (process.env.IS_BROWSER) {
 }
 // let testStyle = require('style-loader!css-loader!../styles/index.styl')
 
-// import BenefitsStore from './stores/BenefitsStore'
+// import BenefitsStore from './stores/BenefitsStore.class'
 
 class App extends Component {
 

@@ -10,7 +10,7 @@ import moxios        from 'moxios'
 
 
 import {expect}      from 'chai'
-import BenefitsStore from './BenefitsStore'
+import BenefitsStore from './BenefitsStore.class'
 
 import appConfig from '../../../config/appConfig'
 

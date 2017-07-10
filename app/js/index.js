@@ -38,7 +38,7 @@ if (process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER) {
 
 class Root extends Component {
 
-    componentWillMount() {
+    componentDidMount() {
         injectTapEventPlugin()
     }
 
