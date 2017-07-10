@@ -35,12 +35,16 @@ if (process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER) {
     // Enable React devtools
     window.React = React
 }
+if (process.env.IS_BROWSER) {
+    if (process.env.NODE_ENV !== 'production') {
+        // Enable React devtools
+        window.React = React
+    }
+    injectTapEventPlugin()
+}
+
 
 class Root extends Component {
-
-    componentDidMount() {
-        injectTapEventPlugin()
-    }
 
     render() {
         return (
