@@ -200,7 +200,14 @@ const webpackGetConfig = _isDevelopment => {
                                 sourceMap:  true,
                                 compress:   isDevelopment,
                                 use:        [nib(), doubleu23Stylus({
-                                    envPrefix: '$TESTENVPREFIX__'
+                                    envVars:    {
+                                    // refactor: build object on top and
+                                    // find a way to re-use it in webpack.DefinePlugin
+                                        NODE_ENV:       process.env.NODE_ENV,
+                                        BUILD_STATIC:   process.env.BUILD_STATIC,
+                                        DEBUG:          process.env.DEBUG
+                                    },
+                                    envPrefix:  '$ENV__'
                                 })]
                             }
                         }]
