@@ -84,6 +84,24 @@ const webpackGetConfig = _isDevelopment => {
     })
     console.log('stylesLoaders orig', stylesLoaders)
 
+    const stylusLoaderDefinition = {
+        loader: 'stylus-loader',
+        options: {
+            sourceMap:  true,
+            compress:   isDevelopment,
+            use:        [nib(), doubleu23Stylus({
+                envVars:    {
+                // refactor: build object on top and
+                // find a way to re-use it in webpack.DefinePlugin
+                    NODE_ENV:       process.env.NODE_ENV,
+                    BUILD_STATIC:   process.env.BUILD_STATIC,
+                    DEBUG:          process.env.DEBUG
+                },
+                envPrefix:  '$ENV__'
+            })]
+        }
+    }
+
 
     const config = {
         target:     'web',
@@ -180,37 +198,12 @@ const webpackGetConfig = _isDevelopment => {
                         { loader: 'style-loader',   options: { sourceMap: true } },
                         { loader: 'css-loader',     options: { sourceMap: true } },
                         { loader: 'postcss-loader', options: { sourceMap: true } },
-                        {
-                            loader: 'stylus-loader',
-                            options: {
-                                sourceMap:  true,
-                                compress:   isDevelopment,
-                                use:        [nib(), doubleu23Stylus({
-                                    envPrefix: '$TESTENVPREFIX__'
-                                })]
-                            }
-                        }
+                        stylusLoaderDefinition
                     ]
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
                     : ExtractTextPlugin.extract({
                         fallback: 'style-loader',
-                        use: ['css-loader', 'postcss-loader', {
-                            loader: 'stylus-loader',
-                            options: {
-                                sourceMap:  true,
-                                compress:   isDevelopment,
-                                use:        [nib(), doubleu23Stylus({
-                                    envVars:    {
-                                    // refactor: build object on top and
-                                    // find a way to re-use it in webpack.DefinePlugin
-                                        NODE_ENV:       process.env.NODE_ENV,
-                                        BUILD_STATIC:   process.env.BUILD_STATIC,
-                                        DEBUG:          process.env.DEBUG
-                                    },
-                                    envPrefix:  '$ENV__'
-                                })]
-                            }
-                        }]
+                        use: ['css-loader', 'postcss-loader', stylusLoaderDefinition]
                     })
                 }
             ]
