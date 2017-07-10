@@ -147,7 +147,7 @@ const webpackGetConfig = _isDevelopment => {
                         // other presets are defined in .eslintrc
                         presets: [
                             // ['env', { modules: false }],
-                            'es2015', 'react', 'stage-0', 'stage-1', 'stage-2', 'stage-3'
+                            'es2015', 'react', 'stage-2', 'stage-3'
                         ],
                         plugins: [
                             [
