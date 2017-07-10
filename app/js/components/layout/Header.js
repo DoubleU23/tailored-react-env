@@ -14,7 +14,6 @@ export default class Header extends Component {
     }
 
     render() {
-        console.log(this.props.messages)
         const {header: {title}} = this.props.messages
 
         return (
