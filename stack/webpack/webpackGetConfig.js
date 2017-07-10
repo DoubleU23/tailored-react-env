@@ -271,6 +271,7 @@ const webpackGetConfig = _isDevelopment => {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
                         APP_CONFIG:     JSON.stringify(appConfig),
                         BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'TRUE'),
+                        DEBUG:          JSON.stringify(process.env.DEBUG === 'TRUE'),
                         IS_BROWSER:     true
                     }
                 }),
