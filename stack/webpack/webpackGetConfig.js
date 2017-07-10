@@ -45,28 +45,9 @@ const loaders = {
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
-    console.log('[webpackGetConfig] _isDevelopment before', _isDevelopment)
     const isDevelopment = _isDevelopment != null
         ? _isDevelopment
         : appConfig.isDevelopment
-
-    console.log('[webpackGetConfig] _isDevelopment after', _isDevelopment)
-
-    // const stylesLoaders = () => {
-    //     return Object.keys(loaders).map(ext => {
-    //         const prefix    = ext === 'stylo'
-    //     ?   ''
-    //     :   'css-loader!postcss-loader'
-    //         const extLoaders = prefix + loaders[ext]
-    //         const loader = isDevelopment
-    //     ? `style-loader!${extLoaders}`
-    //     : ExtractTextPlugin.extract('style-loader', extLoaders)
-    //         return {
-    //             loader: loader,
-    //             test: new RegExp(`\\.(${ext})$`)
-    //         }
-    //     })
-    // }
 
     const stylesLoaders = Object.keys(loaders).map(ext => {
         const prefix     = 'css-loader!postcss-loader'
@@ -82,7 +63,6 @@ const webpackGetConfig = _isDevelopment => {
             test: new RegExp(`\\.(${ext})$`)
         }
     })
-    console.log('stylesLoaders orig', stylesLoaders)
 
     const stylusLoaderDefinition = {
         loader: 'stylus-loader',
@@ -217,8 +197,6 @@ const webpackGetConfig = _isDevelopment => {
             'fs': {}
         },
         plugins: (() => {
-            console.log('stylesLoaders', stylesLoaders)
-
             const plugins = [
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
