@@ -16,7 +16,7 @@ axios.interceptors.request.use(function(config) {
         console.log('[axios.interceptors.request.use] ', error)
     }
     // Do something with request error
-    return Promise.reject(new Error(error))
+    return Promise.reject(error)
 })
 
 // Add a response interceptor
@@ -28,7 +28,7 @@ axios.interceptors.response.use(function(response) {
         console.log('[axios.interceptors.response.use] ', error)
     }
     // Do something with response error
-    return Promise.reject(new Error(error))
+    return Promise.reject(error)
 })
 
 const axiosWrapped = (method, url, options) => {
