@@ -7,6 +7,30 @@ const {
     timings: {timeout: requestTimeout}
 } = appConfig
 
+// Add a request interceptor
+axios.interceptors.request.use(function(config) {
+    // Do something before request is sent
+    return config
+}, function(error) {
+    if (process.env.DEBUG) {
+        console.log('[axios.interceptors.request.use] ', error)
+    }
+    // Do something with request error
+    return Promise.reject(error)
+})
+
+// Add a response interceptor
+axios.interceptors.response.use(function(response) {
+    // Do something with response data
+    return response
+}, function(error) {
+    if (process.env.DEBUG) {
+        console.log('[axios.interceptors.response.use] ', error)
+    }
+    // Do something with response error
+    return Promise.reject(error)
+})
+
 const axiosWrapped = (method, url, options) => {
     // TBD: use wrap axios with timeout
     return timeout(requestTimeout,
@@ -20,21 +44,21 @@ const axiosWrapped = (method, url, options) => {
                 }
                 error.error = true
                 // throw to timeout.catch
-                throw error
+                return error
             })
             .then(response => {
                 if (process.env.DEBUG) {
                     console.log('[axios.apply->then(response)]', response)
                 }
                 // throw to timeout.catch
-                throw response
+                return response
             })
     )
-        .catch(response => {
+        .catch(responseOrError => {
             if (process.env.DEBUG) {
-                console.log('[axiosWrapped->catch(response)] ', response)
+                console.log('[axiosWrapped->catch(responseOrError)] ', responseOrError)
             }
-            return response
+            return responseOrError
         })
 }
 

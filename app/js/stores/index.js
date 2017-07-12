@@ -1,9 +1,12 @@
-import BenefitsStore from './BenefitsStore'
+import BenefitsStore from './BenefitsStore.class'
+import MessageStore  from './MessageStore.class'
+
 import initialState  from './initialState'
 
 export const computeStore = (state = {}) => {
     return {
-        benefits: new BenefitsStore(state.test)
+        messages: new MessageStore(state.messages).messages,
+        benefits: new BenefitsStore(state.benefits)
     }
 }
 

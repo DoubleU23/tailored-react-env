@@ -45,28 +45,9 @@ const loaders = {
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
-    console.log('[webpackGetConfig] _isDevelopment before', _isDevelopment)
     const isDevelopment = _isDevelopment != null
         ? _isDevelopment
         : appConfig.isDevelopment
-
-    console.log('[webpackGetConfig] _isDevelopment after', _isDevelopment)
-
-    // const stylesLoaders = () => {
-    //     return Object.keys(loaders).map(ext => {
-    //         const prefix    = ext === 'stylo'
-    //     ?   ''
-    //     :   'css-loader!postcss-loader'
-    //         const extLoaders = prefix + loaders[ext]
-    //         const loader = isDevelopment
-    //     ? `style-loader!${extLoaders}`
-    //     : ExtractTextPlugin.extract('style-loader', extLoaders)
-    //         return {
-    //             loader: loader,
-    //             test: new RegExp(`\\.(${ext})$`)
-    //         }
-    //     })
-    // }
 
     const stylesLoaders = Object.keys(loaders).map(ext => {
         const prefix     = 'css-loader!postcss-loader'
@@ -82,16 +63,33 @@ const webpackGetConfig = _isDevelopment => {
             test: new RegExp(`\\.(${ext})$`)
         }
     })
-    console.log('stylesLoaders orig', stylesLoaders)
+
+    const stylusLoaderDefinition = {
+        loader: 'stylus-loader',
+        options: {
+            sourceMap:  true,
+            compress:   isDevelopment,
+            use:        [/* nib(), */doubleu23Stylus({
+                envVars:    {
+                    // refactor: build object on top and
+                    // find a way to re-use it in webpack.DefinePlugin
+                    // NODE_ENV:       process.env.NODE_ENV,
+                    BUILD_STATIC:   process.env.BUILD_STATIC,
+                    DEBUG:          process.env.DEBUG
+                },
+                mediaQueries:       {
+                    'custom':   'only screen and (min-width: 1300px)'
+                },
+                envPrefix:          '$ENV__'
+            })]
+        }
+    }
 
 
     const config = {
         target:     'web',
         cache:      isDevelopment,
-
-        // devtool:    false, // handled by "SourceMapDevToolPlugin"
-        devtool: 'cheap-module-source-map',
-
+        devtool:    'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -144,7 +142,7 @@ const webpackGetConfig = _isDevelopment => {
                         sourceMap: true,
                         babelrc: true,
                         cacheDirectory: false,
-                        // other presets are defined in .eslintrc
+                        // presets/plugins have to match defines in .babelrc
                         presets: [
                             // ['env', { modules: false }],
                             'es2015', 'react', 'stage-2', 'stage-3'
@@ -167,6 +165,7 @@ const webpackGetConfig = _isDevelopment => {
                         }
                     }
                 },
+                // SOURCEMAPS
                 // not needed (only handles extern sourcemaps (in module packages))
                 {
                     test:       /\.js$/,
@@ -179,63 +178,16 @@ const webpackGetConfig = _isDevelopment => {
                         { loader: 'style-loader',   options: { sourceMap: true } },
                         { loader: 'css-loader',     options: { sourceMap: true } },
                         { loader: 'postcss-loader', options: { sourceMap: true } },
-                        {
-                            loader: 'stylus-loader',
-                            options: {
-                                sourceMap: true,
-                                use: [nib()]
-                            }
-                        }
+                        stylusLoaderDefinition
                     ]
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
                     : ExtractTextPlugin.extract({
                         fallback: 'style-loader',
-                        // resolve-url-loader may be chained before sass-loader if necessary
-                        use: ['css-loader', 'postcss-loader', 'stylus-loader']
+                        use: ['css-loader', 'postcss-loader', stylusLoaderDefinition]
                     })
                 }
             ]
             // .concat(stylesLoaders)
-
-        /* {
-                test: /\.styl$/,
-                loader: '!style-loader!css-loader!postcss-loader?sourceMap=true!stylus-loader'
-            }, {
-                exclude: /(node_modules|\.styl)/,
-                loader: 'babel',
-                query: {
-                  // If cacheDirectory is enabled, it throws:
-                  // Uncaught Error: locals[0] does not appear to be a `module` object with Hot Module replacement API enabled.
-                  // cacheDirectory: true,
-                    env: {
-                        // test: {
-                        //     presets: ['airbnb']
-                        // },
-                        development: {
-                            // presets: ['es2015', 'react', 'stage-0', 'stage-2', 'stage-3'],
-                            plugins: [
-                                // ['syntax-object-rest-spread'], ['syntax-async-functions'], ['transform-decorators-legacy'],
-                                ['react-transform', {
-                                    transforms: [{
-                                        transform: 'react-transform-hmr',
-                                        imports: ['react'],
-                                        locals: ['module']
-                                    }, {
-                                        transform: 'react-transform-catch-errors',
-                                        imports: ['react', 'redbox-react']
-                                    }]
-                                }]
-                            ]
-                        }
-                    }
-                },
-                test: /\.js$/
-            }] */
-
-
-
-            // .concat([])
-            // .concat(stylesLoaders())
         },
         externals: {
             'cheerio': 'window',
@@ -245,8 +197,6 @@ const webpackGetConfig = _isDevelopment => {
             'fs': {}
         },
         plugins: (() => {
-            console.log('stylesLoaders', stylesLoaders)
-
             const plugins = [
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
@@ -255,22 +205,18 @@ const webpackGetConfig = _isDevelopment => {
                     // Loaders should be updated to allow passing options via loader options in module.rules.
                     // Alternatively, LoaderOptionsPlugin can be used to pass options to loaders
                     hotPort:    ports.HMR,
-                    // sourceMap:  true,
+                    sourceMap:  true,
                     postcss:    () => [
                         autoprefixer({ browsers: 'last 2 version' }),
                         cssMqPacker()
-                    ],
-                    stylus: {
-                        use:        [nib()], // doubleu23Stylus()
-                        compress:   isDevelopment
-                        // ,    imports: ['src/common/style/project/index.styl']
-                    }
+                    ]
                 }),
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
                         APP_CONFIG:     JSON.stringify(appConfig),
-                        BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'TRUE'),
+                        BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'true'),
+                        DEBUG:          JSON.stringify(process.env.DEBUG === 'true'),
                         IS_BROWSER:     true
                     }
                 }),
