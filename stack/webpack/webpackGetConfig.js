@@ -69,15 +69,19 @@ const webpackGetConfig = _isDevelopment => {
         options: {
             sourceMap:  true,
             compress:   isDevelopment,
-            use:        [nib(), doubleu23Stylus({
+            use:        [/* nib(), */doubleu23Stylus({
                 envVars:    {
-                // refactor: build object on top and
-                // find a way to re-use it in webpack.DefinePlugin
-                    NODE_ENV:       process.env.NODE_ENV,
+                    // refactor: build object on top and
+                    // find a way to re-use it in webpack.DefinePlugin
+                    // NODE_ENV:       process.env.NODE_ENV,
                     BUILD_STATIC:   process.env.BUILD_STATIC,
                     DEBUG:          process.env.DEBUG
                 },
-                envPrefix:  '$ENV__'
+                mediaQueries:       {
+                    'xs':       'only screen and (min-width: 666px)',
+                    'custom':   'only screen and (max-width: 555px)'
+                },
+                envPrefix:          '$ENV__'
             })]
         }
     }
@@ -86,10 +90,7 @@ const webpackGetConfig = _isDevelopment => {
     const config = {
         target:     'web',
         cache:      isDevelopment,
-
-        // devtool:    false, // handled by "SourceMapDevToolPlugin"
-        devtool: 'cheap-module-source-map',
-
+        devtool:    'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,

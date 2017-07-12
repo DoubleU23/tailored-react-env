@@ -9,10 +9,14 @@ import Footer       from './components/layout/Footer'
 import Nav          from './components/layout/Nav'
 import Benefits     from './components/Benefits'
 
+import appConfig    from '../../config/appConfig'
+
 if (process.env.IS_BROWSER) {
-    // import testStyle from '../styles/index.styl'
-    let testStyle = require('../styles/index.styl')
-    console.log('testStyle', testStyle)
+    require('../styles/index.styl')
+
+    if (!appConfig.isProduction) {
+        require('../styles/tests/testStylus.styl')
+    }
 }
 // let testStyle = require('style-loader!css-loader!../styles/index.styl')
 
@@ -26,13 +30,15 @@ class App extends Component {
 
     render() {
         return (
-            <div style={{height: '5000px'}} id="app">
+            <div style={{height: '5000px'}} id="wrapper">
                 <Header />
                 <Nav />
                 <div id="content">
                     <Route path="/benefits" component={Benefits} />
                 </div>
                 <Footer />
+                { // #debug
+                !appConfig.isProduction && <div id="testStylus" />}
             </div>
         )
     }
