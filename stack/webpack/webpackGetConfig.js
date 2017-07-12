@@ -78,8 +78,7 @@ const webpackGetConfig = _isDevelopment => {
                     DEBUG:          process.env.DEBUG
                 },
                 mediaQueries:       {
-                    'xs':       'only screen and (min-width: 666px)',
-                    'custom':   'only screen and (max-width: 555px)'
+                    'custom':   'only screen and (min-width: 1300px)'
                 },
                 envPrefix:          '$ENV__'
             })]

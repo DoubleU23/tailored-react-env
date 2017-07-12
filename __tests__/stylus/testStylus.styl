@@ -1,0 +1,41 @@
+@import 'doubleu23-stylus/mqs'
+
+#testStylus
+    h1, h2, h3
+        margin 0
+
+#testStylusVars:after
+    display inline-block
+    content '$ENV__NODE_ENV=' $ENV__NODE_ENV
+
+
+#testStylusMQs
+    margin 1rem 0
+    &:after
+        display inline-block
+    +MQ('xs')
+        color red
+        &:after
+            display inline-block
+            content "'xs'"
+    +MQ('s')
+        color blue
+        &:after
+            display inline-block
+            content "'s'"
+    +MQ('m')
+        color green
+        &:after
+            content "'m'"
+    +MQ('l')
+        color #666
+        &:after
+            content "'l'"
+    +MQ('xl')
+        color #000
+        &:after
+            content "'xl'"
+    +MQ('custom')
+        color #000
+        &:after
+            content "'custom'"
