@@ -23,7 +23,7 @@ export default class BenetfitsList extends Component {
         for (let benefitKey in data) {
             benefitData = data[benefitKey]
             benefitsList.push(
-                <BenefitsListElement benefit={benefitData} key={'benefitsListElement' + benefitData.id} />
+                <BenefitsListElement benefit={benefitData} key={'benefitsListElement' + benefitData.benefitCode} />
             )
         }
         return benefitsList

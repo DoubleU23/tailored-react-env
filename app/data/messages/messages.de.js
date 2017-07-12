@@ -1,5 +1,14 @@
 export default {
     header: {
-        title: 'Tailored React Environment (DE)'
+        title: 'KLZ Vorteilsclub Admin'
+    },
+    fields: {
+        benefits: {
+            title:          'Titel',
+            description:    'Beschreibung',
+            campaign:   {
+                id:     'CampaignId'
+            }
+        }
     }
 }

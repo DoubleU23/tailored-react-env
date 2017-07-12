@@ -7,7 +7,7 @@ import {Route}       from 'react-router-dom'
 import Header        from './components/layout/Header'
 import Footer        from './components/layout/Footer'
 import Nav           from './components/layout/Nav'
-import Benefits      from './components/Benefits'
+import Benefits      from './pages/Benefits'
 
 import TestComponent from './components/TestComponent'
 
@@ -27,7 +27,7 @@ class App extends Component {
                 <div id="content">
                     <Route path="/benefits" component={Benefits} />
                 </div>
-                {process.env.DEBUG && <TestComponent />}
+                {/* process.env.DEBUG && <TestComponent /> */}
                 <Footer />
             </div>
         )

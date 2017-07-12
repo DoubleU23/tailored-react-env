@@ -4,15 +4,15 @@ import React              from 'react'
 import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
-import {observable}         from 'mobx'
 
 import RaisedButton       from 'material-ui/RaisedButton'
 
-@inject('benefits')
+@inject('benefits', 'messages')
 @observer
 export default class BenefitsDetails extends Component {
 
     static propTypes = {
+        messages:   PropTypes.object.isRequired,
         match:      PropTypes.object.isRequired,
         benefits:   PropTypes.object.isRequired
     };
@@ -34,17 +34,24 @@ export default class BenefitsDetails extends Component {
         console.log('[DetailView->componentWillReact] triggered!')
     }
 
-    renderValueOrInput(fieldName) {
+    renderValueOrInput(fieldName, subTree = false) {
         const {
-            benefits: {data},
-            match: {params: {id}}
+            benefits:   {data: benefits},
+            benefits:   benefitsStore,
+            match:      {params: {id}},
+            messages:   {fields: msg}
         }                = this.props
-        const benefit    = data[id]
-        const fieldValue = benefit[fieldName]
-        let innerJSX
+        const benefit    = benefits[id]
+        let fieldValue, fieldTitle,
+            data, innerJSX
+
+        data       = !subTree ? benefit : benefit[subTree]
+        fieldValue = data[fieldName]
+
+        fieldTitle    = msg.benefits[fieldName] || msg.benefits[subTree][fieldName]
 
         if (!this.state.editMode) {
-            innerJSX = fieldValue
+            innerJSX = fieldValue || <i>Noch kein(e) {fieldTitle} vorhanden.</i>
         }
         else {
             innerJSX = (
@@ -53,14 +60,20 @@ export default class BenefitsDetails extends Component {
                     type="textfield"
                     value={fieldValue}
                     onChange={e => {
-                        benefit[fieldName] = e.currentTarget.value
+                        if (!subTree) {
+                            benefit[fieldName] = e.currentTarget.value
+                        }
+                        else {
+                            benefit[subTree][fieldName] = e.currentTarget.value
+                        }
+                        benefitsStore.patch(id, benefit)
                     }}
                 />
             )
         }
         return (
             <div className="benefitsDetailsField">
-                <b>{fieldName}</b><br />
+                <b>{fieldTitle}</b><br />
                 {innerJSX}
                 <br /><br />
             </div>
@@ -87,7 +100,14 @@ export default class BenefitsDetails extends Component {
             return <div>Loading...</div>
         }
 
-        const date = new Date(benefits.data[id].displayDate).toDateString()
+        const benefit     = benefits.data[id]
+        const hasCampaign = typeof benefit.campaign === 'object'
+                         && benefit.campaign.campaignId
+        const campaign  = hasCampaign
+            ? benefit.campaign
+            : null
+
+        const date        = new Date(benefit.date).toDateString()
 
         return (
             <div id="detailView">
@@ -100,10 +120,15 @@ export default class BenefitsDetails extends Component {
 
                 {this.renderValueOrInput('description')}
 
+                <div className="campaignData">
+                    {this.renderValueOrInput('id', 'campaign')}
+                </div>
+
                 <RaisedButton
                     label={!this.state.editMode ? 'bearbeiten' : 'speichern'}
                     onClick={() => this.toggleEditMode()}
                 />
+
             </div>
         )
     }

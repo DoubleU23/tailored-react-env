@@ -4,6 +4,10 @@ import React     from 'react'
 import Component from 'react-pure-render/component'
 import {Link}    from 'react-router-dom'
 
+if (process.env.IS_BROWSER) {
+    require('./nav.styl')
+}
+
 export default class Nav extends Component {
 
     getNav() {

@@ -6,8 +6,8 @@ import Component       from 'react-pure-render/component'
 import {inject}        from 'mobx-react'
 
 import {Route}         from 'react-router-dom'
-import BenefitsList    from './benefits/BenefitsList.js'
-import BenefitsDetails from './benefits/BenefitsDetails.js'
+import BenefitsList    from '../components/benefits/BenefitsList.js'
+import BenefitsDetails from '../components/benefits/BenefitsDetails.js'
 
 @inject('benefits')
 export default class Benefits extends Component {
@@ -28,7 +28,7 @@ export default class Benefits extends Component {
     render() {
         return (
             <div>
-                <h3>Benefits</h3>
+                <h2>Benefits</h2>
                 {/*
                     space for a page-related module (teaser/header)
                 */}

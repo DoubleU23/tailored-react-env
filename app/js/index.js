@@ -39,7 +39,12 @@ if (process.env.IS_BROWSER) {
         // Enable React devtools
         window.React = React
     }
-    injectTapEventPlugin()
+    try {
+        injectTapEventPlugin()
+    }
+    catch (err) {
+        // ignore
+    }
 }
 
 

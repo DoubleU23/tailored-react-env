@@ -11,7 +11,7 @@ import {
 import store                from './stores/index.js'
 
 import App                  from './App'
-import Benefits             from './components/Benefits'
+import Benefits             from './pages/Benefits'
 import NotFoundPage         from './pages/NotFoundPage'
 
 class RouteTest extends Component {

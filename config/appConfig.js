@@ -49,9 +49,11 @@ export const getAppConfig = _isDevelopment => {
 
         // refactor: shove into config files
         api:    {
-            base:           'http://localhost:8001/api',
+            // base:           'http://localhost:8001/api',
+            base:           'https://shoreline-dev.tailored-apps.com/api/v1/bc',
             endpoints: {
-                benefits:   '/benefits.json'
+                benefits:   '/campaigns',
+                campaigns:  '/campaigns'
             }
         },
 
@@ -105,15 +107,6 @@ export const getAppConfig = _isDevelopment => {
                 : 3000
         }
 
-    }
-
-    // refactor: shove into config files
-    const {ports: {frontend: frontendPort}} = config
-    config.api = {
-        base:           `http://localhost:${frontendPort}/api`,
-        endpoints: {
-            benefits:   '/benefits.json'
-        }
     }
 
     return config

@@ -1,4 +1,0 @@
-# we ignore the messageFiles here,
-# so we can merge the stack into running projects
-# without changing the wordings...
-./messages/*

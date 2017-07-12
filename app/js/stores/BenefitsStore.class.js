@@ -4,6 +4,7 @@ import axiosWrapped   from '../../../utils/axiosWrapped'
 
 import {TimeoutError} from '../../../utils/Exceptions'
 
+import objectAssign   from 'object-assign-deep'
 
 import {
     observable,
@@ -14,7 +15,13 @@ import {
 import appConfig from '../../../config/appConfig'
 
 const {
-    api: {base: apiBase, endpoints: {benefits: benefitsEndpoint}}
+    api: {
+        base: apiBase,
+        endpoints: {
+            benefits: benefitsEndpoint,
+            campaign: campaignEndpoint
+        }
+    }
 } = appConfig
 
 export default class BenefitsStore {
@@ -28,15 +35,28 @@ export default class BenefitsStore {
             data:       observable({}),
             fetched:    false // false || timestamp
         }, state)
+
+        if (process.env.IS_BROWSER) {
+            window.BenefitsStore = this
+        }
     }
 
     sortData(data) {
         const dataSorted = {}
         data.forEach(benefit => {
-            dataSorted[benefit.id] = benefit
+            dataSorted[benefit.benefitCode] = benefit
+            dataSorted[benefit.benefitCode].patched = Date.now()
         })
         console.log('this.data SORTED:', dataSorted)
         return dataSorted
+    }
+
+    @action
+    patch(id, benefitObj) {
+        this.data[id] = objectAssign(this.data[id], benefitObj)
+        this.data[id].didPatch = Date.now()
+
+        return true
     }
 
     @action
@@ -44,7 +64,7 @@ export default class BenefitsStore {
         const benefitsUrl   = apiBase + benefitsEndpoint
 
         // console.log('[BenefitsStore] apiBase', apiBase)
-        // console.log('[BenefitsStore] benefitsUrl', benefitsUrl)
+        console.log('[BenefitsStore] benefitsUrl', benefitsUrl)
 
         this.status   = 'loading'
         this.error    = false
@@ -55,12 +75,16 @@ export default class BenefitsStore {
         // serve JSON directly
         let response
         if (process.env.BUILD_STATIC) {
-            response = {status: 200}
+            response      = {status: 200}
             response.data = require('../../../static/benefits.js').default
         }
         else {
             response = await axiosWrapped('get', benefitsUrl, {
-                responseType: 'json'
+                responseType: 'json',
+                auth: {
+                    username: 'bcUser',
+                    password: 'nope_you_will_never_know'
+                }
             })
         }
 
@@ -104,13 +128,36 @@ export default class BenefitsStore {
             // depends, where/how we handle the errors
 
             return error
+        }
+    }
 
-            // return Promise.reject(error)
+    async save(id) {
+        const benefit       = this.benefits[id]
+        const hasCampaign   = typeof benefit.campaign === 'object'
+                            && benefit.campaign.campaignId
 
-            // throw new Error(
-            //     'Could not fetch ' + apiBase + benefitsEndpoint + '\n'
-            // +   'StatusCode: response.status'
-            // )
+        let campaignUrl     = apiBase + campaignEndpoint,
+            response
+
+        if (!hasCampaign) {
+            // create campaign
+            response = await axiosWrapped('post', campaignUrl, {
+                responseType: 'json',
+                auth: {
+                    username: 'bcUser',
+                    password: 'nope_you_will_never_know'
+                }
+            })
+        }
+        else {
+            // update campaign
+            response = await axiosWrapped('patch', campaignUrl, {
+                responseType: 'json',
+                auth: {
+                    username: 'bcUser',
+                    password: 'nope_you_will_never_know'
+                }
+            })
         }
     }
 

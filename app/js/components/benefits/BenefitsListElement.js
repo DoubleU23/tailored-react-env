@@ -8,19 +8,21 @@ import {Link}    from 'react-router-dom'
 export default class BenefitsListElement extends Component {
 
     static propTypes = {
-        // from BenefitsList
-        benefit: PropTypes.object.isRequired
+        benefit:    PropTypes.object.isRequired
     };
 
     render() {
         const {benefit} = this.props
 
         return (
-            <div className="benefitListElement" key={'benefitListElement' + benefit.id}>
-                <Link to={'/benefits/' + benefit.id}>Details</Link>&nbsp;
-                for id "{benefit.id}"
-                {benefit.campaign &&
-                <span>(campainId: {benefit.campaign.id})</span>}
+            <div className="benefitListElement" key={'benefitListElement_' + benefit.benefitCode}>
+                benefit#{benefit.benefitCode}:<br />
+                <Link to={'/benefits/' + benefit.benefitCode}>
+                    {benefit.title}
+                </Link>&nbsp;
+                {typeof benefit.campaign === 'object' &&
+                <span> (campaign available!)</span>}
+                <br /><br />
             </div>
         )
     }
