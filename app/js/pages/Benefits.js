@@ -3,17 +3,28 @@
 import React           from 'react'
 import PropTypes       from 'prop-types'
 import Component       from 'react-pure-render/component'
-import {inject}        from 'mobx-react'
 
 import {Route}         from 'react-router-dom'
 import BenefitsList    from '../components/benefits/BenefitsList.js'
 import BenefitsDetails from '../components/benefits/BenefitsDetails.js'
+
+import {
+    observable,
+    extendObservable,
+    action
+} from 'mobx'
+
+import {
+    inject,
+    observer
+} from 'mobx-react'
 
 if (process.env.IS_BROWSER) {
     require('./benefits.styl')
 }
 
 @inject('benefits')
+@observer
 export default class Benefits extends Component {
 
     static propTypes = {
@@ -30,12 +41,14 @@ export default class Benefits extends Component {
     }
 
     render() {
+        if (!this.props.benefits.fetched) {
+            return <div>Loading...</div>
+        }
+
         return (
             <div>
                 <h2>Benefits</h2>
-                {/*
-                    space for a page-related module (teaser/header)
-                */}
+
                 <Route exact path="/benefits" component={BenefitsList} />
                 <Route exact path="/benefits/:id" component={BenefitsDetails} />
             </div>

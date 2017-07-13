@@ -54,8 +54,6 @@ export default class BenetfitsList extends Component {
 
         return (
             <div id="benefitsList">
-                <h3>Component "BenetfitsList"</h3>
-
                 {benefits.status !== 'success'
                 && <div>loading...</div>
                 || this.renderBenefits()/* this.renderBenefits() */}

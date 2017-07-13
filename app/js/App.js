@@ -9,10 +9,6 @@ import Footer        from './components/layout/Footer'
 import Nav           from './components/layout/Nav'
 import Benefits      from './pages/Benefits'
 
-import TestComponent from './components/TestComponent'
-
-import appConfig     from '../../config/appConfig'
-
 if (process.env.IS_BROWSER) {
     require('../styles/index.styl')
 }
@@ -20,9 +16,6 @@ if (process.env.IS_BROWSER) {
 class App extends Component {
 
     render() {
-        console.log('this.context', this.context)
-        console.log('this.props', this.props)
-
         return (
             <div style={{height: '5000px'}} id="wrapper">
                 <Header />
@@ -30,7 +23,6 @@ class App extends Component {
                 <div id="content">
                     <Route path="/benefits" component={Benefits} />
                 </div>
-                {/* process.env.DEBUG && <TestComponent /> */}
                 <Footer />
             </div>
         )

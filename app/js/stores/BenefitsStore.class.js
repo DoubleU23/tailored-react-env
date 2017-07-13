@@ -1,5 +1,5 @@
-import Promise from 'bluebird'
-import axios          from 'axios'
+'use strict'
+
 import axiosWrapped   from '../../../utils/axiosWrapped'
 
 import {TimeoutError} from '../../../utils/Exceptions'
@@ -9,7 +9,8 @@ import objectAssign   from 'object-assign-deep'
 import {
     observable,
     extendObservable,
-    action
+    action,
+    computed
 } from 'mobx'
 
 import appConfig from '../../../config/appConfig'
@@ -32,7 +33,7 @@ export default class BenefitsStore {
             bar:        'foo',
             status:     'inactive',
             error:      false,
-            data:       observable({}),
+            data:       {},
             fetched:    false // false || timestamp
         }, state)
 
@@ -41,30 +42,37 @@ export default class BenefitsStore {
         }
     }
 
-    sortData(data) {
+    prepareData(data) {
         const dataSorted = {}
         data.forEach(benefit => {
-            dataSorted[benefit.benefitCode] = benefit
-            dataSorted[benefit.benefitCode].patched = Date.now()
+            const id = benefit.benefitCode
+
+            dataSorted[id]         = benefit
+            dataSorted[id].patched = Date.now()
+            if (typeof dataSorted[id].campaign !== 'object') {
+                dataSorted[id].campaign = {}
+            }
         })
         console.log('this.data SORTED:', dataSorted)
-        return dataSorted
+        return observable(dataSorted)
     }
 
-    @action
+    @action.bound
     patch(id, benefitObj) {
         // add benefit relation per id
         const hasCampaign           = !!benefitObj.campaign && !!benefitObj.campaign.campaignId
         const campaignHasBenefitId  = hasCampaign
             ? !!benefitObj.campaign.benefitCode && !!benefitObj.campaign.id
             : false
+
         console.log('patching!!!', hasCampaign, campaignHasBenefitId)
+
         if (hasCampaign && !campaignHasBenefitId) {
             benefitObj.campaign.id          = benefitObj.benefitCode
             benefitObj.campaign.benefitCode = benefitObj.benefitCode
         }
-        this.data[id] = objectAssign(this.data[id], benefitObj)
-        this.data[id].didPatch = Date.now()
+        this.data[id]           = objectAssign(this.data[id], benefitObj)
+        this.data[id].patched   = Date.now()
 
         return this.data[id]
     }
@@ -116,12 +124,14 @@ export default class BenefitsStore {
         }
 
         if (response && response.status === 200) {
-            // simulate server delay
+            // simulate Loading state
+            // refactor: remove!
             setTimeout(() => {
-                this.data    = this.sortData(response.data)
+                this.data    = this.prepareData(response.data)
                 this.status  = 'success'
                 this.fetched = Date.now()
-            }, 1000)
+            }, 800)
+
 
             // return Promise.resolve(response.data)
             return response.data
@@ -143,9 +153,13 @@ export default class BenefitsStore {
 
     @action
     async saveCampaign(campaign) {
-        let campaignUrl     = apiBase + campaignEndpoint + '/' + campaign.benefitCode,
+        // refactor the createNew!?
+
+
+        let urlSuffix       = campaign.createNew ? '' : '/' + campaign.benefitCode,
+            campaignUrl     = apiBase + campaignEndpoint + urlSuffix,
             response        = await axiosWrapped(false, false, {
-                method:         'patch',
+                method:         campaign.createNew ? 'post' : 'patch',
                 url:            campaignUrl,
                 responseType:   'json',
                 auth:  {
@@ -154,6 +168,8 @@ export default class BenefitsStore {
                 },
                 data:   campaign
             })
+
+        delete this.data[campaign.benefitCode].campaign.createNew
 
         return response
     }
