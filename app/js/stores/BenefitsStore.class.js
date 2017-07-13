@@ -143,16 +143,14 @@ export default class BenefitsStore {
 
     @action
     async saveCampaign(campaign) {
-        console.log('savingCampaign?', campaign)
-
         let campaignUrl     = apiBase + campaignEndpoint + '/' + campaign.benefitCode,
             response        = await axiosWrapped(false, false, {
-                method: 'patch',
-                url:    campaignUrl,
-                responseType: 'json',
+                method:         'patch',
+                url:            campaignUrl,
+                responseType:   'json',
                 auth:  {
-                    username: 'bcUser',
-                    password: 'nope_you_will_never_know'
+                    username:   'bcUser',
+                    password:   'nope_you_will_never_know'
                 },
                 data:   campaign
             })
