@@ -9,6 +9,10 @@ import {Route}         from 'react-router-dom'
 import BenefitsList    from '../components/benefits/BenefitsList.js'
 import BenefitsDetails from '../components/benefits/BenefitsDetails.js'
 
+if (process.env.IS_BROWSER) {
+    require('./benefits.styl')
+}
+
 @inject('benefits')
 export default class Benefits extends Component {
 

@@ -18,8 +18,8 @@ const {
     api: {
         base: apiBase,
         endpoints: {
-            benefits: benefitsEndpoint,
-            campaign: campaignEndpoint
+            benefits:   benefitsEndpoint,
+            campaigns:  campaignEndpoint
         }
     }
 } = appConfig
@@ -53,10 +53,20 @@ export default class BenefitsStore {
 
     @action
     patch(id, benefitObj) {
+        // add benefit relation per id
+        const hasCampaign           = !!benefitObj.campaign && !!benefitObj.campaign.campaignId
+        const campaignHasBenefitId  = hasCampaign
+            ? !!benefitObj.campaign.benefitCode && !!benefitObj.campaign.id
+            : false
+        console.log('patching!!!', hasCampaign, campaignHasBenefitId)
+        if (hasCampaign && !campaignHasBenefitId) {
+            benefitObj.campaign.id          = benefitObj.benefitCode
+            benefitObj.campaign.benefitCode = benefitObj.benefitCode
+        }
         this.data[id] = objectAssign(this.data[id], benefitObj)
         this.data[id].didPatch = Date.now()
 
-        return true
+        return this.data[id]
     }
 
     @action
@@ -131,34 +141,23 @@ export default class BenefitsStore {
         }
     }
 
-    async save(id) {
-        const benefit       = this.benefits[id]
-        const hasCampaign   = typeof benefit.campaign === 'object'
-                            && benefit.campaign.campaignId
+    @action
+    async saveCampaign(campaign) {
+        console.log('savingCampaign?', campaign)
 
-        let campaignUrl     = apiBase + campaignEndpoint,
-            response
-
-        if (!hasCampaign) {
-            // create campaign
-            response = await axiosWrapped('post', campaignUrl, {
+        let campaignUrl     = apiBase + campaignEndpoint + '/' + campaign.benefitCode,
+            response        = await axiosWrapped(false, false, {
+                method: 'patch',
+                url:    campaignUrl,
                 responseType: 'json',
-                auth: {
+                auth:  {
                     username: 'bcUser',
                     password: 'nope_you_will_never_know'
-                }
+                },
+                data:   campaign
             })
-        }
-        else {
-            // update campaign
-            response = await axiosWrapped('patch', campaignUrl, {
-                responseType: 'json',
-                auth: {
-                    username: 'bcUser',
-                    password: 'nope_you_will_never_know'
-                }
-            })
-        }
+
+        return response
     }
 
     get foo() {

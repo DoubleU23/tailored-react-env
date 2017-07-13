@@ -6,6 +6,7 @@ import ReactDOM                  from 'react-dom'
 // ROUTING
 import {BrowserRouter as Router} from 'react-router-dom'
 import routes                    from './Routes'
+import createBrowserHistory      from 'history/createBrowserHistory'
 // MOBX
 import {Provider}                from 'mobx-react'
 import store                     from './stores'
@@ -56,7 +57,7 @@ class Root extends Component {
                 {/* we inject the substores seperately to not pollute the Components params (performance)
                 this way, we can use @inject('substoreName') to just inject what we need */}
                 <Provider {...store}>
-                    <Router>
+                    <Router history={createBrowserHistory()}>
                         {routes}
                     </Router>
                 </Provider>

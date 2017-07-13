@@ -34,8 +34,11 @@ axios.interceptors.response.use(function(response) {
 const axiosWrapped = (method, url, options) => {
     // TBD: use wrap axios with timeout
     return timeout(requestTimeout,
-        axios
-            .apply(method, [url, options])
+
+        (!!method && !!url
+            ? axios.apply(method, [url, options])
+            : axios(options)
+        )
             // catch first to only get REAL errors
             // (we throw respone in underneath THEN)
             .catch(error => {

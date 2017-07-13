@@ -7,7 +7,11 @@ export default {
             title:          'Titel',
             description:    'Beschreibung',
             campaign:   {
-                id:     'CampaignId'
+                name:           'Name der Kampagne',
+                description:    'Beschreibung',
+                campaignId:     'CampaignId',
+                fromDate:       'Start der Kampagne',
+                dueDate:        'Ende der Kampagne'
             }
         }
     }

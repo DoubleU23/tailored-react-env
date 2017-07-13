@@ -5,28 +5,48 @@ import PropTypes           from 'prop-types'
 import Component           from 'react-pure-render/component'
 import {observer, inject}  from 'mobx-react'
 
-import BenefitsListElement from './BenefitsListElement'
-
 @inject('benefits')
 @observer
 export default class BenetfitsList extends Component {
 
     static propTypes = {
-        benefits: PropTypes.object.isRequired
+        history:    PropTypes.object.isRequired,
+        benefits:   PropTypes.object.isRequired
     };
 
     renderBenefits() {
-        const {benefits: {data}} = this.props
-        const benefitsList  = []
-        let benefitData
-        console.log('[renderBenefits] this.props.benefits.data', data)
-        for (let benefitKey in data) {
-            benefitData = data[benefitKey]
-            benefitsList.push(
-                <BenefitsListElement benefit={benefitData} key={'benefitsListElement' + benefitData.benefitCode} />
-            )
-        }
-        return benefitsList
+        const {benefits: {data}, history} = this.props
+
+        return (
+            <div id="beneftisListInner">
+
+                {Object.keys(data).map((id, i) => {
+                    const benefit           = data[id]
+                    const imgUrlSmall       = benefit.image.alternateSizeUrls[512]
+                    const backgroundStyle   = {background: 'transparent url(' + imgUrlSmall + ') 0 0 / cover  no-repeat'}
+
+                    const hasCampaign       = typeof benefit.campaign === 'object'
+                                           && benefit.campaign.campaignId
+
+                    return (
+                        <div
+                            onClick={() => history.push('./benefits/' + id)}
+                            key={'benefitListElement_' + id}
+                            className="benefitListElement"
+                            style={backgroundStyle}
+                         >
+                            <div className="benefitListElementOverlay">
+                                <span className="benefitListElementTitle">{benefit.title}</span>
+                                <span className="benefitListElementInfo">
+                                    <b>ID: </b>{id}<br />
+                                    <b>Kampagne: </b>{hasCampaign ? benefit.campaign.campaignId : 'keine'}
+                                </span>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
+        )
     }
 
     render() {

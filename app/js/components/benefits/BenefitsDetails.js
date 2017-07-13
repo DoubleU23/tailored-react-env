@@ -7,6 +7,8 @@ import {observer, inject} from 'mobx-react'
 
 import RaisedButton       from 'material-ui/RaisedButton'
 
+import Campaigns          from './Campaigns'
+
 @inject('benefits', 'messages')
 @observer
 export default class BenefitsDetails extends Component {
@@ -34,7 +36,7 @@ export default class BenefitsDetails extends Component {
         console.log('[DetailView->componentWillReact] triggered!')
     }
 
-    renderValueOrInput(fieldName, subTree = false) {
+    renderValueOrInput(fieldName, {subTree = false, noInput = false}) {
         const {
             benefits:   {data: benefits},
             benefits:   benefitsStore,
@@ -50,7 +52,7 @@ export default class BenefitsDetails extends Component {
 
         fieldTitle    = msg.benefits[fieldName] || msg.benefits[subTree][fieldName]
 
-        if (!this.state.editMode) {
+        if (noInput || !this.state.editMode) {
             innerJSX = fieldValue || <i>Noch kein(e) {fieldTitle} vorhanden.</i>
         }
         else {
@@ -58,7 +60,8 @@ export default class BenefitsDetails extends Component {
                 <input
                     style={{width: '100%'}}
                     type="textfield"
-                    value={fieldValue}
+                    // no null values => force controlled input!
+                    value={fieldValue || ''}
                     onChange={e => {
                         if (!subTree) {
                             benefit[fieldName] = e.currentTarget.value
@@ -66,7 +69,8 @@ export default class BenefitsDetails extends Component {
                         else {
                             benefit[subTree][fieldName] = e.currentTarget.value
                         }
-                        benefitsStore.patch(id, benefit)
+                        let benefitPatched = benefitsStore.patch(id, benefit)
+                        console.log('benefitPatched', benefitPatched)
                     }}
                 />
             )
@@ -112,21 +116,38 @@ export default class BenefitsDetails extends Component {
         return (
             <div id="detailView">
                 <h3 style={{margin: 0}}>Detail für ID#{id}</h3>
+                {/* <RaisedButton
+                    style={{margin: '1rem 0'}}
+                    label={!this.state.editMode ? 'Benefit bearbeiten' : 'Benefit speichern'}
+                    onClick={() => {
+                        if (this.state.editMode) {
+                            // benefits.save(id, benefit)
+                            // TBD: save benefit? -> no enpoint
+                        }
+                        this.toggleEditMode()
+                    }}
+                /> */}
                 <br />
 
                 <span><b>Datum:</b><br />{date + ''}<br /><br /></span>
 
-                {this.renderValueOrInput('title')}
+                {this.renderValueOrInput('title',       {noInput: true})}
 
-                {this.renderValueOrInput('description')}
+                {this.renderValueOrInput('description', {noInput: true})}
 
-                <div className="campaignData">
-                    {this.renderValueOrInput('id', 'campaign')}
-                </div>
+                {/* <Route path="/benefits/:id/campaign" component={BenefitsList} /> */}
 
-                <RaisedButton
-                    label={!this.state.editMode ? 'bearbeiten' : 'speichern'}
-                    onClick={() => this.toggleEditMode()}
+                {hasCampaign &&
+                <div />
+                }
+                Zugehörige Kampagne(n)
+
+                <Campaigns
+                    benefit={benefit}
+                    editMode={this.state.editMode}
+                    renderValueOrInput={this.renderValueOrInput.bind(this)}
+                    toggleEditMode={this.toggleEditMode.bind(this)}
+                    {...this.props}
                 />
 
             </div>

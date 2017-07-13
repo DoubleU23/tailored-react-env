@@ -20,6 +20,9 @@ if (process.env.IS_BROWSER) {
 class App extends Component {
 
     render() {
+        console.log('this.context', this.context)
+        console.log('this.props', this.props)
+
         return (
             <div style={{height: '5000px'}} id="wrapper">
                 <Header />
