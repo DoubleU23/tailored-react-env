@@ -93,19 +93,14 @@ export default class BenefitsStore {
         // refactor: workaround to static build
         // serve JSON directly
         let response
-        if (process.env.BUILD_STATIC) {
-            response      = {status: 200}
-            response.data = require('../../../static/benefits.js').default
-        }
-        else {
-            response = await axiosWrapped('get', benefitsUrl, {
-                responseType: 'json',
-                auth: {
-                    username: 'bcUser',
-                    password: 'nope_you_will_never_know'
-                }
-            })
-        }
+
+        response = await axiosWrapped('get', benefitsUrl, {
+            responseType: 'json',
+            auth: {
+                username: 'bcUser',
+                password: 'nope_you_will_never_know'
+            }
+        })
 
         console.log('BenefitsStore isError?', [response.error])
         console.log('BenefitsStore response', [response])
