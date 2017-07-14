@@ -88,7 +88,7 @@ const webpackGetConfig = _isDevelopment => {
 
     const config = {
         target:     'web',
-        cache:      isDevelopment,
+        cache:      !isDevelopment,
         devtool:    'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
@@ -173,7 +173,7 @@ const webpackGetConfig = _isDevelopment => {
                     enforce:    'pre'
                 },
                 {
-                    test: /\.styl$/,
+                    test: /\.(styl|less)$/,
                     use: isDevelopment ? [
                         { loader: 'style-loader',   options: { sourceMap: true } },
                         { loader: 'css-loader',     options: { sourceMap: true } },

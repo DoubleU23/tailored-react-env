@@ -53,7 +53,8 @@ export const getAppConfig = _isDevelopment => {
             base:           'https://shoreline-dev.tailored-apps.com/api/v1/bc',
             endpoints: {
                 benefits:   '/campaigns',
-                campaigns:  '/campaigns'
+                campaigns:  '/campaigns',
+                vouchers:   '/voucher'
             }
         },
 

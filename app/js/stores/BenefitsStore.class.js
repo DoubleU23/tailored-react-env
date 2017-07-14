@@ -4,8 +4,6 @@ import axiosWrapped   from '../../../utils/axiosWrapped'
 
 import {TimeoutError} from '../../../utils/Exceptions'
 
-import objectAssign   from 'object-assign-deep'
-
 import {
     observable,
     extendObservable,
