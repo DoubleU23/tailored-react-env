@@ -10,7 +10,8 @@ import {
     observable,
     extendObservable,
     action,
-    computed
+    computed,
+    toJS
 } from 'mobx'
 
 import appConfig from '../../../config/appConfig'
@@ -50,7 +51,7 @@ export default class BenefitsStore {
             dataSorted[id]         = benefit
             dataSorted[id].patched = Date.now()
             if (typeof dataSorted[id].campaign !== 'object') {
-                dataSorted[id].campaign = {}
+                dataSorted[id].campaign = {locations: []}
             }
         })
         console.log('this.data SORTED:', dataSorted)
@@ -71,7 +72,7 @@ export default class BenefitsStore {
             benefitObj.campaign.id          = benefitObj.benefitCode
             benefitObj.campaign.benefitCode = benefitObj.benefitCode
         }
-        this.data[id]           = objectAssign(this.data[id], benefitObj)
+        this.data[id]           = extendObservable(this.data[id], toJS(benefitObj))
         this.data[id].patched   = Date.now()
 
         return this.data[id]
@@ -154,7 +155,6 @@ export default class BenefitsStore {
     @action
     async saveCampaign(campaign) {
         // refactor the createNew!?
-
 
         let urlSuffix       = campaign.createNew ? '' : '/' + campaign.benefitCode,
             campaignUrl     = apiBase + campaignEndpoint + urlSuffix,
