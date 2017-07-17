@@ -11,7 +11,12 @@ export default {
                 description:    'Beschreibung',
                 campaignId:     'CampaignId',
                 fromDate:       'Start der Kampagne',
-                dueDate:        'Ende der Kampagne'
+                dueDate:        'Ende der Kampagne',
+                // locationFields
+                locations: {
+                    name:       'Name',
+                    address:    'Addresse'
+                }
             }
         }
     }

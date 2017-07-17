@@ -9,19 +9,25 @@ import {observer, inject} from 'mobx-react'
 import {
     observable,
     extendObservable,
-    action
+    action,
+    computed
 }                         from 'mobx'
 
-import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
-import IconButton         from 'material-ui/IconButton'
+import RaisedButton       from 'material-ui/RaisedButton'
 import FlatButton         from 'material-ui/FlatButton'
+import IconButton         from 'material-ui/IconButton'
+import FontIcon           from 'material-ui/FontIcon'
 import Paper              from 'material-ui/Paper'
+import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
+import IconCreate         from 'material-ui/svg-icons/content/create'
+import Dialog             from 'material-ui/Dialog'
 
 @inject('benefits', 'messages')
 @observer
 export default class Locations extends Component {
 
     static propTypes = {
+        messages:   PropTypes.object.isRequired,
         benefits:   PropTypes.object.isRequired,
         // custom
         campaign:   PropTypes.object.isRequired,
@@ -29,28 +35,83 @@ export default class Locations extends Component {
             PropTypes.string,
             PropTypes.number
         ]).isRequired
+    };
+
+    static newLocation = {
+        name:       'sdgg',
+        address:    'shsh'
+    };
+
+    constructor(props) {
+        super(props)
+
+        const {benefits: benefitsStore, id} = props
+        const campaign      = benefitsStore.data[id].campaign
+
+        const hasLocations  = campaign.locations instanceof Array
+        const newKey        = hasLocations ? campaign.locations.lenth : 0
+
+        this.state = {
+            addLocationOpen:    false,
+            hasLocations:       hasLocations,
+            newKey:             newKey,
+            newLocation:        this.getEmptyLocation()
+        }
+
+        // this.prepareNewLocation(campaign, newKey)
     }
+
+    getEmptyLocation() {
+        return {
+            name:       '',
+            address:    ''
+        }
+    }
+
+    toggleAddModal() {
+        this.setState({
+            addLocationOpen: !this.state.addLocationOpen
+        })
+    }
+
+    // @action
+    // prepareNewLocation(campaign, newKey) {
+    //     if (!(campaign.locations instanceof Array)) {
+    //         campaign.locations = []
+    //     }
+    //     if (typeof campaign.locations[newKey] !== 'object') {
+    //         campaign.locations[newKey] = {}
+    //         // campaign.locations[newKey] = Locations.newLocation
+    //     }
+    //     return campaign
+    // }
 
     render() {
         const {
             id:         benefitCode,
-            benefits:   benefitsStore
+            benefits:   benefitsStore,
+            messages:   {fields: {benefits: {campaign: {locations: msg}}}}
         } = this.props
-        const hasLocation = this.props.campaign.locations instanceof Array
-                         && this.props.campaign.locations.length
+
+        const benefit       = benefitsStore.data[benefitCode]
+        let {
+            campaign,
+            campaign: {locations}
+        }                   = benefit,
+            hasLocations    = this.state.hasLocations,
+            newKey          = this.state.newKey
+
+        console.log(campaign, locations, newKey)
+        console.log(this.state.newLocation)
 
         return (
             <div id="locations">
-                <h3>
-                    Locations:
-                    <a  href="#"
-                        onClick={() => {}}
-                    >
-                        hinzufügen
-                    </a>
-                </h3>
-                {hasLocation &&
-                this.props.campaign.locations.map(location => {
+                <h3>Locations:</h3>
+                {hasLocations &&
+                campaign.locations.map(location => {
+                    if (!location.id) {
+                        return ''
+                    }
                     return (
                         <Paper
                             className="locationPaper"
@@ -78,7 +139,82 @@ export default class Locations extends Component {
                             {location.address}
                         </Paper>
                     )
-                })}
+                })
+                || 'Noch keine Location hinzufügt'}
+                <br />
+                <br />
+                <FlatButton
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    label="Location hinzufügen"
+                    icon={<IconDelete />}
+                    onClick={() => {
+                        this.setState({addLocationOpen: true})
+                    }}
+                />
+                <Dialog
+                    title="Add new Location"
+                    open={this.state.addLocationOpen}
+                    onRequestClose={this.toggleAddModal.bind(this)}
+                >
+                    <div id="addLocationWrapper">
+                        {['name', 'address'].map(fieldName => {
+                            return (
+                                <div>
+                                    <span className="fieldName">
+                                        {msg[fieldName]}
+                                    </span>
+                                    <input
+                                        key={'locationInput_' + fieldName}
+                                        style={{width: '100%'}}
+                                        type="textfield"
+                                        value={this.state.newLocation[fieldName]}
+                                        onChange={e => {
+                                            let newValue    = e.currentTarget.value,
+                                                newLocation = {...this.state.newLocation}
+
+                                            newLocation[fieldName] = newValue
+                                            this.setState({newLocation})
+                                        }}
+                                    />
+                                </div>
+                            )
+                        })}
+                        <FlatButton
+                            key={'locationInputAdd'}
+                            style={{margin: '1.5rem 1rem 1rem 0'}}
+                            backgroundColor="#666"
+                            hoverColor="#999"
+                            label="Hinzufügen"
+                            icon={<IconCreate />}
+                            onClick={() => {
+                                benefitsStore.addLocation({
+                                    id:             benefitCode,
+                                    newLocation:    this.state.newLocation
+                                })
+                                this.setState({
+                                    hasLocations:    true,
+                                    newKey:          this.state.newKey + 1,
+                                    newLocation:     this.getEmptyLocation(),
+                                    addLocationOpen: false
+                                })
+                            }}
+                        />
+                        <FlatButton
+                            key={'locationInputCancel'}
+                            backgroundColor="#666"
+                            hoverColor="#999"
+                            label="Abbrechen"
+                            icon={<IconDelete />}
+                            onClick={() => {
+                                this.setState({
+                                    newLocation:     this.getEmptyLocation(),
+                                    addLocationOpen: false
+                                })
+                            }}
+                        />
+                    </div>
+                </Dialog>
             </div>
         )
     }

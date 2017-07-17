@@ -70,7 +70,7 @@ export default class BenefitsStore {
             : false
 
         console.log('patching!!!', hasCampaign, campaignHasBenefitId)
-
+        // refactor this
         if (hasCampaign && !campaignHasBenefitId) {
             benefitObj.campaign.id          = benefitObj.benefitCode
             benefitObj.campaign.benefitCode = benefitObj.benefitCode
@@ -263,6 +263,23 @@ export default class BenefitsStore {
         this.data[benefitCode].campaign.locations = locationsWithout
 
         return true
+    }
+
+    @action
+    addLocation({id, newLocation}) {
+        const benefit       = this.data[id]
+        const {campaign}    = benefit
+
+        if (!(campaign.locations instanceof Array)) {
+            benefit.campaign.locations = []
+        }
+
+        newLocation.id              = 890
+        campaign.locations.push(newLocation)
+
+        console.log('pathed locations', benefit)
+
+        // this.patch(id, benefit)
     }
 
     get foo() {

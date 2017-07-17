@@ -16,6 +16,7 @@ import RaisedButton       from 'material-ui/RaisedButton'
 import FlatButton         from 'material-ui/FlatButton'
 import FontIcon           from 'material-ui/FontIcon'
 import Paper              from 'material-ui/Paper'
+import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
 import IconCreate         from 'material-ui/svg-icons/content/create'
 
