@@ -13,10 +13,16 @@ import {
 }                         from 'mobx'
 
 import RaisedButton       from 'material-ui/RaisedButton'
+import FlatButton         from 'material-ui/FlatButton'
+import FontIcon           from 'material-ui/FontIcon'
 import Paper              from 'material-ui/Paper'
+import IconButton         from 'material-ui/IconButton'
+import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
+import IconCreate         from 'material-ui/svg-icons/content/create'
 
 import Locations          from './Locations'
 import Vouchers           from './Vouchers'
+
 
 @inject('benefits', 'messages')
 @observer
@@ -48,7 +54,14 @@ export default class Campaigns extends Component {
     }
 
     renderCampaignFields() {
-        const {renderValueOrInput} = this.props
+        const {
+            renderValueOrInput,
+            benefits: benefitsStore,
+            match: {params: {id}}
+        } = this.props
+
+        const benefit = benefitsStore.data[id]
+
         const fields = (
             <div className="fields">
                 {renderValueOrInput('campaignId',   {subTree: 'campaign'})}
@@ -60,24 +73,52 @@ export default class Campaigns extends Component {
             </div>
         )
 
-        if (this.props.editMode) {
-            return fields
-        }
-        else {
-            return (
-                <Paper
-                    zDepth={3}
-                    style={{
-                        minWidth: '50%',
-                        padding: '1.5rem 1rem',
-                        margin: '0 0 20px',
-                        display: 'inline-block'
+        // if (this.props.editMode) {
+        //     return fields
+        // }
+        // else {
+        return (
+            <Paper
+
+                zDepth={3}
+                style={{
+                    minWidth: '50%',
+                    padding: '1.5rem 1rem',
+                    margin: '0 0 20px',
+                    display: 'inline-block'
+                }}
+            >
+                {fields}
+                <FlatButton
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    icon={<IconCreate />}
+                    label={!this.props.editMode
+                        ? 'Campaign bearbeiten'
+                        : 'Campaign speichern'
+                    }
+                    onClick={this.props.editMode
+                    ? async () => {
+                        const response = await benefitsStore
+                            .saveCampaign(benefit.campaign, true)
+                        console.log('saveCampaign->response', response)
+                        this.props.toggleEditMode()
+                    }
+                    : this.props.toggleEditMode}
+                />
+                <FlatButton
+                    style={{margin: '1.5rem 1rem 1rem 0'}}
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    label="Kampagne löschen"
+                    icon={<IconDelete />}
+                    onClick={() => {
+                        benefitsStore.deleteCampaign(id)
                     }}
-                >
-                    {fields}
-                </Paper>
-            )
-        }
+                />
+            </Paper>
+        )
+        // }
     }
 
     render() {
@@ -90,13 +131,21 @@ export default class Campaigns extends Component {
         console.log(id, this.props)
 
         const benefit       = benefitsStore.data[id]
-        const hasCampaign   = typeof benefit.campaign === 'object'
-                           && benefit.campaign.campaignId != null
-
+        let hasCampaign
+        try {
+            hasCampaign   = benefit.campaign
+                               && benefit.campaign.campaignId != null
+        }
+        catch (err) {
+            hasCampaign = false
+            console.warn(err)
+        }
 
         const hasLocation   = typeof benefit.campaign.location === 'object'
 
         window.benefitTest = benefit
+
+
 
         return (
             <div id="campaigns">
@@ -110,20 +159,7 @@ export default class Campaigns extends Component {
                 <RaisedButton
                     label={'Campaign anlegen'}
                     onClick={() => {
-                        extendObservable(benefit, {
-                            campaign: {
-                                id:             id >> 0,
-                                benefitCode:    id >> 0,
-                                campaignId:     '',
-                                description:    'I am an invention of the backend devs',
-                                dueDate:        '2018-09-28T10:04:00.000Z',
-                                fromDate:       '2017-07-01T10:04:00.000Z',
-                                name:           'generierte Campaign',
-                                type:           1,
-                                createNew:      true
-                            }
-                        })
-
+                        benefitsStore.createCampaign(id)
                         this.props.toggleEditMode()
                     }}
                 />}

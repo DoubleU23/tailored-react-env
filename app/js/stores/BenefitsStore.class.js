@@ -145,7 +145,7 @@ export default class BenefitsStore {
         }
     }
 
-    @action
+    @action.bound
     async saveCampaign(campaign) {
         // refactor the createNew!?
 
@@ -165,6 +165,48 @@ export default class BenefitsStore {
         delete this.data[campaign.benefitCode].campaign.createNew
 
         return response
+    }
+
+    @action.bound
+    createCampaign(id) {
+        const benefit = this.data[id]
+        extendObservable(benefit, {
+            campaign: {
+                id:             benefit.benefitCode >> 0,
+                benefitCode:    benefit.benefitCode >> 0,
+                campaignId:     '',
+                description:    'I am an invention of the backend devs',
+                dueDate:        '2018-09-28T10:04:00.000Z',
+                fromDate:       '2017-07-01T10:04:00.000Z',
+                name:           'generierte Campaign',
+                type:           1,
+                createNew:      true
+            }
+        })
+    }
+
+    @action.bound
+    async deleteCampaign(id) {
+        console.log(this.data[id].campaign)
+        const campaignDeleteUrl = apiBase + campaignEndpoint + '/' + id
+        const response          = await axiosWrapped(false, false, {
+            method:         'delete',
+            url:            campaignDeleteUrl,
+            responseType:   'json',
+            auth:  {
+                username:   'bcUser',
+                password:   'nope_you_will_never_know'
+            }
+        })
+
+        if (response.error || response.status !== 204) {
+            return response.error
+        }
+
+        // delete locally
+        this.data[id].campaign  = {}
+
+        return true
     }
 
     get foo() {

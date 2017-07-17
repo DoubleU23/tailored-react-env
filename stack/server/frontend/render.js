@@ -140,6 +140,7 @@ const renderPageAsync = async ({url}) => {
         <html>
             <head />
             <body>
+                <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
                 <div id="app" />
                 development? {isDevelopment + ''}
                 <script type="text/javascript" src={scriptSrc} />
