@@ -87,9 +87,11 @@ export default class Vouchers extends Component {
                             multiple={false}
                             onChange={e => {
                                 console.log('[handleUpload] file', e.target.files)
-                                const file = e.target.files[0]
-                                console.log('[handleUpload] file.readAsDataURL()', file.readAsDataURL())
-                                this.setState({fileUrl: file.readAsDataURL()})
+                                const file      = e.target.files[0]
+                                const reader    = new FileReader()
+                                // reader.readAsBinaryString(file)
+                                // console.log('[handleUpload] file.readAsBinaryString()', reader)
+                                // this.setState({fileUrl: reader.result})
                                 benefitsStore.saveVoucher({id, file})
                                 // const fileData = new FileReader(file)
                             }}
