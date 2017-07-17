@@ -19,7 +19,8 @@ const {
         base: apiBase,
         endpoints: {
             benefits:   benefitsEndpoint,
-            campaigns:  campaignEndpoint
+            campaigns:  campaignEndpoint,
+            vouchers:   voucherEndpoint
         }
     }
 } = appConfig
@@ -207,6 +208,25 @@ export default class BenefitsStore {
         this.data[id].campaign  = {}
 
         return true
+    }
+
+    @action.bound
+    async saveVoucher({id, file}) {
+        const formData         = new FormData()
+        formData.append('image', file, 'RandomizeFileName')
+        const voucherCreateUrl = apiBase + voucherEndpoint + '/' + id
+        const response         = await axiosWrapped(false, false, {
+            method:         'post',
+            url:            voucherCreateUrl,
+            responseType:   'json',
+            auth:  {
+                username:   'bcUser',
+                password:   'nope_you_will_never_know'
+            },
+            data: formData
+        })
+
+        return response
     }
 
     get foo() {

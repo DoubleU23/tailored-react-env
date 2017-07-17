@@ -32,8 +32,10 @@ const {
 export default class Vouchers extends Component {
 
     static propTypes = {
-        campaign: PropTypes.object.isRequired
+        benefits: PropTypes.object.isRequired,
         // custom
+        campaign: PropTypes.object.isRequired,
+        id:       PropTypes.oneOf(['array', 'bool']).isRequired
     }
 
     constructor(props) {
@@ -52,8 +54,14 @@ export default class Vouchers extends Component {
     }
 
     render() {
-        const {vouchers} = this.props.campaign
-        console.log(vouchers != null)
+        const {
+            id,
+            campaign,
+            benefits: benefitsStore
+        } = this.props
+
+        const {vouchers, campaignId} = campaign
+        console.log(campaign)
 
         return (
             <div id="locations">
@@ -70,17 +78,20 @@ export default class Vouchers extends Component {
                     open={this.state.addModalOpen}
                     onRequestClose={this.toggleAddModal.bind(this)}
                 >
-                    <input
-                        type="file"
-                        multiple={false}
-                        onChange={e => {
-                            console.log('[handleUpload] file', e.target.files)
-                            const file = e.target.files[0]
-
-                            const fileData = FileReader(file)
-                            console.log('[handleUpload] fileData', fileData)
-                        }}
-                    />
+                    <form id="voucherFileUpload">
+                        <input
+                            type="file"
+                            multiple={false}
+                            onChange={e => {
+                                console.log('[handleUpload] file', e.target.files)
+                                const file = e.target.files[0]
+                                console.log('[handleUpload] file.readAsDataURL()', file.readAsDataURL())
+                                this.setState({fileUrl: file.readAsDataURL()})
+                                benefitsStore.saveVoucher({id, file})
+                                // const fileData = new FileReader(file)
+                            }}
+                        />
+                    </form>
 
                     <img src={this.state.fileUrl} />
 

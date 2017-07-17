@@ -90,6 +90,7 @@ export default class Campaigns extends Component {
             >
                 {fields}
                 <FlatButton
+                    style={{margin: '1.5rem 1rem 1rem 0'}}
                     backgroundColor="#666"
                     hoverColor="#999"
                     icon={<IconCreate />}
@@ -107,7 +108,6 @@ export default class Campaigns extends Component {
                     : this.props.toggleEditMode}
                 />
                 <FlatButton
-                    style={{margin: '1.5rem 1rem 1rem 0'}}
                     backgroundColor="#666"
                     hoverColor="#999"
                     label="Kampagne löschen"
@@ -123,9 +123,7 @@ export default class Campaigns extends Component {
 
     render() {
         const {
-            renderValueOrInput,
             benefits: benefitsStore,
-            history,
             match: {params: {id}}
         } = this.props
         console.log(id, this.props)
@@ -134,18 +132,14 @@ export default class Campaigns extends Component {
         let hasCampaign
         try {
             hasCampaign   = benefit.campaign
-                               && benefit.campaign.campaignId != null
+                         && benefit.campaign.campaignId != null
         }
         catch (err) {
             hasCampaign = false
             console.warn(err)
         }
 
-        const hasLocation   = typeof benefit.campaign.location === 'object'
-
         window.benefitTest = benefit
-
-
 
         return (
             <div id="campaigns">
@@ -163,12 +157,11 @@ export default class Campaigns extends Component {
                         this.props.toggleEditMode()
                     }}
                 />}
-
                 {hasCampaign &&
                 <div id="campaignData">
                     {this.renderCampaignFields()}
                     <br />
-                    <RaisedButton
+                    {/* <RaisedButton
                         label={!this.props.editMode
                             ? 'Campaign bearbeiten'
                             : 'Campaign speichern'
@@ -181,7 +174,7 @@ export default class Campaigns extends Component {
                             this.props.toggleEditMode()
                         }
                         : this.props.toggleEditMode}
-                    /><br />
+                    /><br /> */}
                     <div id="campaignDataMeta">
                         {!this.props.editMode &&
                         <Locations
@@ -190,6 +183,7 @@ export default class Campaigns extends Component {
 
                         {!this.props.editMode &&
                         <Vouchers
+                            id={id}
                             campaign={benefit.campaign}
                         />}
                     </div>
