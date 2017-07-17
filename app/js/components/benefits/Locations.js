@@ -12,7 +12,9 @@ import {
     action
 }                         from 'mobx'
 
-import RaisedButton       from 'material-ui/RaisedButton'
+import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
+import IconButton         from 'material-ui/IconButton'
+import FlatButton         from 'material-ui/FlatButton'
 import Paper              from 'material-ui/Paper'
 
 @inject('benefits', 'messages')
@@ -20,11 +22,20 @@ import Paper              from 'material-ui/Paper'
 export default class Locations extends Component {
 
     static propTypes = {
-        campaign: PropTypes.object.isRequired
+        benefits:   PropTypes.object.isRequired,
         // custom
+        campaign:   PropTypes.object.isRequired,
+        id:         PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]).isRequired
     }
 
     render() {
+        const {
+            id:         benefitCode,
+            benefits:   benefitsStore
+        } = this.props
         const hasLocation = this.props.campaign.locations instanceof Array
                          && this.props.campaign.locations.length
 
@@ -50,11 +61,19 @@ export default class Locations extends Component {
                                 display: 'inline-block'
                             }}
                         >
-                            <a
-                                onClick={() => this.deleteLocation(location.id)}
-                                href="#"
+                            <IconButton
                                 className="locationPaperDelete"
-                            >x</a>
+                                tooltip={'Location löschen'}
+                                tooltipPosition="top-right"
+                                onClick={() => {
+                                    benefitsStore.deleteLocation({
+                                        benefitCode,
+                                        locationId: location.id
+                                    })
+                                }}
+                            >
+                                <IconDelete />
+                            </IconButton>
                             #{location.id} - {location.name}<br />
                             {location.address}
                         </Paper>

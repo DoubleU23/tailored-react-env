@@ -54,7 +54,8 @@ export const getAppConfig = _isDevelopment => {
             endpoints: {
                 benefits:   '/campaigns',
                 campaigns:  '/campaigns',
-                vouchers:   '/voucher'
+                vouchers:   '/voucher',
+                locations:  '/locations'
             }
         },
 

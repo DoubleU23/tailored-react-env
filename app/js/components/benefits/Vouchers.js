@@ -35,7 +35,10 @@ export default class Vouchers extends Component {
         benefits: PropTypes.object.isRequired,
         // custom
         campaign: PropTypes.object.isRequired,
-        id:       PropTypes.oneOf(['array', 'bool']).isRequired
+        id:       PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number
+        ]).isRequired
     }
 
     constructor(props) {

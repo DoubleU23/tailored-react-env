@@ -83,7 +83,7 @@ export default class BenefitsDetails extends Component {
         }
         return (
             <div className="benefitsDetailsField">
-                <b>{fieldTitle}</b><br />
+                <span className="fieldName label">{fieldTitle}</span><br />
                 {innerJSX}
                 <br /><br />
             </div>

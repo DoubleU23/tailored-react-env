@@ -19,8 +19,9 @@ const {
         base: apiBase,
         endpoints: {
             benefits:   benefitsEndpoint,
-            campaigns:  campaignEndpoint,
-            vouchers:   voucherEndpoint
+            campaigns:  campaignsEndpoint,
+            vouchers:   vouchersEndpoint,
+            locations:  locationsEndpoint
         }
     }
 } = appConfig
@@ -51,6 +52,9 @@ export default class BenefitsStore {
             dataSorted[id].patched = Date.now()
             if (typeof dataSorted[id].campaign !== 'object') {
                 dataSorted[id].campaign = {locations: []}
+            }
+            else if (dataSorted[id].campaign.benefitCode == null) {
+                dataSorted[id].campaign.benefitCode = id
             }
         })
         console.log('this.data SORTED:', dataSorted)
@@ -151,7 +155,7 @@ export default class BenefitsStore {
         // refactor the createNew!?
 
         let urlSuffix       = campaign.createNew ? '' : '/' + campaign.benefitCode,
-            campaignUrl     = apiBase + campaignEndpoint + urlSuffix,
+            campaignUrl     = apiBase + campaignsEndpoint + urlSuffix,
             response        = await axiosWrapped(false, false, {
                 method:         campaign.createNew ? 'post' : 'patch',
                 url:            campaignUrl,
@@ -188,8 +192,7 @@ export default class BenefitsStore {
 
     @action.bound
     async deleteCampaign(id) {
-        console.log(this.data[id].campaign)
-        const campaignDeleteUrl = apiBase + campaignEndpoint + '/' + id
+        const campaignDeleteUrl = apiBase + campaignsEndpoint + '/' + id
         const response          = await axiosWrapped(false, false, {
             method:         'delete',
             url:            campaignDeleteUrl,
@@ -214,7 +217,7 @@ export default class BenefitsStore {
     async saveVoucher({id, file}) {
         const formData         = new FormData()
         formData.append('image', file, 'RandomizeFileName')
-        const voucherCreateUrl = apiBase + voucherEndpoint + '/' + id
+        const voucherCreateUrl = apiBase + vouchersEndpoint + '/' + id
         const response         = await axiosWrapped(false, false, {
             method:         'post',
             url:            voucherCreateUrl,
@@ -223,10 +226,43 @@ export default class BenefitsStore {
                 username:   'bcUser',
                 password:   'nope_you_will_never_know'
             },
-            data: formData
+            data:           formData
         })
 
         return response
+    }
+
+    @action.bound
+    async deleteLocation({benefitCode, locationId}) {
+        const campaign          = this.data[benefitCode].campaign
+        const locations         = campaign.locations
+
+        const indexToDelete     = locations.find(v => v.id === locationId)
+        const locationsWithout  = locations.slice(indexToDelete, 1)
+
+        campaign.locations      = locationsWithout
+
+        // delete on server
+        const campaignDeleteUrl = apiBase + campaignsEndpoint + '/' + benefitCode
+        const response          = await axiosWrapped(false, false, {
+            method:         'patch',
+            url:            campaignDeleteUrl,
+            responseType:   'json',
+            auth:  {
+                username:   'bcUser',
+                password:   'nope_you_will_never_know'
+            },
+            data:           {campaign}
+        })
+
+        if (response.error || response.status !== 204) {
+            return response.error
+        }
+
+        // delete locally
+        this.data[benefitCode].campaign.locations = locationsWithout
+
+        return true
     }
 
     get foo() {
