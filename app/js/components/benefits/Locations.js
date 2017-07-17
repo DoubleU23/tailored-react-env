@@ -189,7 +189,7 @@ export default class Locations extends Component {
                             icon={<IconCreate />}
                             onClick={() => {
                                 benefitsStore.addLocation({
-                                    id:             benefitCode,
+                                    benefitCode,
                                     newLocation:    this.state.newLocation
                                 })
                                 this.setState({

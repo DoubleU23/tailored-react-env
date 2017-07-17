@@ -55,6 +55,7 @@ export default class BenefitsStore {
             }
             else if (dataSorted[id].campaign.benefitCode == null) {
                 dataSorted[id].campaign.benefitCode = id
+                dataSorted[id].campaign.id          = id
             }
         })
         console.log('this.data SORTED:', dataSorted)
@@ -81,33 +82,19 @@ export default class BenefitsStore {
         return this.data[id]
     }
 
-    @action
+    @action.bound
     async fetch() {
+        this.status         = 'loading'
+        this.error          = false
+
         const benefitsUrl   = apiBase + benefitsEndpoint
-
-        // console.log('[BenefitsStore] apiBase', apiBase)
-        console.log('[BenefitsStore] benefitsUrl', benefitsUrl)
-
-        this.status   = 'loading'
-        this.error    = false
-
-        console.log('process.env.BUILD_STATIC', [process.env.BUILD_STATIC])
-
-        // refactor: workaround to static build
-        // serve JSON directly
-        let response
-
-        response = await axiosWrapped('get', benefitsUrl, {
+        const response      = await axiosWrapped('get', benefitsUrl, {
             responseType: 'json',
             auth: {
                 username: 'bcUser',
                 password: 'nope_you_will_never_know'
             }
         })
-
-        console.log('BenefitsStore isError?', [response.error])
-        console.log('BenefitsStore response', [response])
-        console.log('BenefitsStore response.message', [response.message])
 
         if (response.error) {
             this.error = response.error
@@ -117,43 +104,32 @@ export default class BenefitsStore {
             if (this.error instanceof TimeoutError) {
                 // special handling of TimeoutError?
             }
-            // refactor: return or throw here!?
-            // return response
+
             return response
         }
 
         if (response && response.status === 200) {
-            // simulate Loading state
-            // refactor: remove!
-            setTimeout(() => {
-                this.data    = this.prepareData(response.data)
-                this.status  = 'success'
-                this.fetched = Date.now()
-            }, 800)
+            this.data    = this.prepareData(response.data)
+            this.status  = 'success'
+            this.fetched = Date.now()
 
-
-            // return Promise.resolve(response.data)
             return response.data
         }
         else {
             // refactor: you should not get here
             // if you see this error => refactor
-
             let error = new Error(
                 'Could not fetch ' + benefitsUrl + '\n'
             +   'StatusCode: response.status'
             )
             // refactor: return or throw here!? oO
             // depends, where/how we handle the errors
-
             return error
         }
     }
 
     @action.bound
     async saveCampaign(campaign) {
-        // refactor the createNew!?
-
         let urlSuffix       = campaign.createNew ? '' : '/' + campaign.benefitCode,
             campaignUrl     = apiBase + campaignsEndpoint + urlSuffix,
             response        = await axiosWrapped(false, false, {
@@ -168,6 +144,8 @@ export default class BenefitsStore {
             })
 
         delete this.data[campaign.benefitCode].campaign.createNew
+
+        this.data[campaign.benefitCode].patched = Date.now()
 
         return response
     }
@@ -234,15 +212,19 @@ export default class BenefitsStore {
 
     @action.bound
     async deleteLocation({benefitCode, locationId}) {
-        const campaign          = this.data[benefitCode].campaign
+        console.log('benefitCode, locationId', benefitCode, locationId)
+        const campaign          = toJS(this.data[benefitCode].campaign)
         const locations         = campaign.locations
 
-        const indexToDelete     = locations.find(v => v.id === locationId)
-        const locationsWithout  = locations.slice(indexToDelete, 1)
+        const indexToDelete     = campaign.locations.findIndex(v => v.id === locationId)
+        locations.splice(indexToDelete, 1)
 
-        campaign.locations      = locationsWithout
+        console.log('campaign, indexToDelete', campaign, indexToDelete)
+        campaign.locations      = locations
 
-        // delete on server
+        console.log('campaign after', campaign)
+
+        // // delete on server
         const campaignDeleteUrl = apiBase + campaignsEndpoint + '/' + benefitCode
         const response          = await axiosWrapped(false, false, {
             method:         'patch',
@@ -252,7 +234,7 @@ export default class BenefitsStore {
                 username:   'bcUser',
                 password:   'nope_you_will_never_know'
             },
-            data:           {campaign}
+            data:           {campaign: campaign}
         })
 
         if (response.error || response.status !== 204) {
@@ -260,26 +242,25 @@ export default class BenefitsStore {
         }
 
         // delete locally
-        this.data[benefitCode].campaign.locations = locationsWithout
+        this.data[benefitCode].campaign.locations = locations
 
         return true
     }
 
-    @action
-    addLocation({id, newLocation}) {
-        const benefit       = this.data[id]
+    @action.bound
+    addLocation({benefitCode, newLocation}) {
+        const benefit       = this.data[benefitCode]
         const {campaign}    = benefit
 
         if (!(campaign.locations instanceof Array)) {
             benefit.campaign.locations = []
         }
 
-        newLocation.id              = 890
+        // refactor
+        newLocation.id      = 890
+
         campaign.locations.push(newLocation)
-
-        console.log('pathed locations', benefit)
-
-        // this.patch(id, benefit)
+        this.saveCampaign(campaign)
     }
 
     get foo() {
