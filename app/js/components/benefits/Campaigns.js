@@ -19,10 +19,10 @@ import Paper              from 'material-ui/Paper'
 import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
 import IconCreate         from 'material-ui/svg-icons/content/create'
+import Dialog             from 'material-ui/Dialog'
 
 import Locations          from './Locations'
 import Vouchers           from './Vouchers'
-
 
 @inject('benefits', 'messages')
 @observer
@@ -44,7 +44,10 @@ export default class Campaigns extends Component {
 
         this.state = {
             editMode: props.editMode,
-            updated:  Date.now()
+            updated:  Date.now(),
+            confirmationDialogOpen: false,
+            confirmationDialogContent: 'Are you sure?',
+            confirmationDialogAction: null
         }
     }
 
@@ -113,12 +116,55 @@ export default class Campaigns extends Component {
                     label="Kampagne löschen"
                     icon={<IconDelete />}
                     onClick={() => {
-                        benefitsStore.deleteCampaign(id)
+                        // const confirmationDialog = {
+                        //     open: true,
+                        //     confirmAction: function() {
+                        //         benefitsStore.deleteCampaign(id)
+                        //     }
+                        // }
+                        this.setState({
+                            confirmationDialogOpen: true,
+                            confirmationDialogAction: () => {
+                                benefitsStore.deleteCampaign(id)
+                            },
+                            confirmationDialogContent: 'TestContent'
+                        })
+                        console.log('true!')
                     }}
                 />
             </Paper>
         )
-        // }
+    }
+
+    renderConfirmationDialog() {
+        return (
+            <Dialog
+                // title={this.state.confirmationDialogTitle}
+                actions={[
+                    <RaisedButton
+                        label={'Abbrechen'}
+                        onClick={() => {
+                            // this.setState({
+                            //     confirmationDialog: {open: false}
+                            // })
+                        }}
+                    />,
+                    <RaisedButton
+                        label={'Ja'}
+                        // onClick={() => this.state.confirmationDialogAction}
+                    />
+                ]}
+                modal={true}
+                open={this.state.confirmationDialogOpen}
+            />
+
+
+
+            // </Dialog>
+        )
+         /*
+            this.state.confirmationDialogContent
+            */
     }
 
     render() {
@@ -143,6 +189,8 @@ export default class Campaigns extends Component {
 
         return (
             <div id="campaigns">
+                {this.renderConfirmationDialog()}
+
                 <h3>
                     {!hasCampaign
                         ? 'Noch keine Kampagne vorhanden'

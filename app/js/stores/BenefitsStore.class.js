@@ -46,14 +46,21 @@ export default class BenefitsStore {
     prepareData(data) {
         const dataSorted = {}
         data.forEach(benefit => {
-            const id = benefit.benefitCode
+            const id                = benefit.benefitCode
 
-            dataSorted[id]         = benefit
-            dataSorted[id].patched = Date.now()
+            dataSorted[id]          = benefit
+            dataSorted[id].patched  = Date.now()
+
+            // prepare locations object
             if (typeof dataSorted[id].campaign !== 'object') {
                 dataSorted[id].campaign = {locations: []}
+                // extendObservable(dataSorted[id].campaign, {
+                //     locations: []
+                // })
             }
-            else if (dataSorted[id].campaign.benefitCode == null) {
+
+            // add benefitCode/id to campaign
+            if (dataSorted[id].campaign.benefitCode == null) {
                 dataSorted[id].campaign.benefitCode = id
                 dataSorted[id].campaign.id          = id
             }
