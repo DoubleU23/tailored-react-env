@@ -17,7 +17,7 @@ const {
 gulp.task('webpack', finishTaskFn => {
     // start express server
     // refactor: move path to config!?
-    const expressServerEntrypoint  = paths.server
+    const expressServerEntrypoint  = process.env.EXPRESS_SERVER || paths.server
 
     if (isDevelopment) {
         let startedFirst = false

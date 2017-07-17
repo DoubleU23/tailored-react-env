@@ -14,15 +14,15 @@
  */
 function getTypeOf(input) {
     if (input === null) {
-        return `null`
+        return 'null'
     }
 
-    else if (typeof input === `undefined`) {
-        return `undefined`
+    else if (typeof input === 'undefined') {
+        return 'undefined'
     }
 
-    else if (typeof input === `object`) {
-        return (Array.isArray(input) ? `array` : `object`)
+    else if (typeof input === 'object') {
+        return (Array.isArray(input) ? 'array' : 'object')
     }
 
     return typeof input
@@ -33,12 +33,12 @@ function getTypeOf(input) {
  */
 function cloneValue(value) {
     // The value is an object so lets clone it.
-    if (getTypeOf(value) === `object`) {
+    if (getTypeOf(value) === 'object') {
         return quickCloneObject(value)
     }
 
     // The value is an array so lets clone it.
-    else if (getTypeOf(value) === `array`) {
+    else if (getTypeOf(value) === 'array') {
         return quickCloneArray(value)
     }
 
@@ -74,10 +74,10 @@ function quickCloneObject(input) {
 /*
  * Does the actual deep merging.
  */
-/* eslint max-depth: ["warning", 4] */
+/* eslint max-depth: [1, 4] */
 function executeDeepMerge(target, _objects = [], _options = {}) {
     const options = {
-        arrayBehaviour: _options.arrayBehaviour || `replace`  // Can be "merge" or "replace".
+        arrayBehaviour: _options.arrayBehaviour || 'replace'  // Can be "merge" or "replace".
     }
 
     // Ensure we have actual objects for each.
@@ -96,19 +96,19 @@ function executeDeepMerge(target, _objects = [], _options = {}) {
             const type = getTypeOf(value)
             const existingValueType = getTypeOf(output[key])
 
-            if (type === `object`) {
-                if (existingValueType !== `undefined`) {
-                    const existingValue = (existingValueType === `object` ? output[key] : {})
+            if (type === 'object') {
+                if (existingValueType !== 'undefined') {
+                    const existingValue = (existingValueType === 'object' ? output[key] : {})
                     output[key] = executeDeepMerge({}, [existingValue, quickCloneObject(value)], options)
                 }
                 else {
                     output[key] = quickCloneObject(value)
                 }
             }
-            else if (type === `array`) {
-                if (existingValueType === `array`) {
+            else if (type === 'array') {
+                if (existingValueType === 'array') {
                     const newValue = quickCloneArray(value)
-                    output[key] = (options.arrayBehaviour === `merge` ? output[key].concat(newValue) : newValue)
+                    output[key] = (options.arrayBehaviour === 'merge' ? output[key].concat(newValue) : newValue)
                 }
                 else {
                     output[key] = quickCloneArray(value)

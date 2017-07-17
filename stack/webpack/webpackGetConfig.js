@@ -12,35 +12,13 @@ import cssMqPacker       from 'css-mqpacker'
 import doubleu23Stylus   from 'doubleu23-stylus'
 
 // import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
-
-import constants         from './constants'
+// import constants         from './constants'
 import appConfig         from '../../config/appConfig'
-
-import objectAssign      from 'object-assign-deep'
 
 const {
     ports,
-    paths,
-    isDevelopment
+    paths
 } = appConfig
-
-const devtools = process.env.CONTINUOUS_INTEGRATION
-  ? 'inline-source-map'
-  // cheap-module-eval-source-map, because we want original source, but we don't
-  // care about columns, which makes this devtool faster than eval-source-map.
-  // http://webpack.github.io/docs/configuration.html#devtool
-  : 'cheap-module-eval-source-map'
-
-const loaders = {
-    'css': '',
-    // 'less':     '!less-loader',
-    // inject
-  // 'sj': '!stylus-loader',
-    // 'scss':     '!sass-loader',
-    // 'sass':     '!sass-loader?indentedSyntax',
-    'styl':     '!stylus-loader'
-    // 'stylo':    '!cssobjects-loader!stylus-loader!'
-}
 
 const serverIp = ip.address()
 
@@ -49,31 +27,16 @@ const webpackGetConfig = _isDevelopment => {
         ? _isDevelopment
         : appConfig.isDevelopment
 
-    const stylesLoaders = Object.keys(loaders).map(ext => {
-        const prefix     = 'css-loader!postcss-loader'
-        const extLoaders = prefix + loaders[ext]
-        const loader     = isDevelopment
-            ? `style-loader!${extLoaders}`
-            : ExtractTextPlugin.extract({
-                fallback:       'style-loader',
-                loader:         extLoaders
-            })
-        return {
-            loader,
-            test: new RegExp(`\\.(${ext})$`)
-        }
-    })
-
     const stylusLoaderDefinition = {
         loader: 'stylus-loader',
         options: {
             sourceMap:  true,
             compress:   isDevelopment,
-            use:        [/* nib(), */doubleu23Stylus({
+            use:        [nib(), doubleu23Stylus({
                 envVars:    {
                     // refactor: build object on top and
                     // find a way to re-use it in webpack.DefinePlugin
-                    // NODE_ENV:       process.env.NODE_ENV,
+                    NODE_ENV:       process.env.NODE_ENV,
                     BUILD_STATIC:   process.env.BUILD_STATIC,
                     DEBUG:          process.env.DEBUG
                 },
@@ -85,11 +48,12 @@ const webpackGetConfig = _isDevelopment => {
         }
     }
 
-
     const config = {
         target:     'web',
         cache:      !isDevelopment,
-        devtool:    'cheap-module-source-map',
+        devtool:    process.env.CONTINUOUS_INTEGRATION
+          ? 'inline-source-map'
+          : 'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
@@ -107,7 +71,7 @@ const webpackGetConfig = _isDevelopment => {
         } : {
             path: paths.build,
             filename: '[name]-[hash].js',
-            // sourceMapFilename: '[name]-[hash].js',
+            // ??? sourceMapFilename: '[name]-[hash].js',
             chunkFilename: '[name]-[chunkhash].js'
         },
         module: {
@@ -144,7 +108,7 @@ const webpackGetConfig = _isDevelopment => {
                         cacheDirectory: false,
                         // presets/plugins have to match defines in .babelrc
                         presets: [
-                            // ['env', { modules: false }],
+                            ['env', { modules: false }],
                             'es2015', 'react', 'stage-2', 'stage-3'
                         ],
                         plugins: [
@@ -166,12 +130,14 @@ const webpackGetConfig = _isDevelopment => {
                     }
                 },
                 // SOURCEMAPS
+                // refactor: show source instead of compiled
                 // not needed (only handles extern sourcemaps (in module packages))
                 {
                     test:       /\.js$/,
                     use:        ['source-map-loader'],
                     enforce:    'pre'
                 },
+                // STYLUS
                 {
                     test: /\.(styl|less)$/,
                     use: isDevelopment ? [
@@ -250,19 +216,6 @@ const webpackGetConfig = _isDevelopment => {
                     //
                     // ???
                     // TBD: do we need/want este`s webpackIsomorphicToolsPlugin ???
-
-                    // TBD: https://github.com/kevlened/copy-webpack-plugin
-                    // new CopyWebpackPlugin(
-                    //     [
-                    //         {
-                    //             from: './src/common/app/favicons/',
-                    //             to: 'favicons'
-                    //         }
-                    //     ],
-                    //     {
-                    //         ignore: ['original/**']
-                    //     },
-                    // ),
                 )
             }
 

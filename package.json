@@ -28,6 +28,7 @@
     "autoprefixer": "^6.3.3",
     "axios": "^0.16.2",
     "babel": "^6.5.2",
+    "babel-core": "^6.25.0",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^7.1.1",
     "babel-plugin-istanbul": "^4.0.0",
@@ -130,7 +131,6 @@
     "mocha": "^2.3.3",
     "moxios": "^0.4.0",
     "nib": "^1.1.0",
-    "object-assign-deep": "^0.3.1",
     "opn": "^4.0.0",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.14",
@@ -162,6 +162,7 @@
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.2",
+    "webpack-sources": "^1.0.1",
     "when": "^3.7.4",
     "yargs": "^3.27.0"
   },
