@@ -43,11 +43,11 @@ export default class Campaigns extends Component {
         super(props)
 
         this.state = {
-            editMode: props.editMode,
-            updated:  Date.now(),
-            confirmationDialogOpen: false,
+            editMode:                   props.editMode,
+            updated:                    Date.now(),
+            confirmationDialogOpen:     false,
             confirmationDialogContent: 'Are you sure?',
-            confirmationDialogAction: null
+            confirmationDialogAction:   null
         }
     }
 

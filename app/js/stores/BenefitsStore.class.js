@@ -241,7 +241,7 @@ export default class BenefitsStore {
                 username:   'bcUser',
                 password:   'nope_you_will_never_know'
             },
-            data:           {campaign: campaign}
+            data:           campaign
         })
 
         if (response.error || response.status !== 204) {
