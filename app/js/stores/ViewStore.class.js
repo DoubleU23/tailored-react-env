@@ -32,43 +32,46 @@ export default class ViewStore {
             }
         }, state)
 
-        this.defineSubSetters('confirmationDialog')
+        if (process.env.IS_BROWSER) {
+            window.ViewStore = this
+        }
     }
 
     // refactor: shove into npm package!
-    defineSubSetters(objectKey) {
-        const that              = this
-        this[objectKey]         = {}
-        const objectKeyReal     = '_' + objectKey
-        const objectReal        = this[objectKeyReal]
+    // not needed here!!!
+    //
+    // defineSubSetters(objectKey) {
+    //     const that              = this
+    //     this[objectKey]         = {}
+    //     const objectKeyReal     = '_' + objectKey
+    //     const objectReal        = this[objectKeyReal]
 
-        Object.keys(objectReal).forEach(propertyKey => {
-            Object.defineProperty(this[objectKey], propertyKey, {
-                get: function() {
-                    if (process.env.DEBUG) {
-                        console.log('[ViewStore->get objectKey.' + propertyKey + '] returns', that[objectKeyReal][propertyKey])
-                    }
-                    return that[objectKeyReal][propertyKey]
-                },
-                set: function(value) {
-                    if (process.env.DEBUG) {
-                        console.log('[ViewStore->set objectKey.' + propertyKey + '] value', value)
-                    }
-                    that[objectKeyReal][propertyKey] = value
-                }
-            })
-        })
-    }
-
-    // set confirmationDialog(confirmationDialog) {
-    //     console.log('confirmationDialog setter called!')
-    //     extendObservable(this._confirmationDialog, {
-    //         confirmationDialog
+    //     Object.keys(objectReal).forEach(propertyKey => {
+    //         Object.defineProperty(this[objectKey], propertyKey, {
+    //             get: function() {
+    //                 if (process.env.DEBUG) {
+    //                     console.log('[ViewStore->get objectKey.' + propertyKey + '] returns', that[objectKeyReal][propertyKey])
+    //                 }
+    //                 return that[objectKeyReal][propertyKey]
+    //             },
+    //             set: function(value) {
+    //                 if (process.env.DEBUG) {
+    //                     console.log('[ViewStore->set objectKey.' + propertyKey + '] value', value)
+    //                 }
+    //                 that[objectKeyReal][propertyKey] = value
+    //             }
+    //         })
     //     })
     // }
 
-    // get confirmationDialog() {
-    //     return this._confirmationDialog
-    // }
+    set confirmationDialog(confirmationDialog) {
+        console.log('confirmationDialog setter called!')
+        extendObservable(this._confirmationDialog, confirmationDialog)
+    }
+
+    get confirmationDialog() {
+        console.log('confirmationDialog getter called!')
+        return this._confirmationDialog
+    }
 
 }

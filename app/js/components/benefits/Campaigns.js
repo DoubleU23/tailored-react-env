@@ -65,8 +65,6 @@ export default class Campaigns extends Component {
             match: {params: {id}}
         } = this.props
 
-        const closeConfirmationDialog = this.closeConfirmationDialog.bind(this)
-
         const benefit = benefitsStore.data[id]
 
         const fields = (
@@ -120,25 +118,20 @@ export default class Campaigns extends Component {
                     label="Kampagne löschen"
                     icon={<IconDelete />}
                     onClick={() => {
-                        this.props.view
-                            .this.setState({
-                                confirmationDialogOpen:     true,
-                                confirmationDialogAction:   () => {
-                                    console.log('confirmationDialogAction')
-                                    benefitsStore.deleteCampaign(id)
-                                    closeConfirmationDialog
-                                },
-                                confirmationDialogTitle:    'Sind Sie sicher?',
-                                confirmationDialogContent:  'Wollen Sie die Kampagne wirklich löschen?'
-                            })
+                        this.props.view.confirmationDialog = {
+                            open:       true,
+                            action:     () => {
+                                console.log('confirmationDialogAction->this', this)
+                                benefitsStore.deleteCampaign(id)
+                                this.props.view.confirmationDialog.open = false
+                            },
+                            title:      'Sind Sie sicher?',
+                            content:    'Wollen Sie die Kampagne wirklich löschen?'
+                        }
                     }}
                 />
             </Paper>
         )
-    }
-
-    closeConfirmationDialog() {
-        this.props.view.confirmationDialog.open = false
     }
 
     render() {

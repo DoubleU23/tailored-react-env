@@ -53,7 +53,10 @@ export default class BenefitsStore {
 
             // prepare locations object
             if (typeof dataSorted[id].campaign !== 'object') {
-                dataSorted[id].campaign = {locations: []}
+                dataSorted[id].campaign = {
+                    locations:  [],
+                    vouchers:   []
+                }
                 // extendObservable(dataSorted[id].campaign, {
                 //     locations: []
                 // })
@@ -190,7 +193,7 @@ export default class BenefitsStore {
         })
 
         if (response.error || response.status !== 204) {
-            return response.error
+            return response
         }
 
         // delete locally
@@ -215,7 +218,13 @@ export default class BenefitsStore {
             data:           formData
         })
 
-        return response
+        if (response.error || response.status !== 200) {
+            return response
+        }
+
+        this.data[id].campaign.vouchers.push(response.data)
+
+        return response.data
     }
 
     @action.bound

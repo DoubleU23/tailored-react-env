@@ -15,8 +15,9 @@ import {
 import RaisedButton       from 'material-ui/RaisedButton'
 import Paper              from 'material-ui/Paper'
 import Dialog             from 'material-ui/Dialog'
-
-import {DropUploader}     from 'react-file-upload'
+import IconButton         from 'material-ui/IconButton'
+import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
+import IconCreate         from 'material-ui/svg-icons/content/create'
 
 if (process.env.IS_BROWSER) {
     require('../../../styles/react-file-upload.styl')
@@ -58,7 +59,7 @@ export default class Vouchers extends Component {
 
     render() {
         const {
-            id,
+            id: benefitCode,
             campaign,
             benefits: benefitsStore
         } = this.props
@@ -67,7 +68,7 @@ export default class Vouchers extends Component {
         console.log(campaign)
 
         return (
-            <div id="locations">
+            <div id="vouchers">
                 <h3>
                     Gutscheine:&nbsp;
                     <a  href="#"
@@ -92,7 +93,7 @@ export default class Vouchers extends Component {
                                 // reader.readAsBinaryString(file)
                                 // console.log('[handleUpload] file.readAsBinaryString()', reader)
                                 // this.setState({fileUrl: reader.result})
-                                benefitsStore.saveVoucher({id, file})
+                                benefitsStore.saveVoucher({benefitCode, file})
                                 // const fileData = new FileReader(file)
                             }}
                         />
@@ -115,18 +116,42 @@ export default class Vouchers extends Component {
                 </Dialog>
                 {(vouchers == null || !vouchers.length)
                 ?   <span>Noch keine Gutscheine vorhanden</span>
-                :   vouchers.map(location => {
+                :   vouchers.map(voucher => {
                     return (
                         <Paper
-                            className="locationPaper"
+                            className="voucherPaper"
                             zDepth={3}
                             style={{
-                                padding: '1.5rem 1rem',
-                                margin: '0 10px 20px',
-                                display: 'inline-block'
+                                width:      '300px',
+                                height:     '150px',
+                                margin:     '0 10px 20px',
+                                display:    'inline-block',
+                                background: 'transparent '
+                                + 'url(' + voucher.voucherImage + ') '
+                                + 'center center / cover no-repeat'
                             }}
                         >
-                            kdsapojfposea
+                            <IconButton
+                                key={'voucherDeleteButton_' + location.id}
+                                className="voucherPaperDelete"
+                                // tooltip={'Gutschein löschen'}
+                                // tooltipPosition="top-right"
+                                onClick={() => {
+                                    benefitsStore.deleteVoucher({
+                                        benefitCode,
+                                        voucherId: voucher.id
+                                    })
+                                }}
+                                style={{width: '100%', height: '100%', padding: 0, backgroundColor: 'rgba(153, 153, 153, 0.7)'}}
+                                iconStyle={{
+                                    width:          '76px',
+                                    height:         '76px',
+                                    boxShadow:      'rgba(0, 0, 0, 1) 0px 0px 150px',
+                                    borderRadius:   '38px'
+                                }}
+                            >
+                                <IconDelete />
+                            </IconButton>
                         </Paper>
                     )
                 })}
