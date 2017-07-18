@@ -33,10 +33,6 @@ export default class ViewStore {
         }, state)
 
         this.defineSubSetters('confirmationDialog')
-
-        if (process.env.IS_BROWSER) {
-            window.ViewStore = this
-        }
     }
 
     // refactor: shove into npm package!

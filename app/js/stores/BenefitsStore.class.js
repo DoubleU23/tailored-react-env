@@ -116,7 +116,7 @@ export default class BenefitsStore {
         }
 
         if (response && response.status === 200) {
-            this.data    = this.prepareData(response.data)
+            this.data    = this.prepareData(response.data.items)
             this.status  = 'success'
             this.fetched = Date.now()
 
@@ -170,6 +170,7 @@ export default class BenefitsStore {
                 fromDate:       '2017-07-01T10:04:00.000Z',
                 name:           'generierte Campaign',
                 type:           1,
+                // refactor createNew
                 createNew:      true
             }
         })
