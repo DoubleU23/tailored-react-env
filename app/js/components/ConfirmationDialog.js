@@ -30,10 +30,6 @@ export default class ConfirmationDialog extends Component {
         view:               PropTypes.object.isRequired
     };
 
-    // constructor(props) {
-    //     super(props)
-    // }
-
     closeConfirmationDialog() {
         this.props.view.confirmationDialog.open = false
     }
@@ -49,7 +45,6 @@ export default class ConfirmationDialog extends Component {
             <Dialog
                 open={open}
                 modal={true}
-
                 onRequestClose={closeConfirmationDialog}
                 actions={[
                     <FlatButton

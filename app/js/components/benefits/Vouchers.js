@@ -93,7 +93,7 @@ export default class Vouchers extends Component {
                                 // reader.readAsBinaryString(file)
                                 // console.log('[handleUpload] file.readAsBinaryString()', reader)
                                 // this.setState({fileUrl: reader.result})
-                                benefitsStore.saveVoucher({benefitCode, file})
+                                benefitsStore.saveVoucher({id: benefitCode, file})
                                 // const fileData = new FileReader(file)
                             }}
                         />

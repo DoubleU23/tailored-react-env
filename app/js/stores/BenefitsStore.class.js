@@ -155,6 +155,7 @@ export default class BenefitsStore {
 
         delete this.data[campaign.benefitCode].campaign.createNew
 
+        this.data[campaign.benefitCode].campaign = campaign
         this.data[campaign.benefitCode].patched = Date.now()
 
         return response
@@ -174,7 +175,9 @@ export default class BenefitsStore {
                 name:           'generierte Campaign',
                 type:           1,
                 // refactor createNew
-                createNew:      true
+                createNew:      true,
+                vouchers:       [],
+                locations:      []
             }
         })
     }
@@ -228,6 +231,36 @@ export default class BenefitsStore {
     }
 
     @action.bound
+    async deleteVoucher({benefitCode, voucherId}) {
+        const benefit       = this.data[benefitCode]
+        const campaign      = benefit.campaign
+        const vouchers      = campaign.vouchers
+
+        const indexToDelete = vouchers.findIndex(v => v.id === voucherId)
+
+        // patch on server
+        const voucherDeleteUrl = apiBase + vouchersEndpoint + '/' + voucherId
+        const response         = await axiosWrapped(false, false, {
+            method:         'delete',
+            url:            voucherDeleteUrl,
+            responseType:   'json',
+            auth:  {
+                username:   'bcUser',
+                password:   'nope_you_will_never_know'
+            }
+        })
+
+        if (response.error || response.status !== 204) {
+            return response.error
+        }
+
+        // patch local
+        campaign.vouchers.splice(indexToDelete, 1)
+
+        return true
+    }
+
+    @action.bound
     async deleteLocation({benefitCode, locationId}) {
         console.log('benefitCode, locationId', benefitCode, locationId)
         const campaign          = toJS(this.data[benefitCode].campaign)
@@ -236,23 +269,9 @@ export default class BenefitsStore {
         const indexToDelete     = campaign.locations.findIndex(v => v.id === locationId)
         locations.splice(indexToDelete, 1)
 
-        console.log('campaign, indexToDelete', campaign, indexToDelete)
         campaign.locations      = locations
 
-        console.log('campaign after', campaign)
-
-        // // delete on server
-        const campaignDeleteUrl = apiBase + campaignsEndpoint + '/' + benefitCode
-        const response          = await axiosWrapped(false, false, {
-            method:         'patch',
-            url:            campaignDeleteUrl,
-            responseType:   'json',
-            auth:  {
-                username:   'bcUser',
-                password:   'nope_you_will_never_know'
-            },
-            data:           campaign
-        })
+        const response = await this.saveCampaign(campaign)
 
         if (response.error || response.status !== 204) {
             return response.error
@@ -265,7 +284,7 @@ export default class BenefitsStore {
     }
 
     @action.bound
-    addLocation({benefitCode, newLocation}) {
+    async addLocation({benefitCode, newLocation}) {
         const benefit       = this.data[benefitCode]
         const {campaign}    = benefit
 
@@ -273,16 +292,19 @@ export default class BenefitsStore {
             benefit.campaign.locations = []
         }
 
-        // refactor
-        const getRandomInt = (min, max) => {
+        // refactor: get NEW location ID!?
+        const getRandomInt  = (min, max) => {
             min = Math.ceil(min)
             max = Math.floor(max)
             return Math.floor(Math.random() * (max - min + 1)) + min
         }
         newLocation.id      = getRandomInt(1, 9999)
 
+        // patch on client
         campaign.locations.push(newLocation)
-        this.saveCampaign(campaign)
+        // patch on server
+        const response      = await this.saveCampaign(campaign)
+        return response
     }
 
     get foo() {
