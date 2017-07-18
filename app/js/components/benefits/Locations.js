@@ -49,7 +49,7 @@ export default class Locations extends Component {
         const campaign      = benefitsStore.data[id].campaign
 
         const hasLocations  = campaign.locations instanceof Array
-        const newKey        = hasLocations ? campaign.locations.lenth : 0
+        const newKey        = hasLocations ? campaign.locations.length : 0
 
         this.state = {
             addLocationOpen:    false,
@@ -57,8 +57,6 @@ export default class Locations extends Component {
             newKey:             newKey,
             newLocation:        this.getEmptyLocation()
         }
-
-        // this.prepareNewLocation(campaign, newKey)
     }
 
     getEmptyLocation() {
@@ -98,11 +96,11 @@ export default class Locations extends Component {
             campaign,
             campaign: {locations}
         }                   = benefit,
-            hasLocations    = this.state.hasLocations,
-            newKey          = this.state.newKey
+            hasLocations    = this.state.hasLocations
 
-        console.log(campaign, locations, newKey)
-        console.log(this.state.newLocation)
+
+        // console.log(campaign, locations, newKey)
+        // console.log(this.state.newLocation)
 
         return (
             <div id="locations">
@@ -114,6 +112,7 @@ export default class Locations extends Component {
                     }
                     return (
                         <Paper
+                            key={'locationPaper_' + location.id}
                             className="locationPaper"
                             zDepth={3}
                             style={{
@@ -123,6 +122,7 @@ export default class Locations extends Component {
                             }}
                         >
                             <IconButton
+                                key={'locationDeleteButton_' + location.id}
                                 className="locationPaperDelete"
                                 tooltip={'Location löschen'}
                                 tooltipPosition="top-right"
@@ -160,7 +160,7 @@ export default class Locations extends Component {
                     <div id="addLocationWrapper">
                         {['name', 'address'].map(fieldName => {
                             return (
-                                <div>
+                                <div key={'locationAddNewField_' + fieldName}>
                                     <span className="fieldName">
                                         {msg[fieldName]}
                                     </span>

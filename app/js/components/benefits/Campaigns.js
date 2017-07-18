@@ -51,9 +51,8 @@ export default class Campaigns extends Component {
         }
     }
 
-    componentWillReact(props) {
-        console.log('[Campaigns->componentWillReact()] props', props)
-        this.setState({updated: Date.now()})
+    componentDidMount() {
+        window.setState = this.setState.bind(this)
     }
 
     renderCampaignFields() {
@@ -116,20 +115,16 @@ export default class Campaigns extends Component {
                     label="Kampagne löschen"
                     icon={<IconDelete />}
                     onClick={() => {
-                        // const confirmationDialog = {
-                        //     open: true,
-                        //     confirmAction: function() {
-                        //         benefitsStore.deleteCampaign(id)
-                        //     }
-                        // }
                         this.setState({
-                            confirmationDialogOpen: true,
-                            confirmationDialogAction: () => {
+                            confirmationDialogOpen:     true,
+                            confirmationDialogAction:   () => {
+                                console.log('confirmationDialogAction')
                                 benefitsStore.deleteCampaign(id)
+                                this.closeConfirmationDialog()
                             },
-                            confirmationDialogContent: 'TestContent'
+                            confirmationDialogTitle:    'Sind Sie sicher?',
+                            confirmationDialogContent:  'Wollen Sie die Kampagne wirklich löschen?'
                         })
-                        console.log('true!')
                     }}
                 />
             </Paper>
@@ -137,34 +132,37 @@ export default class Campaigns extends Component {
     }
 
     renderConfirmationDialog() {
+        const closeConfirmationDialog   = this.closeConfirmationDialog.bind(this)
+        const confirmationDialogAction  = typeof this.state.confirmationDialogAction === 'function'
+            ? this.state.confirmationDialogAction.bind(this)
+            : () => {}
+
         return (
             <Dialog
-                // title={this.state.confirmationDialogTitle}
+                title={this.state.confirmationDialogTitle}
+                onRequestClose={closeConfirmationDialog}
                 actions={[
                     <RaisedButton
                         label={'Abbrechen'}
-                        onClick={() => {
-                            // this.setState({
-                            //     confirmationDialog: {open: false}
-                            // })
-                        }}
+                        onClick={closeConfirmationDialog}
                     />,
                     <RaisedButton
                         label={'Ja'}
-                        // onClick={() => this.state.confirmationDialogAction}
+                        onClick={confirmationDialogAction}
                     />
                 ]}
                 modal={true}
                 open={this.state.confirmationDialogOpen}
-            />
-
-
-
-            // </Dialog>
+            >
+                {this.state.confirmationDialogContent}
+            </Dialog>
         )
-         /*
-            this.state.confirmationDialogContent
-            */
+    }
+
+    closeConfirmationDialog() {
+        this.setState({
+            confirmationDialogOpen: false
+        })
     }
 
     render() {
