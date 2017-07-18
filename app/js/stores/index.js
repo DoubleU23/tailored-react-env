@@ -1,12 +1,14 @@
-import BenefitsStore from './BenefitsStore.class'
-import MessageStore  from './MessageStore.class'
+import BenefitsStore    from './BenefitsStore.class'
+import MessageStore     from './MessageStore.class'
+import ViewStore        from './ViewStore.class'
 
 import initialState  from './initialState'
 
 export const computeStore = (state = {}) => {
     return {
-        messages: new MessageStore(state.messages).messages,
-        benefits: new BenefitsStore(state.benefits)
+        messages:   new MessageStore(state.messages).messages,
+        benefits:   new BenefitsStore(state.benefits),
+        view:       new ViewStore(state.view)
     }
 }
 

@@ -24,15 +24,18 @@ import Dialog             from 'material-ui/Dialog'
 import Locations          from './Locations'
 import Vouchers           from './Vouchers'
 
-@inject('benefits', 'messages')
+@inject('benefits', 'messages', 'view')
 @observer
 export default class Campaigns extends Component {
 
     static propTypes = {
-        match:              PropTypes.object.isRequired,
-        history:            PropTypes.object.isRequired,
+        // store
+        view:               PropTypes.object.isRequired,
         messages:           PropTypes.object.isRequired,
         benefits:           PropTypes.object.isRequired,
+        // router
+        match:              PropTypes.object.isRequired,
+        history:            PropTypes.object.isRequired,
         // custom
         editMode:           PropTypes.bool.isRequired,
         renderValueOrInput: PropTypes.func.isRequired,
@@ -61,6 +64,8 @@ export default class Campaigns extends Component {
             benefits: benefitsStore,
             match: {params: {id}}
         } = this.props
+
+        const closeConfirmationDialog = this.closeConfirmationDialog.bind(this)
 
         const benefit = benefitsStore.data[id]
 
@@ -115,54 +120,25 @@ export default class Campaigns extends Component {
                     label="Kampagne löschen"
                     icon={<IconDelete />}
                     onClick={() => {
-                        this.setState({
-                            confirmationDialogOpen:     true,
-                            confirmationDialogAction:   () => {
-                                console.log('confirmationDialogAction')
-                                benefitsStore.deleteCampaign(id)
-                                this.closeConfirmationDialog()
-                            },
-                            confirmationDialogTitle:    'Sind Sie sicher?',
-                            confirmationDialogContent:  'Wollen Sie die Kampagne wirklich löschen?'
-                        })
+                        this.props.view
+                            .this.setState({
+                                confirmationDialogOpen:     true,
+                                confirmationDialogAction:   () => {
+                                    console.log('confirmationDialogAction')
+                                    benefitsStore.deleteCampaign(id)
+                                    closeConfirmationDialog
+                                },
+                                confirmationDialogTitle:    'Sind Sie sicher?',
+                                confirmationDialogContent:  'Wollen Sie die Kampagne wirklich löschen?'
+                            })
                     }}
                 />
             </Paper>
         )
     }
 
-    renderConfirmationDialog() {
-        const closeConfirmationDialog   = this.closeConfirmationDialog.bind(this)
-        const confirmationDialogAction  = typeof this.state.confirmationDialogAction === 'function'
-            ? this.state.confirmationDialogAction.bind(this)
-            : () => {}
-
-        return (
-            <Dialog
-                title={this.state.confirmationDialogTitle}
-                onRequestClose={closeConfirmationDialog}
-                actions={[
-                    <RaisedButton
-                        label={'Abbrechen'}
-                        onClick={closeConfirmationDialog}
-                    />,
-                    <RaisedButton
-                        label={'Ja'}
-                        onClick={confirmationDialogAction}
-                    />
-                ]}
-                modal={true}
-                open={this.state.confirmationDialogOpen}
-            >
-                {this.state.confirmationDialogContent}
-            </Dialog>
-        )
-    }
-
     closeConfirmationDialog() {
-        this.setState({
-            confirmationDialogOpen: false
-        })
+        this.props.view.confirmationDialog.open = false
     }
 
     render() {
@@ -187,8 +163,6 @@ export default class Campaigns extends Component {
 
         return (
             <div id="campaigns">
-                {this.renderConfirmationDialog()}
-
                 <h3>
                     {!hasCampaign
                         ? 'Noch keine Kampagne vorhanden'

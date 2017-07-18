@@ -72,18 +72,6 @@ export default class Locations extends Component {
         })
     }
 
-    // @action
-    // prepareNewLocation(campaign, newKey) {
-    //     if (!(campaign.locations instanceof Array)) {
-    //         campaign.locations = []
-    //     }
-    //     if (typeof campaign.locations[newKey] !== 'object') {
-    //         campaign.locations[newKey] = {}
-    //         // campaign.locations[newKey] = Locations.newLocation
-    //     }
-    //     return campaign
-    // }
-
     render() {
         const {
             id:         benefitCode,
