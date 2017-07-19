@@ -2,13 +2,10 @@
 
 import axiosWrapped   from '../../../utils/axiosWrapped'
 
-import {TimeoutError} from '../../../utils/Exceptions'
-
 import {
     observable,
     extendObservable,
     action,
-    computed,
     toJS
 } from 'mobx'
 
@@ -25,6 +22,7 @@ const {
     }
 } = appConfig
 
+// TBD: ErrorHandling
 export default class BenefitsStore {
 
     constructor(state = {}) {
@@ -56,9 +54,6 @@ export default class BenefitsStore {
                     locations:  [],
                     vouchers:   []
                 }
-                // extendObservable(dataSorted[id].campaign, {
-                //     locations: []
-                // })
             }
 
             // add benefitCode/id to campaign
@@ -110,12 +105,10 @@ export default class BenefitsStore {
         if (response instanceof Error) {
             this.error = response
             this.status = 'error'
-            // timeoutError !?
-            console.log('[BenefitsStore.catch(err)]', this.error)
-            if (this.error instanceof TimeoutError) {
-                // special handling of TimeoutError?
-            }
 
+            console.log('[BenefitsStore.catch(err)]', this.error)
+            // TBD: handle Network Error
+            // use {APIError} from Exceptions
             return response
         }
 
@@ -154,6 +147,9 @@ export default class BenefitsStore {
                 data:   campaign
             })
 
+        if (response instanceof Array || response.status !== 200) {
+            // tbd: handle error
+        }
         delete this.data[campaign.benefitCode].campaign.createNew
 
         this.data[campaign.benefitCode].campaign = campaign
@@ -196,7 +192,8 @@ export default class BenefitsStore {
             }
         })
 
-        if (response.error || response.status !== 204) {
+        if (response instanceof Array || response.status !== 204) {
+            // tbd: handle error
             return response
         }
 
@@ -222,7 +219,8 @@ export default class BenefitsStore {
             data:           formData
         })
 
-        if (response.error || response.status !== 200) {
+        if (response instanceof Array || response.status !== 200) {
+            // tbd: handle error
             return response
         }
 
@@ -251,7 +249,8 @@ export default class BenefitsStore {
             }
         })
 
-        if (response.error || response.status !== 204) {
+        if (response instanceof Array || response.status !== 204) {
+            // tbd: handle error
             return response.error
         }
 
@@ -273,7 +272,8 @@ export default class BenefitsStore {
         campaign.locations      = locations
 
         const response = await this.saveCampaign(campaign)
-        if (response.error || response.status !== 204) {
+        if (response instanceof Array || response.status !== 204) {
+            // tbd: handle error
             return response.error
         }
 

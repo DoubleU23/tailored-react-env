@@ -1,19 +1,10 @@
-import axiosWrapped   from '../../../utils/axiosWrapped'
-import {TimeoutError} from '../../../utils/Exceptions'
-
 import {
     observable,
-    extendObservable,
-    action
+    extendObservable
+    // action
 }                     from 'mobx'
 
-import appConfig      from '../../../config/appConfig'
-
 import messagesAll    from '../../data/messages'
-
-const {
-    api: {base: apiBase, endpoints: {benefits: benefitsEndpoint}}
-} = appConfig
 
 export default class MessageStore {
 
@@ -27,5 +18,6 @@ export default class MessageStore {
             messages:   observable(messages)
         }, state)
     }
+    // TBD: @action changeLang(lang)
 
 }

@@ -1,4 +1,4 @@
-import appConfig from '../../../config/appConfig'
+import objectAssign from '../../../utils/objectAssign'
 
 const getInitialState = () => {
     const clientState = process.env.IS_BROWSER
@@ -9,11 +9,10 @@ const getInitialState = () => {
 
     const initialState = {
         'initVar1': 'foo',
-        'initVar2': 'bar',
-        'paths':    appConfig.paths
+        'initVar2': 'bar'
     }
 
-    return Object.assign({}, initialState, clientState)
+    return objectAssign({}, initialState, clientState)
 }
 
 export default getInitialState()
