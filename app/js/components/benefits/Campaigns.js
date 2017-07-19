@@ -5,21 +5,11 @@ import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
 
-// import { Redirect }    from 'react-router'
-import {
-    observable,
-    extendObservable,
-    action
-}                         from 'mobx'
-
 import RaisedButton       from 'material-ui/RaisedButton'
 import FlatButton         from 'material-ui/FlatButton'
-import FontIcon           from 'material-ui/FontIcon'
 import Paper              from 'material-ui/Paper'
-import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
 import IconCreate         from 'material-ui/svg-icons/content/create'
-import Dialog             from 'material-ui/Dialog'
 
 import Locations          from './Locations'
 import Vouchers           from './Vouchers'
@@ -40,22 +30,6 @@ export default class Campaigns extends Component {
         editMode:           PropTypes.bool.isRequired,
         renderValueOrInput: PropTypes.func.isRequired,
         toggleEditMode:     PropTypes.func.isRequired
-    };
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            editMode:                   props.editMode,
-            updated:                    Date.now(),
-            confirmationDialogOpen:     false,
-            confirmationDialogContent: 'Are you sure?',
-            confirmationDialogAction:   null
-        }
-    }
-
-    componentDidMount() {
-        window.setState = this.setState.bind(this)
     }
 
     renderCampaignFields() {
