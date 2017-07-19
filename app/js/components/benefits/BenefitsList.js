@@ -12,14 +12,13 @@ export default class BenetfitsList extends Component {
     static propTypes = {
         history:    PropTypes.object.isRequired,
         benefits:   PropTypes.object.isRequired
-    };
+    }
 
     renderBenefits() {
         const {benefits: {data}, history} = this.props
 
         return (
             <div id="beneftisListInner">
-
                 {Object.keys(data).map((id, i) => {
                     const benefit           = data[id]
                     const imgUrlSmall       = benefit.image.alternateSizeUrls[512]
@@ -30,9 +29,9 @@ export default class BenetfitsList extends Component {
 
                     return (
                         <div
+                            className="benefitListElement"
                             onClick={() => history.push('./benefits/' + id)}
                             key={'benefitListElement_' + id}
-                            className="benefitListElement"
                             style={backgroundStyle}
                          >
                             <div className="benefitListElementOverlay">
@@ -55,8 +54,8 @@ export default class BenetfitsList extends Component {
         return (
             <div id="benefitsList">
                 {benefits.status !== 'success'
-                && <div>loading...</div>
-                || this.renderBenefits()/* this.renderBenefits() */}
+                ? <div>loading...</div>
+                : this.renderBenefits()}
             </div>
         )
     }
