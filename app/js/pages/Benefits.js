@@ -1,26 +1,17 @@
 'use strict'
 
-import React           from 'react'
-import PropTypes       from 'prop-types'
-import Component       from 'react-pure-render/component'
+import React              from 'react'
+import PropTypes          from 'prop-types'
+import Component          from 'react-pure-render/component'
+import {Route}            from 'react-router-dom'
 
-import {Route}         from 'react-router-dom'
-import BenefitsList    from '../components/benefits/BenefitsList.js'
-import BenefitsDetails from '../components/benefits/BenefitsDetails.js'
+import {inject, observer} from 'mobx-react'
 
-import {
-    observable,
-    extendObservable,
-    action
-} from 'mobx'
-
-import {
-    inject,
-    observer
-} from 'mobx-react'
+import BenefitsList       from '../components/benefits/BenefitsList.js'
+import BenefitsDetails    from '../components/benefits/BenefitsDetails.js'
 
 if (process.env.IS_BROWSER) {
-    require('./benefits.styl')
+    require('./Benefits.styl')
 }
 
 @inject('benefits')
@@ -33,7 +24,7 @@ export default class Benefits extends Component {
 
     async componentWillMount() {
         // PREFETCH DATA for benefits subComponents (benefitsStore.fetch())
-        // refactor: use "maxLifetime()" usw
+        // refactor: use "maxLifetime()" etc
         const {benefits} = this.props
         if (!benefits.fetched) {
             await benefits.fetch()
