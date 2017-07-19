@@ -20,8 +20,7 @@ const {
         endpoints: {
             benefits:   benefitsEndpoint,
             campaigns:  campaignsEndpoint,
-            vouchers:   vouchersEndpoint,
-            locations:  locationsEndpoint
+            vouchers:   vouchersEndpoint
         }
     }
 } = appConfig
