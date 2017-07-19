@@ -60,7 +60,7 @@ export default class Locations extends Component {
         const {
             id:         benefitCode,
             benefits:   benefitsStore,
-            messages:   {fields: msgFields},
+            messages:   {fields: {locations: msgFields}},
             messages:   {locations: msg}
         } = this.props
 
@@ -73,16 +73,8 @@ export default class Locations extends Component {
         return (
             <div id="locations">
                 <h3>Locations:</h3>
-
-                <FlatButton // ADD NEW BUTTON
-                    backgroundColor="#666"
-                    hoverColor="#999"
-                    label={msg.addNew}
-                    icon={<IconDelete />}
-                    onClick={() => {
-                        this.setState({addLocationOpen: true})
-                    }}
-                />
+                {!hasLocations &&
+                <div>{msg.noLocation}<br /><br /></div>}
 
                 <Dialog // ADD NEW DIALOG
                     title={msg.addNewDialog.title}
@@ -149,8 +141,8 @@ export default class Locations extends Component {
 
 
                 {// LIST OF LOCATIONS
-                hasLocations
-                ? campaign.locations.map(location => {
+                hasLocations ?
+                campaign.locations.map(location => {
                     return (
                         <Paper
                             key={'locationPaper_' + location.id}
@@ -181,7 +173,18 @@ export default class Locations extends Component {
                         </Paper>
                     )
                 })
-                : <span>Noch keine Location hinzufügt</span>}
+                : <span />}
+
+                <br />
+                <FlatButton // ADD NEW BUTTON
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    label={msg.addNew}
+                    icon={<IconDelete />}
+                    onClick={() => {
+                        this.setState({addLocationOpen: true})
+                    }}
+                />
             </div>
         )
     }

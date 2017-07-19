@@ -143,17 +143,14 @@ export default class Campaigns extends Component {
 
                     <br />
                     <div id="campaignDataMeta">
+                        <hr />
                         {!this.props.editMode &&
-                        <Locations
-                            id={id}
-                            campaign={benefit.campaign}
-                        />}
+                        <Locations id={id} campaign={benefit.campaign} />}
+
+                        <hr />
 
                         {!this.props.editMode &&
-                        <Vouchers
-                            id={id}
-                            campaign={benefit.campaign}
-                        />}
+                        <Vouchers id={id} campaign={benefit.campaign} />}
                     </div>
                 </div>}
             </div>

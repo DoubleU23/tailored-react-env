@@ -21,7 +21,7 @@ export default {
             dueDate:        'Ende der Kampagne'
         },
         locations: {
-            title:      'Name',
+            name:       'Name',
             address:    'Addresse'
         }
     },
@@ -34,7 +34,8 @@ export default {
         save:       'Kampagne speichern'
     },
     locations: {
-        addNew:         'Hinzufügen',
+        noLocation:     'Noch keine Location vorhanden.',
+        addNew:         'Location hinzufügen',
         delete:         'Location löschen',
         addNewDialog: {
             title:      'Neue Location anlegen',
@@ -43,10 +44,10 @@ export default {
         }
     },
     vouchers: {
-        noVoucher:      'Noch kein Gutschein hinzugefügt.',
-        addNew:         'Hinzufügen',
+        noVoucher:      'Noch kein Gutschein anlegt.',
+        addNew:         'Gutschein anlegen',
         addNewDialog:   {
-            title:      'Neuen Gutschein hinzufügen'
+            title:      'Neuen Gutschein anlegen'
         }
     }
 }

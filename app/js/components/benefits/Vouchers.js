@@ -7,7 +7,7 @@ import {observer, inject} from 'mobx-react'
 
 import Paper              from 'material-ui/Paper'
 import Dialog             from 'material-ui/Dialog'
-import RaisedButton       from 'material-ui/RaisedButton'
+import FlatButton         from 'material-ui/FlatButton'
 import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
 
@@ -71,33 +71,22 @@ export default class Vouchers extends Component {
             messages: {vouchers: msg}
         } = this.props
 
-        const {vouchers} = campaign
+        const {vouchers}     = campaign
+        const toggleAddModal = this.toggleAddModal.bind(this)
+
+        const hasVouchers    = campaign.vouchers instanceof Array
+                            && campaign.vouchers.length
 
         return (
             <div id="vouchers">
-                <h3>
-                    Gutscheine:&nbsp;
-                    <a  href="#"
-                        onClick={this.toggleAddModal.bind(this)}
-                    >
-                        {msg.addNew}
-                    </a>
-                </h3>
-
-                <RaisedButton // ADD NEW BUTTON
-                    backgroundColor="#666"
-                    hoverColor="#999"
-                    label={msg.addNew}
-                    icon={<IconDelete />}
-                    onClick={() => {
-                        this.setState({addLocationOpen: true})
-                    }}
-                />
+                <h3>Gutscheine:&nbsp;</h3>
+                {!hasVouchers &&
+                <div>{msg.noVoucher}<br /><br /></div>}
 
                 <Dialog
                     title={msg.addNewDialog.title}
                     open={this.state.addModalOpen}
-                    onRequestClose={this.toggleAddModal.bind(this)}
+                    onRequestClose={toggleAddModal}
                 >
                     <form id="voucherFileUpload">
                         <input
@@ -118,9 +107,9 @@ export default class Vouchers extends Component {
                     </form>
                     {/* <img src={this.state.fileUrl} /> */}
                 </Dialog>
-                {(vouchers == null || !vouchers.length)
-                ?   <span>{msg.noVoucher}</span>
-                :   vouchers.map(voucher => {
+
+                {hasVouchers ?
+                vouchers.map(voucher => {
                     return (
                         <Paper
                             className="voucherPaper"
@@ -155,7 +144,17 @@ export default class Vouchers extends Component {
                             </IconButton>
                         </Paper>
                     )
-                })}
+                })
+                : <span />}
+
+                <br />
+                <FlatButton // ADD NEW BUTTON
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    label={msg.addNew}
+                    icon={<IconDelete />}
+                    onClick={toggleAddModal}
+                />
             </div>
         )
     }
