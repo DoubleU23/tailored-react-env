@@ -156,7 +156,8 @@ const webpackGetConfig = _isDevelopment => {
             // .concat(stylesLoaders)
         },
         externals: {
-            'cheerio': 'window',
+            'jsdom':    'window',
+            'cheerio':  'window',
             'react/addons': true,
             'react/lib/ExecutionEnvironment': true,
             'react/lib/ReactContext': true,

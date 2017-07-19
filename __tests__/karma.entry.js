@@ -24,10 +24,10 @@ import {mount, render, shallow} from 'enzyme'
 // import cheerio               from 'cheerio'
 import chai                     from 'chai'
 import chaiAsPromised           from 'chai-as-promised'
-import chaiEnzyme               from 'chai-enzyme'
+// import chaiEnzyme               from 'chai-enzyme'
 
 chai.use(chaiAsPromised)
-chai.use(chaiEnzyme())
+// chai.use(chaiEnzyme())
 
 // globalize them all!
 global = Object.assign(global,
@@ -52,7 +52,7 @@ if (!global._babelPolyfill) {
  * fyi: "require.context" gets new params injected by "webpack.ContextReplacementPlugin" in karma.config.js
  */
 
-// CONTEXT_COVERAGE
+// // CONTEXT_COVERAGE
 const coverageContextRequire    = require.context('CONTEXT_COVERAGE')
 const coverageFiles             = coverageContextRequire.keys()
 coverageFiles.forEach(coverageContextRequire)

@@ -1,5 +1,6 @@
 import path      from 'path'
 import gulp      from 'gulp'
+import gutil     from 'gulp-util'
 import {Server}  from 'karma'
 
 import appConfig from '../../../config/appConfig'
@@ -13,8 +14,16 @@ gulp.task('karma', ['env', 'clean', 'testServer'], done => {
         configFile: path.join(paths.configs, 'karma.config.js'),
         singleRun: true,
         autoWatch: false
-    }, exitCode => {
-        done(exitCode)
-        process.exit(exitCode)
+    }, err => {
+        if (err) {
+            // avoid formatError
+            done(new gutil.PluginError('karma', {
+                message: 'Karma Tests failed'
+            }))
+            process.exit(1)
+        }
+
+        done(0)
+        process.exit(0)
     }).start()
 })

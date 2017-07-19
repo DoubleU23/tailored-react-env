@@ -9,7 +9,7 @@ import cors    from 'cors'
 
 const api = express()
 
-// ALLOW CROSS ORIGIN ALL
+// CROSS ORIGIN ALLOW ALL
 api.use(cors())
 
 // APPLY BASIC AUTH

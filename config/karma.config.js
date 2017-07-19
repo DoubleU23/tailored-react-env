@@ -21,13 +21,19 @@ webpackConfig.plugins.slice(0, 1)
 // remove entry-point which will be handled by karma.config->files
 webpackConfig.entry = null
 // add webpack preLoader "isparta-instrumenter"
-webpackConfig.module.preLoaders = [{
-    // collects coverage data
-    // for all files that aren't tests
+webpackConfig.module.rules.unshift({
     test: /\.js$/,
     exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
-    loader: 'isparta-instrumenter'
-}]
+    use: {
+        loader: 'istanbul-instrumenter-loader',
+        options: {
+            produceSourceMap:   true,
+            esModules:          true,
+            debug:              true
+        }
+    },
+    enforce: 'post'
+})
 // SETUP for karma.entry.js' require.context
 // => https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
 webpackConfig.plugins.push(
@@ -56,7 +62,7 @@ preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL
 preprocessors[karmaEntryPoint]              = ['webpack']
 
 // additional modification for NODE_ENV test (travisCI)
-const isTestEnv = process.env.NODE_ENV === 'TEST'
+const isTestEnv = process.env.NODE_ENV === 'test'
 
 const browserEngines = isTestEnv
     ? ['PhantomJS2'] // , 'PhantomJS2_custom'
@@ -115,31 +121,27 @@ export default function(config) {
             require('karma-coverage'),
             require('karma-sourcemap-loader'),
             // reporter(s)
-            require('karma-nyan-reporter')
+            require('karma-coverage-istanbul-reporter')
         ],
 
         reporters: !isTestEnv
-            ? ['nyan', 'coverage']
-            : ['mocha', 'coverage'],
+            ? ['nyan', 'coverage-istanbul']
+            : ['mocha', 'coverage-istanbul'],
 
-        coverageReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
+        coverageIstanbulReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,
             // instrumenters: { isparta : require('isparta') },
             // instrumenter: instrumenters,
-            reporters:  [
-                {type: 'text-summary'}, // output text-summary to STDOUT
-                {type: 'text-summary', 'file': 'text.txt'}, // output text-summary to __coverage__/{BROWSER}/text.txt
-                {type : 'html', subdir: 'html'} // output html summary to __coverage__/html/
-            ],
+            reports: ['html', 'lcovonly', 'text-summary'],
             fixWebpackSourcePaths: true,
-            includeAllSources: false,
-            includeUntested: false
-            // instrumenterOptions: {
-            //     istanbul: {
-            //         noCompact: true,
-            //         debug: true
-            //     }
-            // }
+            // stop istanbul outputting messages like `File [${filename}] ignored, nothing could be mapped`
+            skipFilesWithNoCoverage: true,
+
+            'report-config': {
+                'html': {subdir: 'html'}
+            }
+            // TBD: coverage thresholds
+            // enforce percentage thresholds
         },
 
         mochaReporter: {

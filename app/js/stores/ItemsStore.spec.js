@@ -1,11 +1,12 @@
 'use strict'
 
-import {expect}   from 'chai'
+import {expect}     from 'chai'
 
-import moxios     from 'moxios'
-import ItemsStore from './ItemsStore.class'
+import moxios       from 'moxios'
+import ItemsStore   from './ItemsStore.class'
+import testResponse from '../../../stack/server/api/items'
 
-import appConfig  from '../../../config/appConfig'
+import appConfig    from '../../../config/appConfig'
 
 const {
     api: {base: apiBase, endpoints: {items: itemsEndpoint}},
@@ -21,8 +22,8 @@ describe('[SPEC] ItemsStore', async function() {
     //  import and pass your custom axios instance to this method
         moxios.install()
         moxios.stubRequest(itemsUrl, {
-            status: 200,
-            responseText: 'hello'
+            status:     200,
+            response:   testResponse
         })
     })
 
@@ -32,25 +33,25 @@ describe('[SPEC] ItemsStore', async function() {
     })
 
     // SETUP
-    const itemsUrl          = apiBase + itemsEndpoint
+    const itemsUrl  = apiBase + itemsEndpoint
+    const itemStore = new ItemsStore()
 
     it('ASYNC - should fetch data',  async function() {
-        const benefitsStore = new ItemsStore()
-        const response      = await benefitsStore.fetch()
+        const response  = await itemStore.fetch()
+        expect(itemStore.status).to.equal('success')
+        expect(response instanceof Error).to.equal(false)
 
-        if (response.error) {
-            // response is an error
-            // "throw response" === done(repsonse)
-            throw response
-        }
+        expect(itemStore.data instanceof Object).to.equal(true)
+    })
 
-        expect(response).to.equal('hello')
-        expect(benefitsStore.error).to.equal(false)
+    it('ASYNC - should have sorted data after fetching',  function() {
+        const [testItem]    = testResponse
+        expect(itemStore.data[testItem.id].id).to.equal(testItem.id)
     })
 
     // it('SYNC - should fetch data', function(done) {
-    //     const benefitsStore = new ItemsStore()
-    //     benefitsStore.fetch()
+    //     const itemStore = new ItemsStore()
+    //     itemStore.fetch()
     //         .then(response => {
     //              if (response.error) {
     //          //  Network Error or TimeoutError
@@ -58,7 +59,7 @@ describe('[SPEC] ItemsStore', async function() {
     //              }
     //
     //             expect(response).to.equal('hello')
-    //             expect(benefitsStore.error).to.equal(false)
+    //             expect(itemStore.error).to.equal(false)
     //             done()
     //         })
     //         .catch(mostLikelyAssertionError => {

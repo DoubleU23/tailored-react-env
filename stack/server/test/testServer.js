@@ -1,9 +1,14 @@
 import express         from 'express'
 // import errorHandler from './lib/errorHandler';
 
+import api             from '../api'
+
 import appConfig       from '../../../config/appConfig.js'
 
 const app = express()
+
+// enable API calls on testServer
+app.use(api)
 
 app.get('/test/testTimeout', (req, res, next) => {
     setTimeout(() => {

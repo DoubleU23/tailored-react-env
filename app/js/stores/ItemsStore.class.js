@@ -43,7 +43,7 @@ export default class ItemsStore {
             const id                = item.id
 
             dataSorted[id]          = item
-            dataSorted[id].patched  = Date.now()
+            // dataSorted[id].patched  = Date.now()
 
             // refactor: may be not needed
             if (typeof dataSorted[id].subObject !== 'object') {
@@ -54,7 +54,7 @@ export default class ItemsStore {
             // like preParsing or filtering data
         })
 
-        return observable(dataSorted)
+        return dataSorted // observable(dataSorted)
     }
 
     @action.bound
@@ -82,8 +82,6 @@ export default class ItemsStore {
                 password: 'admin'
             }
         })
-
-        console.log('fetch->response', response)
 
         if (response instanceof Error) {
             this.error = response

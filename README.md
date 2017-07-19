@@ -64,11 +64,11 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
   * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
   * [ ] extend globals for *.spec.js and *.test.js files  
   => https://github.com/eslint/eslint/issues/3611
-* [ ] tests
-  * [ ] setup test-environment
+* [x] tests
+  * [x] setup test-environment
     karma-webpack with mocha, chai and enzyme
     * [x] write first tests
-    * [ ] learn enzyme/chai-enzyme expect syntax
+    * [ ] fix coverage report
     * [ ] use browserstack API for karma tests
 * [ ] styles
   do we need a gulp task or just webpack plugins!?
