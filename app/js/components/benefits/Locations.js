@@ -43,6 +43,7 @@ export default class Locations extends Component {
         const {benefits: benefitsStore, id} = props
         const campaign      = benefitsStore.data[id].campaign
 
+        // refactor!
         const hasLocations  = campaign.locations instanceof Array
         const newKey        = hasLocations ? campaign.locations.length : 0
 
@@ -54,6 +55,7 @@ export default class Locations extends Component {
         }
     }
 
+    // refactor: shove into BenefitsStore?
     getEmptyLocation() {
         return {
             name:       '',
@@ -75,11 +77,8 @@ export default class Locations extends Component {
             messages:   {locations: msg}
         } = this.props
 
-        const benefit       = benefitsStore.data[benefitCode]
-        let {
-            campaign,
-            campaign: {locations}
-        }                   = benefit
+        // TBD: benefitsStore.getCampaign()
+        let {campaign}      = benefitsStore.data[benefitCode]
 
         const hasLocations    = campaign.locations instanceof Array
                              && campaign.locations.length
