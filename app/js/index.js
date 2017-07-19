@@ -19,6 +19,7 @@ import darkBaseTheme             from 'material-ui/styles/baseThemes/darkBaseThe
 import injectTapEventPlugin      from 'react-tap-event-plugin'
 
 import objectAssign              from '../../utils/objectAssign'
+import tryCatch                  from '../../utils/tryCatch'
 
 // TBD: make own theme (maybe with "cssobjects-loader"!?)
 const myTheme = objectAssign({}, darkBaseTheme, {
@@ -28,24 +29,17 @@ const muiTheme = getMuiTheme(myTheme)
 
 // accept data injections from webpack-hot-middleware
 if (module.hot) module.hot.accept()
-
+// do not call babelPolyfill twice!
 if (!global._babelPolyfill) require('babel-polyfill')
 
-if (process.env.NODE_ENV !== 'production' && process.env.IS_BROWSER) {
-    // Enable React devtools
-    window.React = React
-}
 if (process.env.IS_BROWSER) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'development') {
         // Enable React devtools
         window.React = React
     }
-    try {
-        injectTapEventPlugin()
-    }
-    catch (err) {
-        // ignore
-    }
+    // ignore "can't reinject tapEventPlugin"
+    // (error only appears with webpack's HMR)
+    tryCatch(injectTapEventPlugin)
 }
 
 
@@ -54,8 +48,9 @@ class Root extends Component {
     render() {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
-                {/* we inject the substores seperately to not pollute the Components params (performance)
-                this way, we can use @inject('substoreName') to just inject what we need */}
+                {/* we inject the substores seperately,
+                so we can use @inject('substoreName')
+                to just inject what we need */}
                 <Provider {...store}>
                     <Router history={createBrowserHistory()}>
                         {routes}
