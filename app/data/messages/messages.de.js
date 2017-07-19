@@ -34,9 +34,12 @@ export default {
         save:       'Kampagne speichern'
     },
     locations: {
-        addNew:     {
-            title:  'Neue Location anlegen',
-            button: 'Location anlegen'
+        addNew:         'Hinzufügen',
+        delete:         'Location löschen',
+        addNewDialog: {
+            title:      'Neue Location anlegen',
+            addNew:     'Location anlegen',
+            cancel:     'Abbrechen'
         }
     }
 }

@@ -5,17 +5,7 @@ import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
 
-// import { Redirect }    from 'react-router'
-import {
-    observable,
-    extendObservable,
-    action,
-    computed
-}                         from 'mobx'
-
-import RaisedButton       from 'material-ui/RaisedButton'
 import FlatButton         from 'material-ui/FlatButton'
-import FontIcon           from 'material-ui/FontIcon'
 import Paper              from 'material-ui/Paper'
 import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
@@ -43,19 +33,16 @@ export default class Locations extends Component {
         const {benefits: benefitsStore, id} = props
         const campaign      = benefitsStore.data[id].campaign
 
-        // refactor!
         const hasLocations  = campaign.locations instanceof Array
         const newKey        = hasLocations ? campaign.locations.length : 0
 
         this.state = {
             addLocationOpen:    false,
-            hasLocations:       hasLocations,
             newKey:             newKey,
             newLocation:        this.getEmptyLocation()
         }
     }
 
-    // refactor: shove into BenefitsStore?
     getEmptyLocation() {
         return {
             name:       '',
@@ -86,54 +73,19 @@ export default class Locations extends Component {
         return (
             <div id="locations">
                 <h3>Locations:</h3>
-                {hasLocations
-                // list of locations
-                ? campaign.locations.map(location => {
-                    return (
-                        <Paper
-                            key={'locationPaper_' + location.id}
-                            className="locationPaper"
-                            zDepth={3}
-                            style={{
-                                padding: '1.5rem 1rem',
-                                margin: '0 10px 20px',
-                                display: 'inline-block'
-                            }}
-                        >
-                            <IconButton
-                                key={'locationDeleteButton_' + location.id}
-                                className="locationPaperDelete"
-                                tooltip={'Location löschen'}
-                                tooltipPosition="top-right"
-                                onClick={() => {
-                                    benefitsStore.deleteLocation({
-                                        benefitCode,
-                                        locationId: location.id
-                                    })
-                                }}
-                            >
-                                <IconDelete />
-                            </IconButton>
-                            #{location.id} - {location.name}<br />
-                            {location.address}
-                        </Paper>
-                    )
-                })
-                : <span>Noch keine Location hinzufügt</span>}
 
-                <br />
-                <br />
-                <FlatButton // addNewLocation
+                <FlatButton // ADD NEW BUTTON
                     backgroundColor="#666"
                     hoverColor="#999"
-                    label={msg.addNew.button}
+                    label={msg.addNew}
                     icon={<IconDelete />}
                     onClick={() => {
                         this.setState({addLocationOpen: true})
                     }}
                 />
-                <Dialog
-                    title={msg.addNew.title}
+
+                <Dialog // ADD NEW DIALOG
+                    title={msg.addNewDialog.title}
                     open={this.state.addLocationOpen}
                     onRequestClose={this.toggleAddModal.bind(this)}
                 >
@@ -165,7 +117,7 @@ export default class Locations extends Component {
                             style={{margin: '1.5rem 1rem 1rem 0'}}
                             backgroundColor="#666"
                             hoverColor="#999"
-                            label="Hinzufügen"
+                            label={msg.addNewDialog.addNew}
                             icon={<IconCreate />}
                             onClick={() => {
                                 benefitsStore.addLocation({
@@ -173,7 +125,6 @@ export default class Locations extends Component {
                                     newLocation:    this.state.newLocation
                                 })
                                 this.setState({
-                                    hasLocations:    true,
                                     newKey:          this.state.newKey + 1,
                                     newLocation:     this.getEmptyLocation(),
                                     addLocationOpen: false
@@ -184,7 +135,7 @@ export default class Locations extends Component {
                             key={'locationInputCancel'}
                             backgroundColor="#666"
                             hoverColor="#999"
-                            label="Abbrechen"
+                            label={msg.addNewDialog.cancel}
                             icon={<IconDelete />}
                             onClick={() => {
                                 this.setState({
@@ -195,6 +146,42 @@ export default class Locations extends Component {
                         />
                     </div>
                 </Dialog>
+
+
+                {// LIST OF LOCATIONS
+                hasLocations
+                ? campaign.locations.map(location => {
+                    return (
+                        <Paper
+                            key={'locationPaper_' + location.id}
+                            className="locationPaper"
+                            zDepth={3}
+                            style={{
+                                padding: '1.5rem 1rem',
+                                margin: '0 10px 20px',
+                                display: 'inline-block'
+                            }}
+                        >
+                            <IconButton
+                                key={'locationDeleteButton_' + location.id}
+                                className="locationPaperDelete"
+                                tooltip={msg.delete}
+                                tooltipPosition="top-right"
+                                onClick={() => {
+                                    benefitsStore.deleteLocation({
+                                        benefitCode,
+                                        locationId: location.id
+                                    })
+                                }}
+                            >
+                                <IconDelete />
+                            </IconButton>
+                            #{location.id} - {location.name}<br />
+                            {location.address}
+                        </Paper>
+                    )
+                })
+                : <span>Noch keine Location hinzufügt</span>}
             </div>
         )
     }
