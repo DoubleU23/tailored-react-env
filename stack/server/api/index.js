@@ -4,10 +4,13 @@ import express from 'express'
 import auth    from 'http-auth'
 
 import items   from './items'
-
+import cors    from 'cors'
 // import appConfig       from '../../../config/appConfig.js'
 
 const api = express()
+
+// ALLOW CROSS ORIGIN ALL
+api.use(cors())
 
 // APPLY BASIC AUTH
 // user:    admin
@@ -20,6 +23,7 @@ api.use(auth.connect(basicAuth))
 
 api.get('/items', (req, res, next) => {
     res.set('Content-Type', 'application/json; charset=utf-8')
+
     res.send(JSON.stringify(items))
 })
 
