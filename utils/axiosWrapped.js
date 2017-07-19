@@ -10,33 +10,22 @@ const {
 const axiosWrapped = (method, url, options) => {
     return timeout(requestTimeout,
 
+        // refactor: avoid axiosWrapped(false, false, {
         (!!method && !!url
             ? axios.apply(method, [url, options])
             : axios(options)
         )
+            // TBD: special handling of network errors
             .catch(networkError => {
-                // TBD: special handling of network errors
-                if (process.env.DEBUG) {
-                    // console.log('[axios.apply->catch(error)] ', networkError)
-                }
-
                 // pass networkError to "catch(timeoutOrNetworkError)""
                 throw networkError
             })
-            .then(successedRequestResponse => {
-                if (process.env.DEBUG) {
-                    // console.log('[axios.apply->then(successedRequestResponse)]', successedRequestResponse)
-                }
-
-                return successedRequestResponse
-            })
+            // no NetworkError => return value to await receiver
+            .then(successedRequestResponse => successedRequestResponse)
     )
-        .catch(timeoutOrNetworkError => {
-            if (process.env.DEBUG) {
-                // console.log('[axiosWrapped->catch(timeoutOrNetworkError)] ', timeoutOrNetworkError)
-            }
-            return timeoutOrNetworkError
-        })
+        // return timeoutOrNetworkError to await receiver
+        // tbd: handle errors globally!?
+        .catch(timeoutOrNetworkError => timeoutOrNetworkError)
 }
 
 export default axiosWrapped

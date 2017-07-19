@@ -56,7 +56,7 @@ export default class BenefitsDetails extends Component {
         data       = !subTree ? benefit : benefit[subTree]
         fieldValue = data[fieldName]
 
-        fieldTitle    = msg.benefits[fieldName] || msg.benefits[subTree][fieldName]
+        fieldTitle    = msg.benefits[fieldName] || msg[subTree][fieldName]
 
         if (noInput || !this.state.editMode) {
             innerJSX = fieldValue || <i>Noch kein(e) {fieldTitle} vorhanden.</i>

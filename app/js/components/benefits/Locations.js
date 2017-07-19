@@ -37,11 +37,6 @@ export default class Locations extends Component {
         ]).isRequired
     };
 
-    static newLocation = {
-        name:       'sdgg',
-        address:    'shsh'
-    };
-
     constructor(props) {
         super(props)
 
@@ -76,28 +71,24 @@ export default class Locations extends Component {
         const {
             id:         benefitCode,
             benefits:   benefitsStore,
-            messages:   {fields: {benefits: {campaign: {locations: msg}}}}
+            messages:   {fields: msgFields},
+            messages:   {locations: msg}
         } = this.props
 
         const benefit       = benefitsStore.data[benefitCode]
         let {
             campaign,
             campaign: {locations}
-        }                   = benefit,
-            hasLocations    = this.state.hasLocations
+        }                   = benefit
 
-
-        // console.log(campaign, locations, newKey)
-        // console.log(this.state.newLocation)
+        const hasLocations    = campaign.locations instanceof Array
+                             && campaign.locations.length
 
         return (
             <div id="locations">
                 <h3>Locations:</h3>
-                {hasLocations &&
-                campaign.locations.map(location => {
-                    if (!location.id) {
-                        return ''
-                    }
+                {hasLocations
+                ? campaign.locations.map(location => {
                     return (
                         <Paper
                             key={'locationPaper_' + location.id}
@@ -128,20 +119,21 @@ export default class Locations extends Component {
                         </Paper>
                     )
                 })
-                || 'Noch keine Location hinzufügt'}
+                : <span>Noch keine Location hinzufügt</span>}
+
                 <br />
                 <br />
                 <FlatButton
                     backgroundColor="#666"
                     hoverColor="#999"
-                    label="Location hinzufügen"
+                    label={msg.addNew.button}
                     icon={<IconDelete />}
                     onClick={() => {
                         this.setState({addLocationOpen: true})
                     }}
                 />
                 <Dialog
-                    title="Add new Location"
+                    title={msg.addNew.title}
                     open={this.state.addLocationOpen}
                     onRequestClose={this.toggleAddModal.bind(this)}
                 >
@@ -150,7 +142,7 @@ export default class Locations extends Component {
                             return (
                                 <div key={'locationAddNewField_' + fieldName}>
                                     <span className="fieldName">
-                                        {msg[fieldName]}
+                                        {msgFields[fieldName]}
                                     </span>
                                     <input
                                         key={'locationInput_' + fieldName}

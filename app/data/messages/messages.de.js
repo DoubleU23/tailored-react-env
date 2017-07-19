@@ -5,19 +5,24 @@ export default {
     fields: {
         benefits: {
             title:          'Titel',
+            description:    'Beschreibung'
+        },
+        campaign:   {
+            name:           'Name der Kampagne',
             description:    'Beschreibung',
-            campaign:   {
-                name:           'Name der Kampagne',
-                description:    'Beschreibung',
-                campaignId:     'CampaignId',
-                fromDate:       'Start der Kampagne',
-                dueDate:        'Ende der Kampagne',
-                // locationFields
-                locations: {
-                    name:       'Name',
-                    address:    'Addresse'
-                }
-            }
+            campaignId:     'CampaignId',
+            fromDate:       'Start der Kampagne',
+            dueDate:        'Ende der Kampagne'
+        },
+        locations: {
+            title:      'Name',
+            address:    'Addresse'
+        }
+    },
+    locations: {
+        addNew:     {
+            title:  'Neue Location anlegen',
+            button: 'Location anlegen'
         }
     }
 }
