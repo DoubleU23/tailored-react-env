@@ -63,6 +63,7 @@ preprocessors[karmaEntryPoint]              = ['webpack']
 
 // additional modification for NODE_ENV test (travisCI)
 const isTestEnv = process.env.NODE_ENV === 'test'
+               || process.env.CONTINUOUS_INTEGRATION
 
 const browserEngines = isTestEnv
     ? ['PhantomJS2'] // , 'PhantomJS2_custom'
