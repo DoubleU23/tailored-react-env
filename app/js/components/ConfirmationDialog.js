@@ -5,20 +5,7 @@ import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
 
-// import { Redirect }    from 'react-router'
-import {
-    observable,
-    extendObservable,
-    action
-}                         from 'mobx'
-
 import RaisedButton       from 'material-ui/RaisedButton'
-import FlatButton         from 'material-ui/FlatButton'
-import FontIcon           from 'material-ui/FontIcon'
-import Paper              from 'material-ui/Paper'
-import IconButton         from 'material-ui/IconButton'
-import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
-import IconCreate         from 'material-ui/svg-icons/content/create'
 import Dialog             from 'material-ui/Dialog'
 
 @inject('view', 'messages')
@@ -35,9 +22,17 @@ export default class ConfirmationDialog extends Component {
     }
 
     render() {
-        const {view: {confirmationDialog: {
-            open, action, title, content
-        }}} = this.props
+        console.log(this.props.view.confirmationDialog)
+        const {
+            messages: {ui: {confirmationDialog: msg}},
+            view: {confirmationDialog: {
+                open, action, title, content,
+                buttonLabels: {
+                    confirm:    labelConfirm,
+                    cancel:     labelCancel
+                }
+            }}
+        } = this.props
 
         const closeConfirmationDialog = this.closeConfirmationDialog.bind(this)
 
@@ -47,17 +42,17 @@ export default class ConfirmationDialog extends Component {
                 modal={true}
                 onRequestClose={closeConfirmationDialog}
                 actions={[
-                    <FlatButton
+                    <RaisedButton
+                        label={labelCancel != null ? labelCancel : msg.cancel}
                         style={{margin: '0 1rem 1rem 0'}}
                         backgroundColor="#666"
                         hoverColor="#999"
-                        label={'Abbrechen'}
                         onClick={closeConfirmationDialog}
                     />,
-                    <FlatButton
+                    <RaisedButton
+                        label={labelConfirm != null ? labelConfirm : msg.confirm}
                         backgroundColor="#666"
                         hoverColor="#999"
-                        label={'Ja'}
                         onClick={action}
                     />
                 ]}

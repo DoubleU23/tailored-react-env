@@ -11,10 +11,14 @@ export default class ViewStore {
             status:             'inactive',
             error:              false,
             _confirmationDialog: {
-                open:       false,
-                action:     noopFn,
-                title:      'Sind Sie sicher?',
-                content:    'Wollen Sie die Kampagne wirklich löschen?'
+                open:           false,
+                action:         noopFn,
+                title:          'Sind Sie sicher?',
+                content:        'Wollen Sie die Kampagne wirklich löschen?',
+                buttonLabels:   {
+                    cancel:     null,
+                    confirm:    null
+                }
             }
         }, state)
 

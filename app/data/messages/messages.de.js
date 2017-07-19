@@ -2,6 +2,12 @@ export default {
     header: {
         title: 'KLZ Vorteilsclub Admin'
     },
+    ui:     {
+        confirmationDialog: {
+            cancel:     'Abbrechen',
+            confirm:    'Ja'
+        }
+    },
     fields: {
         benefits: {
             title:          'Titel',
