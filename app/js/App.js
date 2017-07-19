@@ -27,7 +27,7 @@ class App extends Component {
                 </div>
                 <Footer />
 
-                {/* globalComponents (handled by ViewStore) */}
+                {/* UI Components (handled by ViewStore) */}
                 <ConfirmationDialog />
             </div>
         )

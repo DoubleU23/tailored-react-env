@@ -32,7 +32,6 @@ export default class ViewStore {
     }
 
     get confirmationDialog() {
-        console.log('confirmationDialog getter called!')
         return this._confirmationDialog
     }
 
