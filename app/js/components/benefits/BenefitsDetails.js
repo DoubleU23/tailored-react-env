@@ -33,15 +33,6 @@ export default class BenefitsDetails extends Component {
         }
     }
 
-    componentWillMount() {
-        this.reacts = 0
-    }
-
-    componentWillReact() {
-        this.reacts += 1
-        console.log('[DetailView->componentWillReact] triggered!')
-    }
-
     renderValueOrInput(fieldName, {subTree = false, noInput = false}) {
         const {
             benefits:   {data: benefits},
@@ -56,7 +47,7 @@ export default class BenefitsDetails extends Component {
         data       = !subTree ? benefit : benefit[subTree]
         fieldValue = data[fieldName]
 
-        fieldTitle    = msg.benefits[fieldName] || msg[subTree][fieldName]
+        fieldTitle = msg.benefits[fieldName] || msg[subTree][fieldName]
 
         if (noInput || !this.state.editMode) {
             innerJSX = fieldValue || <i>Noch kein(e) {fieldTitle} vorhanden.</i>
@@ -75,8 +66,7 @@ export default class BenefitsDetails extends Component {
                         else {
                             benefit[subTree][fieldName] = e.currentTarget.value
                         }
-                        let benefitPatched = benefitsStore.patch(id, benefit)
-                        console.log('benefitPatched', benefitPatched)
+                        benefitsStore.patch(id, benefit)
                     }}
                 />
             )
@@ -97,21 +87,12 @@ export default class BenefitsDetails extends Component {
     }
 
     render() {
-        const self = this
         const {
             benefits,
             match: {params: {id}}
         } = this.props
 
-        // if the length changes (after injection)
-        // it triggers "componentWillReact"
-        // and re-renders because testData is a observable
-
-
         const benefit     = benefits.data[id]
-        const hasCampaign = typeof benefit.campaign === 'object'
-                         && benefit.campaign.campaignId != null
-
         const date        = new Date(benefit.date).toDateString()
 
         return (
@@ -122,7 +103,6 @@ export default class BenefitsDetails extends Component {
                 <span><b>Datum:</b><br />{date + ''}<br /><br /></span>
 
                 {this.renderValueOrInput('title',       {noInput: true})}
-
                 {this.renderValueOrInput('description', {noInput: true})}
 
                 <Campaigns
