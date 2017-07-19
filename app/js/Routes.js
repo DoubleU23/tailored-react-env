@@ -1,45 +1,27 @@
 'use strict'
 
-import React, {Component}   from 'react'
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-}                           from 'react-router-dom'
-// import CreateBrowserHistory from 'history/lib/createBrowserHistory'
+import React           from 'react'
+import {Switch, Route} from 'react-router-dom'
 
-import store                from './stores/index.js'
+import store           from './stores/index.js'
 
-import App                  from './App'
-import Benefits             from './pages/Benefits'
-import NotFoundPage         from './pages/NotFoundPage'
-
-class RouteTest extends Component {
-
-    render() {
-        return <div>RouteTest-render()</div>
-    }
-
-}
+import App             from './App'
+import NotFoundPage    from './pages/NotFoundPage'
 
 export const createRoutes = store => {
-    const requireAuth = (nextState, _replaceState) => {
-        // TBD: loginCheck
+    // TBD: loginCheck
+    // const requireAuth = (nextState, _replaceState) => {
 
-        const {user: userStore} = store
-        if (userStore.ready && !userStore.isLoggedin) {
-            // replaceState(WOHINGENAU?)
-        }
-    }
+    //     const {user: userStore} = store
+    //     if (userStore.ready && !userStore.isLoggedin) {
+    //         // replaceState(WOHINGENAU?)
+    //     }
+    // }
 
-    /*
-        // TBD: browser/server History (react-router 3.0)
-        <Router history={CreateBrowserHistory()}>
-    */
     return (
         <Switch>
+            {/* benefitRoutes are handled in App->render <Route> */}
             <Route path="/" component={App} />
-            <Route path="/test" component={RouteTest} />
             <Route path="*" component={NotFoundPage} />
         </Switch>
     )
