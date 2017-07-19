@@ -26,9 +26,7 @@ export default class ViewStore {
         }
     }
 
-    @action.bound
     set confirmationDialog(confirmationDialog) {
-        console.log('confirmationDialog setter called!')
         extendObservable(this._confirmationDialog, confirmationDialog)
     }
 
