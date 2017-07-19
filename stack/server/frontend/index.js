@@ -22,7 +22,7 @@ const basic = auth.basic({
 })
 
 // protected routes
-// app.use(auth.connect(basic))
+app.use(auth.connect(basic))
 
 
 
