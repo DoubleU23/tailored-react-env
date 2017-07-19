@@ -20,14 +20,15 @@ class App extends Component {
     render() {
         return (
             <div style={{height: '5000px'}} id="wrapper">
-                <ConfirmationDialog />
-
                 <Header />
                 <Nav />
                 <div id="content">
                     <Route path="/benefits" component={Benefits} />
                 </div>
                 <Footer />
+
+                {/* globalComponents (handled by ViewStore) */}
+                <ConfirmationDialog />
             </div>
         )
     }

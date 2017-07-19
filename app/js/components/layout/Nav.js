@@ -4,14 +4,12 @@ import React     from 'react'
 import Component from 'react-pure-render/component'
 import {Link}    from 'react-router-dom'
 
-if (process.env.IS_BROWSER) {
-    require('./nav.styl')
-}
-
 export default class Nav extends Component {
 
     getNav() {
         const nav = []
+        // refactor: use global routeConfig Object?
+        // mainRoutes + pageRoutes
         ;[
             ['home', '/'],
             ['benefits', '/benefits']
@@ -21,11 +19,16 @@ export default class Nav extends Component {
         })
         // pop the last seperator
         nav.pop()
+
         return nav
     }
 
     render() {
-        return <div id="nav">{this.getNav()}</div>
+        return (
+            <div id="nav" style={{margin: '1rem 0'}}>
+                {this.getNav()}
+            </div>
+        )
     }
 
 }

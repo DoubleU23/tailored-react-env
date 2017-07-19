@@ -18,9 +18,7 @@ export default class Header extends Component {
 
         return (
             <header>
-                <AppBar
-                    title={title}
-                />
+                <AppBar title={title} />
             </header>
         )
     }

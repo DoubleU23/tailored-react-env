@@ -18,6 +18,8 @@ export const createRoutes = store => {
     //     }
     // }
 
+    // refactor: use global routeConfig Object
+
     return (
         <Switch>
             {/* benefitRoutes are handled in App->render <Route> */}
