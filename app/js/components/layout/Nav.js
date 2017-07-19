@@ -7,13 +7,17 @@ import {Link}    from 'react-router-dom'
 export default class Nav extends Component {
 
     getNav() {
-        const nav = []
         // refactor: use global routeConfig Object?
         // mainRoutes + pageRoutes
-        ;[
-            ['home', '/'],
-            ['benefits', '/benefits']
-        ].forEach(v => {
+        const nav       = []
+        const navRoutes = [['items', '/items']]
+        if (process.env.DEBUG) {
+            navRoutes.unshift(['test', '/test'])
+        }
+        // home is always first
+        navRoutes.unshift(['home', '/'])
+
+        navRoutes.forEach(v => {
             nav.push(<Link to={v[1]} key={v[0]}>{v[0]}</Link>)
             nav.push(<span key={'seperator_' + v[0]}> | </span>)
         })

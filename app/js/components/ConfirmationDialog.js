@@ -12,6 +12,7 @@ import Dialog             from 'material-ui/Dialog'
 @observer
 export default class ConfirmationDialog extends Component {
 
+    // TBD: closeAction
     static propTypes = {
         messages:           PropTypes.object.isRequired,
         view:               PropTypes.object.isRequired
@@ -26,6 +27,7 @@ export default class ConfirmationDialog extends Component {
         const {
             messages:   {ui: {confirmationDialog: msg}},
             view:       {confirmationDialog: {
+                closeOnAction,
                 open, action, title, content,
                 buttonLabels: {
                     confirm:    labelConfirm,
@@ -42,23 +44,31 @@ export default class ConfirmationDialog extends Component {
                 modal={true}
                 onRequestClose={closeConfirmationDialog}
                 actions={[
-                    <RaisedButton // CANCEL
-                        label={labelCancel != null ? labelCancel : msg.cancel}
+                    <RaisedButton // CONFIRM
+                        label={labelConfirm != null ? labelConfirm : msg.confirm}
                         style={{margin: '0 1rem 1rem 0'}}
                         backgroundColor="#666"
                         hoverColor="#999"
-                        onClick={closeConfirmationDialog}
+                        onClick={() => {
+                            if (typeof action === 'function') {
+                                action()
+                            }
+                            if (closeOnAction) {
+                                closeConfirmationDialog()
+                            }
+                        }}
                     />,
-                    <RaisedButton // CONFIRM
-                        label={labelConfirm != null ? labelConfirm : msg.confirm}
+                    <RaisedButton // CANCEL
+                        label={labelCancel != null ? labelCancel : msg.cancel}
                         backgroundColor="#666"
                         hoverColor="#999"
-                        onClick={action}
+                        onClick={closeConfirmationDialog}
                     />
                 ]}
                 title={title}
             >
-                {content}
+                {content}<br /><br />
+                (<b>TBD: </b>cancelAction)
             </Dialog>
         )
     }

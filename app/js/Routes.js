@@ -22,7 +22,7 @@ export const createRoutes = store => {
 
     return (
         <Switch>
-            {/* benefitRoutes are handled in App->render <Route> */}
+            {/* subRoutes are handled in App->render <Route> */}
             <Route path="/" component={App} />
             <Route path="*" component={NotFoundPage} />
         </Switch>

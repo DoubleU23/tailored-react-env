@@ -9,7 +9,9 @@ import ConfirmationDialog from './components/ConfirmationDialog'
 import Header             from './components/layout/Header'
 import Footer             from './components/layout/Footer'
 import Nav                from './components/layout/Nav'
-import Benefits           from './pages/Benefits'
+import Items              from './pages/Items'
+
+import TestComponent      from './components/TestComponent'
 
 if (process.env.IS_BROWSER) {
     require('../styles/index.styl')
@@ -19,16 +21,20 @@ class App extends Component {
 
     render() {
         return (
-            <div style={{height: '5000px'}} id="wrapper">
+            <div id="wrapper">
                 <Header />
                 <Nav />
                 <div id="content">
-                    <Route path="/benefits" component={Benefits} />
+                    {process.env.DEBUG &&
+                    <Route path="/test" component={TestComponent} />}
+
+                    <Route path="/items" component={Items} />
                 </div>
-                <Footer />
 
                 {/* UI Components (handled by ViewStore) */}
                 <ConfirmationDialog />
+
+                <Footer />
             </div>
         )
     }

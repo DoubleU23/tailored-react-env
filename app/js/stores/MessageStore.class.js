@@ -9,7 +9,7 @@ import messagesAll    from '../../data/messages'
 export default class MessageStore {
 
     constructor(state = {}) {
-        const lang = state.lang || 'de'
+        const lang = state.lang || 'en'
         const messages = messagesAll[lang]
 
         extendObservable(this, {

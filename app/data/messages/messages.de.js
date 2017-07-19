@@ -1,53 +1,41 @@
+// TBD: translate!
 export default {
+    // MAIN ELEMENTS
     header: {
-        title: 'KLZ Vorteilsclub Admin'
+        title: 'Tailored React Environment (DE)'
     },
+    // GLOBAL UI COMPONENTS
     ui:     {
         confirmationDialog: {
-            cancel:     'Abbrechen',
-            confirm:    'Ja'
+            cancel:     'Cancel',
+            confirm:    'Yes!'
         }
     },
+    // FORM FIELDS
     fields: {
-        benefits: {
+        // properties for inputfields
+        // subtrees related to models/forms
+        login: {
             title:          'Titel',
-            description:    'Beschreibung'
-        },
-        campaign:   {
-            name:           'Name der Kampagne',
             description:    'Beschreibung',
-            campaignId:     'CampaignId',
-            fromDate:       'Start der Kampagne',
-            dueDate:        'Ende der Kampagne'
+            placeholder:    'Placeholder'
         },
-        locations: {
-            name:       'Name',
-            address:    'Addresse'
+        model1: {
+            title:          'Titel',
+            description:    'Beschreibung',
+            placeholder:    'Placeholder'
         }
     },
-    campaign:   {
-        noCampaign: 'Noch keine Kampagne vorhanden',
-        listTitle:  'zugehörige Kampagnen:',
-        addNew:     'Kampagne anlegen',
-        delete:     'Kampagne löschen',
-        edit:       'Kampagne bearbeiten',
-        save:       'Kampagne speichern'
+    // SUBPAGES
+    404:    {
+        title: '404 - Page not found!'
     },
-    locations: {
-        noLocation:     'Noch keine Location vorhanden.',
-        addNew:         'Location hinzufügen',
-        delete:         'Location löschen',
-        addNewDialog: {
-            title:      'Neue Location anlegen',
-            addNew:     'Location anlegen',
-            cancel:     'Abbrechen'
-        }
+    page1:   {
+        title:          'Title of Page #1',
+        teaser:         'And this is the teaser for page#1'
     },
-    vouchers: {
-        noVoucher:      'Noch kein Gutschein anlegt.',
-        addNew:         'Gutschein anlegen',
-        addNewDialog:   {
-            title:      'Neuen Gutschein anlegen'
-        }
+    page2:   {
+        title:          'Title of Page #2',
+        teaser:         'An other teaser. Not generated! Only for Page#2'
     }
 }

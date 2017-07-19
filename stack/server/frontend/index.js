@@ -5,9 +5,6 @@ import express from 'express'
 // import favicon from 'serve-favicon';
 import render from './render'
 
-import path            from 'path'
-import auth            from 'http-auth'
-
 const app = express()
 
 app.get('/test/testTimeout', (req, res, next) => {
@@ -15,14 +12,6 @@ app.get('/test/testTimeout', (req, res, next) => {
         res.send('timeout response after 5000ms')
     }, 10000)
 })
-
-const basic = auth.basic({
-    realm:  'TestLogin (admin/admin)',
-    file:   path.join(__dirname, 'htpasswd')
-})
-
-// protected routes
-app.use(auth.connect(basic))
 
 
 

@@ -1,33 +1,26 @@
 'use strict'
 
-import Promise from 'bluebird'
-import axios          from 'axios'
-import axiosWrapped   from '../../../utils/axiosWrapped'
+import {expect}   from 'chai'
 
-// import nock          from 'nock'
-// import fetchMock     from 'fetch-mock'
-import moxios        from 'moxios'
+import moxios     from 'moxios'
+import ItemsStore from './ItemsStore.class'
 
-
-import {expect}      from 'chai'
-import BenefitsStore from './BenefitsStore.class'
-
-import appConfig from '../../../config/appConfig'
+import appConfig  from '../../../config/appConfig'
 
 const {
-    api: {base: apiBase, endpoints: {benefits: benefitsEndpoint}},
+    api: {base: apiBase, endpoints: {items: itemsEndpoint}},
     timings: {timeout}
 } = appConfig
 
 /* global describe, it, beforeEach, afterEach */
-describe('[SPEC] BenefitsStore', async function() {
+describe('[SPEC] ItemsStore', async function() {
     // PRESET
     this.timeout(timeout * 3)
 
     beforeEach(function() {
     //  import and pass your custom axios instance to this method
         moxios.install()
-        moxios.stubRequest(benefitsUrl, {
+        moxios.stubRequest(itemsUrl, {
             status: 200,
             responseText: 'hello'
         })
@@ -39,14 +32,12 @@ describe('[SPEC] BenefitsStore', async function() {
     })
 
     // SETUP
-    const benefitsUrl   = apiBase + benefitsEndpoint
+    const itemsUrl          = apiBase + itemsEndpoint
 
     it('ASYNC - should fetch data',  async function() {
-        const benefitsStore = new BenefitsStore()
+        const benefitsStore = new ItemsStore()
         const response      = await benefitsStore.fetch()
 
-        // refactor: catch erroring request here!?!?!?
-        // would be Network Error or TimeoutError
         if (response.error) {
             // response is an error
             // "throw response" === done(repsonse)
@@ -58,7 +49,7 @@ describe('[SPEC] BenefitsStore', async function() {
     })
 
     // it('SYNC - should fetch data', function(done) {
-    //     const benefitsStore = new BenefitsStore()
+    //     const benefitsStore = new ItemsStore()
     //     benefitsStore.fetch()
     //         .then(response => {
     //              if (response.error) {

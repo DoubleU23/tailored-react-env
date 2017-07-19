@@ -17,6 +17,8 @@ tasks.forEach(task => {
     require('./tasks/' + task)
 })
 
+// TBD: gulp task list
+//
 // require('gulp-task-list')(gulp, null, [__filename, ...tasks.map(filename => 'gulp/tasks/' + filename)])
 // gulp.task('default', cb => runSequence('task-list'))
 

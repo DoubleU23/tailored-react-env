@@ -14,11 +14,11 @@
     margin-bottom 0.4rem
 
 
-#benefitsList
-    #beneftisListInner
+#itemList
+    #itemListInner
         cf()
         width 100%
-    .benefitListElement
+    .itemListElement
         cursor      pointer
         width       245px
         height      120px
@@ -27,9 +27,9 @@
         box-shadow   0px 0px 8px rgba(30, 30, 30, 0.6)
         position    relative
         overflow    hidden
-        &:hover .benefitListElementOverlay
+        &:hover .itemListElementOverlay
             top 0
-        .benefitListElementOverlay
+        .itemListElementOverlay
             padding             0.5rem
             color               #fff
             background-color    rgba(30, 30, 30, 0.7)
@@ -38,12 +38,12 @@
             height              100%
             top                 75px
             transition          top 150ms ease-in
-            .benefitListElementTitle
+            .itemListElementTitle
                 display         block
                 font-weight     bold
                 margin-bottom   1rem
                 height          2rem
-            .benefitListElementInfo
+            .itemListElementInfo
                 display         block
                 white-space     nowrap
                 overflow        hidden
@@ -51,24 +51,11 @@
                 // max-height      66px
                 width           245px
 
-#locations
-    .locationPaper
-        position relative
-        padding-top 3rem !important
-    .locationPaperDelete
-        color #fff
-        text-decoration none
-        font-weight bold
-        position absolute !important
-        top 0
-        right 0
-        padding 4px 8px 8px 8px
-
-#vouchers
-    .voucherPaper
+#subObj
+    .subObjPaper
         overflow hidden
         padding 0
-        &:hover .voucherPaperDelete
+        &:hover .subObjPaperDelete
              svg
                 height 120px !important
                 width 120px !important

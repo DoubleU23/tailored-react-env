@@ -142,7 +142,6 @@ const renderPageAsync = async ({url}) => {
             <body>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
                 <div id="app" />
-                development? {isDevelopment + ''}
                 <script type="text/javascript" src={scriptSrc} />
                 {// in dev, styles are handled by style-loader
                  // which directly injects them into the DOM
