@@ -1,9 +1,6 @@
 'use strict'
 
-import {
-    extendObservable,
-    action
-} from 'mobx'
+import {extendObservable} from 'mobx'
 
 const noopFn = () => {}
 
