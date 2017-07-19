@@ -19,6 +19,14 @@ export default {
             address:    'Addresse'
         }
     },
+    campaign:   {
+        noCampaign: 'Noch keine Kampagne vorhanden',
+        listTitle:  'zugehörige Kampagnen:',
+        addNew:     'Kampagne anlegen',
+        delete:     'Kampagne löschen',
+        edit:       'Kampagne bearbeiten',
+        save:       'Kampagne speichern'
+    },
     locations: {
         addNew:     {
             title:  'Neue Location anlegen',

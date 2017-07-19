@@ -87,6 +87,7 @@ export default class Locations extends Component {
             <div id="locations">
                 <h3>Locations:</h3>
                 {hasLocations
+                // list of locations
                 ? campaign.locations.map(location => {
                     return (
                         <Paper
@@ -122,7 +123,7 @@ export default class Locations extends Component {
 
                 <br />
                 <br />
-                <FlatButton
+                <FlatButton // addNewLocation
                     backgroundColor="#666"
                     hoverColor="#999"
                     label={msg.addNew.button}

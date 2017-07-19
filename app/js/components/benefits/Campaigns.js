@@ -61,8 +61,9 @@ export default class Campaigns extends Component {
     renderCampaignFields() {
         const {
             renderValueOrInput,
-            benefits: benefitsStore,
-            match: {params: {id}}
+            benefits:   benefitsStore,
+            match:      {params: {id}},
+            messages:   {campaign: msg}
         } = this.props
 
         const benefit = benefitsStore.data[id]
@@ -78,13 +79,8 @@ export default class Campaigns extends Component {
             </div>
         )
 
-        // if (this.props.editMode) {
-        //     return fields
-        // }
-        // else {
         return (
             <Paper
-
                 zDepth={3}
                 style={{
                     minWidth: '50%',
@@ -99,34 +95,29 @@ export default class Campaigns extends Component {
                     backgroundColor="#666"
                     hoverColor="#999"
                     icon={<IconCreate />}
-                    label={!this.props.editMode
-                        ? 'Campaign bearbeiten'
-                        : 'Campaign speichern'
-                    }
+                    label={!this.props.editMode ? msg.edit : msg.save}
                     onClick={this.props.editMode
                     ? async () => {
-                        const response = await benefitsStore
-                            .saveCampaign(benefit.campaign, true)
-                        console.log('saveCampaign->response', response)
                         this.props.toggleEditMode()
+                        await benefitsStore
+                            .saveCampaign(benefit.campaign, true)
                     }
                     : this.props.toggleEditMode}
                 />
                 <FlatButton
                     backgroundColor="#666"
                     hoverColor="#999"
-                    label="Kampagne löschen"
+                    label={msg.delete}
                     icon={<IconDelete />}
                     onClick={() => {
                         this.props.view.confirmationDialog = {
                             open:       true,
+                            title:      'Sind Sie sicher?',
+                            content:    'Wollen Sie die Kampagne wirklich löschen?',
                             action:     () => {
-                                console.log('confirmationDialogAction->this', this)
                                 benefitsStore.deleteCampaign(id)
                                 this.props.view.confirmationDialog.open = false
-                            },
-                            title:      'Sind Sie sicher?',
-                            content:    'Wollen Sie die Kampagne wirklich löschen?'
+                            }
                         }
                     }}
                 />
@@ -137,57 +128,46 @@ export default class Campaigns extends Component {
     render() {
         const {
             benefits: benefitsStore,
-            match: {params: {id}}
+            match: {params: {id}},
+            messages: {campaign: msg}
         } = this.props
         console.log(id, this.props)
 
         const benefit       = benefitsStore.data[id]
         let hasCampaign
+
+        // TBD: refactor
+        // bug: after deleting campaign it errors at "benefit.campaign.campaignId"
         try {
             hasCampaign   = benefit.campaign
                          && benefit.campaign.campaignId != null
         }
         catch (err) {
             hasCampaign = false
-            console.warn(err)
         }
 
         window.benefitTest = benefit
 
         return (
             <div id="campaigns">
-                <h3>
-                    {!hasCampaign
-                        ? 'Noch keine Kampagne vorhanden'
-                        : 'zugehörige Kampagne:'
-                    }
-                </h3>
+                <h3>{!hasCampaign ? msg.noCampaign : msg.listTitle}</h3>
+
                 {!hasCampaign &&
                 <RaisedButton
-                    label={'Campaign anlegen'}
+                    label={msg.addNew}
                     onClick={() => {
                         benefitsStore.createCampaign(id)
                         this.props.toggleEditMode()
                     }}
                 />}
+
                 {hasCampaign &&
                 <div id="campaignData">
-                    {this.renderCampaignFields()}
+
+                    {// render Campaign Paper
+                    this.renderCampaignFields()}
+
                     <br />
-                    {/* <RaisedButton
-                        label={!this.props.editMode
-                            ? 'Campaign bearbeiten'
-                            : 'Campaign speichern'
-                        }
-                        onClick={this.props.editMode
-                        ? async () => {
-                            const response = await benefitsStore
-                                .saveCampaign(benefit.campaign, true)
-                            console.log('saveCampaign->response', response)
-                            this.props.toggleEditMode()
-                        }
-                        : this.props.toggleEditMode}
-                    /><br /> */}
                     <div id="campaignDataMeta">
                         {!this.props.editMode &&
                         <Locations
