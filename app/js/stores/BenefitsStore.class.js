@@ -38,7 +38,7 @@ export default class BenefitsStore {
             fetched:    false // false || timestamp
         }, state)
 
-        if (process.env.IS_BROWSER) {
+        if (process.env.IS_BROWSER && process.env.DEBUG) {
             window.BenefitsStore = this
         }
     }

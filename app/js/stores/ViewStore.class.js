@@ -21,7 +21,7 @@ export default class ViewStore {
             }
         }, state)
 
-        if (process.env.IS_BROWSER) {
+        if (process.env.IS_BROWSER && process.env.DEBUG) {
             window.ViewStore = this
         }
     }
