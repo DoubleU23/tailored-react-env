@@ -2,7 +2,7 @@ import BenefitsStore    from './BenefitsStore.class'
 import MessageStore     from './MessageStore.class'
 import ViewStore        from './ViewStore.class'
 
-import initialState  from './initialState'
+import initialState     from './initialState'
 
 export const computeStore = (state = {}) => {
     return {
@@ -12,5 +12,5 @@ export const computeStore = (state = {}) => {
     }
 }
 
-// Initialize actions and state
+// Initialize Stores with initialState
 export default computeStore(initialState)
