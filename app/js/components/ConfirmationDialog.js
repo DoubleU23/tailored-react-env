@@ -24,8 +24,8 @@ export default class ConfirmationDialog extends Component {
     render() {
         console.log(this.props.view.confirmationDialog)
         const {
-            messages: {ui: {confirmationDialog: msg}},
-            view: {confirmationDialog: {
+            messages:   {ui: {confirmationDialog: msg}},
+            view:       {confirmationDialog: {
                 open, action, title, content,
                 buttonLabels: {
                     confirm:    labelConfirm,
@@ -42,14 +42,14 @@ export default class ConfirmationDialog extends Component {
                 modal={true}
                 onRequestClose={closeConfirmationDialog}
                 actions={[
-                    <RaisedButton
+                    <RaisedButton // CANCEL
                         label={labelCancel != null ? labelCancel : msg.cancel}
                         style={{margin: '0 1rem 1rem 0'}}
                         backgroundColor="#666"
                         hoverColor="#999"
                         onClick={closeConfirmationDialog}
                     />,
-                    <RaisedButton
+                    <RaisedButton // CONFIRM
                         label={labelConfirm != null ? labelConfirm : msg.confirm}
                         backgroundColor="#666"
                         hoverColor="#999"
