@@ -23,17 +23,14 @@ if (process.env.IS_BROWSER) {
     require('../../../styles/react-file-upload.styl')
 }
 
-import appConfig from '../../../../config/appConfig'
-const {
-    api: {base: apiBase, endpoints: {vouchers: voucherEndpoint}}
-} = appConfig
-
-@inject('benefits', 'messages')
+@inject('benefits', 'messages', 'view')
 @observer
 export default class Vouchers extends Component {
 
     static propTypes = {
-        benefits: PropTypes.object.isRequired,
+        benefits:   PropTypes.object.isRequired,
+        messages:   PropTypes.object.isRequired,
+        view:       PropTypes.object.isRequired,
         // custom
         campaign: PropTypes.object.isRequired,
         id:       PropTypes.oneOfType([
@@ -64,8 +61,7 @@ export default class Vouchers extends Component {
             benefits: benefitsStore
         } = this.props
 
-        const {vouchers, campaignId} = campaign
-        console.log(campaign)
+        const {vouchers} = campaign
 
         return (
             <div id="vouchers">
@@ -86,33 +82,21 @@ export default class Vouchers extends Component {
                         <input
                             type="file"
                             multiple={false}
-                            onChange={e => {
+                            onChange={async e => {
                                 console.log('[handleUpload] file', e.target.files)
                                 const file      = e.target.files[0]
-                                const reader    = new FileReader()
-                                // reader.readAsBinaryString(file)
-                                // console.log('[handleUpload] file.readAsBinaryString()', reader)
-                                // this.setState({fileUrl: reader.result})
-                                benefitsStore.saveVoucher({id: benefitCode, file})
-                                // const fileData = new FileReader(file)
+                                // tbd: get previewUrl by FileReader!?
+                                // const reader    = new FileReader()
+                                const response  = await benefitsStore.saveVoucher({id: benefitCode, file})
+                                if (response.error) {
+                                    // tbd: handle error
+                                }
+                                const {voucherImage: imgUrl} = response
+                                this.setState({fileUrl: imgUrl})
                             }}
                         />
                     </form>
-
                     <img src={this.state.fileUrl} />
-
-                    {/* <DropUploader
-                        url={apiBase + voucherEndpoint}
-                        uploadHandler={(file, that) => {
-                            console.log('[handleUpload] file', file)
-
-                            const objectURL = URL.createObjectURL(file)
-                            console.log('[handleUpload] thatobjectURL', objectURL)
-                        }}
-                        onChange={(e, handleFileChange) => {
-                            console.log('[handleUpload] files', e.target.files)
-                        }}
-                    /> */}
                 </Dialog>
                 {(vouchers == null || !vouchers.length)
                 ?   <span>Noch keine Gutscheine vorhanden</span>
@@ -134,13 +118,18 @@ export default class Vouchers extends Component {
                             <IconButton
                                 key={'voucherDeleteButton_' + location.id}
                                 className="voucherPaperDelete"
-                                // tooltip={'Gutschein löschen'}
-                                // tooltipPosition="top-right"
                                 onClick={() => {
-                                    benefitsStore.deleteVoucher({
-                                        benefitCode,
-                                        voucherId: voucher.id
-                                    })
+                                    this.props.view.confirmationDialog = {
+                                        open:       true,
+                                        action:     () => {
+                                            benefitsStore.deleteVoucher({
+                                                benefitCode,
+                                                voucherId: voucher.id
+                                            })
+                                            this.props.view.confirmationDialog.open = false
+                                        },
+                                        content:    'Wollen Sie den Gutschein wirklich löschen?'
+                                    }
                                 }}
                                 style={{width: '100%', height: '100%', padding: 0, backgroundColor: 'rgba(153, 153, 153, 0.7)'}}
                                 iconStyle={{

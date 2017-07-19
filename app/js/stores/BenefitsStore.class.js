@@ -106,8 +106,10 @@ export default class BenefitsStore {
             }
         })
 
-        if (response.error) {
-            this.error = response.error
+        console.log('fetch->response', response)
+
+        if (response instanceof Error) {
+            this.error = response
             this.status = 'error'
             // timeoutError !?
             console.log('[BenefitsStore.catch(err)]', this.error)
@@ -272,7 +274,6 @@ export default class BenefitsStore {
         campaign.locations      = locations
 
         const response = await this.saveCampaign(campaign)
-
         if (response.error || response.status !== 204) {
             return response.error
         }

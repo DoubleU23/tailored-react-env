@@ -7,61 +7,35 @@ const {
     timings: {timeout: requestTimeout}
 } = appConfig
 
-// Add a request interceptor
-axios.interceptors.request.use(function(config) {
-    // Do something before request is sent
-    return config
-}, function(error) {
-    if (process.env.DEBUG) {
-        console.log('[axios.interceptors.request.use] ', error)
-    }
-    // Do something with request error
-    return Promise.reject(error)
-})
-
-// Add a response interceptor
-axios.interceptors.response.use(function(response) {
-    // Do something with response data
-    return response
-}, function(error) {
-    if (process.env.DEBUG) {
-        console.log('[axios.interceptors.response.use] ', error)
-    }
-    // Do something with response error
-    return Promise.reject(error)
-})
-
 const axiosWrapped = (method, url, options) => {
-    // TBD: use wrap axios with timeout
     return timeout(requestTimeout,
 
         (!!method && !!url
             ? axios.apply(method, [url, options])
             : axios(options)
         )
-            // catch first to only get REAL errors
-            // (we throw respone in underneath THEN)
-            .catch(error => {
+            .catch(networkError => {
+                // TBD: special handling of network errors
                 if (process.env.DEBUG) {
-                    console.log('[axios.apply->catch(error)] ', error)
+                    // console.log('[axios.apply->catch(error)] ', networkError)
                 }
-                error.error = true
-                // throw to timeout.catch
-                return error
+
+                // pass networkError to "catch(timeoutOrNetworkError)""
+                throw networkError
             })
-            .then(response => {
+            .then(successedRequestResponse => {
                 if (process.env.DEBUG) {
-                    console.log('[axios.apply->then(response)]', response)
+                    // console.log('[axios.apply->then(successedRequestResponse)]', successedRequestResponse)
                 }
-                // throw to timeout.catch
-                return response
+
+                return successedRequestResponse
             })
     )
-        .catch(responseOrError => {
+        .catch(timeoutOrNetworkError => {
             if (process.env.DEBUG) {
-                console.log('[axiosWrapped->catch(responseOrError)] ', responseOrError)
+                // console.log('[axiosWrapped->catch(timeoutOrNetworkError)] ', timeoutOrNetworkError)
             }
-            return responseOrError
+            return timeoutOrNetworkError
         })
 }
 

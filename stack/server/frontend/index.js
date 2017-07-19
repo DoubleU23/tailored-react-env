@@ -10,12 +10,19 @@ import auth            from 'http-auth'
 
 const app = express()
 
+app.get('/test/testTimeout', (req, res, next) => {
+    setTimeout(() => {
+        res.send('timeout response after 5000ms')
+    }, 10000)
+})
+
 const basic = auth.basic({
     realm:  'TestLogin (admin/admin)',
     file:   path.join(__dirname, 'htpasswd')
 })
 
-app.use(auth.connect(basic))
+// protected routes
+// app.use(auth.connect(basic))
 
 
 
@@ -44,11 +51,6 @@ app.use('/build', express.static('build', {maxAge: '200d'}))
 //     res.send('HALLO!')
 // })
 
-app.get('/test/testTimeout', (req, res, next) => {
-    setTimeout(() => {
-        res.send('timeout response after 5000ms')
-    }, 30000)
-})
 
 app.get('*', render)
 
