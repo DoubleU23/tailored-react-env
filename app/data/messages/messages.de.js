@@ -41,5 +41,12 @@ export default {
             addNew:     'Location anlegen',
             cancel:     'Abbrechen'
         }
+    },
+    vouchers: {
+        noVoucher:      'Noch kein Gutschein hinzugefügt.',
+        addNew:         'Hinzufügen',
+        addNewDialog:   {
+            title:      'Neuen Gutschein hinzufügen'
+        }
     }
 }

@@ -5,29 +5,18 @@ import PropTypes          from 'prop-types'
 import Component          from 'react-pure-render/component'
 import {observer, inject} from 'mobx-react'
 
-// import { Redirect }    from 'react-router'
-import {
-    observable,
-    extendObservable,
-    action
-}                         from 'mobx'
-
-import RaisedButton       from 'material-ui/RaisedButton'
 import Paper              from 'material-ui/Paper'
 import Dialog             from 'material-ui/Dialog'
+import RaisedButton       from 'material-ui/RaisedButton'
 import IconButton         from 'material-ui/IconButton'
 import IconDelete         from 'material-ui/svg-icons/action/delete-forever'
-import IconCreate         from 'material-ui/svg-icons/content/create'
-
-if (process.env.IS_BROWSER) {
-    require('../../../styles/react-file-upload.styl')
-}
 
 @inject('benefits', 'messages', 'view')
 @observer
 export default class Vouchers extends Component {
 
     static propTypes = {
+        // stores
         benefits:   PropTypes.object.isRequired,
         messages:   PropTypes.object.isRequired,
         view:       PropTypes.object.isRequired,
@@ -43,8 +32,28 @@ export default class Vouchers extends Component {
         super(props)
 
         this.state = {
-            addModalOpen: false,
-            fileUrl:      ''
+            addModalOpen: false
+        }
+
+        this.styles     = {
+            voucherDeleteButton: {
+                width:      '100%',
+                height:     '100%',
+                padding:    0,
+                backgroundColor:    'rgba(153, 153, 153, 0.7)'
+            },
+            voucherDeleteButtonIcon: {
+                width:          '76px',
+                height:         '76px',
+                boxShadow:      'rgba(0, 0, 0, 1) 0px 0px 150px',
+                borderRadius:   '38px'
+            },
+            voucherPaper: {
+                width:      '300px',
+                height:     '150px',
+                margin:     '0 10px 20px',
+                display:    'inline-block'
+            }
         }
     }
 
@@ -58,7 +67,8 @@ export default class Vouchers extends Component {
         const {
             id: benefitCode,
             campaign,
-            benefits: benefitsStore
+            benefits: benefitsStore,
+            messages: {vouchers: msg}
         } = this.props
 
         const {vouchers} = campaign
@@ -70,11 +80,22 @@ export default class Vouchers extends Component {
                     <a  href="#"
                         onClick={this.toggleAddModal.bind(this)}
                     >
-                        hinzufügen
+                        {msg.addNew}
                     </a>
                 </h3>
+
+                <RaisedButton // ADD NEW BUTTON
+                    backgroundColor="#666"
+                    hoverColor="#999"
+                    label={msg.addNew}
+                    icon={<IconDelete />}
+                    onClick={() => {
+                        this.setState({addLocationOpen: true})
+                    }}
+                />
+
                 <Dialog
-                    title="Add new Voucher"
+                    title={msg.addNewDialog.title}
                     open={this.state.addModalOpen}
                     onRequestClose={this.toggleAddModal.bind(this)}
                 >
@@ -83,7 +104,6 @@ export default class Vouchers extends Component {
                             type="file"
                             multiple={false}
                             onChange={async e => {
-                                console.log('[handleUpload] file', e.target.files)
                                 const file      = e.target.files[0]
                                 // tbd: get previewUrl by FileReader!?
                                 // const reader    = new FileReader()
@@ -91,28 +111,25 @@ export default class Vouchers extends Component {
                                 if (response.error) {
                                     // tbd: handle error
                                 }
-                                const {voucherImage: imgUrl} = response
-                                this.setState({fileUrl: imgUrl})
+                                // const {voucherImage: imgUrl} = response
+                                // this.setState({fileUrl: imgUrl})
                             }}
                         />
                     </form>
-                    <img src={this.state.fileUrl} />
+                    {/* <img src={this.state.fileUrl} /> */}
                 </Dialog>
                 {(vouchers == null || !vouchers.length)
-                ?   <span>Noch keine Gutscheine vorhanden</span>
+                ?   <span>{msg.noVoucher}</span>
                 :   vouchers.map(voucher => {
                     return (
                         <Paper
                             className="voucherPaper"
                             zDepth={3}
                             style={{
-                                width:      '300px',
-                                height:     '150px',
-                                margin:     '0 10px 20px',
-                                display:    'inline-block',
-                                background: 'transparent '
-                                + 'url(' + voucher.voucherImage + ') '
-                                + 'center center / cover no-repeat'
+                                ...this.styles.voucherPaper,
+                                background: 'transparent'
+                                + ' url(' + voucher.voucherImage + ')'
+                                + ' center center / cover no-repeat'
                             }}
                         >
                             <IconButton
@@ -121,23 +138,18 @@ export default class Vouchers extends Component {
                                 onClick={() => {
                                     this.props.view.confirmationDialog = {
                                         open:       true,
+                                        content:    'Wollen Sie den Gutschein wirklich löschen?',
                                         action:     () => {
                                             benefitsStore.deleteVoucher({
                                                 benefitCode,
                                                 voucherId: voucher.id
                                             })
                                             this.props.view.confirmationDialog.open = false
-                                        },
-                                        content:    'Wollen Sie den Gutschein wirklich löschen?'
+                                        }
                                     }
                                 }}
-                                style={{width: '100%', height: '100%', padding: 0, backgroundColor: 'rgba(153, 153, 153, 0.7)'}}
-                                iconStyle={{
-                                    width:          '76px',
-                                    height:         '76px',
-                                    boxShadow:      'rgba(0, 0, 0, 1) 0px 0px 150px',
-                                    borderRadius:   '38px'
-                                }}
+                                style={this.styles.voucherDeleteButton}
+                                iconStyle={this.styles.voucherDeleteButtonIcon}
                             >
                                 <IconDelete />
                             </IconButton>
