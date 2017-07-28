@@ -58,9 +58,9 @@ const coverageFiles             = coverageContextRequire.keys()
 coverageFiles.forEach(coverageContextRequire)
 
 // CONTEXT_TESTS
-const testContextRequire        = require.context('CONTEXT_TESTS')
-const testFiles                 = testContextRequire.keys()
-testFiles.forEach(testContextRequire)
+// const testContextRequire        = require.context('CONTEXT_TESTS')
+// const testFiles                 = testContextRequire.keys()
+// testFiles.forEach(testContextRequire)
 
 // CONTEXT_SPECS
 const specContextRequire        = require.context('CONTEXT_SPECS')

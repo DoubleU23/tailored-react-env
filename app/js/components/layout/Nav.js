@@ -1,5 +1,6 @@
 'use strict'
 
+import React     from 'react'
 import Component from 'react-pure-render/component'
 import {Link}    from 'react-router-dom'
 

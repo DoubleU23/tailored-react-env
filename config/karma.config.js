@@ -126,7 +126,7 @@ export default function(config) {
         ],
 
         reporters: !isTestEnv
-            ? ['nyan', 'coverage']
+            ? ['mocha', 'coverage']
             : ['mocha', 'coverage'],
 
         coverageIstanbulReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
