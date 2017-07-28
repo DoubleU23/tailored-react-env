@@ -37,8 +37,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
-* [ ] [config hierarchy](#config-hierarchy)  
-  * [ ] extended use of config module (inject into webpack)  
+* [x] [config hierarchy](#config-hierarchy)  
 * [x] webpack  
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/tailored-react-env/blob/master/gulp/tasks/webpack.js#L37

@@ -24,8 +24,8 @@ app.get('/test/test500', (req, res, next) => {
     res.status(500).send('500 testServer response')
 })
 
-const {ports} = appConfig
+const {ports: {portHMR}} = appConfig
 
-app.listen(ports.frontend, () => {
-    console.log('Server started at port %d', ports.frontend)
+app.listen(portHMR, () => {
+    console.log('Server started at port %d', portHMR)
 })
