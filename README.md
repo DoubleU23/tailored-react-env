@@ -4,19 +4,17 @@
 ## Gulp Tasks
 
 * [x] `gulp clean` - cleans `/build` and `/__coverage__`
-* [x] `gulp lint`  - lints based on env (isDevelopment ? lint:app)  
-    task `lint`: runs eslint with babel-eslint and some extended rules based on the "standard" ruleset
+* [x] `gulp lint`  - lints based on env (isDevelopment ? lint:app)
   * [x] `gulp lint:app` - lints app code only
   * [x] `gulp lint:all` - also lints env code
 * [x] `gulp karma`
-  * [x] code-coverage
+  * [ ] code-coverage (failing)
   * [x] run tests in different Browsers based on env
       * [x] TEST/TRAVIS/CI - PhantomJs
       * [x] other env - Firefox and Chrome
 * [x] webpack
   * [x] __development:__ compile webpack instance, start dev-server, start HMR server
   * [x] __production:__ build app and start server
-* [ ] `gulp imagemin`
 
 ## Config
 
@@ -39,30 +37,26 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
-* [ ]  inject React into scope per webpack (react/react-in-jsx-scope)  
-    and remove React imports in all Components
-
-* [x] [config hierarchy](#config-hierarchy)  
-  * [x] extended use of config module  
+* [ ] [config hierarchy](#config-hierarchy)  
   * [ ] move webpack/constants.js into appConfig
+  * [ ] extended use of config module (inject into webpack)
 * [x] webpack
-    * [x] make hotserverBuild synchronous (use gulp-nodemon)  
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/tailored-react-env/blob/master/gulp/tasks/webpack.js#L37
     * [x] synchronous production build
-* [ ] travis integration
+* [x] travis integration
   * [x] integrate travis test script for master pushes
-  * [ ] integrate NODE_ENV "test" or "CI"
 * [x] browserSync
   * [x] start browserSync proxy after webpack has built
-* [ ] store implementation (mobx?)
+* [x] MobX store implementation
+* [x] Routing
 * [x] server rendering  
   * [ ] server-side async prefetching
   * [ ] store injection/binding
   * [ ] dynamic template
 * [ ] eslint
-  * [ ] set special function rules for __test__ to preserver this context (no arrow-functions)
-  * [ ] extend globals for *.spec.js and *.test.js files  
+  * [ ] pattern based settings for *.spec.js and *.test.js files  
+  (global it and describe, no arrow-functions, ...)  
   => https://github.com/eslint/eslint/issues/3611
 * [x] tests
   * [x] setup test-environment
@@ -70,8 +64,6 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * [x] write first tests
     * [ ] fix coverage report
     * [ ] use browserstack API for karma tests
-* [ ] styles
-  do we need a gulp task or just webpack plugins!?
 
 ## known issues
 

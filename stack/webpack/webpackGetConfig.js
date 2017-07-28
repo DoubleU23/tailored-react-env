@@ -238,10 +238,10 @@ const webpackGetConfig = _isDevelopment => {
         },
         resolve: {
             extensions:         ['.js', '.styl'],
-            modules:            [paths.nodeModules],
-            alias: {
-                'react$':       require.resolve(path.join(paths.nodeModules, 'react'))
-            }
+            modules:            [paths.nodeModules]
+            // alias: {
+            //     'react$':       require.resolve(path.join(paths.nodeModules, 'react'))
+            // }
         }
     }
 

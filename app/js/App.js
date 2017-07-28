@@ -1,6 +1,5 @@
 'use strict'
 
-import React              from 'react'
 import Component          from 'react-pure-render/component'
 import {Route}            from 'react-router-dom'
 

@@ -1,6 +1,5 @@
 'use strict'
 
-import React           from 'react'
 import {Switch, Route} from 'react-router-dom'
 
 import store           from './stores/index.js'

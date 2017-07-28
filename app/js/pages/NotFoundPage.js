@@ -1,6 +1,5 @@
 'use strict'
 
-import React         from 'react'
 import PropTypes     from 'prop-types'
 import Component     from 'react-pure-render/component'
 import DocumentTitle from 'react-document-title'
