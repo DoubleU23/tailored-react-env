@@ -3,24 +3,24 @@
 
 ## Gulp Tasks
 
-* [x] `gulp clean` - cleans `/build` and `/__coverage__`
-* [x] `gulp lint`  - lints based on env (isDevelopment ? lint:app)
-  * [x] `gulp lint:app` - lints app code only
-  * [x] `gulp lint:all` - also lints env code
-* [x] `gulp karma`
-  * [ ] code-coverage (failing)
-  * [x] run tests in different Browsers based on env
-      * [x] TEST/TRAVIS/CI - PhantomJs
-      * [x] other env - Firefox and Chrome
-* [x] webpack
-  * [x] __development:__ compile webpack instance, start dev-server, start HMR server
-  * [x] __production:__ build app and start server
+* `gulp clean` - cleans `/build` and `/__coverage__`
+* `gulp lint`  - lints based on env (isDevelopment ? lint:app)
+  * `gulp lint:app` - lints app code only
+  * `gulp lint:all` - also lints env code
+* `gulp karma`
+  * code-coverage (instanbul-instrumenter)
+  * run tests in different Browsers based on env
+      * TEST/TRAVIS/CI - PhantomJs
+      * other env - Firefox and Chrome
+* webpack
+  * __development:__ compile webpack instance, start dev-server, start HMR server
+  * __production:__ build app and start server
 
 ## Config
 
 all config-vars are loaded from appConfig.js which loads defaults per config-module (based on NODE_ENV)
 
-### Config-Hierarchy
+### Config-Hierarchy - TBD
 1. __command-line injected env vars__  
     highest priority to enable custom start/build scripts and CI builds
     f.e. `APP_ENV=development gulp`  
@@ -38,9 +38,8 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 
 ## roadmap/todos
 * [ ] [config hierarchy](#config-hierarchy)  
-  * [ ] move webpack/constants.js into appConfig
-  * [ ] extended use of config module (inject into webpack)
-* [x] webpack
+  * [ ] extended use of config module (inject into webpack)  
+* [x] webpack  
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/tailored-react-env/blob/master/gulp/tasks/webpack.js#L37
     * [x] synchronous production build
@@ -49,12 +48,12 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 * [x] browserSync
   * [x] start browserSync proxy after webpack has built
 * [x] MobX store implementation
-* [x] Routing
+* [x] Routing (react-router v4)
 * [x] server rendering  
   * [ ] server-side async prefetching
   * [ ] store injection/binding
   * [ ] dynamic template
-* [ ] eslint
+* [x] eslint
   * [ ] pattern based settings for *.spec.js and *.test.js files  
   (global it and describe, no arrow-functions, ...)  
   => https://github.com/eslint/eslint/issues/3611
@@ -62,7 +61,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
   * [x] setup test-environment
     karma-webpack with mocha, chai and enzyme
     * [x] write first tests
-    * [ ] fix coverage report
+    * [x] fix coverage report
     * [ ] use browserstack API for karma tests
 
 ## known issues
