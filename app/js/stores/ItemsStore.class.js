@@ -3,7 +3,6 @@
 import axiosWrapped from '../../../utils/axiosWrapped'
 
 import {
-    observable,
     extendObservable,
     action,
     toJS

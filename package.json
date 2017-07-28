@@ -10,7 +10,8 @@
   "scripts": {
     "precommit": "gulp lint:app",
     "lint": "gulp lint",
-    "test": "gulp test"
+    "test": "gulp test",
+    "mocha": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register './app/js/**/*.spec.js'"
   },
   "keywords": [
     "gulp",

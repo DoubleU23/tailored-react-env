@@ -1,17 +1,24 @@
 /* global it:false, describe:false */
-// refactor: pls give me da feature!!! https://github.com/eslint/eslint/issues/3611
-// 'use strict'
+'use strict'
 
-// TBD: FIX enzyme.mount with mobX inject decorator
-// (shallowRender without store?)
+import React            from 'react'
+import {shallow}        from 'enzyme'
+import {expect}         from 'chai'
 
-// import React     from 'react'
-// import Header    from './Header'
+import MessageStore     from '../../stores/MessageStore.class'
+import Header           from './Header'
 
-// describe('[SPEC] Component: Header', () => {
-//     it('should render properly', () => {
-//         const wrapper = global.mount(<Header />)
+import AppBar    from 'material-ui/AppBar'
 
-//         global.expect(wrapper.find(Header)).to.exist
-//     })
-// })
+const messageStore = new MessageStore()
+
+describe('[SPEC] Component: Header', () => {
+    it('should render properly', () => {
+        const wrapper = shallow(<Header messages={messageStore.messages} />)
+
+        expect(wrapper.find(Header)).to.exist
+
+        expect(wrapper.find('header')).to.exist
+        expect(wrapper.find(AppBar)).to.exist
+    })
+})
