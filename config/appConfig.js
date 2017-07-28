@@ -1,34 +1,28 @@
 'use strict'
 
-import path   from 'path'
-// import config from 'config'
+import appPaths from './paths'
 
-// const config = {get: () => {}}
-
-// console.log(process.env.APP_CONFIG)
-// console.log(JSON.parse(process.env.APP_CONFIG))
-
-const rootDir       = path.join(__dirname, '..')
-const paths         = {
-    ROOT:           rootDir,
-    stack:          path.normalize(path.join(rootDir, 'stack')),
-    server:         path.normalize(path.join(rootDir, 'stack', 'server')),
-    testServer:     path.normalize(path.join(rootDir, 'stack', 'server', 'test')),
-    app:            path.normalize(path.join(rootDir, 'app')),
-    src:            path.normalize(path.join(rootDir, 'app', 'js')),
-    configs:        path.normalize(path.join(rootDir, 'config')),
-    build:          path.normalize(path.join(rootDir, 'build')),
-    tests:          path.normalize(path.join(rootDir, '__tests__')),
-    coverage:       path.normalize(path.join(rootDir, '__coverage__')),
-    nodeModules:    path.normalize(path.join(rootDir, 'node_modules'))
+let config
+if (!process.env.IS_BROWSER) {
+    config = require('config')
 }
+else {
+    console.log('browserConfig', process.env.CONFIG)
+    config = process.env.CONFIG
+}
+
+console.log('appConfig: config', config)
+
+const {
+    ports: {portFE, portHMR, portBSProxy, portBSUI}
+} = config
 
 export const getAppConfig = _isDevelopment => {
     const isDevelopment = typeof _isDevelopment !== 'undefined'
         ? _isDevelopment
         : process.env.NODE_ENV !== 'production'
 
-    const config = {
+    const webpackConfig = {
         isDevelopment,
         isProduction: (process.env.NODE_ENV === 'production'),
         isCI: (
@@ -36,15 +30,15 @@ export const getAppConfig = _isDevelopment => {
         ||  process.env.TRAVIS
         ||  process.env.NODE_ENV === 'CI'
         ),
-        paths,
+        paths:          appPaths,
 
         globs:          {
-            scripts:        paths.ROOT          + '/**/*.js',
-            src:            paths.src           + '/**/*.js',
-            nodeModules:    paths.nodeModules   + '/**',
-            testFiles:      paths.tests         + '/**/*.test.{js,jsx}',
-            coverage:       paths.coverage      + '/**/*',
-            build:          paths.build         + '/**/*'
+            scripts:        appPaths.ROOT          + '/**/*.js',
+            src:            appPaths.src           + '/**/*.js',
+            nodeModules:    appPaths.nodeModules   + '/**',
+            testFiles:      appPaths.tests         + '/**/*.test.{js,jsx}',
+            coverage:       appPaths.coverage      + '/**/*',
+            build:          appPaths.build         + '/**/*'
         },
 
         // refactor: shove into config files
@@ -56,8 +50,7 @@ export const getAppConfig = _isDevelopment => {
         },
 
         ports:  {
-            frontend:       8000, // config.get('portFE'),
-            HMR:            8080  // config.get('portHMR')
+            portFE, portHMR, portBSProxy, portBSUI
         },
 
         browserSync: {
@@ -66,12 +59,12 @@ export const getAppConfig = _isDevelopment => {
         },
 
         scripts: {
-            src:            paths.src + '/**/*.js',
-            dest:           paths.build + '/js/'
+            src:            appPaths.src + '/**/*.js',
+            dest:           appPaths.build + '/js/'
         },
 
         configFiles:  {
-            eslint: paths.ROOT + '/.eslintrc'
+            eslint: appPaths.ROOT + '/.eslintrc'
         },
 
         images: {
@@ -107,7 +100,7 @@ export const getAppConfig = _isDevelopment => {
 
     }
 
-    return config
+    return webpackConfig
 }
 
 export default getAppConfig()

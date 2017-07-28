@@ -1,7 +1,8 @@
 appEnv:         development
 isDevelopment:  true
 
-portFE:         8000
-portHMR:        8080
-portBSProxy:    8001
-portBSUI:       3000
+ports:
+  portFE:         7000
+  portHMR:        7070
+  portBSProxy:    7001
+  portBSUI:       3000

@@ -8,7 +8,7 @@ import webpackGetConfig from '../webpackGetConfig'
 import appConfig from '../../../config/appConfig'
 
 const {
-    ports
+    ports: {portHMR}
 } = appConfig
 
 export default function startDevServer(callback) {
@@ -28,8 +28,8 @@ export default function startDevServer(callback) {
 
     app.use(webpackHot(compiler))
 
-    app.listen(ports.HMR, () => {
-        console.log('Hot server started at port %d', ports.HMR) // eslint-disable-line no-console
+    app.listen(portHMR, () => {
+        console.log('Hot server started at port %d', portHMR) // eslint-disable-line no-console
     })
 
     webpackDevInstance.waitUntilValid(() => {

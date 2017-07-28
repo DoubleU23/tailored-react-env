@@ -6,15 +6,15 @@ import api             from './api'
 
 import appConfig       from '../../config/appConfig.js'
 
-const app = express()
+const {ports: {portFE}} = appConfig
+const app               = express()
 
 app.use('/api', api)
 
 // app.use(errorHandler);
 app.use(frontend)
 
-const {ports} = appConfig
 
-app.listen(ports.frontend, () => {
-    console.log('Server started at port %d', ports.frontend)
+app.listen(portFE, () => {
+    console.log('Server started at port %d', portFE)
 })

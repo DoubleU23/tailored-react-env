@@ -12,20 +12,23 @@ import cssMqPacker       from 'css-mqpacker'
 import doubleu23Stylus   from 'doubleu23-stylus'
 
 // import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
-// import constants         from './constants'
-import appConfig         from '../../config/appConfig'
+import paths             from '../../config/paths'
+// import appConfig         from '../../config/appConfig'
+
+const config = require('config')
+console.log('webpackGetConfig: config', config)
+// process.env.CONFIG = config
 
 const {
-    ports,
-    paths
-} = appConfig
+    ports: {portHMR}
+} = config
 
 const serverIp = ip.address()
 
 const webpackGetConfig = _isDevelopment => {
     const isDevelopment = _isDevelopment != null
         ? _isDevelopment
-        : appConfig.isDevelopment
+        : config.isDevelopment
 
     const stylusLoaderDefinition = {
         loader: 'stylus-loader',
@@ -48,7 +51,7 @@ const webpackGetConfig = _isDevelopment => {
         }
     }
 
-    const config = {
+    const webpackConfig = {
         target:     'web',
         cache:      !isDevelopment,
         devtool:    process.env.CONTINUOUS_INTEGRATION
@@ -56,7 +59,7 @@ const webpackGetConfig = _isDevelopment => {
           : 'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
-                `webpack-hot-middleware/client?path=http://${serverIp}:${ports.HMR}/__webpack_hmr`,
+                `webpack-hot-middleware/client?path=http://${serverIp}:${portHMR}/__webpack_hmr`,
                 path.join(paths.src, 'index.js')
             ] : [
                 path.join(paths.src, 'index.js')
@@ -67,7 +70,7 @@ const webpackGetConfig = _isDevelopment => {
             filename:           '[name].js',
             sourceMapFilename:  '[name].js.map.sourceMapFilename',
             chunkFilename:      '[name]-[chunkhash].js',
-            publicPath:         `http://${serverIp}:${ports.HMR}/build/`
+            publicPath:         `http://${serverIp}:${portHMR}/build/`
         } : {
             path: paths.build,
             filename: '[name]-[hash].js',
@@ -171,7 +174,7 @@ const webpackGetConfig = _isDevelopment => {
                     // Webpack 2 no longer allows custom properties in configuration.
                     // Loaders should be updated to allow passing options via loader options in module.rules.
                     // Alternatively, LoaderOptionsPlugin can be used to pass options to loaders
-                    hotPort:    ports.HMR,
+                    hotPort:    portHMR,
                     sourceMap:  true,
                     postcss:    () => [
                         autoprefixer({ browsers: 'last 2 version' }),
@@ -181,7 +184,7 @@ const webpackGetConfig = _isDevelopment => {
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV:       JSON.stringify(isDevelopment ? 'development' : 'production'),
-                        APP_CONFIG:     JSON.stringify(appConfig),
+                        CONFIG:         JSON.stringify(config),
                         BUILD_STATIC:   JSON.stringify(process.env.BUILD_STATIC === 'true'),
                         DEBUG:          JSON.stringify(process.env.DEBUG === 'true'),
                         IS_BROWSER:     true
@@ -256,10 +259,10 @@ const webpackGetConfig = _isDevelopment => {
         const devServer = {
             headers: {'Access-Control-Allow-Origin': '*'}
         }
-        config.devServer = devServer
+        webpackConfig.devServer = devServer
     }
 
-    return config
+    return webpackConfig
 }
 
 export default webpackGetConfig

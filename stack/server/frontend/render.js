@@ -26,11 +26,9 @@ import routes                           from '../../../app/js/Routes.js'
 import App                              from '../../../app/js/App.js'
 import { Provider }                     from 'mobx-react'
 
-
-
 const {
     isDevelopment,
-    ports
+    ports: {portFE, portHMR, portBSProxy, portBSUI}
 } = appConfig
 
 console.log('isDevelopment', isDevelopment)
@@ -101,7 +99,7 @@ const fetchComponentDataAsync = async (dispatch, {components, location, params})
 const renderPageAsync = async ({url}) => {
     const {js: appJsFilename, css: appCssFilename} = await getAppAssetFilenamesCachedAsync()
     const scriptSrc = isDevelopment
-        ? `http://${serverIp}:${ports.HMR}/build/app.js`
+        ? `http://${serverIp}:${portHMR}/build/app.js`
         : `/build/${appJsFilename}`
 
     const styleSrc  = `/build/${appCssFilename}`
