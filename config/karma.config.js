@@ -21,19 +21,19 @@ webpackConfig.plugins.slice(0, 1)
 // remove entry-point which will be handled by karma.config->files
 webpackConfig.entry = null
 // add webpack preLoader "isparta-instrumenter"
-webpackConfig.module.rules.unshift({
-    test: /\.js$/,
-    exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
-    use: {
-        loader: 'istanbul-instrumenter-loader',
-        options: {
-            produceSourceMap:   true,
-            esModules:          true,
-            debug:              true
-        }
-    },
-    enforce: 'post'
-})
+// webpackConfig.module.rules.unshift({
+//     test: /\.js$/,
+//     exclude: /(.*\.helper\.js|node_modules|resources\/js\/vendor|\.test\.js$|__tests__)/,
+//     use: {
+//         loader: 'istanbul-instrumenter-loader',
+//         options: {
+//             produceSourceMap:   true,
+//             esModules:          true,
+//             debug:              true
+//         }
+//     },
+//     enforce: 'post'
+// })
 // SETUP for karma.entry.js' require.context
 // => https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
 webpackConfig.plugins.push(
@@ -58,7 +58,7 @@ const instrumenters = {}
 instrumenters[karmaEntryPoint] = 'isparta'
 // define preprocessors (use karma-webpack for src files and karmaEntryPoint)
 const preprocessors                         = {}
-preprocessors[paths.src + '/**/*.{js,jsx}'] = ['webpack'] // use webpack for ALL tests
+preprocessors[paths.src + '/**/*.{js}']     = ['coverage'] // use webpack for ALL tests
 preprocessors[karmaEntryPoint]              = ['webpack']
 
 // additional modification for NODE_ENV test (travisCI)
@@ -122,12 +122,12 @@ export default function(config) {
             require('karma-coverage'),
             require('karma-sourcemap-loader'),
             // reporter(s)
-            require('karma-coverage-istanbul-reporter')
+            require('karma-coverage')
         ],
 
         reporters: !isTestEnv
-            ? ['nyan', 'coverage-istanbul']
-            : ['mocha', 'coverage-istanbul'],
+            ? ['nyan', 'coverage']
+            : ['mocha', 'coverage'],
 
         coverageIstanbulReporter: { // Groove Coverage! (carried away; by a moonlight shadow...)
             dir:        paths.coverage,
