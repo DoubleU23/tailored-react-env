@@ -111,6 +111,7 @@
     "ip": "^1.1.0",
     "isparta": "^4.0.0",
     "istanbul": "^0.4.5",
+    "istanbul-instrumenter-loader": "^3.0.0",
     "jest": "^19.0.2",
     "jsdom": "3.1.2",
     "karma": "^1.5.0",
