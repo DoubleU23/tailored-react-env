@@ -133,7 +133,7 @@
     "mocha": "^2.3.3",
     "moxios": "^0.4.0",
     "nib": "^1.1.0",
-    "opn": "^4.0.0",
+    "opn": "^4.0.2",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.14",
     "postcss-load-config": "^1.0.0",

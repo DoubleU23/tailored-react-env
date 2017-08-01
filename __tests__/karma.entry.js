@@ -53,9 +53,9 @@ if (!global._babelPolyfill) {
  */
 
 // // CONTEXT_COVERAGE
-const coverageContextRequire    = require.context('CONTEXT_COVERAGE')
-const coverageFiles             = coverageContextRequire.keys()
-coverageFiles.forEach(coverageContextRequire)
+// const coverageContextRequire    = require.context('CONTEXT_COVERAGE')
+// const coverageFiles             = coverageContextRequire.keys()
+// coverageFiles.forEach(coverageContextRequire)
 
 // CONTEXT_TESTS
 // const testContextRequire        = require.context('CONTEXT_TESTS')

@@ -25,6 +25,14 @@ gulp.task('static:createIndexHtml', async done => {
     )
 })
 
+// TBD: https://www.npmjs.com/package/opn
+// open file:// url
+// if !CONTINIOUS_INTEGRATION
+//
+// gulp.task('static:open', () => {
+// })
+
+
 gulp.task('static', done => {
     runSequence(
         'static:createIndexHtml',

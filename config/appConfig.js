@@ -11,8 +11,6 @@ else {
     config = process.env.CONFIG
 }
 
-console.log('appConfig: config', config)
-
 const {
     debug, isDevelopment: configIsDevelopment,
     ports:  {portFE, portHMR, portBSProxy, portBSUI},

@@ -157,7 +157,7 @@ export default function(config) {
 
         autoWatch: false,
 
-        browsers: browserEngines, /* , 'Firefox' */
+        browsers: browserEngines,
         // customLaunchers: {
         //     'PhantomJS2_custom': {
         //         base: 'PhantomJS2',
