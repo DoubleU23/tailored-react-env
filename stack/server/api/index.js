@@ -5,8 +5,6 @@ import auth     from 'http-auth'
 
 import fixtures from './fixtures/'
 import cors     from 'cors'
-// import appConfig       from '../../../config/appConfig.js'
-
 
 const api = express()
 
