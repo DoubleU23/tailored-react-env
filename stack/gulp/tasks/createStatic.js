@@ -33,7 +33,8 @@ gulp.task('static:createTemplate', async done => {
 
 gulp.task('static', done => {
     runSequence(
-        'clean:static', 'static:copyBuildFiles',
+        // 'clean:static', // 'clean' is already called in default task sequence'
+        'static:copyBuildFiles',
         'static:createTemplate',
         done
     )
