@@ -1,3 +1,4 @@
+// refactor: shove into utils/lib!?
 import {promisifyAll} from 'bluebird'
 
 import appConfig      from '../../config/appConfig'
