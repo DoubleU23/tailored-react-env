@@ -7,7 +7,6 @@ if (!process.env.IS_BROWSER) {
     config = require('config')
 }
 else {
-    console.log('browserConfig', process.env.CONFIG)
     config = process.env.CONFIG
 }
 

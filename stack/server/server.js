@@ -11,6 +11,7 @@ const app               = express()
 
 app.use('/api', api)
 
+// TBD: refactor and use errorHandler
 // app.use(errorHandler);
 app.use(frontend)
 

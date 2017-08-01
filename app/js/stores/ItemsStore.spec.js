@@ -4,7 +4,7 @@ import {expect}     from 'chai'
 
 import moxios       from 'moxios'
 import ItemsStore   from './ItemsStore.class'
-import fixtures     from '../../../stack/server/api/fixtures/'
+import items        from '../../../stack/server/api/fixtures/items'
 
 import appConfig    from '../../../config/appConfig'
 
@@ -23,7 +23,7 @@ describe('[SPEC] ItemsStore', async function() {
         moxios.install()
         moxios.stubRequest(itemsUrl, {
             status:     200,
-            response:   fixtures.items
+            response:   items
         })
     })
 
@@ -45,7 +45,7 @@ describe('[SPEC] ItemsStore', async function() {
     })
 
     it('ASYNC - should have sorted data after fetching',  function() {
-        const [testItem]    = fixtures.items
+        const [testItem]    = items
         expect(itemStore.data[testItem.id].id).to.equal(testItem.id)
     })
 })

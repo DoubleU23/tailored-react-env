@@ -11,13 +11,9 @@ import cssMqPacker       from 'css-mqpacker'
 // custom libs
 import doubleu23Stylus   from 'doubleu23-stylus'
 
-// import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import paths             from '../../config/paths'
-// import appConfig         from '../../config/appConfig'
 
 const config = require('config')
-console.log('webpackGetConfig: config', config)
-// process.env.CONFIG = config
 
 const {
     ports: {portHMR}
@@ -44,7 +40,7 @@ const webpackGetConfig = _isDevelopment => {
                     DEBUG:          process.env.DEBUG
                 },
                 mediaQueries:       {
-                    'custom':   'only screen and (min-width: 1300px)'
+                    'custom':       'only screen and (min-width: 1300px)'
                 },
                 envPrefix:          '$ENV__'
             })]
@@ -84,19 +80,19 @@ const webpackGetConfig = _isDevelopment => {
                 {
                     loader: 'url-loader',
                     test: /\.(gif|jpg|png|svg)(\?.*)?$/,
-                    exclude:  /\.styl$/,
+                    exclude:  /\.(styl|dir)$/,
                     options: { limit: 10000 }
                 },
                 {
                     loader: 'url-loader',
                     test: /favicon\.ico$/,
-                    exclude:  /\.styl$/,
+                    exclude:  /\.(styl|dir)$/,
                     options: { limit: 1 }
                 },
                 {
                     loader: 'url-loader',
                     test: /\.(ttf|eot|woff|woff2)(\?.*)?$/,
-                    exclude:  /\.styl$/,
+                    exclude:  /\.(styl|dir)$/,
                     options: { limit: 100000 }
                 },
                 // BABEL
