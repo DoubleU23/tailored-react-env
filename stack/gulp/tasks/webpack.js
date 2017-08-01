@@ -1,6 +1,6 @@
-import path             from 'path'
 import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
+import gutil            from 'gulp-util'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 import appConfig        from '../../../config/appConfig.js'
@@ -31,11 +31,15 @@ gulp.task('webpack', finishTaskFn => {
                 // https://github.com/JacksonGariety/gulp-nodemon#-tasks-array--functionchangedfiles-
                 tasks:  ['lint']
             })
+                // .on('message', e => {
+                //     // TBD: catch child_process stdout to know when it's done!
+                //     gutil.log('nodemon.on message', e)
+                // })
                 .on('start', () => {
                     if (!startedFirst) {
                         // call finishTaskFn only the first time
                         startedFirst = true
-                        // TBD: wait until expressServerEntrypoint is mounted
+                        // refactor: wait until expressServerEntrypoint is mounted
                         // i dont know how to pass "finishTaskFn" to the script
                         // and can't pass a callback function per command-line arguments
                         //
