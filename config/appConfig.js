@@ -14,7 +14,8 @@ else {
 console.log('appConfig: config', config)
 
 const {
-    ports: {portFE, portHMR, portBSProxy, portBSUI}
+    ports:  {portFE, portHMR, portBSProxy, portBSUI},
+    api
 } = config
 
 export const getAppConfig = _isDevelopment => {
@@ -41,21 +42,15 @@ export const getAppConfig = _isDevelopment => {
             build:          appPaths.build         + '/**/*'
         },
 
-        // refactor: shove into config files
-        api:    {
-            base:           'http://localhost:8000/api',
-            endpoints: {
-                items:   '/items'
-            }
-        },
+        api, // from 'config'
 
         ports:  {
             portFE, portHMR, portBSProxy, portBSUI
         },
 
         browserSync: {
-            portProxy:      8001, // config.get('portBSProxy'),
-            portUI:         3000  // config.get('portBSUI')
+            portProxy:      portBSProxy,
+            portUI:         portBSUI
         },
 
         scripts: {

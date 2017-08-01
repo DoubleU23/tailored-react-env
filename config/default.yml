@@ -6,3 +6,10 @@ ports:
   portHMR:        7070
   portBSProxy:    7001
   portBSUI:       3000
+
+api:
+    # refactor: run api on other port!?
+    # uses portFE (until we have portAPI)
+    base:           http://localhost:7000/api
+    endpoints:
+        items:      '/items'
