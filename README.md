@@ -38,6 +38,9 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 
 ## roadmap/todos
 * [x] [config hierarchy](#config-hierarchy)  
+* [ ] fix api calls for static build (express.static)  
+* [ ] templating
+* [ ] theme-management (cssobjects-loader theme.styl)
 * [x] webpack  
       * [ ] wait until nodemon script is finished (.on('start') is too early)  
       see: https://github.com/DoubleU23/tailored-react-env/blob/master/gulp/tasks/webpack.js#L37
