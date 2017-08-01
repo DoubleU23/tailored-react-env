@@ -1,11 +1,11 @@
 // REACT LIBS
 import React                            from 'react'
-import {renderToString, renderToStaticMarkup}                 from 'react-dom/server'
+import {renderToStaticMarkup}           from 'react-dom/server' // {renderToString}
 // import Html                          from './Html.react'
 // import {createMemoryHistory}            from 'history'
 
 
-import {matchPath, match, StaticRouter} from 'react-router-dom'
+// import {matchPath, match, StaticRouter} from 'react-router-dom'
 // import {matchPath, match} from 'react-router-server'
 
 
@@ -15,65 +15,29 @@ import ip                               from 'ip'
 // refactor                            : use bluebird as polyfill on entrypoint(s)
 import Promise                          from 'bluebird'
 // APP FILES
-import getAppAssetFilenamesAsync        from './getAssetPaths'
+// import getAppAssetFilenamesAsync        from './getAssetPaths'
+import getAssetFilenamesAsync           from '../../static/getAssetFilenamesAsync'
 import appConfig                        from '../../../config/appConfig.js'
 
-import initialState                     from '../../../app/js/stores/initialState.js'
-import store                            from '../../../app/js/stores/index.js'
+// import initialState                     from '../../../app/js/stores/initialState.js'
+// import store                            from '../../../app/js/stores/index.js'
 
-import routes                           from '../../../app/js/Routes.js'
+// import routes                           from '../../../app/js/Routes.js'
 
-import App                              from '../../../app/js/App.js'
-import { Provider }                     from 'mobx-react'
+// import App                              from '../../../app/js/App.js'
+// import { Provider }                     from 'mobx-react'
 
 const {
     isDevelopment,
-    ports: {portFE, portHMR, portBSProxy, portBSUI}
+    ports: {portHMR}
 } = appConfig
 
-console.log('isDevelopment', isDevelopment)
-
 const serverIp  = ip.address()
-const context   = {}
-// TBD: prefetching data
-// https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/guides/server-rendering.md#data-loading
-export default async function render(req, res, next) {
-    // const location = createMemoryHistory().createLocation(req.url)
 
+export default async function render(req, res, next) {
     const html = await renderPageAsync({url: req.url})
     res.send(html)
     return
-
-/*
-    match({routes, location}, async (error, redirectLocation, renderProps) => {
-        // refactor: TBD: learn more about "redirectLocation"
-        if (redirectLocation) {
-            res.redirect(301, redirectLocation.pathname + redirectLocation.search)
-            return
-        }
-
-        if (error) {
-            next(error)
-            return
-        }
-
-        // TBD: refactor: handle 404 on SSR
-        // // Not possible with * route.
-        // if (renderProps == null) {
-        //   res.send(404, 'Not found')
-        //   return
-        // }
-
-        try {
-            await fetchComponentDataAsync(store.dispatch, renderProps)
-            const html = await renderPageAsync(store, renderProps, req)
-            res.send(html)
-        } catch (err) {
-            console.log('[server/frontend/render.js->render()] Error: ', err)
-            next(err)
-        }
-    })
-*/
 }
 
 // TBD: fetchComponentDataAsync
@@ -97,7 +61,7 @@ const fetchComponentDataAsync = async (dispatch, {components, location, params})
 }
 
 const renderPageAsync = async ({url}) => {
-    const {js: appJsFilename, css: appCssFilename} = await getAppAssetFilenamesCachedAsync()
+    const {js: appJsFilename, css: appCssFilename} = await getAssetFilenamesAsync()
     const scriptSrc = isDevelopment
         ? `http://${serverIp}:${portHMR}/build/app.js`
         : `/build/${appJsFilename}`
@@ -161,13 +125,3 @@ const renderPageAsync = async ({url}) => {
 //    />
 //  )
 // }
-
-
-let appAssetFilenameCache = null
-const getAppAssetFilenamesCachedAsync = async () => {
-    if (appAssetFilenameCache) return appAssetFilenameCache
-
-    appAssetFilenameCache = await getAppAssetFilenamesAsync()
-
-    return appAssetFilenameCache
-}
