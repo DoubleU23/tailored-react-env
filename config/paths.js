@@ -10,6 +10,7 @@ const paths = {
     src:            path.normalize(path.join(rootDir, 'app', 'js')),
     configs:        path.normalize(path.join(rootDir, 'config')),
     build:          path.normalize(path.join(rootDir, 'build')),
+    static:         path.normalize(path.join(rootDir, 'static')),
     tests:          path.normalize(path.join(rootDir, '__tests__')),
     coverage:       path.normalize(path.join(rootDir, '__coverage__')),
     nodeModules:    path.normalize(path.join(rootDir, 'node_modules'))
