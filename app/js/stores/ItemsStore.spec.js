@@ -4,13 +4,13 @@ import {expect}     from 'chai'
 
 import moxios       from 'moxios'
 import ItemsStore   from './ItemsStore.class'
-import testResponse from '../../../stack/server/api/items'
+import fixtures     from '../../../stack/server/api/fixtures/'
 
 import appConfig    from '../../../config/appConfig'
 
 const {
-    api: {base: apiBase, endpoints: {items: itemsEndpoint}},
-    timings: {timeout}
+    api:        {base: apiBase, endpoints: {items: itemsEndpoint}},
+    timings:    {timeout}
 } = appConfig
 
 /* global describe, it, beforeEach, afterEach */
@@ -23,7 +23,7 @@ describe('[SPEC] ItemsStore', async function() {
         moxios.install()
         moxios.stubRequest(itemsUrl, {
             status:     200,
-            response:   testResponse
+            response:   fixtures.items
         })
     })
 
@@ -45,25 +45,7 @@ describe('[SPEC] ItemsStore', async function() {
     })
 
     it('ASYNC - should have sorted data after fetching',  function() {
-        const [testItem]    = testResponse
+        const [testItem]    = fixtures.items
         expect(itemStore.data[testItem.id].id).to.equal(testItem.id)
     })
-
-    // it('SYNC - should fetch data', function(done) {
-    //     const itemStore = new ItemsStore()
-    //     itemStore.fetch()
-    //         .then(response => {
-    //              if (response.error) {
-    //          //  Network Error or TimeoutError
-    //              done(response)
-    //              }
-    //
-    //             expect(response).to.equal('hello')
-    //             expect(itemStore.error).to.equal(false)
-    //             done()
-    //         })
-    //         .catch(mostLikelyAssertionError => {
-    //             done(mostLikelyAssertionError)
-    //         })
-    // })
 })

@@ -1,11 +1,12 @@
-import path    from 'path'
+import path     from 'path'
 
-import express from 'express'
-import auth    from 'http-auth'
+import express  from 'express'
+import auth     from 'http-auth'
 
-import items   from './items'
-import cors    from 'cors'
+import fixtures from './fixtures/'
+import cors     from 'cors'
 // import appConfig       from '../../../config/appConfig.js'
+
 
 const api = express()
 
@@ -24,7 +25,7 @@ api.use(auth.connect(basicAuth))
 api.get('/items', (req, res, next) => {
     res.set('Content-Type', 'application/json; charset=utf-8')
 
-    res.send(JSON.stringify(items))
+    res.send(JSON.stringify(fixtures.items))
 })
 
 export default api
