@@ -8,6 +8,8 @@ import {
     toJS
 }                   from 'mobx'
 
+import fixtures     from '../../../stack/server/api/fixtures/'
+
 import appConfig    from '../../../config/appConfig'
 
 const {
@@ -53,7 +55,7 @@ export default class ItemsStore {
             // like preParsing or filtering data
         })
 
-        return dataSorted // observable(dataSorted)
+        return dataSorted
     }
 
     @action.bound
@@ -73,14 +75,23 @@ export default class ItemsStore {
         this.status         = 'loading'
         this.error          = false
 
+        let response
         const itemsUrl      = apiBase + itemsEndpoint
-        const response      = await axiosWrapped('get', itemsUrl, {
-            responseType: 'json',
-            auth: {
-                username: 'admin',
-                password: 'admin'
+        if (process.env.BUILD_STATIC) {
+            response = {
+                status: 200,
+                data:   fixtures.items
             }
-        })
+        }
+        else {
+            response      = await axiosWrapped('get', itemsUrl, {
+                responseType: 'json',
+                auth: {
+                    username: 'admin',
+                    password: 'admin'
+                }
+            })
+        }
 
         if (response instanceof Error) {
             this.error = response
