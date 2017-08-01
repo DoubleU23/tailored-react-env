@@ -1,5 +1,6 @@
 appEnv:         development
 isDevelopment:  true
+debug:          true
 
 ports:
   portFE:         7000

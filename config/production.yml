@@ -1,2 +1,3 @@
 appEnv:         production
 isDevelopment:  false
+debug:          false

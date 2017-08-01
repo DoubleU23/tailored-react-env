@@ -22,6 +22,15 @@ tasks.forEach(task => {
 // require('gulp-task-list')(gulp, null, [__filename, ...tasks.map(filename => 'gulp/tasks/' + filename)])
 // gulp.task('default', cb => runSequence('task-list'))
 
-gulp.task('default', done =>
-    runSequence('env', 'clean', 'webpack', 'productionServer', 'browserSync', done)
-)
+gulp.task('default', done => {
+    const taskList = ['env', 'clean', 'webpack']
+
+    if (!process.env.BUILD_STATIC) { // refactor: dont use process vars... ONLY CONFIG-MODULE!
+        taskList.push('productionServer', 'browserSync')
+    }
+    else {
+        taskList.push('static')
+    }
+
+    runSequence(...taskList, done)
+})

@@ -14,6 +14,7 @@ else {
 console.log('appConfig: config', config)
 
 const {
+    debug, isDevelopment: configIsDevelopment,
     ports:  {portFE, portHMR, portBSProxy, portBSUI},
     api
 } = config
@@ -21,9 +22,10 @@ const {
 export const getAppConfig = _isDevelopment => {
     const isDevelopment = typeof _isDevelopment !== 'undefined'
         ? _isDevelopment
-        : process.env.NODE_ENV !== 'production'
+        : configIsDevelopment
 
     const webpackConfig = {
+        debug,
         isDevelopment,
         isProduction: (process.env.NODE_ENV === 'production'),
         isCI: (
