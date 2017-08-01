@@ -11,21 +11,15 @@ import getAssetFilenamesAsync from '../../static/getAssetFilenamesAsync'
 import appConfig              from '../../../config/appConfig.js'
 
 const {
-    globs:  {build:  buildGlob},
-    paths:  {static: staticPath}
+    paths:  {build: buildPath}
 } = appConfig
 
-gulp.task('static:copyBuildFiles', () => {
-    return gulp.src([buildGlob])
-        .pipe(gulp.dest(staticPath))
-})
-
-gulp.task('static:createTemplate', async done => {
+gulp.task('static:createIndexHtml', async done => {
     const assetFileNames    = await getAssetFilenamesAsync(true)
     const indexHtml         = getStaticIndexHtml(assetFileNames)
 
     fs.writeFile(
-        path.resolve(staticPath, 'index.html'),
+        path.resolve(buildPath, 'index.html'),
         indexHtml,
         err => err && done(err)
     )
@@ -33,9 +27,7 @@ gulp.task('static:createTemplate', async done => {
 
 gulp.task('static', done => {
     runSequence(
-        // 'clean:static', // 'clean' is already called in default task sequence'
-        'static:copyBuildFiles',
-        'static:createTemplate',
+        'static:createIndexHtml',
         done
     )
 })

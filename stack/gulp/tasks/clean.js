@@ -7,6 +7,4 @@ import appConfig from '../../../config/appConfig.js'
 
 const {globs} = appConfig
 
-gulp.task('clean', () => del([globs.build, globs.static, globs.coverage]))
-
-gulp.task('clean:static', () => del([globs.static]))
+gulp.task('clean', () => del([globs.build, globs.coverage]))

@@ -41,8 +41,7 @@ export const getAppConfig = _isDevelopment => {
             nodeModules:    appPaths.nodeModules   + '/**',
             testFiles:      appPaths.tests         + '/**/*.test.{js,jsx}',
             coverage:       appPaths.coverage      + '/**/*',
-            build:          appPaths.build         + '/**/*',
-            static:         appPaths.static         + '/**/*'
+            build:          appPaths.build         + '/**/*'
         },
 
         api, // from 'config'

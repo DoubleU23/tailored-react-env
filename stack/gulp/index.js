@@ -2,7 +2,7 @@
 
 import gulp            from 'gulp'
 import runSequence     from 'run-sequence'
-import gulpTaskListing from 'gulp-task-list'
+// import gulpTaskListing from 'gulp-task-list'
 
 let fs          = require('fs'),
     onlyScripts = require('./util/script-filter.helper.js'),
