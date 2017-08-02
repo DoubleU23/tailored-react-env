@@ -9,6 +9,7 @@ const paths = {
     api:            path.normalize(path.join(rootDir, 'stack', 'server', 'api')),
     fixtures:       path.normalize(path.join(rootDir, 'stack', 'server', 'api', 'fixtures')),
     app:            path.normalize(path.join(rootDir, 'app')),
+    data:           path.normalize(path.join(rootDir, 'app', 'data')),
     src:            path.normalize(path.join(rootDir, 'app', 'js')),
     configs:        path.normalize(path.join(rootDir, 'config')),
     build:          path.normalize(path.join(rootDir, 'build')),

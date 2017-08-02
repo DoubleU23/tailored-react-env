@@ -38,6 +38,7 @@ export const getAppConfig = _isDevelopment => {
             nodeModules:    appPaths.nodeModules   + '/**',
             testFiles:      appPaths.tests         + '/**/*.test.{js,jsx}',
             coverage:       appPaths.coverage      + '/**/*',
+            data:           appPaths.data          + '/**/*',
             build:          appPaths.build         + '/**/*'
         },
 
