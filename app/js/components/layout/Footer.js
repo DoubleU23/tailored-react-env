@@ -29,7 +29,7 @@ export default class Footer extends Component {
     }
 
     render() {
-        return <footer>this.content</footer>
+        return <footer>{this.content}</footer>
     }
 
 }
