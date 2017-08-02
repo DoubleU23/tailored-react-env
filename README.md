@@ -37,6 +37,8 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] default language in config file  
+* [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
 * [x] [config hierarchy](#config-hierarchy)  
 * [ ] fix api calls for static build (express.static)  
   * [ ] how to manage calls if no server is Running!? import from 'fixtures'
