@@ -37,16 +37,15 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
-* [ ] refactor ConfirmationDiaglog to show only "OK" (f.e. to show ErrorMsg)
+* [ ] refactor ConfirmationDiaglog again (canCancel + buttonLabels)  
 * [ ] bundle "UI Components" in ONE Component which is rendered in <App />  
 * [ ] ??? sourcemaps for babel-register node-env codes ? require('source-map-support').install() ???  
-* [ ] footer-text into message objects  
-* [ ] default language in config file  
+* [ ] MessageStore: take default language ok browser  
 * [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
 
 * [x] [config hierarchy](#config-hierarchy)  
 * [ ] fix api calls for static build (express.static)  
-  * [ ] how to manage calls if no server is Running!? import from 'fixtures'
+  * [ ] how to manage calls if no server is Running!? import from 'fixtures'  
   * [ ] fix dynamic fixtures + static app import
 * [ ] templating
 * [ ] theme-management (cssobjects-loader theme.styl)

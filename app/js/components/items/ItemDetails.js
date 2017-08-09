@@ -68,6 +68,7 @@ export default class ItemDetails extends Component {
     }
 
     toggleEditMode() {
+        console.log('toggleEditMode called')
         this.setState({editMode: !this.state.editMode})
         return true
     }
@@ -98,13 +99,13 @@ export default class ItemDetails extends Component {
                     label={!this.state.editMode ? msg.edit : msg.save}
                     onClick={() => {
                         !this.state.editMode
-                        ? toggleEditMode()
-                        : view.confirmationDialog = {
-                            open:       true,
-                            title:      'Are you sure?',
-                            content:    'Are you REALLY sure?',
-                            action:     toggleEditMode
-                        }
+                            ? toggleEditMode()
+                            : view.confirmationDialog = {
+                                open:       true,
+                                title:      'Are you sure?',
+                                content:    'Are you REALLY sure?',
+                                action:     'close'
+                            }
                     }}
                 />
             </div>
