@@ -8,10 +8,13 @@
     "url": "https://github.com/DoubleU23/tailored-react-env"
   },
   "scripts": {
-    "precommit": "gulp lint:app",
-    "lint": "gulp lint",
-    "test": "gulp test",
-    "mocha": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register './app/js/**/*.spec.js'"
+    "start": "cross-env NODE_ENV=development DEBUG=true gulp",
+    "build": "cross-env NODE_ENV=production gulp",
+    "build:static": "cross-env NODE_ENV=production BUILD_STATIC=true gulp",
+    "test": "cross-env NODE_ENV=test DEBUG=true gulp karma",
+    "mocha": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:babel-core/register './app/js/**/*.spec.js'",
+    "lint": "cross-env NODE_ENV=development gulp lint:all",
+    "precommit": "gulp lint:app"
   },
   "keywords": [
     "gulp",
