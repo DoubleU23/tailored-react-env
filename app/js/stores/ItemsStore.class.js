@@ -140,26 +140,6 @@ export default class ItemsStore {
 
     @action.bound
     async deleteSubObject(id) {
-        // delete on server
-        // (showcase api has no CRUD functions)
-        /*
-        const itemsDeleteUrl    = apiBase + itemsEndpoint + '/' + id
-        const response          = await axiosWrapped(false, false, {
-            method:         'delete',
-            url:            itemsDeleteUrl,
-            responseType:   'json',
-            auth:  {
-                username:   'admin',
-                password:   'admin'
-            }
-        })
-
-        if (response instanceof Array || response.status !== 204) {
-            // handle error
-            return response
-        }
-        */
-
         // delete locally
         this.data[id].subObject  = {}
         this.data[id].patched    = Date.now()
