@@ -164,6 +164,9 @@ const webpackGetConfig = _isDevelopment => {
         },
         plugins: (() => {
             const plugins = [
+                // enable scope hoisting
+                // https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f
+                new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
                     debug:      isDevelopment,
