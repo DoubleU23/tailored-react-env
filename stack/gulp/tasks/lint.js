@@ -12,18 +12,21 @@ const {paths, globs}   = appConfig
 
 const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
-const lintTask = (src, done) => {
+const showDebugInfo = function(src) {
     let esLintOutputPrefix
+    // TBD: enhance debug output...
+    // find pattern, define debug style, etc, ...
+    esLintOutputPrefix = '[ESLint] '.green.bold
 
+    console.log(esLintOutputPrefix + ('configFile: '.bold + appConfig.configFiles.eslint).green)
+    console.log(esLintOutputPrefix + 'src definition:'.green.bold)
+    console.dir(src)
+    console.log(esLintOutputPrefix + 'started ...'.green.bold)
+}
+
+const lintTask = (src, done) => {
     if (process.env.DEBUG) {
-        // TBD: enhance debug output...
-        // find pattern, define debug style, etc, ...
-        esLintOutputPrefix = '[ESLint] '.green.bold
-
-        console.log(esLintOutputPrefix + ('configFile: '.bold + appConfig.configFiles.eslint).green)
-        console.log(esLintOutputPrefix + 'src definition:'.green.bold)
-        console.dir(src)
-        console.log(esLintOutputPrefix + 'started ...'.green.bold)
+        showDebugInfo(src)
     }
     return gulp.src(src)
         // if not in CI env - gulpNotify onError
