@@ -37,29 +37,21 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
-* [ ] exclude "clean" dirs (coverage, build, ...) from lint:all
-* [ ] npm tasks
 * [ ] fix process.env.BUILD_STATIC and its relation to NODE_ENV
-* [ ] refactor ConfirmationDiaglog again (canCancel + buttonLabels)  
-* [ ] bundle "UI Components" in ONE Component which is rendered in <App />  
-* [ ] ??? sourcemaps for babel-register node-env codes ? require('source-map-support').install() ???  
-* [ ] MessageStore: take default language ok browser  
 * [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
-* [ ] add [mobx-router](https://github.com/kitze/mobx-router)  
+  * [ ] refactor ConfirmationDiaglog again (canCancel + buttonLabels)  
+  * [ ] bundle "UI Components" in ONE Component which is rendered in <App />  
+* [ ] ??? sourcemaps for babel-register node-env codes ? require('source-map-support').install() ???  
+  * [ ] compare with "klzvtcadmin"
+* [ ] MessageStore: take default language of browser  
+* [ ] (maybe) add [mobx-router](https://github.com/kitze/mobx-router)  
 * [x] [config hierarchy](#config-hierarchy)  
+  * [ ] enhancement, testing, ...
 * [ ] fix api calls for static build (express.static)  
   * [ ] how to manage calls if no server is Running!? import from 'fixtures'  
   * [ ] fix dynamic fixtures + static app import
 * [ ] templating
 * [ ] theme-management (cssobjects-loader theme.styl)
-* [x] webpack  
-    * [x] synchronous production build
-* [x] travis integration
-  * [x] integrate travis test script for master pushes
-* [x] browserSync
-  * [x] start browserSync proxy after webpack has built
-* [x] MobX store implementation
-* [x] Routing (react-router v4)
 * [x] server rendering  
   * [ ] server-side async prefetching
   * [ ] store injection/binding
