@@ -45,7 +45,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 * [ ] ??? sourcemaps for babel-register node-env codes ? require('source-map-support').install() ???  
 * [ ] MessageStore: take default language ok browser  
 * [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
-
+* [ ] add [mobx-router](https://github.com/kitze/mobx-router)  
 * [x] [config hierarchy](#config-hierarchy)  
 * [ ] fix api calls for static build (express.static)  
   * [ ] how to manage calls if no server is Running!? import from 'fixtures'  
