@@ -37,6 +37,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] exclude "clean" dirs (coverage, build, ...) from lint:all
 * [ ] npm tasks
 * [ ] fix process.env.BUILD_STATIC and its relation to NODE_ENV
 * [ ] refactor ConfirmationDiaglog again (canCancel + buttonLabels)  
