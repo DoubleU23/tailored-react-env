@@ -12,6 +12,7 @@
 /*
  * A unified way of returning a string that describes the type of the given variable.
  */
+/* eslint func-style: [0, "declaration"] */
 function getTypeOf(input) {
     if (input === null) {
         return 'null'
@@ -31,6 +32,7 @@ function getTypeOf(input) {
 /*
  * Branching logic which calls the correct function to clone the given value base on its type.
  */
+/* eslint func-style: [0, "declaration"] */
 function cloneValue(value) {
     // The value is an object so lets clone it.
     if (getTypeOf(value) === 'object') {
@@ -49,6 +51,7 @@ function cloneValue(value) {
 /*
  * Enumerates the given array and returns a new array, with each of its values cloned (i.e. references broken).
  */
+/* eslint func-style: [0, "declaration"] */
 function quickCloneArray(input) {
     return input.map(cloneValue)
 }
@@ -57,6 +60,7 @@ function quickCloneArray(input) {
  * Enumerates the properties of the given object (ignoring the prototype chain) and returns a new object, with each of
  * its values cloned (i.e. references broken).
  */
+/* eslint func-style: [0, "declaration"] */
 function quickCloneObject(input) {
     const output = {}
 
@@ -74,7 +78,7 @@ function quickCloneObject(input) {
 /*
  * Does the actual deep merging.
  */
-/* eslint max-depth: [1, 4] */
+/* eslint max-depth: [1, 4], func-style: [0, "declaration"] */
 function executeDeepMerge(target, _objects = [], _options = {}) {
     const options = {
         arrayBehaviour: _options.arrayBehaviour || 'replace'  // Can be "merge" or "replace".
