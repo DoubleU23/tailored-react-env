@@ -164,9 +164,6 @@ const webpackGetConfig = _isDevelopment => {
         },
         plugins: (() => {
             const plugins = [
-                // enable scope hoisting
-                // https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f
-                new webpack.optimize.ModuleConcatenationPlugin(),
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
                     debug:      isDevelopment,
@@ -200,6 +197,17 @@ const webpackGetConfig = _isDevelopment => {
                 )
             }
             else {
+                if (!process.env.CONTINUOUS_INTEGRATION) {
+                    // enable scope hoisting
+                    // https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f
+                    //
+                    // refactor:
+                    // not available in CONTINUOUS_INTEGRATION
+                    // because of Error: "webpack.optimize.ModuleConcatenationPlugin is not a constructor"
+                    // https://github.com/webpack/webpack/issues/5130
+                    plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
+                }
+
                 plugins.push(
                     new webpack.LoaderOptionsPlugin({minimize: true}),
                     new ExtractTextPlugin({
