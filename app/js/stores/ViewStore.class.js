@@ -4,12 +4,13 @@ import {extendObservable} from 'mobx'
 
 const confirmationDialogDefaults = {
     closeOnAction:  true,
+    // refactor: name it "isOpen" (bool state var)
     open:           false,
     action:         null,
     title:          'Are you sure?',
     content:        'Do you REALLY want to do that?',
     canCancel:      true,
-    buttonLabels:   {
+    buttonLabels:       {
         cancel:     null,
         confirm:    null
     }
@@ -21,7 +22,10 @@ export default class ViewStore {
         extendObservable(this, {
             status:             'inactive',
             error:              false,
-            _confirmationDialog: {...confirmationDialogDefaults}
+            _confirmationDialog: {...confirmationDialogDefaults},
+            sideBar: {
+                isOpen: false
+            }
         }, state)
 
         if (process.env.IS_BROWSER && process.env.DEBUG) {

@@ -14,12 +14,13 @@ if (process.env.IS_BROWSER) {
     require('./Items.styl')
 }
 
-@inject('items')
+@inject('items', 'view')
 @observer
 export default class Items extends Component {
 
     static propTypes = {
-        items: PropTypes.object.isRequired
+        view:   PropTypes.object.isRequired,
+        items:  PropTypes.object.isRequired
     }
 
     async componentWillMount() {
@@ -38,6 +39,10 @@ export default class Items extends Component {
 
         return (
             <div>
+                <div>
+                    ViewStore.sideBar.isOpen: {'' + this.props.view.sideBar.isOpen}
+                </div>
+
                 <h2>Items</h2>
 
                 <Route exact path="/items" component={ItemsList} />

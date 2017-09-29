@@ -6,6 +6,9 @@ export default {
     footer: {
         contentHtml: '<hr />done with 💖 by <a href="https://github.com/DoubleU23/" target="_blank">DoubleU23</a>'
     },
+    sideBar: {
+        title: 'Sidebar'
+    },
     // GLOBAL UI COMPONENTS
     ui:     {
         confirmationDialog: {
