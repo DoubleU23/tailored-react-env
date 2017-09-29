@@ -1,15 +1,27 @@
 # Tailored React Environment
 [![travis-build](https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master "travis build")](https://travis-ci.org/DoubleU23/tailored-react-env)
 
+## NPM Scripts
+
+* `start` -> start app in development mode
+* `build` -> build app and start production server
+* `build:static` -> build static app (html+js+css)
+* `lint` -> lint code (app + stack)
+* `mocha` -> run unit tests
+* `test` -> run integration tests (in karma)
+
+also supports [husky](https://www.npmjs.com/package/husky) git hooks
+* `precommit` -> lint code (app + stack)
+
 ## Gulp Tasks
 
 * `gulp clean` - cleans `/build` and `/__coverage__`
 * `gulp lint`  - lints based on env (isDevelopment ? lint:app)
   * `gulp lint:app` - lints app code only
-  * `gulp lint:all` - also lints env code
+  * `gulp lint:all` - also lints stack code
 * `gulp karma`
   * code-coverage (instanbul-instrumenter)
-  * run tests in different Browsers based on env
+  * integration tests
       * TEST/TRAVIS/CI - PhantomJs
       * other env - Firefox and Chrome
 * webpack
@@ -20,21 +32,27 @@
 
 all config-vars are loaded from appConfig.js which loads defaults per config-module (based on NODE_ENV)
 
-### Config-Hierarchy - TBD
+### Config-Hierarchy - TBC
 1. __command-line injected env vars__  
-    highest priority to enable custom start/build scripts and CI builds
-    f.e. `APP_ENV=development gulp`  
-    can overwrite config module vars per `custom-environment-variables.yml`  
-    enables gitlabCI/Ansible ENV-Var injections  
+    * highest priority to enable custom start/build scripts and CI builds
+      f.e. `APP_ENV=development gulp`  
+    * can overwrite config module vars per `custom-environment-variables.yml`  
+      enables ENV-Var injections for Continious Integration  
 
 2. __config module files__ ([node-config](https://www.npmjs.com/package/config) package)  
-    loading config file corresponding to `NODE_ENV`  
-    f.e. /config/production.yml  
-    __HINT:__ running gulp, NODE_ENV can also be set through `--env ENVNAME`
+    * loading config file corresponding to `NODE_ENV`  
+      f.e. /config/production.yml  
+    __HINT:__ running gulp, NODE_ENV can also be set through `--env ENVNAME` before config gets loaded
 
 3. __appConfig.js__
+    * isomorphic
+        * on server:  
+          gets config per `require('config')`
+        * on client:  
+          gets config per `process.env.CONFIG`  
+          which gets injected by `webpack.DefinePlugin` from config-module
     * loads defaults from config-module
-    * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
+    * extends config with app-related vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
 * [ ] updrade depreacated packages (tryout "greenkeeper")  
@@ -59,7 +77,9 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 * [ ] (maybe) add [mobx-router](https://github.com/kitze/mobx-router)  
 * [x] [config hierarchy](#config-hierarchy)  
   * [ ] enhancement, testing, ...
+* [ ] fix routing for static build  
 * [ ] fix api calls for static build (express.static)  
+  * [ ] fix api calls for static build (express.static)  
   * [ ] how to manage calls if no server is Running!? import from 'fixtures'  
   * [ ] fix dynamic fixtures + static app import
 * [ ] templating
