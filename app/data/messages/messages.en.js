@@ -36,7 +36,7 @@ export default {
     },
     // SUBPAGES
     home: {
-        title: 'Home'
+        title: 'Welcome!'
     },
     404:    {
         headline: '404 - Page not found!'

@@ -38,7 +38,7 @@ class App extends Component {
                 <NavBar {...this.props} />
 
                 <div id="content">
-                    <Route path="/home" component={Home} />
+                    <Route exact={true} path="/" component={Home} />
                     <Route path="/items" component={Items} />
 
                     {process.env.NODE_ENV !== 'production' &&

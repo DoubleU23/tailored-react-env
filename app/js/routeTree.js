@@ -7,7 +7,7 @@ const routeTree = {
     home: {
         order:      0,
         title:      'Home',
-        route:      '/home',
+        route:      '/',
         component:  Home,
         subRoutes:  {}
     },
