@@ -37,6 +37,9 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] setup dynamic import path for webpack (babel)
+  * f.e.: `import '/compontents/PATH/FILENAME'`
+    => should search in more paths ['/app/js/components', '/stack/lib/compontents']
 * [ ] Documentation (try [Slate](https://github.com/lord/slate) or similar tools)
 * [ ] fix process.env.BUILD_STATIC and its relation to NODE_ENV
 * [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
