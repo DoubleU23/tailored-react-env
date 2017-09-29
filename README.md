@@ -37,6 +37,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] Documentation (try [Slate](https://github.com/lord/slate) or similar tools)
 * [ ] fix process.env.BUILD_STATIC and its relation to NODE_ENV
 * [ ] /stack/lib(/components) - for reusable Components and react-env related utils (like ConfirmationDialog)  
   * [ ] refactor ConfirmationDiaglog again (canCancel + buttonLabels)  
@@ -55,17 +56,21 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
 * [x] server rendering  
   * [ ] server-side async prefetching
   * [ ] store injection/binding
-  * [ ] dynamic template
+  * [ ] dynamic templateggit 
 * [x] eslint
   * [ ] pattern based settings for *.spec.js and *.test.js files  
   (global it and describe, no arrow-functions, ...)  
   => https://github.com/eslint/eslint/issues/3611
-* [x] tests
+* [x] tests / CI
+  * [ ] integrate [Sentry](https://github.com/marketplace/sentry)  
   * [x] setup test-environment
     karma-webpack with mocha, chai and enzyme
     * [x] write first tests
     * [x] fix coverage report
     * [ ] use browserstack API for karma tests
+* [ ] include more libaries ( = more features!!! :confetti_ball: )
+  * [ ] include [lodashs' webpack plugin](https://github.com/lodash/lodash-webpack-plugin)
+
 
 ## known issues
 
