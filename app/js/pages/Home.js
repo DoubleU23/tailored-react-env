@@ -17,11 +17,8 @@ export default class Home extends Component {
         const {messages: {home: msg}} = this.props
 
         return (
-            <DocumentTitle title="404: Not Found">
-                <div>
-                    <section className="not-found-page" />
-                    <h1>{msg.title}</h1>
-                </div>
+            <DocumentTitle title={msg.title}>
+                <h1>{msg.title}</h1>
             </DocumentTitle>
         )
     }
