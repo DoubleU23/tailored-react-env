@@ -37,6 +37,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] add Heroku ProcFile + deployment of boilerplate showcase
 * [ ] refactor itemList (+styling)  
 * [ ] refactor routes (Routes.js should export object typed route tree)  
 * [ ] add mobx-router + routeTransitions (+ loading screen)  
@@ -51,7 +52,9 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
   * [ ] bundle "UI Components" in ONE Component which is rendered in <App />  
 * [ ] ??? sourcemaps for babel-register node-env codes ? require('source-map-support').install() ???  
   * [ ] compare with "klzvtcadmin"
-* [ ] MessageStore: take default language of browser  
+* [ ] LOCALIZATION
+  * [ ] translate content for DE/EN
+  * [ ] MessageStore: take default language of browser  
 * [ ] (maybe) add [mobx-router](https://github.com/kitze/mobx-router)  
 * [x] [config hierarchy](#config-hierarchy)  
   * [ ] enhancement, testing, ...
