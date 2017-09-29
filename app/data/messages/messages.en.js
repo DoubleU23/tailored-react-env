@@ -9,6 +9,9 @@ export default {
     sideBar: {
         title: 'Sidebar'
     },
+    navBar: {
+        title: 'Navbar'
+    },
     // GLOBAL UI COMPONENTS
     ui:     {
         confirmationDialog: {

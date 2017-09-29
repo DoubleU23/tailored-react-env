@@ -25,6 +25,9 @@ export default class ViewStore {
             _confirmationDialog: {...confirmationDialogDefaults},
             sideBar: {
                 isOpen: false
+            },
+            navBar:  {
+                isOpen: false
             }
         }, state)
 

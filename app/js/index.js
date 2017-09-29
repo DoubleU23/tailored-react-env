@@ -16,13 +16,14 @@ autorun(store)
 import MuiThemeProvider          from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme               from 'material-ui/styles/getMuiTheme'
 import darkBaseTheme             from 'material-ui/styles/baseThemes/darkBaseTheme'
+import lightBaseTheme            from 'material-ui/styles/baseThemes/lightBaseTheme'
 import injectTapEventPlugin      from 'react-tap-event-plugin'
 
 import objectAssign              from '../../utils/objectAssign'
 import tryCatch                  from '../../utils/tryCatch'
 
 // TBD: make own theme (maybe with "cssobjects-loader"!?)
-const myTheme = objectAssign({}, darkBaseTheme, {
+const myTheme = objectAssign({}, lightBaseTheme, {
     palette: {}
 })
 const muiTheme = getMuiTheme(myTheme)

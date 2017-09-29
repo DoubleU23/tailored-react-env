@@ -2,13 +2,16 @@ import React          from 'react'
 import Component      from 'react-pure-render/component'
 import PropTypes      from 'prop-types'
 
-import {inject}       from 'mobx-react'
+import {inject, observer}       from 'mobx-react'
 
-import AppBar         from 'material-ui/AppBar'
-import IconButton     from 'material-ui/IconButton'
-import ActionSettings from 'material-ui/svg-icons/action/settings'
+import AppBar          from 'material-ui/AppBar'
+import IconButton      from 'material-ui/IconButton'
+import ActionSettings  from 'material-ui/svg-icons/action/settings'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
+import NavigationOpen  from 'material-ui/svg-icons/navigation/menu'
 
 @inject('view', 'messages')
+@observer
 export default class Header extends Component {
 
     static propTypes = {
@@ -16,30 +19,55 @@ export default class Header extends Component {
         messages:   PropTypes.object.isRequired
     }
 
-    render() {
-        console.log('this.props.messages', this.props.messages)
+    constructor(props) {
+        super(props)
 
+        this.getToggleFn.bind(this)
+    }
+
+    toggleNavBar() {
+        const {view: viewStore} = this.props
+        viewStore.navBar.isOpen = !viewStore.navBar.isOpen
+    }
+
+    /**
+     * Returns the proper toggle function.
+     *
+     * @param      {String}     whichBar  'navBar' || 'sideBar'
+     * @return     {Function}   The toggle function.
+     */
+    getToggleFn(whichBar) {
+        const {view: viewStore} = this.props
+
+        return () => {
+            viewStore[whichBar].isOpen = !viewStore[whichBar].isOpen
+        }
+    }
+
+    render() {
         const {
             view:       viewStore,
             messages:   {header: msg}
         } = this.props
 
-        console.log('viewStore.sidebar', viewStore)
+        const NavBarToggleIcon = viewStore.navBar.isOpen
+            ? NavigationClose
+            : NavigationOpen
 
         return (
             <header>
                 <AppBar
                     title={msg.title}
+                    // NAVBAR TOGGLER
+                    iconElementLeft={
+                        <IconButton>
+                            <NavBarToggleIcon onClick={this.getToggleFn('navBar')} />
+                        </IconButton>
+                    }
+                    // SIDEBAR TOGGLER
                     iconElementRight={
                         <IconButton>
-                            <ActionSettings
-                                onClick={() => {
-                                    console.log('test', viewStore)
-                                    viewStore.sideBar.isOpen = !viewStore.sideBar.isOpen
-                                    console.log('test2', viewStore)
-                                    console.log('----------------------------')
-                                }}
-                            />
+                            <ActionSettings onClick={this.getToggleFn('sideBar')} />
                         </IconButton>
                     }
                 />

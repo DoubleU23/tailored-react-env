@@ -8,7 +8,7 @@ import ConfirmationDialog from './components/ConfirmationDialog'
 
 import Header             from './components/layout/Header'
 import Footer             from './components/layout/Footer'
-import Nav                from './components/layout/Nav'
+import NavBar             from './components/layout/NavBar'
 import Items              from './pages/Items'
 
 import TestComponent      from './components/TestComponent'
@@ -34,9 +34,10 @@ class App extends Component {
                     </div>
                 </SideBar>
 
-                <Nav />
+                <NavBar {...this.props} />
+
                 <div id="content">
-                    {process.env.DEBUG &&
+                    {process.env.NODE_ENV !== 'production' &&
                     <Route path="/test" component={TestComponent} />}
 
                     <Route path="/items" component={Items} />
