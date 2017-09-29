@@ -37,6 +37,7 @@ all config-vars are loaded from appConfig.js which loads defaults per config-mod
     * also contains app-related config vars that aren't env-dependent (paths, file extensions, ...)
 
 ## roadmap/todos
+* [ ] updrade depreacated packages (tryout "greenkeeper")  
 * [ ] add Heroku ProcFile + deployment of boilerplate showcase
 * [ ] refactor itemList (+styling)  
 * [ ] refactor routes (Routes.js should export object typed route tree)  
