@@ -39,11 +39,7 @@ export default class Items extends Component {
 
         return (
             <div>
-                <div>
-                    ViewStore.sideBar.isOpen: {'' + this.props.view.sideBar.isOpen}
-                </div>
-
-                <h2>Items</h2>
+                <h1>Items</h1>
 
                 <Route exact path="/items" component={ItemsList} />
                 <Route exact path="/items/:id" component={ItemDetails} />

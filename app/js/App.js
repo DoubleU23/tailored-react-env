@@ -9,6 +9,7 @@ import ConfirmationDialog from './components/ConfirmationDialog'
 import Header             from './components/layout/Header'
 import Footer             from './components/layout/Footer'
 import NavBar             from './components/layout/NavBar'
+import Home               from './pages/Home'
 import Items              from './pages/Items'
 
 import TestComponent      from './components/TestComponent'
@@ -37,10 +38,11 @@ class App extends Component {
                 <NavBar {...this.props} />
 
                 <div id="content">
+                    <Route path="/home" component={Home} />
+                    <Route path="/items" component={Items} />
+
                     {process.env.NODE_ENV !== 'production' &&
                     <Route path="/test" component={TestComponent} />}
-
-                    <Route path="/items" component={Items} />
                 </div>
 
                 {/* UI Components (handled by ViewStore) */}

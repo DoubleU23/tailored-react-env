@@ -35,6 +35,9 @@ export default {
         }
     },
     // SUBPAGES
+    home: {
+        title: 'Home'
+    },
     404:    {
         headline: '404 - Page not found!'
     },

@@ -6,6 +6,9 @@ import {inject, observer} from 'mobx-react'
 
 import Drawer             from 'material-ui/Drawer'
 import MenuItem           from 'material-ui/MenuItem'
+
+import {routes}           from '../../routeTree'
+
 // if (process.env.IS_BROWSER) {
 //     require('./NavBar.styl')
 // }
@@ -46,6 +49,17 @@ export default class NavBar extends Component {
         }
     }
 
+    renderMenuItems() {
+        return routes.map(route =>
+            <MenuItem
+                key={'navBar_menuItem_' + route.key}
+                onClick={this.handleRoute(route.route)}
+            >
+                {route.title}
+            </MenuItem>
+        )
+    }
+
     render() {
         const {
             view:       viewStore,
@@ -55,31 +69,27 @@ export default class NavBar extends Component {
 
         return (
             <Drawer
-                containerClassName="sidebar"
                 open={viewStore.navBar.isOpen}
+                docked={false}
+
+                containerClassName="sidebar"
                 containerStyle={{
                     padding:            '1rem 0.5rem',
                     top:                '64px',
                     height:             window.innerHeight - 64,
                     backgroundColor:    '#fff'
                 }}
-                overlayStyle={{
-                    top: '64px'
-                }}
-                docked={false}
+                overlayStyle={{top: '64px'}}
             >
                 {(msg.title || title) &&
                 <h2 className="title">
                     {msg.title || title}
+
                     {subTitle &&
                     <span className="subTitle">{subTitle}</span>}
                 </h2>}
 
-                <MenuItem onClick={this.handleRoute('/items')}>Items</MenuItem>
-
-                {process.env.NODE_ENV !== 'production' && // TEST COMPONENT
-                <MenuItem onClick={this.handleRoute('/test')}>Test</MenuItem>}
-
+                {this.renderMenuItems()}
             </Drawer>
         )
     }
