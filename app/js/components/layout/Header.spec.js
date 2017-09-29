@@ -5,6 +5,8 @@ import React            from 'react'
 import {shallow}        from 'enzyme'
 import {expect}         from 'chai'
 
+import store            from '../../stores'
+
 import MessageStore     from '../../stores/MessageStore.class'
 import Header           from './Header'
 
@@ -14,7 +16,10 @@ const messageStore = new MessageStore()
 
 describe('[SPEC] Component: Header', () => {
     it('should render properly', () => {
-        const wrapper = shallow(<Header messages={messageStore.messages} />)
+        // refactor:
+        // write helper function ("shallowWithStore()") to inject stores
+        // +++ use global test utils file
+        const wrapper = shallow(<Header {...store} messages={messageStore.messages} />)
 
         expect(wrapper.find(Header)).to.exist
 

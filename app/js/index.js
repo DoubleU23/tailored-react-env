@@ -9,6 +9,7 @@ import routes                    from './Routes'
 import createBrowserHistory      from 'history/createBrowserHistory'
 // MOBX
 import {Provider}                from 'mobx-react'
+// refactor: unify "store/stores"
 import store                     from './stores'
 import autorun                   from './stores/lib/autorunWrapper'
 autorun(store)
