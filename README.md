@@ -10,5 +10,5 @@ More Information can be found in the [Wiki](https://github.com/DoubleU23/tailore
 [travis-img]: https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master
 [travis-url]: https://travis-ci.org/DoubleU23/tailored-react-env
 
-[david-img]: https://david-dm.org/doubleu23/tailored-react-env.svg
+[david-img]: https://david-dm.org/doubleu23/tailored-react-env/dev-status.svg
 [david-url]: https://david-dm.org/doubleu23/tailored-react-env?type=dev
