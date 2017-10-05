@@ -1,7 +1,9 @@
 # Tailored React Environment
-[![Travis Build][travis-img]][travis-url] [![Dependency Status][david-prod-img]][david-prod-url] [![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url]  
-
 > **allinone isomorphic react environment.**
+
+[![Travis Build][travis-img]][travis-url]
+[![Dependency Status][david-prod-img]][david-prod-url]
+[![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url]  
 
 ## More Information
 

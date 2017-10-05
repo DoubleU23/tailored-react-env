@@ -38,10 +38,8 @@ export default class ViewStore {
 
     set confirmationDialog(confirmationDialog) {
         // extend given option with defaults
-        console.log('set confirmationDialog', confirmationDialog)
         confirmationDialog = Object.assign(confirmationDialogDefaults, confirmationDialog)
 
-        console.log('set confirmationDialog', confirmationDialog)
         // then extend the observable
         extendObservable(this._confirmationDialog, confirmationDialog)
     }
