@@ -1,11 +1,14 @@
 # Tailored React Environment
-[![Travis Build][travis-img]][travis-url] [![Dependency Status][david-prod-img]][david-prod-url] [![Dependency Status][david-dev-img]][david-dev-url]  
+[![Travis Build][travis-img]][travis-url] [![Dependency Status][david-prod-img]][david-prod-url] [![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url]  
 
 > **allinone isomorphic react environment.**
 
 ## More Information
 
 More Information can be found in the [Wiki](https://github.com/DoubleU23/tailored-react-env/wiki/)  
+
+[snyk-img]: https://snyk.io/test/github/doubleu23/tailored-react-env/badge.svg
+[snyk-url]: https://snyk.io/test/github/doubleu23/tailored-react-env
 
 [travis-img]: https://api.travis-ci.org/DoubleU23/tailored-react-env.svg?branch=master
 [travis-url]: https://travis-ci.org/DoubleU23/tailored-react-env
