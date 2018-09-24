@@ -25,7 +25,9 @@ api.use(auth.connect(basicAuth))
 
 // DYNAMIC api route
 // gets subObject of fixtures
-// TBD: fix dynamic "fixtures"
+// TBD: fix dynamic "fixtures" to read json files
+// TBD: move this fake api to server/test/api
+// TBD: integrate live api from appConfig OR if not available or test env, use /test/api/ (THIS function)
 api.get('/:endpoint', (req, res, next) => {
     const endpoint = req.params.endpoint
     if (endpoint === '' || endpoint == null) {

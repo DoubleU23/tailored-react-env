@@ -1,7 +1,6 @@
 import express         from 'express'
 import frontend        from './frontend'
 import api             from './api'
-// import api          from './api'; // to be done
 // import errorHandler from './lib/errorHandler';
 
 import appConfig       from '../../config/appConfig.js'
