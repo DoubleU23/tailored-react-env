@@ -1,7 +1,7 @@
 'use strict'
 
 import {expect as chaiExpect} from 'chai'
-import sinon from 'sinon'
+// import sinon from 'sinon'
 
 console.log('helper.js called!')
 

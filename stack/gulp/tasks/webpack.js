@@ -1,11 +1,11 @@
 import gulp             from 'gulp'
 import nodemon          from 'gulp-nodemon'
-import gutil            from 'gulp-util'
+// import gutil            from 'gulp-util'
 
 import webpackMakeBuild from '../../webpack/webpackMakeBuild'
 import appConfig        from '../../../config/appConfig.js'
 
-import config           from 'config'
+// import config           from 'config'
 
 import startDevServer   from '../../webpack/devServer/start.js'
 

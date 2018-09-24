@@ -12,7 +12,7 @@ import {renderToStaticMarkup}           from 'react-dom/server' // {renderToStri
 // OTHER LIBS
 import ip                               from 'ip'
 // refactor                            : use bluebird as polyfill on entrypoint(s)
-import Promise                          from 'bluebird'
+// import Promise                          from 'bluebird'
 // APP FILES
 // import getAppAssetFilenamesAsync        from './getAssetPaths'
 import getAssetFilenamesAsync           from '../../static/getAssetFilenamesAsync'
@@ -40,24 +40,24 @@ export default async function render(req, res, next) {
 }
 
 // TBD: fetchComponentDataAsync
-const fetchComponentDataAsync = async (dispatch, {components, location, params}) => { // eslint-disable-line space-before-function-paren
-    // const fetchActions = components.reduce((actions, component) => {
-    //     return actions.concat(component.fetchActions || [])
-    // }, [])
-    // const promises = fetchActions.map(action => dispatch(action(
-    //     {location, params}
-    // )))
+// const fetchComponentDataAsync = async (dispatch, {components, location, params}) => { // eslint-disable-line space-before-function-paren
+//     // const fetchActions = components.reduce((actions, component) => {
+//     //     return actions.concat(component.fetchActions || [])
+//     // }, [])
+//     // const promises = fetchActions.map(action => dispatch(action(
+//     //     {location, params}
+//     // )))
 
-    // // Because redux-promise-middleware always returns fulfilled promise, we have
-    // // to detect errors manually.
-    // // https://github.com/pburtchaell/redux-promise-middleware#usage
-    // const results = await Promise.all(promises)
-    // results.forEach(result => {
-    //     if (result.error)
-    //         throw result.payload
-    // })
-    return  Promise.resolve()
-}
+//     // // Because redux-promise-middleware always returns fulfilled promise, we have
+//     // // to detect errors manually.
+//     // // https://github.com/pburtchaell/redux-promise-middleware#usage
+//     // const results = await Promise.all(promises)
+//     // results.forEach(result => {
+//     //     if (result.error)
+//     //         throw result.payload
+//     // })
+//     return  Promise.resolve()
+// }
 
 const renderPageAsync = async ({url}) => {
     const {js: appJsFilename, css: appCssFilename} = await getAssetFilenamesAsync()
@@ -105,9 +105,9 @@ const renderPageAsync = async ({url}) => {
                 <div id="app" />
                 <script type="text/javascript" src={scriptSrc} />
                 {// in dev, styles are handled by style-loader
-                 // which directly injects them into the DOM
-                !isDevelopment &&
-                <link rel="stylesheet" href={styleSrc} name="appStyle" />}
+                    // which directly injects them into the DOM
+                    !isDevelopment &&
+                    <link rel="stylesheet" href={styleSrc} name="appStyle" />}
             </body>
         </html>
     )

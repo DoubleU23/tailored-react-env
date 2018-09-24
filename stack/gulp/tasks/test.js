@@ -10,23 +10,28 @@ import appConfig from '../../../config/appConfig.js'
 gulp.task('test', () => {
     let files
 
-  // Allow specification of a single test file
+    // Allow specification of a single test file
     if (argv.f || argv.file) {
         let singleFile = argv.f || argv.file
 
-    // Allow omission of directory and/or extension
-        if (singleFile.indexOf('__tests__/') === -1) { singleFile = `__tests__/${singleFile}` }
-        if (singleFile.indexOf('.test.js') === -1) { singleFile += '.test.js' }
+        // Allow omission of directory and/or extension
+        if (singleFile.indexOf('__tests__/') === -1) {
+            singleFile = `__tests__/${singleFile}`
+        }
+        if (singleFile.indexOf('.test.js') === -1) {
+            singleFile += '.test.js'
+        }
 
-    // Include top-level helper even when running specific tests
+        // Include top-level helper even when running specific tests
         files = ['__tests__/helper.js', singleFile]
-    } else {
+    }
+    else {
     // Default to all test files
         files = ['__tests__/helper.js', appConfig.globs.testFiles]
     }
 
-  // Ensure that all window/DOM related properties
-  // are available to all tests
+    // Ensure that all window/DOM related properties
+    // are available to all tests
     global.document = jsdom('<!DOCTYPE html><html><body></body></html>')
     global.window = document.parentWindow
     global.location = { href: '' }
@@ -34,8 +39,8 @@ gulp.task('test', () => {
     global.navigator.userAgent = 'jsdom'
     global.navigator.appVersion = ''
 
-  // Ensure that 'should' and 'sinon' library methods will be
-  // available to all tests
+    // Ensure that 'should' and 'sinon' library methods will be
+    // available to all tests
     global.Should = require('should')
     global.sinon = require('sinon')
 

@@ -51,8 +51,8 @@ const webpackGetConfig = _isDevelopment => {
         target:     'web',
         cache:      !isDevelopment,
         devtool:    process.env.CONTINUOUS_INTEGRATION
-          ? 'inline-source-map'
-          : 'cheap-module-source-map',
+            ? 'inline-source-map'
+            : 'cheap-module-source-map',
         entry: {
             app: isDevelopment ? [
                 `webpack-hot-middleware/client?path=http://${serverIp}:${portHMR}/__webpack_hmr`,
@@ -108,7 +108,7 @@ const webpackGetConfig = _isDevelopment => {
                         // presets/plugins have to match defines in .babelrc
                         presets: [
                             ['env', { modules: false }],
-                            'es2015', 'react', 'stage-2', 'stage-3'
+                            'es2015', 'react', 'stage-0'
                         ],
                         plugins: [
                             [
@@ -146,10 +146,10 @@ const webpackGetConfig = _isDevelopment => {
                         stylusLoaderDefinition
                     ]
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
-                    : ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: ['css-loader', 'postcss-loader', stylusLoaderDefinition]
-                    })
+                        : ExtractTextPlugin.extract({
+                            fallback: 'style-loader',
+                            use: ['css-loader', 'postcss-loader', stylusLoaderDefinition]
+                        })
                 }
             ]
             // .concat(stylesLoaders)

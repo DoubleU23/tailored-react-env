@@ -3,7 +3,7 @@
 import React        from 'react'
 import Component    from 'react-pure-render/component'
 
-import appConfig    from '../../config/appConfig'
+// import appConfig    from '../../config/appConfig'
 
 if (process.env.IS_BROWSER) {
     require('./testStylus.styl')

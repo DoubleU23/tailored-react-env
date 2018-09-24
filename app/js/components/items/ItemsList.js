@@ -33,7 +33,7 @@ export default class ItemsList extends Component {
                             onClick={() => history.push('./items/' + id)}
                             key={'itemListElement_' + id}
                             // style={backgroundStyle}
-                         >
+                        >
                             <div className="itemListElementOverlay">
                                 <span className="itemListElementTitle">{item.title}</span>
                                 <span className="itemListElementInfo">
@@ -54,8 +54,8 @@ export default class ItemsList extends Component {
         return (
             <div id="itemList">
                 {items.status !== 'success'
-                ? <div>loading...</div>
-                : this.renderItems()}
+                    ? <div>loading...</div>
+                    : this.renderItems()}
             </div>
         )
     }

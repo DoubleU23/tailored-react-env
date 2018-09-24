@@ -1,14 +1,14 @@
 // let sum = require('./sum.js').default
-import React from 'react'
+// import React from 'react'
 
 // import {mount, render, shallow} from 'enzyme'
 
 import sum from './sum.js'
-import scriptFilter from '../../stack/gulp/util/script-filter.helper.js'
+// import scriptFilter from '../../stack/gulp/util/script-filter.helper.js'
 
 // import TestUtils from 'react-addons-test-utils'
 
-import Footer from '../../app/js/components/layout/Footer.js'
+// import Footer from '../../app/js/components/layout/Footer.js'
 // let test = require('../../gulp/util/script-filter.js')
 
 describe('"firstTest.test.js"', function() {

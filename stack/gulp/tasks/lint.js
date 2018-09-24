@@ -8,9 +8,10 @@ import gulpNotify from 'gulp-notify'
 
 import appConfig  from '../../../config/appConfig.js'
 
-const {paths, globs}   = appConfig
+const {paths, globs}    = appConfig
+const {green}           = colors
 
-const src       = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
+const src = [`!${paths.tests}`, `!${globs.coverage}`, `!${globs.nodeModules}`, `!${globs.build}`]
 
 const showDebugInfo = function(src) {
     let esLintOutputPrefix
@@ -18,10 +19,10 @@ const showDebugInfo = function(src) {
     // find pattern, define debug style, etc, ...
     esLintOutputPrefix = '[ESLint] '.green.bold
 
-    console.log(esLintOutputPrefix + ('configFile: '.bold + appConfig.configFiles.eslint).green)
-    console.log(esLintOutputPrefix + 'src definition:'.green.bold)
+    console.log(esLintOutputPrefix + green('configFile: '.bold + appConfig.configFiles.eslint))
+    console.log(esLintOutputPrefix + green('src definition:'.bold))
     console.dir(src)
-    console.log(esLintOutputPrefix + 'started ...'.green.bold)
+    console.log(esLintOutputPrefix + green('started ...'.bold))
 }
 
 const lintTask = (src, done) => {

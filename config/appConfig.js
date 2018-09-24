@@ -7,7 +7,7 @@ if (!process.env.IS_BROWSER) {
     config = require('config')
 }
 else {
-     config = process.env.CONFIG
+    config = process.env.CONFIG
 }
 
 const {

@@ -16,7 +16,7 @@ app.get('/test/testTimeout', (req, res, next) => {
 
 
 // app.use(tailoredMiddleware());
-// app.use(compression())
+app.use(compression())
 
 // app.use(favicon('assets/img/favicon.ico'));
 

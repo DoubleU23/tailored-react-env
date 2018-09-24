@@ -51,12 +51,12 @@ export default class NavBar extends Component {
 
     renderMenuItems() {
         return routes.map(route =>
-            <MenuItem
+            (<MenuItem
                 key={'navBar_menuItem_' + route.key}
                 onClick={this.handleRoute(route.route)}
             >
                 {route.title}
-            </MenuItem>
+            </MenuItem>)
         )
     }
 
