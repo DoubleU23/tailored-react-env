@@ -14,7 +14,7 @@
 export default {
     // MAIN ELEMENTS
     header: {
-        title: 'Tailored React Environment (DE)'
+        title: 'DoubleU23 React Environment (DE)'
     },
     footer: {
         contentHtml: '<hr />done with 💖 by <a href="https://github.com/DoubleU23/" target="_blank">DoubleU23</a>'

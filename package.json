@@ -2,7 +2,7 @@
   "name": "gulp-webpack-react-env",
   "version": "0.0.1",
   "author": "Stefan Friedl",
-  "description": "Environment Boilerplate for React Applications using Gulp and Webpack.",
+  "description": "full-stack react stack using Gulp and Webpack.",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoubleU23/tailored-react-env"
@@ -21,6 +21,7 @@
     "webpack",
     "react",
     "stack",
+    "mobx",
     "boilerplate"
   ],
   "private": true,
