@@ -9,6 +9,8 @@ import messagesAll    from '../../data/messages'
 export default class MessageStore {
 
     constructor(state = {}) {
+        // TBD: fix de lang
+        // TBD: integrate lang state (and switchFn)
         const lang = state.lang || 'en'
         const messages = messagesAll[lang]
 

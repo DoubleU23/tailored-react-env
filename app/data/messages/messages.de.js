@@ -7,10 +7,6 @@
 //     $$ | \$$ | $$$$$$  |  $$ |         $$$$$$\ $$ | \$$ |      \$$$$$$  |\$$$$$$  |$$$$$$$$\ $$\
 //     \__|  \__| \______/   \__|         \______|\__|  \__|       \______/  \______/ \________|\__|
 //
-//
-//
-
-// TBD: translate!
 export default {
     // MAIN ELEMENTS
     header: {
@@ -33,24 +29,24 @@ export default {
         login: {
             title:          'Titel',
             description:    'Beschreibung',
-            placeholder:    'Placeholder'
+            placeholder:    'Platzhalter'
         },
         model1: {
             title:          'Titel',
             description:    'Beschreibung',
-            placeholder:    'Placeholder'
+            placeholder:    'Platzhalter'
         }
     },
     // SUBPAGES
     404:    {
-        title: '404 - Page not found!'
+        title: '404 - Seite nicht gefunden!'
     },
     page1:   {
-        title:          'Title of Page #1',
-        teaser:         'And this is the teaser for page#1'
+        title:          'Titel von Seite #1',
+        teaser:         'Das ist der Teaser für page#1'
     },
     page2:   {
-        title:          'Title of Page #2',
-        teaser:         'An other teaser. Not generated! Only for Page#2'
+        title:          'Titel von Seite #2',
+        teaser:         'Ein anderer Teaser. Nur für Page#2'
     }
 }

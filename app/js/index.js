@@ -4,7 +4,7 @@ import React                     from 'react'
 import Component                 from 'react-pure-render/component'
 import ReactDOM                  from 'react-dom'
 // ROUTING
-import {BrowserRouter as Router} from 'react-router-dom'
+import {Router}                  from 'react-router-dom'
 import routes                    from './Routes'
 import createBrowserHistory      from 'history/createBrowserHistory'
 // MOBX
