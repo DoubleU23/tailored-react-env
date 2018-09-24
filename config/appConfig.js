@@ -7,12 +7,12 @@ if (!process.env.IS_BROWSER) {
     config = require('config')
 }
 else {
-    config = process.env.CONFIG
+     config = process.env.CONFIG
 }
 
 const {
     debug, isDevelopment: configIsDevelopment,
-    ports:  {portFE, portHMR, portBSProxy, portBSUI},
+    ports: {portFE, portHMR, portBSProxy, portBSUI},
     api
 } = config
 
