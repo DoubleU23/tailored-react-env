@@ -9,7 +9,7 @@ const {
 gulp.task('browserSync', () => {
     if (appConfig.isDevelopment) {
         return browserSync.init({
-            open:   'ui', // local | external | external-ui | false
+            open:   'ui', // ui|local|external|external-ui|false
             proxy:  'http://localhost:' + portFE, // out express server we want to proxy
             port:   portBSProxy, // the proxied express server, tunneled through browserSync
             ui: {
