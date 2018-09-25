@@ -39,6 +39,8 @@ export default class Header extends Component {
     getToggleFn(whichBar) {
         const {view: viewStore} = this.props
 
+        console.log('VIEWSTORE', viewStore)
+
         return () => {
             viewStore[whichBar].isOpen = !viewStore[whichBar].isOpen
         }
@@ -60,14 +62,14 @@ export default class Header extends Component {
                     title={msg.title}
                     // NAVBAR TOGGLER
                     iconElementLeft={
-                        <IconButton>
-                            <NavBarToggleIcon onClick={this.getToggleFn('navBar')} />
+                        <IconButton onClick={this.getToggleFn('navBar')}>
+                            <NavBarToggleIcon />
                         </IconButton>
                     }
                     // SIDEBAR TOGGLER
                     iconElementRight={
-                        <IconButton>
-                            <ActionSettings onClick={this.getToggleFn('sideBar')} />
+                        <IconButton onClick={this.getToggleFn('sideBar')}>
+                            <ActionSettings/>
                         </IconButton>
                     }
                 />

@@ -77,6 +77,7 @@ export default class ItemsStore {
 
         let response
         const itemsUrl      = apiBase + itemsEndpoint
+        // refactor: // build static should make normal api call (/server/test/fixtures?)
         if (process.env.BUILD_STATIC) {
             response = {
                 status: 200,

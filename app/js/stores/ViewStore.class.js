@@ -27,7 +27,7 @@ export default class ViewStore {
                 isOpen: false
             },
             navBar:  {
-                isOpen: false
+                isOpen: true
             }
         }, state)
 

@@ -75,8 +75,8 @@ export default class ItemDetails extends Component {
 
     render() {
         const {
-            match: {params: {id}},
-            messages: {itemDetails: msg},
+            match:      {params: {id}},
+            messages:   {itemDetails: msg},
             view
         } = this.props
 
