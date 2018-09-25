@@ -51,18 +51,15 @@ export default class ConfirmationDialog extends Component {
         else {
             myAction = typeof originalAction === 'function'
                 ? originalAction
+                // TBD: show warning/throw error if function is not valid
                 : this.noop
         }
 
-        const action = !closeOnAction
-            ? myAction
-            : e => {
-                console.log('action called')
-                myAction(e, confirmationDialogOptions)
-                this.closeConfirmationDialog()
-            }
-
-        return action.bind(this)
+        return e => {
+            console.log('ConfirmationDialog->myAction called!')
+            myAction(e)
+            closeOnAction && this.closeConfirmationDialog()
+        }
     }
 
     render() {

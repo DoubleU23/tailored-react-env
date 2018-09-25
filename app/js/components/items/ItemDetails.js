@@ -104,7 +104,10 @@ export default class ItemDetails extends Component {
                                 open:       true,
                                 title:      'Are you sure?',
                                 content:    'Are you REALLY sure?',
-                                action:     'close'
+                                action:     (e, confirmationDialog) => {
+                                    toggleEditMode()
+                                    view.confirmationDialog.open = false
+                                }
                             }
                     }}
                 />
