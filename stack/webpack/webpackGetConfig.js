@@ -112,18 +112,18 @@ const webpackGetConfig = _isDevelopment => {
                         ],
                         plugins: [
                             [
-                                'transform-runtime',
+                                // 'transform-runtime',
                                 {
                                     helpers: false,
                                     polyfill: true,
                                     regenerator: false
                                 }
-                            ],
-                            'transform-decorators-legacy'
+                            ]
+                            // 'transform-decorators-legacy'
                         ],
                         env: {
                             production: {
-                                plugins: ['transform-react-constant-elements']
+                                // plugins: ['transform-react-constant-elements']
                             }
                         }
                     }
