@@ -7,15 +7,13 @@ const {
 } = appConfig
 
 gulp.task('browserSync', () => {
-    if (appConfig.isDevelopment) {
-        return browserSync.init({
-            open:   'ui', // ui|local|external|external-ui|false
-            proxy:  'http://localhost:' + portFE, // out express server we want to proxy
-            port:   portBSProxy, // the proxied express server, tunneled through browserSync
-            ui: {
-                // the port for the browserSync UI
-                port: portBSUI
-            }
-        })
-    }
+    return browserSync.init({
+        open:   'ui', // ui|local|external|external-ui|false
+        proxy:  'http://localhost:' + portFE, // out express server we want to proxy
+        port:   portBSProxy, // the proxied express server, tunneled through browserSync
+        ui: {
+            // the port for the browserSync UI
+            port: portBSUI
+        }
+    })
 })

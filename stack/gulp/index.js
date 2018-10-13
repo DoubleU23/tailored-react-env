@@ -26,7 +26,10 @@ gulp.task('default', done => {
     const taskList = ['env', 'clean', 'webpack']
 
     if (!process.env.BUILD_STATIC) { // refactor: dont use process vars... ONLY CONFIG-MODULE!
-        taskList.push('productionServer', 'browserSync')
+        taskList.push('productionServer')
+
+        process.env.NODE_ENV === 'development' &&
+        taskList.push('browserSync')
     }
     else {
         taskList.push('static')

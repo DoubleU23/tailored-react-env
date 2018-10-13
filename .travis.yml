@@ -42,3 +42,4 @@ script:
     # ensure travis takes local gulp
     - ./node_modules/.bin/gulp lint
     - ./node_modules/.bin/gulp karma
+    - npm run build:static

@@ -20,10 +20,9 @@ gulp.task('karma', ['env', 'clean', 'testServer'], done => {
             done(new gutil.PluginError('karma', {
                 message: 'Karma Tests failed'
             }))
-            process.exit(1)
         }
 
-        done(0)
-        process.exit(0)
+        process.exit(err || 0)
+        done(err || 0)
     }).start()
 })
