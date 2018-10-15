@@ -1,4 +1,4 @@
-import { autorun } from 'mobx'
+import {autorun} from 'mobx'
 
 export default function({testStore}) {
     // Update document title whenever it changes
