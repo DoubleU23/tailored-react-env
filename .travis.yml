@@ -41,6 +41,7 @@ install: npm install
 
 script:
     # ensure travis takes local gulp
+    # refactor: always use local?
     - ./node_modules/.bin/gulp lint
     - ./node_modules/.bin/gulp karma
     - npm run build:static
