@@ -12,7 +12,6 @@ import {Provider}                from 'mobx-react'
 // refactor: unify "store/stores"
 import store                     from './stores'
 import autorun                   from './stores/lib/autorunWrapper'
-autorun(store)
 // material-ui
 import MuiThemeProvider          from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme               from 'material-ui/styles/getMuiTheme'
@@ -32,7 +31,7 @@ const muiTheme = getMuiTheme(myTheme)
 // accept data injections from webpack-hot-middleware
 if (module.hot) module.hot.accept()
 // do not call babelPolyfill twice!
-if (!global._babelPolyfill) require('babel-polyfill')
+if (!global._babelPolyfill) require('@babel/polyfill')
 
 if (process.env.IS_BROWSER) {
     if (process.env.NODE_ENV === 'development') {
@@ -63,6 +62,8 @@ class Root extends Component {
     }
 
 }
+
+autorun(store)
 
 if (process.env.IS_BROWSER) {
     ReactDOM.render(

@@ -72,7 +72,7 @@ const browserEngines = isTestEnv
 const entryFiles = isTestEnv
     // PhantomJS needs babel-polyfill (Object.assign)
     ? [{
-        pattern: paths.nodeModules + '/babel-polyfill/dist/polyfill.js',
+        pattern: paths.nodeModules + '/@babel/polyfill/dist/polyfill.js',
         // Should the files be included in the browser using <script> tag?
         included: true
     }]

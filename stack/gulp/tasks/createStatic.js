@@ -21,7 +21,10 @@ gulp.task('static:createIndexHtml', async done => {
     fs.writeFile(
         path.resolve(buildPath, 'index.html'),
         indexHtml,
-        err => err && done(err)
+        err => {
+            process.exit(err || 0)
+            done(err || 0)
+        }
     )
 })
 

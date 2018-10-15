@@ -5,6 +5,7 @@ node_js: '6.9.0'
 branches:
   only:
     - master
+    - development
 
 env:
     - "Travis Test Run (lint + mocha/karma)":
@@ -42,3 +43,4 @@ script:
     # ensure travis takes local gulp
     - ./node_modules/.bin/gulp lint
     - ./node_modules/.bin/gulp karma
+    - npm run build:static

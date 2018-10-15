@@ -1,9 +1,7 @@
 {
   "root": true,
   "extends": ["standard", "standard-babel"],
-  "plugins": [
-    "react", "promise", "chai-expect", "import", "babel"
-  ],
+  "plugins": ["babel", "destructuring", "import", "promise", "react", "chai-expect"],
   "env": {
     "browser": true,
     "mocha": false,
@@ -14,7 +12,8 @@
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true,
-      "classes": true
+      "classes": true,
+      "legacyDecorators": true
     }
   },
   "globals": {
@@ -26,6 +25,9 @@
     "__filename": false
   },
   "rules": {
+    // new standard implies spaces in curly brackets
+    "object-curly-spacing": ["error", "never"],
+    "no-unused-expressions": 0,
     "brace-style": [1, "stroustrup"],
     // padded-blocks is a little bit broken
     // it's set in "eslint-config-standard"

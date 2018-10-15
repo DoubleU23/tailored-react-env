@@ -30,14 +30,14 @@ chai.use(chaiAsPromised)
 // chai.use(chaiEnzyme())
 
 // globalize them all!
-global = Object.assign(global,
+global = Object.assign({}, global,
     // {cheerio},
     {mount, render, shallow},                           // enzyme render functions
     {chai, expect: chai.expect, should: chai.should()}  // chai assertion functions
 )
 // prevent: "Error: only one instance of babel-polyfill is allowed"
 if (!global._babelPolyfill) {
-    require('babel-polyfill')
+    require('@babel/polyfill')
 }
 /**
  * LOAD FILES
@@ -52,6 +52,7 @@ if (!global._babelPolyfill) {
  * fyi: "require.context" gets new params injected by "webpack.ContextReplacementPlugin" in karma.config.js
  */
 
+// TBD: refactor CONTEXT s
 // // CONTEXT_COVERAGE
 // const coverageContextRequire    = require.context('CONTEXT_COVERAGE')
 // const coverageFiles             = coverageContextRequire.keys()
@@ -65,6 +66,7 @@ if (!global._babelPolyfill) {
 // CONTEXT_SPECS
 const specContextRequire        = require.context('CONTEXT_SPECS')
 const specFiles                 = specContextRequire.keys()
+console.log('specFiles', JSON.stringify(specFiles, null, 2))
 specFiles.forEach(specContextRequire)
 
 // DRY version is broken :(

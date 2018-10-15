@@ -106,24 +106,24 @@ const webpackGetConfig = _isDevelopment => {
                         babelrc: true,
                         cacheDirectory: false,
                         // presets/plugins have to match defines in .babelrc
-                        presets: [
-                            ['env', { modules: false }],
-                            'es2015', 'react', 'stage-0'
-                        ],
-                        plugins: [
-                            [
-                                'transform-runtime',
-                                {
-                                    helpers: false,
-                                    polyfill: true,
-                                    regenerator: false
-                                }
-                            ],
-                            'transform-decorators-legacy'
-                        ],
+                        // presets: [
+                        //     ['env', { modules: false }],
+                        //     'es2015', 'react', 'stage-0'
+                        // ],
+                        // plugins: [
+                        //     [
+                        //         // 'transform-runtime',
+                        //         {
+                        //             helpers: false,
+                        //             polyfill: true,
+                        //             regenerator: false
+                        //         }
+                        //     ]
+                        //     // 'transform-decorators-legacy'
+                        // ],
                         env: {
                             production: {
-                                plugins: ['transform-react-constant-elements']
+                                // plugins: ['transform-react-constant-elements']
                             }
                         }
                     }
@@ -197,16 +197,11 @@ const webpackGetConfig = _isDevelopment => {
                 )
             }
             else {
-                if (!process.env.CONTINUOUS_INTEGRATION) {
-                    // enable scope hoisting
-                    // https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f
-                    //
-                    // refactor:
-                    // not available in CONTINUOUS_INTEGRATION
-                    // because of Error: "webpack.optimize.ModuleConcatenationPlugin is not a constructor"
-                    // https://github.com/webpack/webpack/issues/5130
-                    plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
-                }
+                // if (!process.env.CONTINUOUS_INTEGRATION) {
+                //     // enable scope hoisting
+                //     // https://medium.com/webpack/brief-introduction-to-scope-hoisting-in-webpack-8435084c171f
+                //     plugins.push(new webpack.optimize.ModuleConcatenationPlugin())
+                // }
 
                 plugins.push(
                     new webpack.LoaderOptionsPlugin({minimize: true}),
