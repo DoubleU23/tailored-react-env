@@ -32,7 +32,7 @@ const muiTheme = getMuiTheme(myTheme)
 // accept data injections from webpack-hot-middleware
 if (module.hot) module.hot.accept()
 // do not call babelPolyfill twice!
-if (!global._babelPolyfill) require('babel-polyfill')
+if (!global._babelPolyfill) require('@babel/polyfill')
 
 if (process.env.IS_BROWSER) {
     if (process.env.NODE_ENV === 'development') {
