@@ -5,6 +5,7 @@ node_js: '6.9.0'
 branches:
   only:
     - master
+    - development
 
 env:
     - "Travis Test Run (lint + mocha/karma)":
