@@ -46,7 +46,7 @@ const lintTask = (src, done) => {
 gulp.task('lint', function(done) {
     src.push(
         // also lint env scripts in devMode
-        appConfig.isDevelopment &&
+        appConfig.isDevelopment ||
         process.env.NODE_ENV !== 'test' // check env code too in travis-CI
             ? globs.src
             : globs.scripts
