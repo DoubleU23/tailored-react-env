@@ -5,6 +5,9 @@
 // import ReactDOM        from 'react-dom'
 // import TestUtils       from 'react-addons-test-utils'
 // import createHistory   from 'history/lib/createMemoryHistory'
+
+// info: lodash was completely removed from the project
+// use ES7 instead!
 // import _               from 'lodash'
 
 // const testHelpers = {
