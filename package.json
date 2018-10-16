@@ -52,7 +52,7 @@
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^1.1.4",
     "browserify": "^12.0.1",
-    "chai": "^3.5.0",
+    "chai": "^4.2.0",
     "chai-as-promised": "^6.0.0",
     "chai-enzyme": "^0.8.0",
     "cheerio": "^0.22.0",
