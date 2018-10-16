@@ -5,7 +5,7 @@
 [![Dependency Status][david-prod-img]][david-prod-url]
 [![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url] [![PRs Welcome][pr-welcome]](http://makeapullrequest.com)  
 
-## More Information
+## More Information  
 
 More Information can be found in the [Wiki](https://github.com/DoubleU23/tailored-react-env/wiki/)  
 
