@@ -3,7 +3,7 @@
 
 [![Travis Build][travis-img]][travis-url]
 [![Dependency Status][david-prod-img]][david-prod-url]
-[![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url]  
+[![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url] [![PRs Welcome][pr-welcome]](http://makeapullrequest.com)  
 
 ## More Information
 
@@ -20,3 +20,5 @@ More Information can be found in the [Wiki](https://github.com/DoubleU23/tailore
 
 [david-prod-img]: https://david-dm.org/doubleu23/tailored-react-env.svg
 [david-prod-url]: https://david-dm.org/doubleu23/tailored-react-env
+
+[pr-welcome]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
