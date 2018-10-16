@@ -10,3 +10,7 @@
 ** add extra integration tests with .spec focus
 
 * use "chalk" instead of "colors"
+
+#### upgrades
+* remove lodash (use ES7)
+* material-ui@1.0
