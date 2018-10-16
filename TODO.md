@@ -1,5 +1,7 @@
 ### ToDos
 
+* CONTRIBUTING.md
+
 * clean linting errors
 * clean up (deprecated) dependecies
 
