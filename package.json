@@ -1,6 +1,6 @@
 {
   "name": "gulp-webpack-react-env",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Stefan Friedl",
   "description": "full-stack react stack using Gulp and Webpack.",
   "repository": {
@@ -20,9 +20,10 @@
     "gulp",
     "webpack",
     "react",
-    "stack",
     "mobx",
-    "boilerplate"
+    "boilerplate",
+    "stack",
+    "isomorph"
   ],
   "private": true,
   "engines": {
