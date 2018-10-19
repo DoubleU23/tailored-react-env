@@ -1,13 +1,19 @@
 # Tailored React Environment
 > **allinone isomorphic react environment.**
 
+[![Maintenance][maintenance-img]][maintenance-url]
+[![PRs Welcome][pr-welcome]](http://makeapullrequest.com)  
+
 [![Travis Build][travis-img]][travis-url]
 [![Dependency Status][david-prod-img]][david-prod-url]
-[![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url] [![PRs Welcome][pr-welcome]](http://makeapullrequest.com)  
+[![Dependency Status][david-dev-img]][david-dev-url] [![Known Vulnerabilities][snyk-img]][snyk-url]   
 
 ## More Information  
 
 More Information can be found in the [Wiki](https://github.com/DoubleU23/tailored-react-env/wiki/)  
+
+[maintenance-img]: https://img.shields.io/badge/Maintained%3F-yes-green.svg
+[maintenance-url]: https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity
 
 [snyk-img]: https://snyk.io/test/github/doubleu23/tailored-react-env/badge.svg
 [snyk-url]: https://snyk.io/test/github/doubleu23/tailored-react-env
