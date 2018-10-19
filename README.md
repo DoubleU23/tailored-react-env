@@ -1,4 +1,3 @@
-    "webpack-sources": "^1.0.1",
 # Tailored React Environment
 > **allinone isomorphic react environment.**
 
