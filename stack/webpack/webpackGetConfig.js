@@ -105,22 +105,7 @@ const webpackGetConfig = _isDevelopment => {
                         sourceMap: true,
                         babelrc: true,
                         cacheDirectory: false,
-                        // presets/plugins have to match defines in .babelrc
-                        // presets: [
-                        //     ['env', { modules: false }],
-                        //     'es2015', 'react', 'stage-0'
-                        // ],
-                        // plugins: [
-                        //     [
-                        //         // 'transform-runtime',
-                        //         {
-                        //             helpers: false,
-                        //             polyfill: true,
-                        //             regenerator: false
-                        //         }
-                        //     ]
-                        //     // 'transform-decorators-legacy'
-                        // ],
+                        // presets and plugins defined in .babelrc
                         env: {
                             production: {
                                 // plugins: ['transform-react-constant-elements']
@@ -140,9 +125,9 @@ const webpackGetConfig = _isDevelopment => {
                 {
                     test: /\.(styl|less)$/,
                     use: isDevelopment ? [
-                        { loader: 'style-loader',   options: { sourceMap: true } },
-                        { loader: 'css-loader',     options: { sourceMap: true } },
-                        { loader: 'postcss-loader', options: { sourceMap: true } },
+                        {loader: 'style-loader',   options: {sourceMap: true}},
+                        {loader: 'css-loader',     options: {sourceMap: true}},
+                        {loader: 'postcss-loader', options: {sourceMap: true}},
                         stylusLoaderDefinition
                     ]
                     // for production (https://github.com/webpack-contrib/extract-text-webpack-plugin)
@@ -167,13 +152,10 @@ const webpackGetConfig = _isDevelopment => {
                 new webpack.LoaderOptionsPlugin({
                     minimize:   !isDevelopment,
                     debug:      isDevelopment,
-                    // Webpack 2 no longer allows custom properties in configuration.
-                    // Loaders should be updated to allow passing options via loader options in module.rules.
-                    // Alternatively, LoaderOptionsPlugin can be used to pass options to loaders
                     hotPort:    portHMR,
                     sourceMap:  true,
                     postcss:    () => [
-                        autoprefixer({ browsers: 'last 2 version' }),
+                        autoprefixer({browsers: 'last 2 version'}),
                         cssMqPacker()
                     ]
                 }),
@@ -218,10 +200,6 @@ const webpackGetConfig = _isDevelopment => {
                             warnings:   false // Because uglify reports irrelevant warnings.
                         }
                     })
-                    //
-                    //
-                    // ???
-                    // TBD: do we need/want este`s webpackIsomorphicToolsPlugin ???
                 )
             }
 
@@ -237,16 +215,13 @@ const webpackGetConfig = _isDevelopment => {
             return plugins
         })(),
         performance: {
-            hints: false
+            // hints: false
             // TODO: Reenable it once Webpack 2 will complete dead code removing.
-            // hints: process.env.NODE_ENV === 'production' ? 'warning' : false
+            hints: process.env.NODE_ENV === 'development' ? 'warning' : false
         },
         resolve: {
-            extensions:         ['.js', '.styl'],
+            extensions:         ['.js', '.babel', '.styl'],
             modules:            [paths.nodeModules]
-            // alias: {
-            //     'react$':       require.resolve(path.join(paths.nodeModules, 'react'))
-            // }
         }
     }
 

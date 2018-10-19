@@ -35,7 +35,7 @@ global = Object.assign({}, global,
     {mount, render, shallow},                           // enzyme render functions
     {chai, expect: chai.expect, should: chai.should()}  // chai assertion functions
 )
-// prevent: "Error: only one instance of babel-polyfill is allowed"
+
 if (!global._babelPolyfill) {
     require('@babel/polyfill')
 }
