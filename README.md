@@ -14,7 +14,7 @@
 More Information can be found in the [Wiki](https://github.com/DoubleU23/tailored-react-env/wiki/)  
 
 [maintenance-img]: https://img.shields.io/badge/Maintained%3F-yes-green.svg
-[maintenance-url]: https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity
+[maintenance-url]: https://GitHub.com/Doubleu23/tailored-react-env/graphs/commit-activity
 
 [snyk-img]: https://snyk.io/test/github/doubleu23/tailored-react-env/badge.svg
 [snyk-url]: https://snyk.io/test/github/doubleu23/tailored-react-env
