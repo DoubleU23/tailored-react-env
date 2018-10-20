@@ -1,0 +1,14 @@
+version: 1.0.{build}
+
+image: Ubuntu1804
+stack: node 9.6
+
+platform:
+    - x86
+
+install:
+    - sh: npm install
+build_script:
+    - sh: npm run build:static
+test_script:
+    - sh: npm run test
