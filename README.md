@@ -3,7 +3,7 @@
 
 [![Maintenance][maintenance-img]][maintenance-url]
 [![PRs Welcome][pr-welcome]](http://makeapullrequest.com)
-[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)  
+[![Open Source Love png2](https://badges.frapsoft.com/os/v2/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/) [![Greenkeeper badge](https://badges.greenkeeper.io/DoubleU23/tailored-react-env.svg)](https://greenkeeper.io/)  
 
 [![Travis Build][travis-img]][travis-url]
 [![Dependency Status][david-prod-img]][david-prod-url]
