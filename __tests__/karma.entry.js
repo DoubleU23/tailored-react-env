@@ -23,10 +23,10 @@
 import {mount, render, shallow} from 'enzyme'
 // import cheerio               from 'cheerio'
 import chai                     from 'chai'
-import chaiAsPromised           from 'chai-as-promised'
+// import chaiAsPromised           from 'chai-as-promised'
 // import chaiEnzyme               from 'chai-enzyme'
 
-chai.use(chaiAsPromised)
+// chai.use(chaiAsPromised)
 // chai.use(chaiEnzyme())
 
 // globalize them all!
