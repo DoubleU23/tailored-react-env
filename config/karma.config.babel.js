@@ -1,8 +1,10 @@
-let path = require('path')
+// let path = require('path')
 
-require('@babel/register')({
-    ignore: new RegExp(path.resolve(__dirname, '../node_modules'))
-})
-require('@babel/polyfill')
+// require('@babel/register')({
+//     ignore: new RegExp(path.resolve(__dirname, '../node_modules'))
+// })
+// require('@babel/polyfill')
 
-module.exports = require('./karma.config.js')
+// module.exports = require('./karma.config.js')
+
+require('./karma.config.js')
