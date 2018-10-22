@@ -6,6 +6,7 @@ branches:
   only:
     - master
     - development
+    - /^greenkeeper/.*$/
 
 env:
     - "Travis Test Run (lint + mocha/karma)":
