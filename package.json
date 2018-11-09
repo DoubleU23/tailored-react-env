@@ -87,7 +87,7 @@
     "gulp-cli": "^2.0.1",
     "gulp-eslint": "^5.0.0",
     "gulp-if": "^2.0.2",
-    "gulp-imagemin": "^4.1.0",
+    "gulp-imagemin": "^5.0.0",
     "gulp-istanbul": "^1.1.1",
     "gulp-jsx-coverage": "^0.4.0",
     "gulp-mocha": "^6.0.0",
