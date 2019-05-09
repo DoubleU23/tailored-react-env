@@ -14,7 +14,9 @@
     "test": "cross-env NODE_ENV=test DEBUG=true gulp karma",
     "mocha": "cross-env NODE_ENV=test ./node_modules/mocha/bin/mocha --compilers js:@babel/register './app/js/**/*.spec.js'",
     "lint": "cross-env NODE_ENV=development gulp lint:all",
-    "precommit": "gulp lint:app"
+    "precommit": "gulp lint:app",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [
     "gulp",
@@ -163,5 +165,8 @@
     "prop-types": "^15.5.10",
     "bindings": "^1.3.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "snyk": "^1.163.0"
+  },
+  "snyk": true
 }
