@@ -1,0 +1,254 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - eslint > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-istanbul > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - eslint-plugin-import > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-webpack > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - enzyme > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - browser-sync-webpack-plugin > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/core > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - webpack > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - source-map-loader > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-webpack > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - extract-text-webpack-plugin > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma > combine-lists > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - eslint > table > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - eslint > inquirer > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - chai-enzyme > react-element-to-jsx-string > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - react-transform-hmr > react-proxy > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - browser-sync > easy-extender > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-istanbul > istanbul-threshold-checker > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/core > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-eslint > eslint > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-eslint > @babel/types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/core > @babel/traverse > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-eslint > eslint > table > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-eslint > eslint > inquirer > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-eslint > @babel/traverse > @babel/types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-sass > node-sass > sass-graph > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/preset-env > @babel/plugin-transform-parameters > @babel/helper-call-delegate > @babel/traverse > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-sass > node-sass > gaze > globule > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-eslint > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - phantomjs > request > form-data > async > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-generator > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/preset-env > @babel/plugin-proposal-async-generator-functions > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/generator > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - '@babel/preset-env > @babel/plugin-transform-async-to-generator > @babel/helper-remap-async-to-generator > @babel/helper-wrap-function > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        patched: '2019-07-04T04:27:10.251Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2019-07-04T04:27:10.251Z'
