@@ -90,7 +90,7 @@
     "gulp-imagemin": "^4.1.0",
     "gulp-istanbul": "^1.1.1",
     "gulp-jsx-coverage": "^0.4.0",
-    "gulp-mocha": "^6.0.0",
+    "gulp-mocha": "^7.0.0",
     "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.2.0",
     "gulp-plumber": "^1.1.0",
