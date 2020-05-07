@@ -1,0 +1,252 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.14.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@babel/register > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - browser-sync-webpack-plugin > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - enzyme > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - eslint > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-istanbul > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-webpack > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-block-scoping > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-eslint > @babel/traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - browser-sync > easy-extender > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - chai-enzyme > react-element-to-jsx-string > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - eslint > inquirer > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - eslint > table > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - extract-text-webpack-plugin > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-webpack > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - source-map-loader > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - webpack > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-eslint > eslint > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-istanbul > istanbul-threshold-checker > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma > combine-lists > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - react-transform-hmr > react-proxy > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-classes > @babel/helper-define-map > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-eslint > @babel/traverse > @babel/generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-eslint > eslint > inquirer > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-eslint > eslint > table > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-sass > node-sass > sass-graph > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - jsdom > request-promise-native > request-promise-core > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-unicode-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-eslint > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - phantomjs > request > form-data > async > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-sass > node-sass > gaze > globule > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/preset-modules > @babel/plugin-transform-dotall-regex > @babel/helper-create-regexp-features-plugin > @babel/helper-regex > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-eslint > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - babel-plugin-istanbul > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - istanbul-instrumenter-loader > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-generator > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/generator > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-generator > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - karma-coverage-istanbul-reporter > istanbul-api > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - '@babel/preset-env > @babel/plugin-transform-exponentiation-operator > @babel/helper-builder-binary-assignment-operator-visitor > @babel/helper-explode-assignable-expression > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        patched: '2020-05-07T04:24:45.895Z'
+    - gulp-jsx-coverage > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
+    - isparta > babel-core > babel-register > babel-core > babel-helpers > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2020-05-07T04:24:45.895Z'
